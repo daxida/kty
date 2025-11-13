@@ -1,0 +1,66 @@
+{
+  "bring": {
+    "brings": {
+      "verb": [
+        "third-person singular present"
+      ]
+    },
+    "bringing": {
+      "verb": [
+        "present participle"
+      ]
+    },
+    "brought": {
+      "verb": [
+        "past",
+        "past participle",
+        "plural past",
+        "first/second/third-person singular past",
+        "past subjunctive"
+      ]
+    },
+    "broughten": {
+      "verb": [
+        "past participle dialectal",
+        "past participle rare dialectal"
+      ]
+    },
+    "brang": {
+      "verb": [
+        "plural past dialectal",
+        "first/second/third-person singular past dialectal",
+        "past subjunctive dialectal"
+      ]
+    },
+    "brung": {
+      "verb": [
+        "past participle dialectal",
+        "plural past nonstandard",
+        "first/second/third-person singular past nonstandard",
+        "past subjunctive nonstandard"
+      ]
+    },
+    "bringed": {
+      "verb": [
+        "past participle nonstandard",
+        "plural past nonstandard",
+        "first/second/third-person singular past nonstandard",
+        "past subjunctive nonstandard"
+      ]
+    }
+  },
+  "wain": {
+    "wains": {
+      "noun": [
+        "plural"
+      ]
+    }
+  },
+  "falcon": {
+    "falcons": {
+      "noun": [
+        "plural"
+      ]
+    }
+  }
+}

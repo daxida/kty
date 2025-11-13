@@ -1,0 +1,479 @@
+{
+  "fama": {
+    "fāma": {
+      "noun": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[ˈfaː.ma]",
+              "tags": [
+                "Classical-Latin",
+                "modern Italianate Ecclesiastical"
+              ]
+            }
+          ],
+          "glossTree": {
+            "fame": {
+              "_tags": [
+                "declension-1",
+                "feminine"
+              ],
+              "_examples": []
+            },
+            "rumour, talk, opinion, report": {
+              "_tags": [
+                "declension-1",
+                "feminine"
+              ],
+              "_examples": [
+                {
+                  "text": "hascine propter rēs maledicās fāmās ferunt.",
+                  "translation": "Is it on account of these things that they spread slanderous reports?"
+                },
+                {
+                  "text": "“Oenōtrī coluēre virī; nunc fāma minōrēs",
+                  "translation": "“Oenotrian men tilled [the land]; now rumor [has it that their] descendants call the nation ‘Italy’ after the name of its leader, [Italus].”"
+                }
+              ]
+            },
+            "reputation": {
+              "_tags": [
+                "declension-1",
+                "feminine"
+              ],
+              "_examples": [
+                {
+                  "text": "Dīmīcantī dē fāmā dēesse.",
+                  "translation": "To abandon one whose reputation is attacked."
+                },
+                {
+                  "text": "Fāma tamen clāra est; et adhūc sine crīmine vīxī.",
+                  "translation": "My good name is nevertheless unstained; and so far I have lived without blame."
+                },
+                {
+                  "text": "Multī fāmam, conscientiam paucī verentur.",
+                  "translation": "Many fear their reputation, few their conscience."
+                }
+              ]
+            },
+            "Fama, personified as a fast-moving, malicious goddess, the daughter of Terra. From the Greek φήμη, Pheme. Typically translated from the Latin as “Rumor.”": {
+              "_tags": [
+                "declension-1",
+                "feminine"
+              ],
+              "_examples": []
+            }
+          },
+          "etymology_text": "From Proto-Italic *fāmā, from Proto-Indo-European *bʰéh₂meh₂, from *bʰeh₂- (“to speak”). Cognate to Ancient Greek φήμη (phḗmē, “talk”).",
+          "head_info_text": "fāma f (genitive fāmae); first declension",
+          "backlink": "fama"
+        }
+      }
+    }
+  },
+  "lego": {
+    "legō": {
+      "verb": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[ˈɫɛ.ɡoː]",
+              "tags": [
+                "Classical-Latin"
+              ]
+            },
+            {
+              "ipa": "[ˈlɛː.ɡo]",
+              "tags": [
+                "modern Italianate Ecclesiastical"
+              ]
+            }
+          ],
+          "glossTree": {
+            "to choose, select": {
+              "_tags": [
+                "conjugation-3"
+              ],
+              "_examples": []
+            },
+            "to appoint": {
+              "_tags": [
+                "conjugation-3"
+              ],
+              "_examples": [
+                {
+                  "text": "[…] dum ne quem militem legeret ex eo numero quibus senatus missionem reditumque in patriam negasset ante belli finem.",
+                  "translation": "[…] provided he did not choose any soldier from those to whom the Senate had refused discharge and a return home before the end of the war"
+                }
+              ]
+            },
+            "to collect, gather, bring together, catch": {
+              "_tags": [
+                "conjugation-3"
+              ],
+              "_examples": [
+                {
+                  "text": "“… Date volnera lymphīs / abluam, et, extrēmus sī quis super hālitus errat, / ōre legam.” …",
+                  "translation": "“Grant that I may wash her wounds with water, and, if any last breath wanders over her, I will gather it with my lips.”"
+                }
+              ]
+            },
+            "to take out, pick out, extract, remove": {
+              "_tags": [
+                "conjugation-3"
+              ],
+              "_examples": []
+            },
+            "to take to one's self unjustly, carry off, steal, purloin, plunder, abstract": {
+              "_tags": [
+                "conjugation-3"
+              ],
+              "_examples": []
+            },
+            "to read": {
+              "_tags": [
+                "conjugation-3"
+              ],
+              "_examples": [
+                {
+                  "text": "Librōs lege.",
+                  "translation": "Read books."
+                },
+                {
+                  "text": "Lēgistīne hunc librum?",
+                  "translation": "Have you read this book?"
+                },
+                {
+                  "text": "Lingua Graeca est; nōn potest legī.",
+                  "translation": "It's Greek; it cannot be read."
+                }
+              ]
+            },
+            "to teach, profess": {
+              "_tags": [
+                "Medieval-Latin",
+                "conjugation-3"
+              ],
+              "_examples": []
+            },
+            "to be bound, fettered, detained": {
+              "_tags": [
+                "conjugation-3"
+              ],
+              "_examples": []
+            }
+          },
+          "etymology_text": "Etymology tree\nProto-Indo-European *leǵ-der.\nProto-Italic *legōder.\nLatin lego\nFrom Proto-Italic *legō, from Proto-Indo-European *léǵeti, from *leǵ-. Cognates include Ancient Greek λέγω (légō, “I speak, I choose, I mean”) and Albanian mbledh. May be related to lēx.",
+          "head_info_text": "legō (present infinitive legere, perfect active lēgī, supine lēctum); third conjugation",
+          "backlink": "lego"
+        }
+      }
+    }
+  },
+  "lilium": {
+    "līlium": {
+      "noun": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[ˈliː.li.ũː]",
+              "tags": [
+                "Classical-Latin"
+              ]
+            },
+            {
+              "ipa": "[ˈliː.li.um]",
+              "tags": [
+                "modern Italianate Ecclesiastical"
+              ]
+            }
+          ],
+          "glossTree": {
+            "a lily": {
+              "_tags": [
+                "declension-2",
+                "neuter"
+              ],
+              "_examples": []
+            }
+          },
+          "etymology_text": "Borrowed from Ancient Greek λείριον (leírion). See there for more.",
+          "head_info_text": "līlium n (genitive līliī or līlī); second declension",
+          "backlink": "lilium"
+        }
+      }
+    }
+  },
+  "usque": {
+    "usque": {
+      "adv": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[ˈʊs.kʷɛ]",
+              "tags": [
+                "Classical-Latin"
+              ]
+            },
+            {
+              "ipa": "[ˈus.kʷe]",
+              "tags": [
+                "modern Italianate Ecclesiastical"
+              ]
+            }
+          ],
+          "glossTree": {
+            "constantly, continuously": {
+              "_tags": [
+                "not-comparable"
+              ],
+              "_examples": []
+            },
+            "as far as, up to, right until, all the way": {
+              "_tags": [
+                "not-comparable"
+              ],
+              "_examples": [
+                {
+                  "text": ", Latin Vulgate translation of Psalm 71:8; Canadian national motto\nĀ marī usque ad mare.",
+                  "translation": "From sea unto sea."
+                },
+                {
+                  "text": "ab ōvō usque ad māla",
+                  "translation": "from the beginning to the end\n(literally, “from the egg to the apples”)"
+                }
+              ]
+            }
+          },
+          "etymology_text": "From Proto-Italic *ū̆skʷe, from Proto-Indo-European *úds-kʷe, from *úd-s (“out, outward”, genitive) + *-kʷe (“and”). Cognate with Sanskrit उच्चा (uccā́), Younger Avestan 𐬎𐬯𐬗𐬀 (usca, “up, out”), Russian вы- (vy-, “out from”), Proto-Germanic *ūt, English out.\nHowever, cf. Lewis & Short, which says: usquĕ, adv. [us- for ubs-, from ubi with locative s; and que for qued, old abl. of quis; v. Corss. Ausspr. 2, 471; 838; cf.: quisque, usquam].",
+          "head_info_text": "usque (not comparable)",
+          "backlink": "usque"
+        }
+      }
+    }
+  },
+  "rectus": {
+    "rēctus": {
+      "verb": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[ˈreːk.tʊs]",
+              "tags": [
+                "Classical-Latin"
+              ]
+            },
+            {
+              "ipa": "[ˈrɛk.t̪us]",
+              "tags": [
+                "modern Italianate Ecclesiastical"
+              ]
+            }
+          ],
+          "glossTree": {
+            "led straight along, drawn in a straight line, straight, upright.": {
+              "_tags": [
+                "declension-1",
+                "declension-2",
+                "form-of",
+                "participle",
+                "passive",
+                "perfect"
+              ],
+              "_examples": [
+                {
+                  "text": "Quae rectis lineis suos ordines servant",
+                  "translation": "Which preserve their order in straight lines"
+                }
+              ]
+            },
+            "right, correct, proper, appropriate, befitting.": {
+              "_tags": [
+                "declension-1",
+                "declension-2",
+                "form-of",
+                "participle",
+                "passive",
+                "perfect",
+                "usually"
+              ],
+              "_examples": []
+            },
+            "morally right, correct, lawful, just, virtuous, noble, good, proper, honest.": {
+              "_tags": [
+                "declension-1",
+                "declension-2",
+                "form-of",
+                "participle",
+                "passive",
+                "perfect"
+              ],
+              "_examples": [
+                {
+                  "text": "Via stultī rēcta in oculīs eius; quī autem sapiēns est audit cōnsilia.",
+                  "translation": "The way of a fool is right in his own eyes: but he that is wise hearkeneth unto counsels. (Douay-Rheims trans., Challoner rev.: 1752 CE)"
+                }
+              ]
+            }
+          },
+          "etymology_text": "Perfect passive participle of regō (“to keep or lead straight, to guide”). Inherited from Proto-Italic *rektos, corresponding to Proto-Indo-European *h₃reǵtós (“having moved in a straight line”), from Proto-Indo-European *h₃reǵ- (“to straighten, direct”).",
+          "head_info_text": "rēctus (feminine rēcta, neuter rēctum, comparative rēctior, superlative rēctissimus, adverb rēctē); first/second-declension participle",
+          "backlink": "rectus"
+        }
+      }
+    }
+  },
+  "domus": {
+    "domus": {
+      "noun": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[ˈdɔ.mʊs]",
+              "tags": [
+                "Classical-Latin"
+              ]
+            },
+            {
+              "ipa": "[ˈd̪ɔː.mus]",
+              "tags": [
+                "modern Italianate Ecclesiastical"
+              ]
+            }
+          ],
+          "glossTree": {
+            "house, home (the building where a person lives)": {
+              "_tags": [
+                "declension-2",
+                "declension-4",
+                "irregular",
+                "feminine"
+              ],
+              "_examples": [
+                {
+                  "text": "Deō domuīque",
+                  "translation": "For God and for home (motto of Methodist Ladies' College, Melbourne)"
+                },
+                {
+                  "text": "Stet fortūna domūs",
+                  "translation": "Let the good fortune of the house stand (motto of Harrow School, England)"
+                },
+                {
+                  "text": "nox erat et tōta lūmina nūlla domō",
+                  "translation": "It was night, and [there were] no lights in the whole house."
+                }
+              ],
+              "_children": {
+                "a townhouse": {
+                  "_tags": [
+                    "declension-2",
+                    "declension-4",
+                    "irregular",
+                    "feminine"
+                  ],
+                  "_examples": []
+                }
+              }
+            },
+            "any dwelling-place or abode (of people or animals)": {
+              "_tags": [
+                "declension-2",
+                "declension-4",
+                "irregular",
+                "feminine"
+              ],
+              "_examples": []
+            },
+            "the place of one's birth or residence, native country, town": {
+              "_tags": [
+                "declension-2",
+                "declension-4",
+                "irregular",
+                "feminine"
+              ],
+              "_examples": []
+            },
+            "household, family (the dependants of the head of a house)": {
+              "_tags": [
+                "declension-2",
+                "declension-4",
+                "irregular",
+                "feminine"
+              ],
+              "_examples": [],
+              "_children": {
+                "a group of disciples, school; an intellectual movement": {
+                  "_tags": [
+                    "declension-2",
+                    "declension-4",
+                    "irregular",
+                    "feminine"
+                  ],
+                  "_examples": []
+                },
+                "house, dynasty": {
+                  "_tags": [
+                    "declension-2",
+                    "declension-4",
+                    "irregular",
+                    "feminine"
+                  ],
+                  "_examples": []
+                }
+              }
+            },
+            "one's own possessions or resources": {
+              "_tags": [
+                "declension-2",
+                "declension-4",
+                "idiomatic",
+                "irregular",
+                "feminine"
+              ],
+              "_examples": [
+                {
+                  "text": "domum trahere",
+                  "translation": "to drag into one's pocket"
+                },
+                {
+                  "text": "Domī versūra fit.",
+                  "translation": "One is one's own creditor. (proverb)"
+                },
+                {
+                  "text": "domō afferre",
+                  "translation": "to conceive on one's own"
+                },
+                {
+                  "text": "id nunc experior domō",
+                  "translation": "Now I'm learning this first-hand."
+                }
+              ]
+            },
+            "peace": {
+              "_tags": [
+                "declension-2",
+                "declension-4",
+                "idiomatic",
+                "irregular",
+                "feminine"
+              ],
+              "_examples": [
+                {
+                  "text": "bellī domīque; bellō domīque; vel bellī vel domī; domī bellōque; domī mīlitiaeque",
+                  "translation": "in war and peace"
+                },
+                {
+                  "text": "ut non quietior populus domi esset quam militiae",
+                  "translation": "so that the people should not become lazier in the time of peace than that of war"
+                }
+              ]
+            }
+          },
+          "etymology_text": "For Proto-Italic *domos, from Proto-Indo-European *dṓm (“house, home”), from root *dem- (“to build”). Cognates include Ancient Greek δόμος (dómos), Albanian dhomë (“a chamber, a room”), Avestan 𐬛𐬀𐬨- (dam-) Sanskrit दम (dáma), Proto-Slavic *domъ and further to English timber. At least indirectly cognate to Latin dominus.\nThe feminine gender is probably due to the original root noun; attempts to transfer it to the 4th declension are due to 2nd declension feminines being unusual outside of tree names. Some manuscripts of Plautus show forms in dem-; De Vaan (2008) doubts their authenticity.",
+          "head_info_text": "domus f (genitive domūs or domī); irregular, variously declined, fourth declension, second declension",
+          "backlink": "domus"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,562 @@
+{
+  "pflegen": {
+    "pflegt": {
+      "verb": [
+        "second-person plural imperative",
+        "second-person plural present indicative",
+        "third-person singular present",
+        "third-person singular present indicative"
+      ]
+    },
+    "pflegte": {
+      "verb": [
+        "past",
+        "formal first/third-person singular subjunctive rare subjunctive-ii",
+        "first/third-person singular indicative preterite"
+      ]
+    },
+    "gepflegt": {
+      "verb": [
+        "past participle"
+      ]
+    },
+    "pflog": {
+      "verb": [
+        "past",
+        "first/third-person singular indicative preterite"
+      ]
+    },
+    "gepflogen": {
+      "verb": [
+        "past participle"
+      ]
+    },
+    "pflöge": {
+      "verb": [
+        "formal first/third-person singular subjunctive rare subjunctive-ii",
+        "past subjunctive"
+      ]
+    },
+    "pflegend": {
+      "verb": [
+        "present participle"
+      ]
+    },
+    "pflege": {
+      "verb": [
+        "first-person singular present indicative",
+        "first/third-person singular subjunctive subjunctive-i",
+        "second-person singular imperative"
+      ]
+    },
+    "pflegst": {
+      "verb": [
+        "second-person singular present indicative"
+      ]
+    },
+    "pflegest": {
+      "verb": [
+        "second-person singular subjunctive subjunctive-i"
+      ]
+    },
+    "pfleget": {
+      "verb": [
+        "second-person plural subjunctive subjunctive-i"
+      ]
+    },
+    "pflegten": {
+      "verb": [
+        "formal first/third-person plural subjunctive rare subjunctive-ii",
+        "first/third-person plural indicative preterite"
+      ]
+    },
+    "pflegtest": {
+      "verb": [
+        "formal second-person singular subjunctive rare subjunctive-ii",
+        "second-person singular indicative preterite"
+      ]
+    },
+    "pflegtet": {
+      "verb": [
+        "second-person plural indicative preterite",
+        "formal second-person plural subjunctive rare subjunctive-ii"
+      ]
+    },
+    "pfleg": {
+      "verb": [
+        "second-person singular imperative"
+      ]
+    },
+    "habe gepflegt": {
+      "verb": [
+        "first-person singular perfect indicative",
+        "first/third-person singular perfect subjunctive"
+      ]
+    },
+    "haben gepflegt": {
+      "verb": [
+        "first/third-person plural perfect indicative",
+        "first/third-person plural perfect subjunctive"
+      ]
+    },
+    "hast gepflegt": {
+      "verb": [
+        "second-person singular perfect indicative"
+      ]
+    },
+    "habt gepflegt": {
+      "verb": [
+        "second-person plural perfect indicative"
+      ]
+    },
+    "habest gepflegt": {
+      "verb": [
+        "second-person singular perfect subjunctive"
+      ]
+    },
+    "habet gepflegt": {
+      "verb": [
+        "second-person plural perfect subjunctive"
+      ]
+    },
+    "hat gepflegt": {
+      "verb": [
+        "third-person singular perfect indicative"
+      ]
+    },
+    "hatte gepflegt": {
+      "verb": [
+        "first/third-person singular pluperfect indicative"
+      ]
+    },
+    "hatten gepflegt": {
+      "verb": [
+        "first/third-person plural pluperfect indicative"
+      ]
+    },
+    "hätte gepflegt": {
+      "verb": [
+        "first/third-person singular pluperfect subjunctive"
+      ]
+    },
+    "hätten gepflegt": {
+      "verb": [
+        "first/third-person plural pluperfect subjunctive"
+      ]
+    },
+    "hattest gepflegt": {
+      "verb": [
+        "second-person singular pluperfect indicative"
+      ]
+    },
+    "hattet gepflegt": {
+      "verb": [
+        "second-person plural pluperfect indicative"
+      ]
+    },
+    "hättest gepflegt": {
+      "verb": [
+        "second-person singular pluperfect subjunctive"
+      ]
+    },
+    "hättet gepflegt": {
+      "verb": [
+        "second-person plural pluperfect subjunctive"
+      ]
+    },
+    "pflegen werden": {
+      "verb": [
+        "future future-i infinitive"
+      ]
+    },
+    "werde pflegen": {
+      "verb": [
+        "first-person singular future future-i indicative",
+        "first/third-person singular future future-i subjunctive subjunctive-i"
+      ]
+    },
+    "werden pflegen": {
+      "verb": [
+        "first/third-person plural future future-i indicative",
+        "first/third-person plural future future-i subjunctive subjunctive-i"
+      ]
+    },
+    "werdest pflegen": {
+      "verb": [
+        "second-person singular future future-i subjunctive subjunctive-i"
+      ]
+    },
+    "werdet pflegen": {
+      "verb": [
+        "second-person plural future future-i indicative",
+        "second-person plural future future-i subjunctive subjunctive-i"
+      ]
+    },
+    "würde pflegen": {
+      "verb": [
+        "first/third-person singular future future-i subjunctive subjunctive-ii"
+      ]
+    },
+    "würden pflegen": {
+      "verb": [
+        "first/third-person plural future future-i subjunctive subjunctive-ii"
+      ]
+    },
+    "wirst pflegen": {
+      "verb": [
+        "second-person singular future future-i indicative"
+      ]
+    },
+    "würdest pflegen": {
+      "verb": [
+        "second-person singular future future-i subjunctive subjunctive-ii"
+      ]
+    },
+    "würdet pflegen": {
+      "verb": [
+        "second-person plural future future-i subjunctive subjunctive-ii"
+      ]
+    },
+    "wird pflegen": {
+      "verb": [
+        "third-person singular future future-i indicative"
+      ]
+    },
+    "gepflegt haben werden": {
+      "verb": [
+        "future future-ii infinitive"
+      ]
+    },
+    "werde gepflegt haben": {
+      "verb": [
+        "first-person singular future future-ii indicative",
+        "first/third-person singular future future-ii subjunctive subjunctive-i"
+      ]
+    },
+    "werden gepflegt haben": {
+      "verb": [
+        "first/third-person plural future future-ii indicative",
+        "first/third-person plural future future-ii subjunctive subjunctive-i"
+      ]
+    },
+    "werdest gepflegt haben": {
+      "verb": [
+        "second-person singular future future-ii subjunctive subjunctive-i"
+      ]
+    },
+    "werdet gepflegt haben": {
+      "verb": [
+        "second-person plural future future-ii indicative",
+        "second-person plural future future-ii subjunctive subjunctive-i"
+      ]
+    },
+    "würde gepflegt haben": {
+      "verb": [
+        "first/third-person singular future future-ii subjunctive subjunctive-ii"
+      ]
+    },
+    "würden gepflegt haben": {
+      "verb": [
+        "first/third-person plural future future-ii subjunctive subjunctive-ii"
+      ]
+    },
+    "wirst gepflegt haben": {
+      "verb": [
+        "second-person singular future future-ii indicative"
+      ]
+    },
+    "würdest gepflegt haben": {
+      "verb": [
+        "second-person singular future future-ii subjunctive subjunctive-ii"
+      ]
+    },
+    "würdet gepflegt haben": {
+      "verb": [
+        "second-person plural future future-ii subjunctive subjunctive-ii"
+      ]
+    },
+    "wird gepflegt haben": {
+      "verb": [
+        "third-person singular future future-ii indicative"
+      ]
+    },
+    "pflogen": {
+      "verb": [
+        "first/third-person plural indicative preterite"
+      ]
+    },
+    "pflögen": {
+      "verb": [
+        "formal first/third-person plural subjunctive rare subjunctive-ii"
+      ]
+    },
+    "pflogst": {
+      "verb": [
+        "second-person singular indicative preterite"
+      ]
+    },
+    "pflogt": {
+      "verb": [
+        "second-person plural indicative preterite"
+      ]
+    },
+    "pflögest": {
+      "verb": [
+        "formal second-person singular subjunctive rare subjunctive-ii"
+      ]
+    },
+    "pflögst": {
+      "verb": [
+        "formal second-person singular subjunctive rare subjunctive-ii"
+      ]
+    },
+    "pflöget": {
+      "verb": [
+        "formal second-person plural subjunctive rare subjunctive-ii"
+      ]
+    },
+    "pflögt": {
+      "verb": [
+        "formal second-person plural subjunctive rare subjunctive-ii"
+      ]
+    },
+    "habe gepflogen": {
+      "verb": [
+        "first-person singular perfect indicative",
+        "first/third-person singular perfect subjunctive"
+      ]
+    },
+    "haben gepflogen": {
+      "verb": [
+        "first/third-person plural perfect indicative",
+        "first/third-person plural perfect subjunctive"
+      ]
+    },
+    "hast gepflogen": {
+      "verb": [
+        "second-person singular perfect indicative"
+      ]
+    },
+    "habt gepflogen": {
+      "verb": [
+        "second-person plural perfect indicative"
+      ]
+    },
+    "habest gepflogen": {
+      "verb": [
+        "second-person singular perfect subjunctive"
+      ]
+    },
+    "habet gepflogen": {
+      "verb": [
+        "second-person plural perfect subjunctive"
+      ]
+    },
+    "hat gepflogen": {
+      "verb": [
+        "third-person singular perfect indicative"
+      ]
+    },
+    "hatte gepflogen": {
+      "verb": [
+        "first/third-person singular pluperfect indicative"
+      ]
+    },
+    "hatten gepflogen": {
+      "verb": [
+        "first/third-person plural pluperfect indicative"
+      ]
+    },
+    "hätte gepflogen": {
+      "verb": [
+        "first/third-person singular pluperfect subjunctive"
+      ]
+    },
+    "hätten gepflogen": {
+      "verb": [
+        "first/third-person plural pluperfect subjunctive"
+      ]
+    },
+    "hattest gepflogen": {
+      "verb": [
+        "second-person singular pluperfect indicative"
+      ]
+    },
+    "hattet gepflogen": {
+      "verb": [
+        "second-person plural pluperfect indicative"
+      ]
+    },
+    "hättest gepflogen": {
+      "verb": [
+        "second-person singular pluperfect subjunctive"
+      ]
+    },
+    "hättet gepflogen": {
+      "verb": [
+        "second-person plural pluperfect subjunctive"
+      ]
+    },
+    "gepflogen haben werden": {
+      "verb": [
+        "future future-ii infinitive"
+      ]
+    },
+    "werde gepflogen haben": {
+      "verb": [
+        "first-person singular future future-ii indicative",
+        "first/third-person singular future future-ii subjunctive subjunctive-i"
+      ]
+    },
+    "werden gepflogen haben": {
+      "verb": [
+        "first/third-person plural future future-ii indicative",
+        "first/third-person plural future future-ii subjunctive subjunctive-i"
+      ]
+    },
+    "werdest gepflogen haben": {
+      "verb": [
+        "second-person singular future future-ii subjunctive subjunctive-i"
+      ]
+    },
+    "werdet gepflogen haben": {
+      "verb": [
+        "second-person plural future future-ii indicative",
+        "second-person plural future future-ii subjunctive subjunctive-i"
+      ]
+    },
+    "würde gepflogen haben": {
+      "verb": [
+        "first/third-person singular future future-ii subjunctive subjunctive-ii"
+      ]
+    },
+    "würden gepflogen haben": {
+      "verb": [
+        "first/third-person plural future future-ii subjunctive subjunctive-ii"
+      ]
+    },
+    "wirst gepflogen haben": {
+      "verb": [
+        "second-person singular future future-ii indicative"
+      ]
+    },
+    "würdest gepflogen haben": {
+      "verb": [
+        "second-person singular future future-ii subjunctive subjunctive-ii"
+      ]
+    },
+    "würdet gepflogen haben": {
+      "verb": [
+        "second-person plural future future-ii subjunctive subjunctive-ii"
+      ]
+    },
+    "wird gepflogen haben": {
+      "verb": [
+        "third-person singular future future-ii indicative"
+      ]
+    }
+  },
+  "Fuchs": {
+    "Fuchses": {
+      "noun": [
+        "genitive",
+        "genitive singular"
+      ]
+    },
+    "Füchse": {
+      "noun": [
+        "plural",
+        "accusative plural definite",
+        "genitive plural definite",
+        "nominative plural definite"
+      ]
+    },
+    "Füchslein": {
+      "noun": [
+        "neuter diminutive"
+      ]
+    },
+    "Füchschen": {
+      "noun": [
+        "neuter diminutive"
+      ]
+    },
+    "Füchsin": {
+      "noun": [
+        "feminine"
+      ]
+    },
+    "Fuchse": {
+      "noun": [
+        "dative singular"
+      ]
+    },
+    "Füchsen": {
+      "noun": [
+        "dative plural definite"
+      ]
+    }
+  },
+  "Herz": {
+    "Ruhrpöttisch": {
+      "noun": [
+        "also"
+      ]
+    },
+    "Herzen": {
+      "noun": [
+        "accusative plural definite",
+        "dative plural definite",
+        "genitive plural definite",
+        "nominative plural definite",
+        "dative singular"
+      ]
+    },
+    "Herzens": {
+      "noun": [
+        "genitive singular"
+      ]
+    },
+    "Herzes": {
+      "noun": [
+        "genitive singular rare"
+      ]
+    }
+  },
+  "Fahrer": {
+    "Fahrers": {
+      "noun": [
+        "genitive",
+        "genitive singular"
+      ]
+    },
+    "Fahrerin": {
+      "noun": [
+        "feminine"
+      ]
+    },
+    "Fahrern": {
+      "noun": [
+        "dative plural definite"
+      ]
+    }
+  },
+  "von": {
+    "v.": {
+      "prep": [
+        "abbreviation alternative"
+      ]
+    }
+  },
+  "Base": {
+    "Basen": {
+      "noun": [
+        "plural",
+        "accusative plural definite",
+        "dative plural definite",
+        "genitive plural definite",
+        "nominative plural definite"
+      ]
+    }
+  }
+}

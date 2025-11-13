@@ -1,0 +1,28 @@
+{
+  "κόρφος": {
+    "κόρφο": {
+      "noun": [
+        "accusative",
+        "singular"
+      ]
+    }
+  },
+  "αζωικός": {
+    "αζωικό": {
+      "adj": [
+        "accusative",
+        "singular",
+        "neuter",
+        "nominative",
+        "vocative"
+      ]
+    }
+  },
+  "foo": {
+    "fooInflected": {
+      "noun": [
+        "redirected from fooInflected"
+      ]
+    }
+  }
+}

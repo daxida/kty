@@ -1,0 +1,59 @@
+{
+  "ἀγρός": {
+    "ᾰ̓γροῦ": {
+      "noun": [
+        "genitive",
+        "genitive singular"
+      ]
+    },
+    "ᾰ̓γρώ": {
+      "noun": [
+        "accusative dual",
+        "nominative dual",
+        "vocative dual"
+      ]
+    },
+    "ᾰ̓γροί": {
+      "noun": [
+        "nominative plural",
+        "vocative plural"
+      ]
+    },
+    "ᾰ̓γροῖν": {
+      "noun": [
+        "dative dual",
+        "genitive dual"
+      ]
+    },
+    "ᾰ̓γρῶν": {
+      "noun": [
+        "genitive plural"
+      ]
+    },
+    "ᾰ̓γρῷ": {
+      "noun": [
+        "dative singular"
+      ]
+    },
+    "ᾰ̓γροῖς": {
+      "noun": [
+        "dative plural"
+      ]
+    },
+    "ᾰ̓γρόν": {
+      "noun": [
+        "accusative singular"
+      ]
+    },
+    "ᾰ̓γρούς": {
+      "noun": [
+        "accusative plural"
+      ]
+    },
+    "ᾰ̓γρέ": {
+      "noun": [
+        "vocative singular"
+      ]
+    }
+  }
+}

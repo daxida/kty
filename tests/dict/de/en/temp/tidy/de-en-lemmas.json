@@ -1,0 +1,547 @@
+{
+  "pflegen": {
+    "pflegen": {
+      "verb": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "/ˈpfleːɡən/",
+              "tags": []
+            },
+            {
+              "ipa": "[ˈpfleːɡən]",
+              "tags": []
+            },
+            {
+              "ipa": "[ˈpfleːɡŋ̩]",
+              "tags": [
+                "standard"
+              ]
+            },
+            {
+              "ipa": "/ˈfleːɡən/",
+              "tags": [
+                "most speakers in northern and central Germany"
+              ]
+            }
+          ],
+          "glossTree": {
+            "providing care or service for someone/something": {
+              "_tags": [
+                "class-4",
+                "strong",
+                "transitive",
+                "weak"
+              ],
+              "_examples": [],
+              "_children": {
+                "to nurse; to care for someone in poor health": {
+                  "_tags": [
+                    "class-4",
+                    "strong",
+                    "transitive",
+                    "weak"
+                  ],
+                  "_examples": [
+                    {
+                      "text": "jemanden gesund pflegen",
+                      "translation": "to nurse someone back to health"
+                    },
+                    {
+                      "text": "Kranke pflegen",
+                      "translation": "to care for the sick"
+                    }
+                  ]
+                },
+                "to take care of, to tend to, to maintain": {
+                  "_tags": [
+                    "class-4",
+                    "strong",
+                    "transitive",
+                    "weak"
+                  ],
+                  "_examples": [
+                    {
+                      "text": "sein Äußeres pflegen",
+                      "translation": "to take care of one's appearance"
+                    },
+                    {
+                      "text": "die Zähne pflegen",
+                      "translation": "to take care of (one's) teeth"
+                    },
+                    {
+                      "text": "Der Gärtner pflegt den Garten.",
+                      "translation": "The gardener tends to the garden."
+                    },
+                    {
+                      "text": "Sie hat sich stets sehr gepflegt.",
+                      "translation": "She has always taken care of her appearance."
+                    },
+                    {
+                      "text": "Er setzte sich faul hin und pflegte sich.",
+                      "translation": "He sat down lazily and went easy on himself."
+                    },
+                    {
+                      "text": "Daten pflegen",
+                      "translation": "to maintain data (keep up-to-date)"
+                    }
+                  ],
+                  "_children": {
+                    "[with genitive ‘something/someone’]": {
+                      "_tags": [
+                        "archaic",
+                        "class-4",
+                        "intransitive",
+                        "strong",
+                        "transitive",
+                        "weak"
+                      ],
+                      "_examples": []
+                    }
+                  }
+                }
+              }
+            },
+            "to improve or care for something in an intellectual sense": {
+              "_tags": [
+                "class-4",
+                "strong",
+                "weak"
+              ],
+              "_examples": [],
+              "_children": {
+                "to cultivate; to foster; to nurture; to maintain": {
+                  "_tags": [
+                    "class-4",
+                    "strong",
+                    "transitive",
+                    "weak"
+                  ],
+                  "_examples": [
+                    {
+                      "text": "Freundschaften pflegen",
+                      "translation": "to cultivate friendships"
+                    },
+                    {
+                      "text": "Beziehungen pflegen",
+                      "translation": "to cultivate relationships"
+                    },
+                    {
+                      "text": "Künste und Wissenschaften pflegen",
+                      "translation": "to advance/promote the arts and sciences"
+                    }
+                  ],
+                  "_children": {
+                    "[with genitive ‘something’]": {
+                      "_tags": [
+                        "class-4",
+                        "intransitive",
+                        "strong",
+                        "transitive",
+                        "weak"
+                      ],
+                      "_examples": [
+                        {
+                          "text": "der Liebe pflegen",
+                          "translation": "to cultivate/nurture love"
+                        },
+                        {
+                          "text": "der Ruhe pflegen",
+                          "translation": "to foster tranquility"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "expressing habituality": {
+              "_tags": [
+                "class-4",
+                "strong",
+                "weak"
+              ],
+              "_examples": [],
+              "_children": {
+                "to carry out regularly": {
+                  "_tags": [
+                    "class-4",
+                    "strong",
+                    "transitive",
+                    "weak"
+                  ],
+                  "_examples": [
+                    {
+                      "text": "Umgang pflegen",
+                      "translation": "to regularly be in contact"
+                    },
+                    {
+                      "text": "Geselligkeit pflegen",
+                      "translation": "to socialize regularly"
+                    }
+                  ]
+                },
+                "to perform habitually; to be accustomed (to); to be in the habit (of)": {
+                  "_tags": [
+                    "class-4",
+                    "intransitive",
+                    "strong",
+                    "weak"
+                  ],
+                  "_examples": [
+                    {
+                      "text": "Ich pflege zu laufen.",
+                      "translation": "I usually walk."
+                    },
+                    {
+                      "text": "Er pflegte zu reisen.",
+                      "translation": "He used to travel."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "etymology_text": "From Middle High German phlëgen, from Old High German plëgan, from Proto-West Germanic *plehan.",
+          "head_info_text": "pflegen (weak, third-person singular present pflegt, past tense pflegte, past participle gepflegt, auxiliary haben)",
+          "backlink": "pflegen"
+        }
+      }
+    }
+  },
+  "Fuchs": {
+    "Fuchs": {
+      "noun": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "/fʊks/",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "fox (animal)": {
+              "_tags": [
+                "masculine",
+                "strong"
+              ],
+              "_examples": [
+                {
+                  "text": "Fuchs, du hast die Gans gestohlen. Gib sie wieder her!",
+                  "translation": "Fox, you've stolen the goose. Give it back here!"
+                }
+              ]
+            },
+            "a clever or cunning person, sly fox": {
+              "_tags": [
+                "informal",
+                "masculine",
+                "strong"
+              ],
+              "_examples": [
+                {
+                  "text": "Er ist ein ganz schöner Fuchs.",
+                  "translation": "He is quite the sly fox."
+                }
+              ]
+            },
+            "a red-haired person or horse": {
+              "_tags": [
+                "informal",
+                "masculine",
+                "strong"
+              ],
+              "_examples": [
+                {
+                  "text": "Unser Paul ist ja ein kleiner Fuchs.",
+                  "translation": "Our Paul is a little redhead."
+                }
+              ]
+            },
+            "pledge (prospective member of a fraternity)": {
+              "_tags": [
+                "masculine",
+                "strong"
+              ],
+              "_examples": []
+            },
+            "a new recruit": {
+              "_tags": [
+                "masculine",
+                "slang",
+                "strong"
+              ],
+              "_examples": []
+            },
+            "the ace of diamonds in Doppelkopf, where it earns a side of players an extra point if they win it from the other side": {
+              "_tags": [
+                "masculine",
+                "strong"
+              ],
+              "_examples": [
+                {
+                  "text": "Ich hatte nur vier Trümpfe und darunter beide Füchse.",
+                  "translation": "I had only four trumps and among them were both aces of diamonds."
+                }
+              ]
+            },
+            "a tank Transportpanzer Fuchs": {
+              "_tags": [
+                "masculine",
+                "strong"
+              ],
+              "_examples": []
+            },
+            "a form of sunscald on hops": {
+              "_tags": [
+                "archaic",
+                "masculine",
+                "strong"
+              ],
+              "_examples": []
+            },
+            "a fox in radiosport foxhunt": {
+              "_tags": [
+                "masculine",
+                "strong"
+              ],
+              "_examples": []
+            },
+            "any gold coin": {
+              "_tags": [
+                "masculine",
+                "obsolete",
+                "strong"
+              ],
+              "_examples": []
+            },
+            "tortoiseshell": {
+              "_tags": [
+                "masculine",
+                "strong"
+              ],
+              "_examples": []
+            }
+          },
+          "etymology_text": "From Middle High German vuhs, from Old High German fuhs, from Proto-West Germanic *fuhs, from Proto-Germanic *fuhsaz, from Proto-Indo-European *púḱsos (“the tailed one”), from *puḱ- (“tail”). Cognate with English fox, Sanskrit पुच्छ (púccha).",
+          "head_info_text": "Fuchs m (strong, genitive Fuchses, plural Füchse, diminutive Füchslein n or Füchschen n, feminine Füchsin)",
+          "backlink": "Fuchs"
+        }
+      }
+    }
+  },
+  "Herz": {
+    "Herz": {
+      "noun": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "/hɛrts/",
+              "tags": []
+            },
+            {
+              "ipa": "[hɛʁt͡s]",
+              "tags": []
+            },
+            {
+              "ipa": "[hɛɐ̯t͡s]",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "heart": {
+              "_tags": [
+                "also",
+                "neuter",
+                "rare"
+              ],
+              "_examples": []
+            },
+            "hearts": {
+              "_tags": [
+                "also",
+                "neuter",
+                "rare"
+              ],
+              "_examples": []
+            },
+            "sweetheart, darling": {
+              "_tags": [
+                "also",
+                "neuter",
+                "rare"
+              ],
+              "_examples": []
+            }
+          },
+          "etymology_text": "From Middle High German hërze, from Old High German hërza, from Proto-West Germanic *hertā, from Proto-Germanic *hertô (“heart”), from Proto-Indo-European *ḱḗr (“heart”).\nCognate with Dutch hart, English heart, Danish hjerte, Gothic 𐌷𐌰𐌹𐍂𐍄𐍉 (hairtō).",
+          "head_info_text": "Herz n (weak, genitive Herzens or (very rare) Herzes, plural Herzen, diminutive Herzchen n or Herzlein n or ((also) Ruhrpöttisch) Herzken n)",
+          "backlink": "Herz"
+        }
+      }
+    }
+  },
+  "Fahrer": {
+    "Fahrer": {
+      "noun": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "/ˈfaːʁɐ/",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "agent noun of fahren; driver (person)": {
+              "_tags": [
+                "agent",
+                "form-of",
+                "masculine",
+                "strong"
+              ],
+              "_examples": []
+            }
+          },
+          "etymology_text": "fahren (“to drive”) + -er",
+          "head_info_text": "Fahrer m (strong, genitive Fahrers, plural Fahrer, feminine Fahrerin)",
+          "backlink": "Fahrer"
+        }
+      }
+    }
+  },
+  "von": {
+    "von": {
+      "prep": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "/fɔn/",
+              "tags": []
+            },
+            {
+              "ipa": "[fɔn]",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "from": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "Ich fahre von Köln nach Hamburg.",
+                  "translation": "I’m travelling from Cologne to Hamburg."
+                },
+                {
+                  "text": "Ich hab’s von meiner Schwester gehört.",
+                  "translation": "I heard it from my sister."
+                }
+              ]
+            },
+            "of, belonging to (often replacing genitive; see usage note below)": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "das Auto von meinem Vater",
+                  "translation": "my father’s car / the car of my father"
+                },
+                {
+                  "text": "das Auto meines Vaters",
+                  "translation": ""
+                }
+              ]
+            },
+            "by (with passive voice)": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "Das Hotel wird von der Firma bezahlt.",
+                  "translation": "The hotel is paid for by the company."
+                }
+              ]
+            },
+            "about, of (a topic)": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "Er hat von seiner Jugend erzählt.",
+                  "translation": "He told about his youth."
+                },
+                {
+                  "text": "Von dem Nomine Substantivo, oder dem Hauptworte.",
+                  "translation": "About the substantive noun, or the [alternative term]. (headline)"
+                }
+              ]
+            },
+            "on, with (a resource)": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "Von welchem Geld soll ich als Arbeitsloser in Urlaub fahren?",
+                  "translation": "Being unemployed, on what money should I go on holidays?"
+                },
+                {
+                  "text": "Man kann nicht nur von Luft und Liebe leben.",
+                  "translation": "You can’t live on air and love alone. (proverb)"
+                }
+              ]
+            }
+          },
+          "etymology_text": "From Middle High German von (“from”), from Old High German fon, fona (“from”), from Proto-West Germanic *fanā, from Proto-Germanic *afanē, *fanē, *funē (“from”), compound of *afa (from Proto-Indo-European *h₂epó (“from, off”)) + *ana (from Proto-Indo-European *h₂en- (“on”)).\nCognate with Old Saxon fana, fan (“from”), Dutch van (“from; of”), Old Frisian fon (“from”).",
+          "backlink": "von"
+        }
+      }
+    }
+  },
+  "Base": {
+    "Base": {
+      "noun": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "/ˈbaːzə/",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "A female cousin.": {
+              "_tags": [
+                "archaic",
+                "feminine"
+              ],
+              "_examples": []
+            },
+            "paternal aunt": {
+              "_tags": [
+                "feminine",
+                "obsolete"
+              ],
+              "_examples": []
+            }
+          },
+          "etymology_text": "From Middle High German base, from Old High German basa, from Proto-West Germanic *baswā, from Proto-Germanic *baswǭ (“father's sister; paternal aunt”). Compare Saterland Frisian Bääsje (“grandmother”), Dutch baas (“master; boss”). More at boss.",
+          "head_info_text": "Base f (genitive Base, plural Basen)",
+          "backlink": "Base"
+        },
+        "1": {
+          "ipa": [
+            {
+              "ipa": "/ˈbaːzə/",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "base (compound that will neutralize an acid)": {
+              "_tags": [
+                "feminine"
+              ],
+              "_examples": []
+            }
+          },
+          "etymology_text": "19th c., backformation from Basen, plural of Basis, from Latin basis, from Ancient Greek βάσις (básis).",
+          "head_info_text": "Base f (genitive Base, plural Basen)",
+          "backlink": "Base"
+        }
+      }
+    }
+  }
+}

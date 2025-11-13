@@ -1,0 +1,192 @@
+{
+  "bring": {
+    "bring": {
+      "verb": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "/ˈbɹɪŋ/",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "To transport toward somebody/somewhere.": {
+              "_tags": [
+                "ditransitive",
+                "transitive"
+              ],
+              "_examples": [
+                {
+                  "text": "Waiter, please bring me a single malt whiskey.",
+                  "translation": ""
+                }
+              ]
+            },
+            "To supply or contribute.": {
+              "_tags": [
+                "figuratively",
+                "transitive"
+              ],
+              "_examples": [
+                {
+                  "text": "The new company director brought a fresh perspective on sales and marketing.",
+                  "translation": ""
+                }
+              ]
+            },
+            "To occasion or bring about.": {
+              "_tags": [
+                "transitive"
+              ],
+              "_examples": [
+                {
+                  "text": "The controversial TV broadcast brought a storm of complaints.",
+                  "translation": ""
+                },
+                {
+                  "text": "Seeing her brought the memories flooding back and tears to my eyes.",
+                  "translation": ""
+                }
+              ]
+            },
+            "To raise (a lawsuit, charges, etc.) against somebody.": {
+              "_tags": [
+                "transitive"
+              ],
+              "_examples": []
+            },
+            "To persuade; to induce; to draw; to lead; to guide.": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "It seems so preposterous a thing[…]that they do not easily bring themselves to it.",
+                  "translation": ""
+                }
+              ]
+            },
+            "To produce in exchange; to sell for; to fetch.": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "What does coal bring per ton?",
+                  "translation": ""
+                }
+              ]
+            },
+            "To pitch, often referring to a particularly hard thrown fastball.": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "The closer Jones can really bring it.",
+                  "translation": ""
+                }
+              ]
+            }
+          },
+          "etymology_text": "From Middle English bryngen, from Old English bringan, from Proto-West Germanic *bringan, from Proto-Germanic *bringaną (“to bring”), from Proto-Indo-European *bʰrenk-, possibly based on *bʰer-.\nCompare Scots bring, West Frisian bringe, Low German brengen, Dutch brengen, Afrikaans bring, German bringen; also Welsh hebrwng (“to bring, lead”), Tocharian B pränk- (“to take away; restrain oneself, hold back”), Latvian brankti (“lying close”), Lithuanian branktas (“whiffletree”).",
+          "head_info_text": "bring (third-person singular simple present brings, present participle bringing, simple past brought, past participle brought or (rare, dialectal) broughten)",
+          "backlink": "bring"
+        }
+      }
+    }
+  },
+  "wain": {
+    "wain": {
+      "noun": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "/weɪn/",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "A wagon; a four-wheeled cart for hauling loads, usually pulled by horses or oxen.": {
+              "_tags": [
+                "archaic",
+                "literary"
+              ],
+              "_examples": [
+                {
+                  "text": "\"The Hay Wain\" is a famous painting by John Constable.",
+                  "translation": ""
+                }
+              ]
+            }
+          },
+          "etymology_text": "From Middle English wayn, from Old English wæġn, from Proto-West Germanic *wagn, from Proto-Germanic *wagnaz, from Proto-Indo-European *woǵʰnos, from *weǵʰ- (“to bring, transport”). Doublet of wagon, borrowed from Middle Dutch.\nCognates\nCognate with West Frisian wein, Dutch wagen, German Wagen, Danish vogn, Norwegian vogn, Swedish vagn.",
+          "head_info_text": "wain (plural wains)",
+          "backlink": "wain"
+        }
+      }
+    }
+  },
+  "falcon": {
+    "falcon": {
+      "noun": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "/ˈfɔː(l)kən/",
+              "tags": [
+                "Received-Pronunciation"
+              ]
+            },
+            {
+              "ipa": "/ˈfɒlkən/",
+              "tags": [
+                "Received-Pronunciation"
+              ]
+            },
+            {
+              "ipa": "/ˈfælkən/",
+              "tags": [
+                "US",
+                "General-Australian"
+              ]
+            },
+            {
+              "ipa": "/ˈfɑːlkən/",
+              "tags": [
+                "US"
+              ]
+            },
+            {
+              "ipa": "/ˈfoːlkən/",
+              "tags": []
+            },
+            {
+              "ipa": "/ˈfɛlkən/",
+              "tags": [
+                "New-Zealand"
+              ]
+            }
+          ],
+          "glossTree": {
+            "Any bird of the genus Falco, all of which are birds of prey.": {
+              "_tags": [],
+              "_examples": []
+            },
+            "Any bird of prey of the subfamilies Falconinae and Herpetotherinae.": {
+              "_tags": [],
+              "_examples": []
+            },
+            "A female such bird, a male being a tiercel.": {
+              "_tags": [],
+              "_examples": []
+            },
+            "A light cannon used from the 15th to the 17th century.": {
+              "_tags": [
+                "historical"
+              ],
+              "_examples": []
+            }
+          },
+          "etymology_text": "From Middle English faucoun, falcon, faulcon, from Old French falcun, from Late Latin falcō (“falcon”), of Germanic origin, probably via Frankish *falkō (“falcon, hawk”), from Proto-Germanic *falkô (“falcon”), from Proto-Indo-European *pol̑- (“pale”), from *pel- (“fallow”).\nCognates\nCognate with Old English *fealca, fealcen (“falcon”), Dutch valk (“falcon, hawk”), German Falke (“falcon, hawk”), Norwegian and Swedish falk (“falcon”), Icelandic fálki (“falcon”), French faucon (“falcon”), Italian falco (“falcon”), Spanish halcón (“falcon”), Portuguese falcão (“falcon”), Latin falco (“falcon”), Lithuanian pálšas (“pale”), Latvian bāls (“pale”), Latgalian buolgs (“pale”). More at fallow.",
+          "head_info_text": "falcon (plural falcons)",
+          "backlink": "falcon"
+        }
+      }
+    }
+  }
+}
