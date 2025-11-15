@@ -27,7 +27,6 @@ pub struct WordEntry {
     pub head_templates: Vec<HeadTemplate>,
 
     pub etymology_text: String,
-    etymology_number: i32, // unused
 
     pub sounds: Vec<Sound>,
 
@@ -39,6 +38,7 @@ pub struct WordEntry {
     alt_of: Vec<AltForm>, // unused
 }
 
+// To be avoided as much as possible: sort of internal field.
 #[derive(Debug, Deserialize, Serialize, Default)]
 #[serde(default)]
 pub struct HeadTemplate {
@@ -51,6 +51,7 @@ pub struct Sound {
     pub ipa: String,
     pub tags: Vec<Tag>,
     pub note: String,
+    // pub other: String, // [ja]
 }
 
 #[derive(Debug, Deserialize, Serialize, Default)]
@@ -83,4 +84,5 @@ pub struct AltForm {
 pub struct Form {
     pub form: String,
     pub tags: Vec<Tag>,
+    pub ruby: Vec<(String, String)>, // [ja] (kanji, hiragana)
 }

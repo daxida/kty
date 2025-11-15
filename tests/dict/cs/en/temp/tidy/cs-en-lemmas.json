@@ -1,0 +1,106 @@
+{
+  "zpráva": {
+    "zpráva": {
+      "noun": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[ˈspraːva]",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "message": {
+              "_tags": [
+                "feminine"
+              ],
+              "_examples": [
+                {
+                  "text": "textová zpráva",
+                  "translation": "text message"
+                },
+                {
+                  "text": "Chcete nechat zprávu?",
+                  "translation": "Would you like to leave a message?"
+                }
+              ]
+            },
+            "report": {
+              "_tags": [
+                "feminine"
+              ],
+              "_examples": [
+                {
+                  "text": "lékařská zpráva",
+                  "translation": "medical report"
+                },
+                {
+                  "text": "podat zprávu",
+                  "translation": "to file a report"
+                }
+              ]
+            }
+          },
+          "etymology_text": "Deverbal from zpravit.",
+          "head_info_text": "zpráva f (diminutive zprávička)",
+          "wlink": "https://en.wiktionary.org/wiki/zpráva#Czech",
+          "klink": "https://kaikki.org/dictionary/Czech/meaning/z/zp/zpráva.html"
+        }
+      }
+    }
+  },
+  "pro": {
+    "pro": {
+      "prep": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[ˈpro]",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "for": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "Zabili ho pro peníze.",
+                  "translation": "They killed him for his money."
+                }
+              ]
+            }
+          },
+          "etymology_text": "Inherited from Old Czech pro, from Proto-Slavic *pro.",
+          "wlink": "https://en.wiktionary.org/wiki/pro#Czech",
+          "klink": "https://kaikki.org/dictionary/Czech/meaning/p/pr/pro.html"
+        }
+      }
+    }
+  },
+  "přít": {
+    "přít": {
+      "verb": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[ˈpr̝̊iːt]",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "to dispute": {
+              "_tags": [
+                "imperfective",
+                "reflexive"
+              ],
+              "_examples": []
+            }
+          },
+          "etymology_text": "Inherited from Old Czech přieti, from Proto-Slavic *pьrěti.",
+          "wlink": "https://en.wiktionary.org/wiki/přít#Czech",
+          "klink": "https://kaikki.org/dictionary/Czech/meaning/p/př/přít.html"
+        }
+      }
+    }
+  }
+}

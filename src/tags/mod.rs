@@ -5,10 +5,12 @@ use serde::Serialize;
 use serde::ser::{SerializeSeq, Serializer};
 use tags_constants::{POSES, TAG_BANK, TAG_ORDER};
 
+use crate::models::Tag;
+
 // TODO: a bunch of sorting and handling of tags should go here
 
 /// Blacklisted tags when expanding forms @ tidy
-pub const BLACKLISTED_TAGS: [&str; 13] = [
+pub const BLACKLISTED_TAGS: [&str; 14] = [
     "inflection-template",
     "table-tags",
     "canonical",
@@ -22,10 +24,21 @@ pub const BLACKLISTED_TAGS: [&str; 13] = [
     "romanization",
     "dated",
     "auxiliary",
+    // multiword-construction was in REDUNDANT_TAGS in the original.
+    // Yet it only seems to give noise for the fr-en edition (@ prendre):
+    // * Form: 'present indicative of avoir + past participle' ???
+    // * Tags: ["indicative", "multiword-construction", "perfect", "present"]
+    //
+    // It also removes valid german forms that are nonetheless most useless:
+    // * werde gepflogen haben (for pflegen)
+    // (note that gepflogen is already added)
+    // This was considered ok. To revisit if it is more intrusive in other languages.
+    "multiword-construction",
 ];
 /// Tags that are blacklisted if they happen at every expanded form @ tidy
 pub const IDENTITY_TAGS: [&str; 3] = ["nominative", "singular", "infinitive"];
-pub const REDUNDANT_TAGS: [&str; 2] = ["multiword-construction", "combined-form"];
+/// Tags that we just remove from forms
+pub const REDUNDANT_TAGS: [&str; 1] = ["combined-form"];
 
 // Internal legacy types that are just for documentation since we ended up loading
 // tag_bank_term.json as a raw list of tuples in tags_constants
@@ -70,14 +83,17 @@ impl Serialize for TagInformation {
 }
 
 // ignore target_iso !== en since tags should always be in English anyway
-pub fn sort_tags(tags: &mut [String]) {
+/// Sort tags by their position in the tag bank.
+pub fn sort_tags(tags: &mut [Tag]) {
     tags.sort_by(|a, b| {
         let index_a = TAG_ORDER.iter().position(|&x| x == a);
         let index_b = TAG_ORDER.iter().position(|&x| x == b);
 
         match (index_a, index_b) {
             (Some(i), Some(j)) => i.cmp(&j), // both found → compare positions
-            (None, None) => a.cmp(b),        // neither found → alphabetical fallback
+            // This seems better but it's different from the original
+            // (None, None) => a.cmp(b),        // neither found → alphabetical fallback
+            (None, None) => std::cmp::Ordering::Equal, // neither found → do nothing
             (Some(_), None) => std::cmp::Ordering::Less, // found beats not-found
             (None, Some(_)) => std::cmp::Ordering::Greater,
         }
@@ -85,7 +101,7 @@ pub fn sort_tags(tags: &mut [String]) {
 }
 
 // Sort forms tags
-pub fn sort_tags_by_similar(tags: &mut [String]) {
+pub fn sort_tags_by_similar(tags: &mut [Tag]) {
     tags.sort_by(|a, b| {
         let a_words: Vec<&str> = a.split(' ').collect();
         let b_words: Vec<&str> = b.split(' ').collect();
@@ -113,7 +129,7 @@ pub fn sort_tags_by_similar(tags: &mut [String]) {
 }
 
 /// Remove tag1 if there is a tag2 such that tag1 <= tag2
-pub fn remove_redundant_tags(tags: &mut Vec<String>) {
+pub fn remove_redundant_tags(tags: &mut Vec<Tag>) {
     let snapshot = tags.clone();
     let mut keep = vec![true; snapshot.len()];
 
@@ -157,7 +173,7 @@ pub fn get_tag_bank_as_tag_info() -> Vec<TagInformation> {
 // the bank should be shared across all languages anyway
 //
 /// Look for the tag in `TAG_BANK` (`tag_bank_terms.json`) and return the `TagInformation` if any.
-/// 
+///
 /// Note that `long_tag` is returned normalized.
 pub fn find_tag_in_bank(tag: &str) -> Option<TagInformation> {
     TAG_BANK.iter().find_map(|entry| {
@@ -197,7 +213,7 @@ fn person_sort(tags: &mut [String]) {
 // merge similar tags if the only difference is the persons
 // input: ['first-person singular present', 'third-person singular present']
 // output: ['first/third-person singular present']
-pub fn merge_person_tags(tags: &[String]) -> Vec<String> {
+pub fn merge_person_tags(tags: &[Tag]) -> Vec<Tag> {
     let contains_person = tags
         .iter()
         .any(|tag| PERSON_TAGS.iter().any(|p| tag.contains(p)));
@@ -207,7 +223,7 @@ pub fn merge_person_tags(tags: &[String]) -> Vec<String> {
     }
 
     let mut result = Vec::new();
-    let mut merge_obj: IndexMap<String, Vec<String>> = IndexMap::new();
+    let mut merge_obj: IndexMap<Tag, Vec<Tag>> = IndexMap::new();
 
     for tag in tags {
         let all_tags: Vec<_> = tag.split(' ').collect();
@@ -219,7 +235,7 @@ pub fn merge_person_tags(tags: &[String]) -> Vec<String> {
 
         if person_tags.len() == 1 {
             let person = person_tags[0].to_string();
-            let other_tags: Vec<String> = all_tags
+            let other_tags: Vec<_> = all_tags
                 .iter()
                 .copied()
                 .filter(|t| !PERSON_TAGS.contains(t))
@@ -256,6 +272,17 @@ mod tests {
 
     fn to_string_vec(str_vec: &[&str]) -> Vec<String> {
         str_vec.iter().map(|s| (*s).to_string()).collect()
+    }
+
+    // This imitates the original. Can be removed if sort_tags logic changes.
+    #[test]
+    fn test_sort_tag() {
+        let tag_not_found = "__sentinel";
+        assert!(!TAG_ORDER.contains(&tag_not_found));
+        let mut received = to_string_vec(&[tag_not_found, "Gheg"]);
+        let expected = to_string_vec(&[tag_not_found, "Gheg"]);
+        sort_tags(&mut received);
+        assert_eq!(received, expected);
     }
 
     fn make_test_sort_tags_by_similar(received: &[&str], expected: &[&str]) {

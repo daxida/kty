@@ -2,57 +2,87 @@
   "ἀγρός": {
     "ᾰ̓γροῦ": {
       "noun": [
-        "genitive",
-        "genitive singular"
+        "extracted",
+        [
+          "genitive",
+          "genitive singular"
+        ]
       ]
     },
     "ᾰ̓γρώ": {
       "noun": [
-        "accusative dual",
-        "nominative dual",
-        "vocative dual"
+        "extracted",
+        [
+          "accusative dual",
+          "nominative dual",
+          "vocative dual"
+        ]
       ]
     },
     "ᾰ̓γροί": {
       "noun": [
-        "nominative plural",
-        "vocative plural"
+        "extracted",
+        [
+          "nominative plural",
+          "vocative plural"
+        ]
       ]
     },
     "ᾰ̓γροῖν": {
       "noun": [
-        "dative dual",
-        "genitive dual"
+        "extracted",
+        [
+          "dative dual",
+          "genitive dual"
+        ]
       ]
     },
     "ᾰ̓γρῶν": {
       "noun": [
-        "genitive plural"
+        "extracted",
+        [
+          "genitive plural"
+        ]
       ]
     },
     "ᾰ̓γρῷ": {
       "noun": [
-        "dative singular"
+        "extracted",
+        [
+          "dative singular"
+        ]
       ]
     },
     "ᾰ̓γροῖς": {
       "noun": [
-        "dative plural"
+        "extracted",
+        [
+          "dative plural"
+        ]
       ]
     },
     "ᾰ̓γρόν": {
       "noun": [
-        "accusative singular"
+        "extracted",
+        [
+          "accusative singular"
+        ]
       ]
     },
     "ᾰ̓γρούς": {
       "noun": [
-        "accusative plural"
+        "extracted",
+        [
+          "accusative plural"
+        ]
       ]
     },
     "ᾰ̓γρέ": {
       "noun": [
-        "vocative singular"
+        "extracted",
+        [
+          "vocative singular"
+        ]
       ]
     }
   }

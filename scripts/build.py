@@ -87,10 +87,12 @@ def generate_lang_rs(langs: list[Lang], f) -> None:
     w("#[derive(Debug, Clone, Copy, Serialize, Deserialize, Default)]\n")
     w("pub enum Lang {\n")
     # Add English on top as the default variant
+    w(f"{idt}/// English\n")  # doc
     w(f"{idt}#[default]\n")
     w(f"{idt}En,\n")
     for lang in langs:
         if lang.iso != "en":
+            w(f"{idt}/// {lang.language}\n")  # doc
             w(f"{idt}{lang.iso.title()},\n")
     w("}\n\n")
 

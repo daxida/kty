@@ -41,6 +41,15 @@ Options:
       --reject <REJECT>      (debug) Exclude entries matching certain key–value filters
       --ugly                 (debug) Write jsons without whitespace. Faster but unreadable
       --root-dir <ROOT_DIR>  (test) Modify the root directory. For testing, set this to "tests" [default: data]
+  -v, --verbose              Verbose output
   -h, --help                 Print help
   -V, --version              Print version
+```
+
+## Tests
+
+Tests are run with `cargo test`. If you only want to run tests for a single language pair, without capturing output:
+
+```
+cargo run -- ja en --root-dir=tests
 ```

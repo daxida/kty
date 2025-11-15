@@ -4,7 +4,7 @@
 use anyhow::{Context, Ok, Result, bail};
 use flate2::read::GzDecoder;
 use indexmap::{IndexMap, IndexSet};
-use kty::cli::Args;
+use kty::cli::{Args, FilterKey};
 use kty::lang::Lang;
 use kty::locale::get_locale_examples_string;
 use kty::models::{Example, Form, HeadTemplate, Pos, Sense, Tag, WordEntry};
@@ -19,16 +19,12 @@ use std::fs::{self, File};
 use std::io::{BufRead, BufReader, BufWriter, Write};
 use std::path::Path;
 use std::sync::LazyLock;
+use tracing::{Level, debug, error, info, span, trace, warn};
 use tracing_subscriber::EnvFilter;
 use tracing_subscriber::fmt::format::FmtSpan;
 use unicode_normalization::UnicodeNormalization;
 use zip::ZipWriter;
 use zip::write::SimpleFileOptions;
-
-// TODO: Add verbose flag, using these defaults:
-// https://github.com/astral-sh/ruff/blob/276f1d0d88d7815f70fabb712af44bb4de85d9a7/crates/ty/docs/tracing.md?plain=1#L19
-#[allow(unused)]
-use tracing::{Level, debug, error, info, span, trace, warn};
 
 fn get_file_size_in_mb(path: &Path) -> Result<f64> {
     let metadata = fs::metadata(path)?;
@@ -40,7 +36,7 @@ fn get_file_size_in_mb(path: &Path) -> Result<f64> {
 fn pretty_msg_at_path(msg: &str, path: &Path) -> String {
     let size_mb = get_file_size_in_mb(path).unwrap_or(-1.0);
     let at = "\x1b[1;36m@\x1b[0m"; // bold + cyan
-    let size_str = format!("\x1b[1m{size_mb:.2} MB\x1b[0m"); // bold size
+    let size_str = format!("\x1b[1m{size_mb:.2} MB\x1b[0m"); // bold
     format!("{msg} {at} {} ({})", path.display(), size_str)
 }
 
@@ -62,30 +58,33 @@ fn skip_because_file_exists(skipped: &str, path: &Path) {
     pretty_println_at_path(&msg, path);
 }
 
+/// Download the raw jsonl from kaikki.
+///
+/// Does not write the .gz artifact to disk.
 fn download_jsonl(args: &Args) -> Result<()> {
-    let path = args.path_raw_jsonl_gz();
+    let path_raw_jsonl = args.path_raw_jsonl();
 
-    if path.exists() && !args.redownload {
-        skip_because_file_exists("download", &path);
+    if path_raw_jsonl.exists() && !args.redownload {
+        skip_because_file_exists("download", &path_raw_jsonl);
         return Ok(());
     }
 
     let url = match args.edition {
-        // The default download name is: kaikki.org-dictionary-TARGET_LANGUAGE.jsonl.gz
+        // Default download name is: kaikki.org-dictionary-TARGET_LANGUAGE.jsonl.gz
         Lang::En => {
             // TODO: Test Serbo-Croatian (iso: sh), we only deal with spaces for now when escaping
             let filename = args.filename_raw_jsonl_gz();
             let source_long_esc = args.source.long().replace(' ', "%20");
             format!("https://kaikki.org/dictionary/{source_long_esc}/{filename}")
         }
-        // The default download name is: raw-wiktextract-data.jsonl.gz
+        // Default download name is: raw-wiktextract-data.jsonl.gz
         other => format!("https://kaikki.org/{other}wiktionary/raw-wiktextract-data.jsonl.gz"),
     };
 
     println!("{DOWNLOAD_C} Downloading {url}");
 
-    let mut response = match ureq::get(url).call() {
-        core::result::Result::Ok(thing) => thing,
+    let response = match ureq::get(url).call() {
+        core::result::Result::Ok(response) => response,
         Err(err @ ureq::Error::StatusCode(404)) => {
             // Normally this is caught at CLI time, but in case language.json or lang.rs
             // are outdated / wrong it may reach this...
@@ -97,27 +96,21 @@ fn download_jsonl(args: &Args) -> Result<()> {
         }
         Err(err) => bail!(err),
     };
-    let bytes = response
-        .body_mut()
-        .with_config()
-        .limit(u64::MAX) // no limit
-        .read_to_vec()?;
-    fs::write(&path, &bytes)?;
 
-    pretty_println_at_path(&format!("{CHECK_C} Downloaded"), &path);
+    if let Some(last_modified) = response.headers().get("last-modified") {
+        info!("Raw jsonl was last modified: {:?}", last_modified);
+    }
 
-    extract_jsonl_gz(args)?;
+    let reader = response.into_body().into_reader();
+    // We can't use gzip's ureq feature because there is no content-encoding in headers
+    // https://github.com/tatuylonen/wiktextract/issues/1482
+    let mut decoder = GzDecoder::new(reader);
 
-    Ok(())
-}
+    let mut writer = BufWriter::new(File::create(&path_raw_jsonl)?);
+    std::io::copy(&mut decoder, &mut writer)?;
 
-fn extract_jsonl_gz(args: &Args) -> Result<()> {
-    let path = args.path_raw_jsonl();
-    let gz_file = File::open(args.path_raw_jsonl_gz())?;
-    let mut decoder = GzDecoder::new(gz_file);
-    let mut out = File::create(&path)?;
-    std::io::copy(&mut decoder, &mut out)?;
-    pretty_println_at_path("Decompressed", &path);
+    pretty_println_at_path(&format!("{CHECK_C} Downloaded"), &path_raw_jsonl);
+
     Ok(())
 }
 
@@ -127,31 +120,31 @@ fn extract_jsonl_gz(args: &Args) -> Result<()> {
 /// source language.
 #[tracing::instrument(skip(args), fields(source = %args.source))]
 fn filter_jsonl(args: &Args) -> Result<()> {
-    // English edition already gives them filtered
-    if matches!(args.edition, Lang::En) {
+    // English edition already gives them filtered.
+    // Yet don't skip if we have filter arguments.
+    if matches!(args.edition, Lang::En) && args.filter.is_empty() && args.reject.is_empty() {
         println!("{SKIP_C} Skipping filtering: english edition detected");
         return Ok(());
     }
 
-    let reader_file = File::open(args.path_raw_jsonl())?;
+    let reader_path = args.path_raw_jsonl();
+    let reader_file = File::open(&reader_path)?;
     let reader = BufReader::new(reader_file);
-    let writer_file = File::create(args.path_jsonl())?;
+    let writer_path = args.path_jsonl();
+    let writer_file = File::create(&writer_path)?;
     let mut writer = BufWriter::new(writer_file);
+    debug!("Filtering: {reader_path:?} > {writer_path:?}",);
 
     let print_interval = 1000;
     let mut line_count = 1; // enumerate can't start at 1, and forces usize
     let mut extracted_lines_counter = 0;
     let mut printed_progress = false;
 
-    let mut filter_raw = args.filter.clone();
-    let reject_raw = args.reject.clone();
-    let lang_code_filter_raw = (("lang_code".to_string()), (args.source.to_string()));
-    filter_raw.push(lang_code_filter_raw);
-    debug!("Filter {filter_raw:?} - Reject {reject_raw:?}");
-
-    // Maybe we want to validate this at CLI time
-    let filter = to_filter_keys(filter_raw)?;
-    let reject = to_filter_keys(reject_raw)?;
+    let mut filter = args.filter.clone();
+    let reject = args.reject.clone();
+    let lang_code_filter = (FilterKey::LangCode, args.source.to_string());
+    filter.push(lang_code_filter);
+    debug!("Filter {filter:?} - Reject {reject:?}");
 
     for line in reader.lines() {
         line_count += 1;
@@ -165,37 +158,31 @@ fn filter_jsonl(args: &Args) -> Result<()> {
         let word_entry: WordEntry = match serde_json::from_str(&line) {
             core::result::Result::Ok(v) => v,
             Err(e) => {
-                let span = span!(
-                    Level::INFO,
-                    "tidy",
-                    iso = %args.target,
-                );
-                let _guard = span.enter();
-                error!("Error decoding JSON: {e}. Skipping...");
+                error!("Error decoding JSON @ filter (line {line_count})");
                 bail!(e)
             }
         };
-
-        if line_count == args.first {
-            break;
-        }
-
-        if reject.iter().any(|(k, v)| field_value(&word_entry, k) == v) {
-            continue;
-        }
-
-        if !filter.iter().all(|(k, v)| field_value(&word_entry, k) == v) {
-            continue;
-        }
-
-        extracted_lines_counter += 1;
-        writeln!(writer, "{line}")?;
 
         if line_count % print_interval == 0 {
             printed_progress = true;
             print!("Processed {line_count} lines...\r");
             std::io::stdout().flush()?;
         }
+
+        if line_count == args.first {
+            break;
+        }
+
+        if reject.iter().any(|(k, v)| k.field_value(&word_entry) == v) {
+            continue;
+        }
+
+        if !filter.iter().all(|(k, v)| k.field_value(&word_entry) == v) {
+            continue;
+        }
+
+        extracted_lines_counter += 1;
+        writeln!(writer, "{line}")?;
     }
 
     if printed_progress {
@@ -208,39 +195,6 @@ fn filter_jsonl(args: &Args) -> Result<()> {
     );
 
     Ok(())
-}
-
-enum FilterKey {
-    LangCode,
-    Word,
-    Pos,
-}
-
-impl From<&str> for FilterKey {
-    fn from(s: &str) -> Self {
-        match s {
-            "lang_code" => FilterKey::LangCode,
-            "word" => FilterKey::Word,
-            "pos" => FilterKey::Pos,
-            other => panic!("Unknown filter key: {other}. Chose between: lang_code | word | pos"),
-        }
-    }
-}
-
-fn to_filter_keys(raw_pairs: Vec<(String, String)>) -> Result<Vec<(FilterKey, String)>> {
-    let pairs = raw_pairs
-        .into_iter()
-        .map(|(key, value)| (FilterKey::from(key.as_str()), value))
-        .collect();
-    Ok(pairs)
-}
-
-fn field_value<'a>(entry: &'a WordEntry, key: &FilterKey) -> &'a str {
-    match key {
-        FilterKey::LangCode => &entry.lang_code,
-        FilterKey::Word => &entry.word,
-        FilterKey::Pos => &entry.pos,
-    }
 }
 
 // Tidy: internal types
@@ -261,18 +215,75 @@ type LemmaDict = Map<
     >,
 >;
 
+// Not included in the dictionary: only used for debug
+//
+// In the future, consider alt_of, form_of
+#[allow(unused)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
+enum FormSource {
+    /// Form extracted from `word_entry.forms`
+    Extracted,
+    /// Form added via gloss analysis ("is inflection of...")
+    Inflection,
+}
+
 type FormsMap = Map<
     String, // lemma
     Map<
         String, // form
         Map<
-            Pos,         // pos
-            Vec<String>, // inflections (tags really)
+            Pos, // pos
+            // Vec<String>, // inflections (tags really)
+            (FormSource, Vec<String>), // (source, inflections (tags really))
         >,
     >,
 >;
 
+fn flat_iter_forms(
+    form_map: &FormsMap,
+) -> impl Iterator<
+    Item = (
+        &String,
+        &String,
+        &Pos,
+        &FormSource,
+        &Vec<String>,
+    ),
+> {
+    form_map.iter().flat_map(|(lemma, forms)| {
+        forms.iter().flat_map(move |(form, pos_map)| {
+            pos_map
+                .iter()
+                .map(move |(pos, (source, infls))| (lemma, form, pos, source, infls))
+        })
+    })
+}
+
+fn flat_iter_forms_mut(
+    form_map: &mut FormsMap,
+) -> impl Iterator<
+    Item = (
+        &String,
+        &String,
+        &Pos,
+        &mut FormSource,
+        &mut Vec<String>,
+    ),
+> {
+    form_map.iter_mut().flat_map(|(lemma, forms)| {
+        forms.iter_mut().flat_map(move |(form, pos_map)| {
+            pos_map
+                .iter_mut()
+                .map(move |(pos, (source, infls))| (lemma, form, pos, source, infls))
+        })
+    })
+}
+
 // Lemmainfo in the original
+//
+// NOTE: the less we have here the better. For example, the links could be entirely moved to the
+// yomitan side of things. It all depends on what we may or may not consider useful for debugging.
 #[derive(Debug, Serialize, Deserialize, Clone)]
 struct RawSenseEntry {
     ipa: Vec<Ipa>,
@@ -282,7 +293,29 @@ struct RawSenseEntry {
     etymology_text: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     head_info_text: Option<String>,
-    backlink: String,
+    #[serde(rename = "wlink")]
+    link_wiktionary: String,
+
+    // This is not included in the dictionary and is only used for debugging
+    //
+    // Should we include it in the dictionary though? Seems useful
+    #[serde(rename = "klink")]
+    link_kaikki: String,
+}
+
+type GlossTree = Map<String, GlossInfo>;
+
+// TODO: _tags > tags once we are done migrating
+// TODO: dont serialize empty once we are done migrating
+//
+// ... its really SenseInfo but oh well
+#[derive(Debug, Serialize, Deserialize, Default, Clone)]
+#[serde(default)]
+struct GlossInfo {
+    _tags: Vec<Tag>,
+    _examples: Vec<Example>,
+    #[serde(skip_serializing_if = "Map::is_empty")]
+    _children: GlossTree,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, Default)]
@@ -322,35 +355,63 @@ impl Tidy {
     }
 
     /// Generic helper to insert tags into a nested map
-    fn insert_tags(map: &mut FormsMap, lemma: &str, form: &str, pos: &str, tags: Vec<Tag>) {
-        // normalize: skip
-        // take unique inflections: skip
-        let vec = map
+    fn insert_tags(
+        map: &mut FormsMap,
+        lemma: &str,
+        form: &str,
+        pos: &str,
+        source: FormSource,
+        tags: Vec<String>,
+    ) {
+        let entry = map
             .entry(lemma.to_string())
             .or_default()
             .entry(form.to_string())
             .or_default()
             .entry(pos.to_string())
-            .or_default();
+            .or_insert_with(|| (source, Vec::new()));
 
-        vec.extend(tags);
+        entry.1.extend(tags);
     }
 
     // rg: add_deinflection adddeinflection
-    fn insert_inflections_forms(&mut self, lemma: &str, form: &str, pos: &str, tags: Vec<Tag>) {
+    fn insert_inflections_forms(
+        &mut self,
+        lemma: &str,
+        form: &str,
+        pos: &str,
+        source: FormSource,
+        tags: Vec<Tag>,
+    ) {
+        debug_assert!(matches!(source, FormSource::Inflection));
         // TODO: normalizeinflection
         if lemma == form {
             return; // NOP: we don't add tautological forms
         }
-        Self::insert_tags(&mut self.forms_map, lemma, form, pos, tags);
+        Self::insert_tags(&mut self.forms_map, lemma, form, pos, source, tags);
     }
 
-    fn insert_expansion_forms(&mut self, lemma: &str, form: &str, pos: &str, tags: Vec<Tag>) {
+    fn insert_expansion_forms(
+        &mut self,
+        lemma: &str,
+        form: &str,
+        pos: &str,
+        source: FormSource,
+        tags: Vec<Tag>,
+    ) {
+        debug_assert!(matches!(source, FormSource::Extracted));
         // TODO: normalizeinflection
         if lemma == form {
             return; // NOP: we don't add tautological forms
         }
-        Self::insert_tags(&mut self.automated_forms_map, lemma, form, pos, tags);
+        Self::insert_tags(
+            &mut self.automated_forms_map,
+            lemma,
+            form,
+            pos,
+            source,
+            tags,
+        );
     }
 
     /// Return both inner `FormsMap` merged
@@ -359,63 +420,36 @@ impl Tidy {
     fn all_forms(&self) -> FormsMap {
         let mut merged = self.forms_map.clone();
 
-        for (lemma, form_map) in &self.automated_forms_map {
+        for (lemma, form, pos, source, tags) in flat_iter_forms(&self.automated_forms_map) {
             let merged_form_map = merged.entry(lemma.clone()).or_default();
-            for (form, pos_map) in form_map {
-                let merged_pos_map = merged_form_map.entry(form.clone()).or_default();
-                for (pos, tags) in pos_map {
-                    merged_pos_map
-                        .entry(pos.clone())
-                        .or_default()
-                        .extend(tags.clone());
-                }
-            }
+            let merged_pos_map = merged_form_map.entry(form.clone()).or_default();
+
+            let entry = merged_pos_map
+                .entry(pos.clone())
+                .or_insert_with(|| (source.clone(), Vec::new()));
+
+            entry.1.extend(tags.clone());
         }
 
         // TODO: move this somewhere else
         // remove redundant tags
         // turned off for the moment since it messes diffs, but it works fine
-        // for form_map in merged.values_mut() {
-        //     for pos_map in form_map.values_mut() {
-        //         for tags in pos_map.values_mut() {
-        //             kty::tags::remove_redundant_tags(tags);
-        //         }
-        //     }
+        // for (_, _, _, tags) in flat_iter_forms_mut(&mut merged) {
+        //     kty::tags::remove_redundant_tags(tags);
         // }
 
         merged
     }
     // INVARIANTS: for debug (maybe put this as a test)
     fn check_invariants(&self) {
-        for form_map in self.forms_map.values() {
-            for pos_map in form_map.values() {
-                for tags in pos_map.values() {
-                    let mut seen = IndexSet::new();
-                    for tag in tags {
-                        assert!(seen.insert(tag), "Duplicate tag found: {tag}");
-                    }
-                }
+        for (_, _, _, _, tags) in flat_iter_forms(&self.forms_map) {
+            let mut seen = IndexSet::new();
+            for tag in tags {
+                assert!(seen.insert(tag), "Duplicate tag found: {tag}");
             }
         }
     }
 }
-
-type GlossTree = Map<String, GlossInfo>;
-
-// TODO: _tags > tags once we are done migrating
-// TODO: dont serialize empty once we are done migrating
-//
-// ... its really SenseInfo but oh well
-#[derive(Debug, Serialize, Deserialize, Default, Clone)]
-#[serde(default)]
-struct GlossInfo {
-    _tags: Vec<Tag>,
-    _examples: Vec<Example>,
-    #[serde(skip_serializing_if = "Map::is_empty")]
-    _children: GlossTree,
-}
-
-// Tidy internal types end
 
 #[tracing::instrument(skip_all)]
 fn tidy(args: &Args, path_jsonl: &Path) -> Result<Tidy> {
@@ -446,77 +480,24 @@ fn tidy_go(args: &Args, reader: BufReader<File>) -> Result<Tidy> {
         let mut word_entry: WordEntry = match serde_json::from_str(&line) {
             core::result::Result::Ok(v) => v,
             Err(e) => {
-                let span = span!(
-                    Level::INFO,
-                    "tidy",
-                    iso = %args.target,
-                );
-                let _guard = span.enter();
-                error!("Error decoding JSON: {e}. Skipping...");
+                error!("Error decoding JSON @ tidy");
                 bail!(e)
             }
         };
 
+        // rg searchword
         // debug (with only relevant, as in, deserialized, information)
-        // if word_entry.word == "pflegen" {
-        //     println!("{}", serde_json::to_string_pretty(&word_entry.senses)?);
-        // }
-
-        // rg: final dot
-        // https://github.com/yomidevs/yomitan/issues/2232
-        // Add a full stop if there is no trailing punctuation
-        // static TRAILING_PUNCT_RE: LazyLock<Regex> =
-        //     LazyLock::new(|| Regex::new(r"\p{P}$").unwrap());
-        // for sense in word_entry.senses.iter_mut() {
-        //     for gloss in sense.glosses.iter_mut() {
-        //         if !TRAILING_PUNCT_RE.is_match(gloss) {
-        //             gloss.push('.');
-        //         }
-        //     }
+        // if word_entry.word == "зимний" {
+        //     // if args.source.to_string() == "ru" && args.target.to_string() == "en" {
+        //     // println!("{}", serde_json::to_string_pretty(&word_entry.senses)?);
+        //     println!("{}", serde_json::to_string_pretty(&word_entry)?);
         // }
 
         // Everything that mutates word_entry
         preprocess_word_entry(args, &mut word_entry, &mut ret);
 
-        // rg: processforms
-        for form in &word_entry.forms {
-            // bunch of validation: skip
-            // blacklisted forms (happens at least in English)
-            if form.form == "-" {
-                continue;
-            }
-
-            // easy filtering tags
-            let is_blacklisted = form
-                .tags
-                .iter()
-                .any(|tag| BLACKLISTED_TAGS.contains(&tag.as_str()));
-            let is_identity = form
-                .tags
-                .iter()
-                .all(|tag| IDENTITY_TAGS.contains(&tag.as_str()));
-            if is_blacklisted || is_identity {
-                continue;
-            }
-
-            let mut filtered_tags: Vec<Tag> = form
-                .tags
-                .clone()
-                .into_iter()
-                .filter(|tag| !REDUNDANT_TAGS.contains(&tag.as_str()))
-                .collect();
-            if filtered_tags.is_empty() {
-                continue;
-            }
-
-            sort_tags(&mut filtered_tags);
-            ret.insert_expansion_forms(
-                &word_entry.word,
-                &form.form,
-                &word_entry.pos,
-                vec![filtered_tags.join(" ")],
-            );
-        }
+        // rg processforms
+        process_forms(&word_entry, &mut ret);
 
         // dont push lemma if inflection
         if word_entry.senses.is_empty() {
@@ -530,7 +511,8 @@ fn tidy_go(args: &Args, reader: BufReader<File>) -> Result<Tidy> {
 
         // rg insertlemma handleline
         // easy version of handleLine
-        let (reading, raw_sense_entry) = process_word_entry(args, &word_entry);
+        let reading = get_reading(args, &word_entry);
+        let raw_sense_entry = process_word_entry(args, &word_entry);
 
         ret.insert_lemma_entry(
             &word_entry.word,
@@ -543,26 +525,18 @@ fn tidy_go(args: &Args, reader: BufReader<File>) -> Result<Tidy> {
     // postprocessing
     //
     // the original only similar sorts automated forms... (not sure why?)
-    for form_map in ret.automated_forms_map.values_mut() {
-        for pos_map in form_map.values_mut() {
-            for tags in pos_map.values_mut() {
-                // Keep only unique tags
-                let mut seen = IndexSet::new();
-                tags.retain(|tag| seen.insert(tag.clone()));
+    for (_, _, _, _, tags) in flat_iter_forms_mut(&mut ret.automated_forms_map) {
+        // Keep only unique tags
+        let mut seen = IndexSet::new();
+        tags.retain(|tag| seen.insert(tag.clone()));
 
-                *tags = merge_person_tags(tags);
-                kty::tags::sort_tags_by_similar(tags);
-            }
-        }
+        *tags = merge_person_tags(tags);
+        kty::tags::sort_tags_by_similar(tags);
     }
-    for form_map in ret.forms_map.values_mut() {
-        for pos_map in form_map.values_mut() {
-            for tags in pos_map.values_mut() {
-                // Keep only unique tags
-                let mut seen = IndexSet::new();
-                tags.retain(|tag| seen.insert(tag.clone()));
-            }
-        }
+    for (_, _, _, _, tags) in flat_iter_forms_mut(&mut ret.forms_map) {
+        // Keep only unique tags
+        let mut seen = IndexSet::new();
+        tags.retain(|tag| seen.insert(tag.clone()));
     }
 
     // TODO: rg: handleautomatedforms
@@ -574,28 +548,23 @@ fn tidy_go(args: &Args, reader: BufReader<File>) -> Result<Tidy> {
     Ok(ret)
 }
 
-/// The canonical form may contain extra diacritics.
-///
-/// For most languages, this is equal to word, but for, let's say, Latin, there may be a
-/// difference (cf. https://en.wiktionary.org/wiki/fama, where word_entry.word is fama, but
-/// this will return fāma).
-fn get_canonical_word_form<'a>(args: &Args, word: &'a str, forms: &'a [Form]) -> &'a str {
-    match args.source {
-        Lang::La => {
-            // getcanonicalword
-            for form in forms {
-                if form.tags.iter().any(|tag| tag == "canonical") && !form.form.is_empty() {
-                    return &form.form;
-                }
-            }
-            word
-        }
-        _ => word,
-    }
-}
-
 // Everything that mutates word_entry
 fn preprocess_word_entry(args: &Args, word_entry: &mut WordEntry, ret: &mut Tidy) {
+    // WARN: mutates word_entry::senses::glosses
+    //
+    // rg: final dot
+    // https://github.com/yomidevs/yomitan/issues/2232
+    // Add a full stop if there is no trailing punctuation
+    // static TRAILING_PUNCT_RE: LazyLock<Regex> =
+    //     LazyLock::new(|| Regex::new(r"\p{P}$").unwrap());
+    // for sense in word_entry.senses.iter_mut() {
+    //     for gloss in sense.glosses.iter_mut() {
+    //         if !TRAILING_PUNCT_RE.is_match(gloss) {
+    //             gloss.push('.');
+    //         }
+    //     }
+    // }
+
     // WARN: mutates word_entry::senses::sense::tags
     //
     // [en]
@@ -664,11 +633,155 @@ fn preprocess_word_entry(args: &Args, word_entry: &mut WordEntry, ret: &mut Tidy
     word_entry.senses = senses_without_inflections;
 }
 
-// rg: handleline handle_line
-fn process_word_entry(args: &Args, word_entry: &WordEntry) -> (String, RawSenseEntry) {
-    // ~= reading
-    let with_diacritics = get_canonical_word_form(args, &word_entry.word, &word_entry.forms);
+// rg: processforms
+fn process_forms(word_entry: &WordEntry, ret: &mut Tidy) {
+    for form in &word_entry.forms {
+        // bunch of validation: skip
+        // blacklisted forms (happens at least in English)
+        if form.form == "-" {
+            continue;
+        }
 
+        // easy filtering tags
+        let is_blacklisted = form
+            .tags
+            .iter()
+            .any(|tag| BLACKLISTED_TAGS.contains(&tag.as_str()));
+        let is_identity = form
+            .tags
+            .iter()
+            .all(|tag| IDENTITY_TAGS.contains(&tag.as_str()));
+        if is_blacklisted || is_identity {
+            continue;
+        }
+
+        let mut filtered_tags: Vec<Tag> = form
+            .tags
+            .clone()
+            .into_iter()
+            .filter(|tag| !REDUNDANT_TAGS.contains(&tag.as_str()))
+            .collect();
+        if filtered_tags.is_empty() {
+            continue;
+        }
+
+        sort_tags(&mut filtered_tags);
+
+        ret.insert_expansion_forms(
+            &word_entry.word,
+            &form.form,
+            &word_entry.pos,
+            FormSource::Extracted,
+            vec![filtered_tags.join(" ")],
+        );
+    }
+}
+
+// There are potentially more than one, but I haven't seen that happen
+fn get_reading(args: &Args, word_entry: &WordEntry) -> String {
+    match args.source {
+        Lang::Ja => get_japanese_reading(args, word_entry),
+        Lang::Fa => {
+            // use romanization over canonical_word_form
+            let romanization_form = word_entry
+                .forms
+                .iter()
+                .find(|form| form.tags == ["romanization"] && !form.form.is_empty());
+            match romanization_form {
+                Some(romanization_form) => romanization_form.form.clone(),
+                None => word_entry.word.clone(),
+            }
+        }
+        _ => get_canonical_word_form(args, word_entry).to_string(),
+    }
+}
+
+/// The canonical form may contain extra diacritics.
+///
+/// For most languages, this is equal to word, but for, let's say, Latin, there may be a
+/// difference (cf. <https://en.wiktionary.org/wiki/fama>, where `word_entry.word` is fama, but
+/// this will return fāma).
+fn get_canonical_word_form<'a>(args: &Args, word_entry: &'a WordEntry) -> &'a str {
+    match args.source {
+        Lang::La | Lang::Ru => match get_canonical_form(word_entry) {
+            Some(cform) => &cform.form,
+            None => &word_entry.word,
+        },
+        _ => &word_entry.word,
+    }
+}
+
+// Guarantees that form.form is not empty
+fn get_canonical_form(word_entry: &WordEntry) -> Option<&Form> {
+    word_entry
+        .forms
+        .iter()
+        .find(|form| form.tags.iter().any(|tag| tag == "canonical") && !form.form.is_empty())
+}
+
+// Does not support multiple readings
+fn get_japanese_reading(_args: &Args, word_entry: &WordEntry) -> String {
+    // The original parses head_templates directly (which probably deserves a PR to
+    // wiktextract), although imo pronunciation templates should have been better.
+    // There is no pronunciation template info in en-wiktextract, and while I think that
+    // information ends up in sounds, it is not always reliable. For example:
+    // https://en.wiktionary.org/wiki/お腹が空いた
+    // has a pronunciation template:
+    // {{ja-pron|おなか が すいた}}
+    // but no "other" sounds, which is where pronunciations are usually stored.
+
+    // Ideally we would just do this:
+    // for sound in &word_entry.sounds {
+    //     if !sound.other.is_empty() {
+    //         return &sound.other;
+    //     }
+    // }
+
+    // I really don't want to touch templates so instead, replace the ruby
+    if let Some(cform) = get_canonical_form(word_entry)
+        && !cform.ruby.is_empty()
+    {
+        // https://github.com/tatuylonen/wiktextract/issues/1484
+        // let mut cform_lemma = cform.form.clone();
+        // if cform_lemma != word_entry.word {
+        //     warn!(
+        //         "Canonical form: '{cform_lemma}' != word: '{}'\n{}\n{}\n\n",
+        //         word_entry.word,
+        //         get_link_wiktionary(args, &word_entry.word),
+        //         get_link_kaikki(args, &word_entry.word),
+        //     );
+        // } else {
+        //     warn!(
+        //         "Equal for word: '{}'\n{}\n{}\n\n",
+        //         word_entry.word,
+        //         get_link_wiktionary(args, &word_entry.word),
+        //         get_link_kaikki(args, &word_entry.word),
+        //     );
+        // }
+
+        // This should be cform.form, but it's not parsed properly:
+        // https://github.com/tatuylonen/wiktextract/issues/1484
+        let mut cform_lemma = word_entry.word.clone();
+        let mut cursor = 0;
+        for (base, reading) in &cform.ruby {
+            if let Some(pos) = cform_lemma[cursor..].find(base) {
+                let start = cursor + pos;
+                let end = start + base.len();
+                cform_lemma.replace_range(start..end, reading);
+                cursor = start + reading.len();
+            } else {
+                warn!("Kanji '{}' not found in '{}'", base, cform_lemma);
+                return word_entry.word.clone();
+            }
+        }
+        return cform_lemma;
+    }
+
+    word_entry.word.clone()
+}
+
+// rg: handleline handle_line
+fn process_word_entry(args: &Args, word_entry: &WordEntry) -> RawSenseEntry {
     // default version getphonetictranscription
     let ipas: Vec<_> = word_entry
         .sounds
@@ -714,15 +827,53 @@ fn process_word_entry(args: &Args, word_entry: &WordEntry) -> (String, RawSenseE
 
     let gloss_tree = get_gloss_tree(word_entry);
 
-    let raw_sense_entry = RawSenseEntry {
+    
+
+    RawSenseEntry {
         ipa: ipas_grouped,
         gloss_tree,
         etymology_text,
         head_info_text,
-        backlink: word_entry.word.clone(),
-    };
+        link_wiktionary: get_link_wiktionary(args, &word_entry.word),
+        link_kaikki: get_link_kaikki(args, &word_entry.word),
+    }
+}
 
-    (with_diacritics.into(), raw_sense_entry)
+// Useful for debugging too
+fn get_link_wiktionary(args: &Args, word: &str) -> String {
+    format!(
+        "https://{}.wiktionary.org/wiki/{}#{}",
+        args.target,
+        word,
+        args.source.long()
+    )
+}
+
+// Same debug but for kaikki
+#[allow(unused)]
+fn get_link_kaikki(args: &Args, word: &str) -> String {
+    let chars: Vec<_> = word.chars().collect();
+    let first = chars[0]; // word can't be empty
+    let first_two = if chars.len() < 2 {
+        word.to_string()
+    } else {
+        chars[0..2].iter().collect::<String>()
+    };
+    // 楽しい >> 楽/楽し/楽しい
+    // 伸す >> 伸/伸す/伸す (when word.chars().count() < 2)
+    // up >> u/up/up (word.len() is irrelevant, only char count matters)
+    let search_query = format!("{first}/{first_two}/{word}");
+    let dictionary = match args.edition {
+        Lang::En => "dictionary".to_string(),
+        other => format!("{other}wiktionary"),
+    };
+    let unescaped_url = format!(
+        "https://kaikki.org/{}/{}/meaning/{}.html",
+        dictionary,
+        args.source.long(),
+        search_query
+    );
+    unescaped_url.replace(' ', "%20")
 }
 
 // rg: getheadinfo
@@ -822,6 +973,7 @@ fn insert_glosses(
     insert_glosses(&mut node._children, tail, tags, examples);
 }
 
+// rg: isinflection
 // Should be sense again...
 //
 // We pass the wordentry too in case the discrimination needs more info
@@ -886,18 +1038,18 @@ fn handle_inflection_gloss(args: &Args, word_entry: &WordEntry, sense: &Sense, r
                 .filter(|tag| VALID_TAGS.contains(&tag.as_str()))
                 .map(|t| t.to_string())
                 .collect();
-            let word = word_entry.word.clone();
-            let deinflections: Vec<_> = if allowed_tags.is_empty() {
-                vec![format!("redirected from {word}")]
+            let inflection_tags: Vec<_> = if allowed_tags.is_empty() {
+                vec![format!("redirected from {}", word_entry.word)]
             } else {
                 allowed_tags
             };
             for lemma in &sense.form_of {
                 ret.insert_inflections_forms(
                     &lemma.word,
-                    &word,
+                    &word_entry.word,
                     &word_entry.pos,
-                    deinflections.clone(),
+                    FormSource::Inflection,
+                    inflection_tags.clone(),
                 );
             }
         }
@@ -906,18 +1058,14 @@ fn handle_inflection_gloss(args: &Args, word_entry: &WordEntry, sense: &Sense, r
     }
 }
 
-#[allow(unused)]
+// this is awful
+//
+// tested in the es-en suite
 fn handle_inflection_gloss_en(args: &Args, word_entry: &WordEntry, sense: &Sense, ret: &mut Tidy) {
-    // WARN: untested: return for now
-    return;
-
     let glosses = sense.glosses.clone();
     if glosses.is_empty() {
         return;
     }
-
-    let word = word_entry.word.clone();
-    let pos = word_entry.pos.clone();
 
     // Split glosses by ##
     let gloss_pieces: Vec<String> = glosses
@@ -940,29 +1088,22 @@ fn handle_inflection_gloss_en(args: &Args, word_entry: &WordEntry, sense: &Sense
     // dont need a regex for this really
     static INFLECTION_RE_2: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\s+").unwrap());
 
-    for piece in &gloss_pieces {
+    for mut inflection in gloss_pieces {
         // Extract lemma
-        if let Some(caps) = LEMMA_RE.captures(piece)
+        if let Some(caps) = LEMMA_RE.captures(&inflection)
             && let Some(lemma) = caps.get(1)
         {
             lemmas.insert(lemma.as_str().replace(':', "").trim().to_string());
         }
 
-        // If multiple lemmas → ambiguous → stop
-        if lemmas.len() > 1 {
-            return;
-        }
-
-        let lemma = match lemmas.iter().next() {
-            Some(l) => l,
-            None => continue,
+        let lemma = match lemmas.len() {
+            0 => continue,
+            1 => lemmas.iter().next().unwrap(),
+            // If multiple lemmas → ambiguous → stop
+            _ => return,
         };
 
-        // Escape lemma for regex safely
-        let escaped_lemma = regex::escape(lemma);
-
         // Clean up inflection text
-        let mut inflection = piece.clone();
         inflection = inflection
             .replace("inflection of ", "")
             .replace(&format!("of {lemma}"), "")
@@ -970,7 +1111,6 @@ fn handle_inflection_gloss_en(args: &Args, word_entry: &WordEntry, sense: &Sense
             .replace(':', "")
             .trim()
             .to_string();
-
         // Remove parentheses and compress whitespace
         inflection = INFLECTION_RE_1.replace_all(&inflection, "").to_string();
         inflection = INFLECTION_RE_2.replace_all(&inflection, " ").to_string();
@@ -981,19 +1121,30 @@ fn handle_inflection_gloss_en(args: &Args, word_entry: &WordEntry, sense: &Sense
     }
 
     if let Some(lemma) = lemmas.iter().next() {
+        // Not sure if this is better (cf. ru-en) over word_entry.word but it is what was done in
+        // the original, so lets not change that for the moment.
+        let cform_str = get_canonical_word_form(args, word_entry);
+
         for inflection in inflections {
-            ret.insert_inflections_forms(lemma, &word, &pos, vec![inflection]);
+            ret.insert_inflections_forms(
+                lemma,
+                // &word_entry.word, // < here, not canonical
+                cform_str,
+                &word_entry.pos,
+                FormSource::Inflection,
+                vec![inflection],
+            );
         }
     }
 }
 
+// NOTE: we write stuff even if ret.attribute is empty
+//
 /// Write a Tidy struct to disk.
 ///
 /// This is effectively a snapshot of our tidy intermediate representation.
 #[tracing::instrument(skip_all)]
 fn write_tidy(args: &Args, ret: &Tidy) -> Result<()> {
-    // NOTE: we write stuff even if ret.attribute is empty
-
     let opath = args.path_lemmas();
     let file = File::create(&opath)?;
     let writer = BufWriter::new(file);
@@ -1260,7 +1411,7 @@ impl Diagnostics {
 // For el/en/fr this is trivial ~ Needs lang script for the rest
 fn normalize_orthography(source_lang: Lang, term: &str) -> String {
     match source_lang {
-        Lang::Grc | Lang::La => {
+        Lang::Grc | Lang::La | Lang::Ru => {
             // Normalize to NFD and drop combining accents
             term.nfd()
                 .filter(|c| !('\u{0300}'..='\u{036F}').contains(c))
@@ -1369,8 +1520,7 @@ fn make_yomitan_lemma(
         detailed_definition_content.insert(0, structured_preamble);
     }
 
-    // backlink
-    let backlink = get_structured_backlink(args, &info.backlink);
+    let backlink = get_structured_backlink(&info.link_wiktionary);
     detailed_definition_content.push(backlink);
 
     let detailed_definition = DetailedDefinition::structured(detailed_definition_content);
@@ -1418,18 +1568,13 @@ fn get_structured_preamble(
     wrap("div", "", preamble.to_array_node())
 }
 
-fn get_structured_backlink(args: &Args, backlink: &str) -> Node {
+fn get_structured_backlink(link: &str) -> Node {
     wrap(
         "div",
         "backlink",
         Node::Backlink(BacklinkContent {
             tag: "a".into(),
-            href: format!(
-                "https://{}.wiktionary.org/wiki/{}#{}",
-                args.target,
-                backlink,
-                args.source.long()
-            ),
+            href: link.into(),
             content: "Wiktionary".into(),
         })
         .to_array_node(),
@@ -1611,50 +1756,47 @@ fn get_structured_examples(args: &Args, examples: &[Example]) -> Node {
 
 fn make_yomitan_forms(args: &Args, forms_dict: &FormsMap) -> Vec<YomitanEntry> {
     let mut yomitan_entries = Vec::new();
-    for (lemma, forms) in forms_dict {
-        for (form, poses) in forms {
-            for (_pos, glosses) in poses {
-                let mut inflection_hypotheses: Vec<Vec<String>> = Vec::new();
-                for gloss in glosses {
-                    let hypotheses: Vec<Vec<String>> = vec![vec![gloss.into()]];
 
-                    // Normalize each hypothesis: trim each inflection, drop empties, convert NBSP back to space
-                    for hypothesis in hypotheses {
-                        let normalized: Vec<String> = hypothesis
-                            .into_iter()
-                            .map(|inflection| inflection.trim().to_string())
-                            .filter(|s| !s.is_empty())
-                            .map(|s| s.replace('\u{00A0}', " ")) // kludge from the original
-                            .collect();
+    for (lemma, form, _pos, _source, glosses) in flat_iter_forms(forms_dict) {
+        let mut inflection_hypotheses: Vec<Vec<String>> = Vec::new();
+        for gloss in glosses {
+            let hypotheses: Vec<Vec<String>> = vec![vec![gloss.into()]];
 
-                        if !normalized.is_empty() {
-                            inflection_hypotheses.push(normalized);
-                        }
-                    }
-                }
-                // TODO: sort tags
-                let deinflection_definitions: Vec<DetailedDefinition> = inflection_hypotheses
-                    .clone()
+            // Normalize each hypothesis: trim each inflection, drop empties, convert NBSP back to space
+            for hypothesis in hypotheses {
+                let normalized: Vec<String> = hypothesis
                     .into_iter()
-                    .map(|hy| DetailedDefinition::Inflection((lemma.to_string(), hy)))
+                    .map(|inflection| inflection.trim().to_string())
+                    .filter(|s| !s.is_empty())
+                    .map(|s| s.replace('\u{00A0}', " ")) // kludge from the original
                     .collect();
 
-                // just push for now
-                let normalized = normalize_orthography(args.source, form);
-                let reading = if normalized == *form { "" } else { form };
-                let yomitan_entry = YomitanEntry(
-                    normalized,
-                    reading.into(),
-                    "non-lemma".into(),
-                    String::new(),
-                    0,
-                    deinflection_definitions,
-                    0,
-                    String::new(),
-                );
-                yomitan_entries.push(yomitan_entry);
+                if !normalized.is_empty() {
+                    inflection_hypotheses.push(normalized);
+                }
             }
         }
+        // TODO: sort tags
+        let deinflection_definitions: Vec<DetailedDefinition> = inflection_hypotheses
+            .clone()
+            .into_iter()
+            .map(|hy| DetailedDefinition::Inflection((lemma.to_string(), hy)))
+            .collect();
+
+        // just push for now
+        let normalized = normalize_orthography(args.source, form);
+        let reading = if normalized == *form { "" } else { form };
+        let yomitan_entry = YomitanEntry(
+            normalized,
+            reading.into(),
+            "non-lemma".into(),
+            String::new(),
+            0,
+            deinflection_definitions,
+            0,
+            String::new(),
+        );
+        yomitan_entries.push(yomitan_entry);
     }
 
     yomitan_entries
@@ -1880,32 +2022,29 @@ fn write_sorted_json(
 }
 
 #[tracing::instrument(skip_all)]
-fn run() -> Result<()> {
-    let args = Args::parse_args();
-    debug!("{args:#?}");
-
+fn run(args: &Args) -> Result<()> {
     args.setup_dirs()?;
 
-    download_jsonl(&args)?;
+    download_jsonl(args)?;
 
     if !args.skip_filter {
-        filter_jsonl(&args)?;
+        filter_jsonl(args)?;
     }
 
     let tidy_cache = if args.skip_tidy {
         None
     } else {
-        let ret = tidy(&args, &args.path_jsonl())?;
+        let ret = tidy(args, &args.path_jsonl())?;
         Some(ret)
     };
 
     let mut diagnostics = Diagnostics::new();
     if !args.skip_yomitan {
-        make_yomitan(&args, &mut diagnostics, tidy_cache)?;
+        make_yomitan(args, &mut diagnostics, tidy_cache)?;
     }
 
     // diagnostics.log();
-    write_diagnostics(&args, &diagnostics)?;
+    write_diagnostics(args, &diagnostics)?;
 
     if args.delete_files {
         fs::remove_dir_all(args.temp_dir())?;
@@ -1914,20 +2053,26 @@ fn run() -> Result<()> {
     Ok(())
 }
 
-fn main() -> Result<()> {
+fn setup_tracing(args: &Args) {
     // tracing_subscriber::fmt::init();
     // Same defaults as the above, without timestamps
     tracing_subscriber::fmt()
         .with_env_filter(
-            EnvFilter::try_from_default_env().unwrap_or_else(|_| EnvFilter::new("warn")),
+            EnvFilter::try_from_default_env()
+                .unwrap_or_else(|_| EnvFilter::new(if args.verbose { "debug" } else { "warn" })),
         )
         .with_span_events(FmtSpan::CLOSE)
         // .without_time()
         .with_target(true)
         .with_level(true)
         .init();
+}
 
-    run()
+fn main() -> Result<()> {
+    let args = Args::parse_args();
+    setup_tracing(&args);
+    debug!("{args:#?}");
+    run(&args)
 }
 
 #[cfg(test)]
@@ -1935,12 +2080,6 @@ mod tests {
     use super::*;
     use anyhow::{Ok, Result};
     use std::path::PathBuf;
-
-    #[test]
-    fn test_set_inexistent_edition() {
-        let mut args = Args::default();
-        assert!(args.set_edition("grc").is_err());
-    }
 
     // test via snapshots and commits like the original
     #[test]
@@ -1972,18 +2111,25 @@ mod tests {
 
         debug!("Found {} cases: {cases:?}", cases.len());
 
-        let mut errors = Vec::new();
+        // failfast
         for (lang, expected) in cases {
             if let Err(e) = shapshot_for_lang(&lang, &expected, &fixture_dir) {
-                errors.push(format!("({lang}): {e}"));
+                panic!("({lang}): {e}");
             }
         }
 
-        assert!(
-            errors.is_empty(),
-            "Some expected_shape_for_lang tests failed:\n{}",
-            errors.join("\n")
-        )
+        // let mut errors = Vec::new();
+        // for (lang, expected) in cases {
+        //     if let Err(e) = shapshot_for_lang(&lang, &expected, &fixture_dir) {
+        //         errors.push(format!("({lang}): {e}"));
+        //     }
+        // }
+        //
+        // assert!(
+        //     errors.is_empty(),
+        //     "Some expected_shape_for_lang tests failed:\n{}",
+        //     errors.join("\n")
+        // )
     }
 
     /// Delete generated artifacts from previous tests runs, if any
@@ -2029,6 +2175,7 @@ mod tests {
                 "--color=always",
                 "--unified=0", // show 0 context lines
                 "--",
+                // we don't care about tidy files
                 &args.pathdir_dict_temp().to_string_lossy(),
             ])
             .output()?;

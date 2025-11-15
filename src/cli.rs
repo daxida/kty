@@ -1,10 +1,11 @@
-use anyhow::{Ok, Result, anyhow};
+use anyhow::{Ok, Result, anyhow, bail};
 use clap::Parser;
 use std::fs;
 use std::path::PathBuf;
 use std::str::FromStr;
 
 use crate::lang::Lang;
+use crate::models::WordEntry;
 
 #[derive(Parser, Debug, Default)]
 #[command(version)]
@@ -66,7 +67,7 @@ pub struct Args {
     //
     /// (debug) Only include entries matching certain key–value filters
     #[arg(long, value_parser = parse_tuple)]
-    pub filter: Vec<(String, String)>,
+    pub filter: Vec<(FilterKey, String)>,
 
     // This filtering is done at filter_jsonl
     //
@@ -78,7 +79,7 @@ pub struct Args {
     //
     /// (debug) Exclude entries matching certain key–value filters
     #[arg(long, value_parser = parse_tuple)]
-    pub reject: Vec<(String, String)>,
+    pub reject: Vec<(FilterKey, String)>,
 
     // Run to_write instead of to_pretty_writter
     /// (debug) Write jsons without whitespace. Faster but unreadable
@@ -88,6 +89,13 @@ pub struct Args {
     /// (test) Modify the root directory. For testing, set this to "tests"
     #[arg(long, default_value = "data")]
     root_dir: PathBuf,
+
+    // If I ever decide on making this more powerful, these are good defaults:
+    // https://github.com/astral-sh/ruff/blob/276f1d0d88d7815f70fabb712af44bb4de85d9a7/crates/ty/docs/tracing.md?plain=1#L19
+    // https://github.com/astral-sh/ruff/blob/276f1d0d88d7815f70fabb712af44bb4de85d9a7/crates/ty/src/logging.rs
+    /// Verbose output
+    #[arg(long, short)]
+    pub verbose: bool,
 }
 
 fn validate_edition(s: &str) -> Result<Lang, String> {
@@ -99,12 +107,39 @@ fn validate_edition(s: &str) -> Result<Lang, String> {
     }
 }
 
-fn parse_tuple(s: &str) -> Result<(String, String), String> {
+fn parse_tuple(s: &str) -> Result<(FilterKey, String), String> {
     let parts: Vec<_> = s.split(',').map(|x| x.trim().to_string()).collect();
     if parts.len() != 2 {
         return Err("expected two comma-separated values".into());
     }
-    core::result::Result::Ok((parts[0].clone(), parts[1].clone()))
+    let filter_key = FilterKey::try_from(parts[0].as_str()).map_err(|e| e.to_string())?;
+    core::result::Result::Ok((filter_key, parts[1].clone()))
+}
+
+#[derive(Debug, Clone)]
+pub enum FilterKey {
+    LangCode,
+    Word,
+    Pos,
+}
+
+impl FilterKey {
+    pub fn field_value<'a>(&self, entry: &'a WordEntry) -> &'a str {
+        match self {
+            Self::LangCode => &entry.lang_code,
+            Self::Word => &entry.word,
+            Self::Pos => &entry.pos,
+        }
+    }
+
+    fn try_from(s: &str) -> Result<Self> {
+        match s {
+            "lang_code" => Ok(Self::LangCode),
+            "word" => Ok(Self::Word),
+            "pos" => Ok(Self::Pos),
+            other => bail!("unknown filter key '{other}'. Choose between: lang_code | word | pos",),
+        }
+    }
 }
 
 impl Args {
@@ -199,35 +234,24 @@ impl Args {
         }
     }
 
-    /// Different in English and non-English editions.
+    /// Different in English and non-English editions. The English download is already filtered.
     ///
-    /// Example (el): `data/kaikki/el-extract.jsonl.gz`
-    /// Example (en): `data/kaikki/kaikki.org-dictionary-English.jsonl.gz`
-    pub fn path_raw_jsonl_gz(&self) -> PathBuf {
-        self.kaik_dir().join(self.filename_raw_jsonl_gz())
-    }
-
-    /// Different in English and non-English editions.
-    ///
-    /// Example (el): `data/kaikki/el-extract.jsonl`
-    /// Example (en): `data/kaikki/kaikki.org-dictionary-English.jsonl`
+    /// Example (el):    `data/kaikki/el-extract.jsonl`
+    /// Example (en-en): `data/kaikki/en-en-extract.jsonl`
+    /// Example (de-en): `data/kaikki/de-en-extract.jsonl`
     pub fn path_raw_jsonl(&self) -> PathBuf {
-        PathBuf::from(
-            self.path_raw_jsonl_gz()
-                .to_string_lossy()
-                .trim_end_matches(".gz"),
-        )
+        self.kaik_dir().join(match self.edition {
+            Lang::En => format!("{}-{}-extract.jsonl", self.source, self.target),
+            _ => format!("{}-extract.jsonl", self.edition),
+        })
     }
 
-    /// Different in English and non-English editions.
+    /// `data/kaikki/source-target.jsonl`
     ///
-    /// Example (el): `data/kaikki/el-el-extract.jsonl`
-    /// Example (en): `data/kaikki/kaikki.org-dictionary-English.jsonl`
+    /// Example (en-el): `data/kaikki/en-el-extract.jsonl`
     pub fn path_jsonl(&self) -> PathBuf {
-        self.kaik_dir().join(match self.edition {
-            Lang::En => self.filename_raw_jsonl_gz().trim_end_matches(".gz").into(),
-            _ => format!("{}-{}-extract.jsonl", self.source, self.target),
-        })
+        self.kaik_dir()
+            .join(format!("{}-{}-extract.jsonl", self.source, self.target))
     }
 
     /// `data/dict/source/target/temp/tidy/source-target-lemmas.json`
@@ -274,5 +298,24 @@ impl Args {
     /// Example: `data/dict/el/el/temp/diagnostics`
     pub fn pathdir_diagnostics(&self) -> PathBuf {
         self.temp_dir().join("diagnostics")
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_set_inexistent_edition() {
+        let mut args = Args::default();
+        assert!(args.set_edition("grc").is_err());
+        assert!(args.set_edition("grc").is_err());
+    }
+
+    #[test]
+    fn test_filter_flag() {
+        assert!(Args::try_parse_from(["kty", "el", "el", "--filter", "foo,bar"]).is_err());
+        assert!(Args::try_parse_from(["kty", "el", "el", "--filter", "word,hello"]).is_ok());
+        assert!(Args::try_parse_from(["kty", "el", "el", "--reject", "pos,name"]).is_ok());
     }
 }

@@ -4,64 +4,122 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, Default)]
 pub enum Lang {
+    /// English
     #[default]
     En,
+    /// Albanian
     Sq,
+    /// Ancient Greek
     Grc,
+    /// Arabic
     Ar,
+    /// Assyrian Neo-Aramaic
     Aii,
+    /// Bengali
     Bn,
+    /// Chinese
     Zh,
+    /// Czech
     Cs,
+    /// Danish
     Da,
+    /// Dutch
     Nl,
+    /// Middle English
     Enm,
+    /// Old English
     Ang,
+    /// Esperanto
     Eo,
+    /// Finnish
     Fi,
+    /// French
     Fr,
+    /// German
     De,
+    /// Greek
     El,
+    /// Gulf Arabic
     Afb,
+    /// Hebrew
     He,
+    /// Hindi
     Hi,
+    /// Hungarian
     Hu,
+    /// Indonesian
     Id,
+    /// Irish
     Ga,
+    /// Old Irish
     Sga,
+    /// Italian
     It,
+    /// Japanese
     Ja,
+    /// Kannada
     Kn,
+    /// Kazakh
     Kk,
+    /// Khmer
     Km,
+    /// Kurdish
     Ku,
+    /// Korean
     Ko,
+    /// Latin
     La,
+    /// Latvian
     Lv,
+    /// North Levantine Arabic
     Apc,
+    /// Malay
     Ms,
+    /// Marathi
     Mr,
+    /// Mongolian
     Mn,
+    /// Maltese
     Mt,
+    /// Norwegian Bokmål
     Nb,
+    /// Norwegian Nynorsk
     Nn,
+    /// Persian
     Fa,
+    /// Polish
     Pl,
+    /// Portuguese
     Pt,
+    /// Romanian
     Ro,
+    /// Russian
     Ru,
+    /// Serbo-Croatian
     Sh,
+    /// Sicilian
     Scn,
+    /// Slovene
     Sl,
+    /// South Levantine Arabic
     Ajp,
+    /// Spanish
     Es,
+    /// Swedish
     Sv,
+    /// Tagalog
     Tl,
+    /// Telugu
     Te,
+    /// Thai
     Th,
+    /// Turkish
     Tr,
+    /// Ukrainian
     Uk,
+    /// Urdu
     Ur,
+    /// Vietnamese
     Vi,
 }
 

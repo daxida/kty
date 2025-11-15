@@ -1,0 +1,331 @@
+{
+  "楽しい": {
+    "たのしい": {
+      "adj": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[ta̠no̞ɕiː]",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "pleasant, delightful, fun, enjoyable": {
+              "_tags": [],
+              "_examples": []
+            }
+          },
+          "etymology_text": "⟨tano₁siki₁⟩ → */tanʷosikʲi/ → /tanoshii/\nFrom Old Japanese. First attested in the Kojiki of 712 CE. No Ryukyuan cognates exist; as a result, further derivation unknown. Theories include:\n* A compound of 手 (ta, “hand”, combining form) + 伸す (nosu, “to extend”)\n*: This is problematic, as nosu has first been attested starting from the early 900s, with no A/B distinction (see Jōdai Tokushu Kanazukai for details).\n* From 田神 (tano, literally “rice paddy god”)\n*: No reading of 神 (*no, “god”) exists.\n* A borrowing from an unknown language\n*: No words resemble *tanV meaning \"fun\" or \"to enjoy\".",
+          "head_info_text": "楽(たの)しい • (tanoshii) -i (adverbial 楽(たの)しく (tanoshiku))",
+          "wlink": "https://en.wiktionary.org/wiki/楽しい#Japanese",
+          "klink": "https://kaikki.org/dictionary/Japanese/meaning/楽/楽し/楽しい.html"
+        }
+      }
+    }
+  },
+  "好き": {
+    "すき": {
+      "adj": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[sɨ̥kʲi]",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "liked, likable": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "好きな食べ物は？ アイスクリームです。",
+                  "translation": "What's your favorite food? - It's ice cream."
+                },
+                {
+                  "text": "君が好きだからこそこれほど頑張っているんだよ。",
+                  "translation": "It's precisely because I like you [because of my fondness for you] that I'm working this hard."
+                },
+                {
+                  "text": "好きです。",
+                  "translation": "“I like you.” → idiomatically used to express: “I love you.”"
+                },
+                {
+                  "text": "どうとも好きにしなさい。",
+                  "translation": "Feel free to do as you like."
+                }
+              ]
+            }
+          },
+          "etymology_text": "The 連(れん)用(よう)形(けい) (ren'yōkei, “stem or continuative form”) of the verb 好(す)く (suku, “to like, to be fond of, to enjoy, to feel love for”).\nFirst cited to the late 900s in the 宇津保物語 (Utsubo Monogatari).",
+          "head_info_text": "好(す)き • (suki) -na (adnominal 好(す)きな (suki na), adverbial 好(す)きに (suki ni))",
+          "wlink": "https://en.wiktionary.org/wiki/好き#Japanese",
+          "klink": "https://kaikki.org/dictionary/Japanese/meaning/好/好き/好き.html"
+        }
+      }
+    }
+  },
+  "狸": {
+    "たぬき": {
+      "noun": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[ta̠nɯ̟kʲi]",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "a raccoon dog, Nyctereutes procyonoides": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "狸 兼名苑云狸［音𨤲和名太奴木］摶鳥為粮者也",
+                  "translation": "Raccoon dog: According to Jian Ming Yuan (兼名苑), raccoon dogs [read as 𨤲 (ri), native Japanese 太奴木 (tanuki)] always prey on birds."
+                },
+                {
+                  "text": "アライグマなら尻尾にシマがある。どう見でもタヌキだ。",
+                  "translation": "If you're a raccoon, you'd have stripes on your tail. No matter how you look at it, you're a raccoon dog."
+                }
+              ]
+            },
+            "a person who pretends to be good but in fact is cunning (compare English sly fox)": {
+              "_tags": [
+                "figuratively"
+              ],
+              "_examples": [
+                {
+                  "text": "やいやい、其処な狸め",
+                  "translation": "Hey there, you sly dog!"
+                }
+              ]
+            },
+            "short for 狸饂飩 (tanuki-udon) and 狸蕎麦 (tanuki-soba): styles of various noodle dishes": {
+              "_tags": [
+                "abbreviation",
+                "alt-of"
+              ],
+              "_examples": []
+            },
+            "short for 狸寝入り (tanuki neiri): pretending to be asleep": {
+              "_tags": [
+                "abbreviation",
+                "alt-of",
+                "rare"
+              ],
+              "_examples": [
+                {
+                  "text": "狸を決め込む ― tanuki o kimekomu ― pretend to be a raccoon dog → feign sleep",
+                  "translation": ""
+                }
+              ]
+            },
+            "short for 狸汁 (tanuki-jiru): a soup made from tanuki meat mixed with daikon, burdock root, etc.": {
+              "_tags": [
+                "abbreviation",
+                "alt-of",
+                "obsolete",
+                "rare"
+              ],
+              "_examples": []
+            }
+          },
+          "etymology_text": "According to one theory, derived from 手貫 (tanuki, “arm glove, gauntlet”), which raccoon dog hide was sometimes used for.",
+          "head_info_text": "狸(たぬき) or 狸(タヌキ) • (tanuki)",
+          "wlink": "https://en.wiktionary.org/wiki/狸#Japanese",
+          "klink": "https://kaikki.org/dictionary/Japanese/meaning/狸/狸/狸.html"
+        }
+      }
+    }
+  },
+  "走る": {
+    "はしる": {
+      "verb": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[ha̠ɕiɾɯ̟]",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "to run (move fast on foot)": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "マラソン選手が走り出した。",
+                  "translation": "Marathon athlete(s) started running."
+                }
+              ],
+              "_children": {
+                "to move forward; (of a machine) to operate, function; (of objects) to move at a high speed (of a vehicle)": {
+                  "_tags": [],
+                  "_examples": [
+                    {
+                      "text": "車が走っている。",
+                      "translation": "A car is running. / Cars are running."
+                    }
+                  ]
+                },
+                "to flow vigorously (of liquid)": {
+                  "_tags": [],
+                  "_examples": [
+                    {
+                      "text": "石の上を水が走る。",
+                      "translation": "The water runs over the stones."
+                    }
+                  ]
+                }
+              }
+            },
+            "to run through some kind of place": {
+              "_tags": [
+                "transitive"
+              ],
+              "_examples": [
+                {
+                  "text": "彼はこの道をよく走る。",
+                  "translation": "He often runs down this street."
+                }
+              ]
+            },
+            "to move smoothly; to slide": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "刀が鞘から走る。",
+                  "translation": "The sword slides out of its sheath."
+                }
+              ]
+            },
+            "to run away, escape": {
+              "_tags": [],
+              "_examples": []
+            },
+            "to rush, hurry around": {
+              "_tags": [],
+              "_examples": []
+            },
+            "to give over oneself to; to commit oneself to (usually something bad)": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "彼は敵に走った。",
+                  "translation": "He defected to the enemy."
+                },
+                {
+                  "text": "立場を忘れて感情に走ってはいけない。",
+                  "translation": "Don't forget your stance and give in to emotions."
+                }
+              ]
+            },
+            "to spread out, scatter, splatter, spout": {
+              "_tags": [],
+              "_examples": []
+            },
+            "to lead or extend in a certain direction": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "山脈が南北に走る。",
+                  "translation": "The mountain range runs north–south."
+                },
+                {
+                  "text": "社会に亀裂が走る",
+                  "translation": "a crack (division) spreads in society"
+                }
+              ]
+            },
+            "to appear briefly; to flash": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "稲妻が走る",
+                  "translation": "lightning flashes by"
+                },
+                {
+                  "text": "背中に痛みが走った。",
+                  "translation": "I felt a brief pain in my back."
+                }
+              ]
+            },
+            "to feel palpitations; to have a sense of unease": {
+              "_tags": [],
+              "_examples": []
+            },
+            "to crack": {
+              "_tags": [
+                "euphemistic"
+              ],
+              "_examples": []
+            },
+            "alternative spelling of ハシる": {
+              "_tags": [
+                "alt-of",
+                "alternative"
+              ],
+              "_examples": []
+            }
+          },
+          "head_info_text": "走(はし)る • (hashiru) intransitive godan (stem 走(はし)り (hashiri), past 走(はし)った (hashitta))",
+          "wlink": "https://en.wiktionary.org/wiki/走る#Japanese",
+          "klink": "https://kaikki.org/dictionary/Japanese/meaning/走/走る/走る.html"
+        }
+      }
+    }
+  },
+  "五色": {
+    "ごしき": {
+      "noun": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[ɡo̞ɕikʲi]",
+              "tags": []
+            },
+            {
+              "ipa": "[ɡo̞ɕo̞kɯ̟]",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "five colors (usu. red (赤), blue (青), yellow (黄), white (白) and black (黒))": {
+              "_tags": [],
+              "_examples": []
+            },
+            "synonym of 瓜 (uri, “melon, gourd”)": {
+              "_tags": [],
+              "_examples": []
+            }
+          },
+          "head_info_text": "五(ご)色(しき) • (goshiki) ^(←ごしき (gosiki)?)",
+          "wlink": "https://en.wiktionary.org/wiki/五色#Japanese",
+          "klink": "https://kaikki.org/dictionary/Japanese/meaning/五/五色/五色.html"
+        }
+      }
+    }
+  },
+  "お腹が空いた": {
+    "おなかがすいた": {
+      "phrase": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[o̞na̠ka̠ ɡa̠ sɨita̠]",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "[I am / someone is] hungry": {
+              "_tags": [],
+              "_examples": []
+            }
+          },
+          "etymology_text": "The perfective form of お腹が空く (onaka ga suku, “to become hungry”, literally “one's stomach becomes empty”).",
+          "head_info_text": "お腹(なか)が空(す)いた • (onaka ga suita)",
+          "wlink": "https://en.wiktionary.org/wiki/お腹が空いた#Japanese",
+          "klink": "https://kaikki.org/dictionary/Japanese/meaning/お/お腹/お腹が空いた.html"
+        }
+      }
+    }
+  }
+}

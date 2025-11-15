@@ -1,0 +1,64 @@
+{
+  "vivir": {
+    "vivir": {
+      "verb": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "/biˈbiɾ/",
+              "tags": []
+            },
+            {
+              "ipa": "[biˈβ̞iɾ]",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "to live; to be alive": {
+              "_tags": [
+                "intransitive"
+              ],
+              "_examples": []
+            },
+            "to make a living, to live on": {
+              "_tags": [
+                "intransitive"
+              ],
+              "_examples": [
+                {
+                  "text": "Vive de migas, nada más.",
+                  "translation": "He lives on crumbs, nothing more."
+                }
+              ]
+            },
+            "to live in, reside, inhabit": {
+              "_tags": [
+                "intransitive"
+              ],
+              "_examples": [
+                {
+                  "text": "Vive en la casa roja.",
+                  "translation": "She lives in the red house."
+                },
+                {
+                  "text": "La pobrecita vive con dos hermanas crueles.",
+                  "translation": "The poor girl lives with two cruel sisters."
+                }
+              ]
+            },
+            "to experience, to live through": {
+              "_tags": [
+                "transitive"
+              ],
+              "_examples": []
+            }
+          },
+          "etymology_text": "From Old Spanish bevir, bivir, vevir, viver, inherited from Latin vīvere. Compare Ladino bivir, Portuguese viver.",
+          "head_info_text": "vivir (first-person singular present vivo, first-person singular preterite viví, past participle vivido)",
+          "wlink": "https://en.wiktionary.org/wiki/vivir#Spanish",
+          "klink": "https://kaikki.org/dictionary/Spanish/meaning/v/vi/vivir.html"
+        }
+      }
+    }
+  }
+}

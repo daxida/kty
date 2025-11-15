@@ -2,877 +2,1366 @@
   "fama": {
     "fāmae": {
       "noun": [
-        "genitive",
-        "nominative plural",
-        "vocative plural",
-        "dative singular",
-        "genitive singular"
+        "extracted",
+        [
+          "genitive",
+          "nominative plural",
+          "vocative plural",
+          "dative singular",
+          "genitive singular"
+        ]
       ]
     },
     "fāmārum": {
       "noun": [
-        "genitive plural"
+        "extracted",
+        [
+          "genitive plural"
+        ]
       ]
     },
     "fāmīs": {
       "noun": [
-        "plural ablative",
-        "dative plural"
+        "extracted",
+        [
+          "plural ablative",
+          "dative plural"
+        ]
       ]
     },
     "fāmam": {
       "noun": [
-        "accusative singular"
+        "extracted",
+        [
+          "accusative singular"
+        ]
       ]
     },
     "fāmās": {
       "noun": [
-        "accusative plural"
+        "extracted",
+        [
+          "accusative plural"
+        ]
       ]
     },
     "fāmā": {
       "noun": [
-        "singular ablative"
+        "extracted",
+        [
+          "singular ablative"
+        ]
       ]
     },
     "fāma": {
       "noun": [
-        "vocative singular"
+        "extracted",
+        [
+          "vocative singular"
+        ]
       ]
     }
   },
   "lego": {
     "legere": {
       "verb": [
-        "present active infinitive",
-        "present infinitive",
-        "second-person singular present imperative passive",
-        "second-person singular present passive indicative"
+        "extracted",
+        [
+          "present active infinitive",
+          "present infinitive",
+          "second-person singular present imperative passive",
+          "second-person singular present passive indicative"
+        ]
       ]
     },
     "lēgī": {
       "verb": [
-        "perfect active",
-        "first-person singular perfect active indicative"
+        "extracted",
+        [
+          "perfect active",
+          "first-person singular perfect active indicative"
+        ]
       ]
     },
     "lēctum": {
       "verb": [
-        "supine",
-        "accusative noun-from-verb supine"
+        "extracted",
+        [
+          "supine",
+          "accusative noun-from-verb supine"
+        ]
       ]
     },
     "legō": {
       "verb": [
-        "first-person singular present active indicative"
+        "extracted",
+        [
+          "first-person singular present active indicative"
+        ]
       ]
     },
     "legis": {
       "verb": [
-        "second-person singular present active indicative"
+        "extracted",
+        [
+          "second-person singular present active indicative"
+        ]
       ]
     },
     "legit": {
       "verb": [
-        "third-person singular present active indicative"
+        "extracted",
+        [
+          "third-person singular present active indicative"
+        ]
       ]
     },
     "legimus": {
       "verb": [
-        "first-person plural present active indicative"
+        "extracted",
+        [
+          "first-person plural present active indicative"
+        ]
       ]
     },
     "legitis": {
       "verb": [
-        "second-person plural present active indicative"
+        "extracted",
+        [
+          "second-person plural present active indicative"
+        ]
       ]
     },
     "legunt": {
       "verb": [
-        "third-person plural present active indicative"
+        "extracted",
+        [
+          "third-person plural present active indicative"
+        ]
       ]
     },
     "legēbam": {
       "verb": [
-        "first-person singular imperfect active indicative"
+        "extracted",
+        [
+          "first-person singular imperfect active indicative"
+        ]
       ]
     },
     "legēbās": {
       "verb": [
-        "second-person singular imperfect active indicative"
+        "extracted",
+        [
+          "second-person singular imperfect active indicative"
+        ]
       ]
     },
     "legēbat": {
       "verb": [
-        "third-person singular imperfect active indicative"
+        "extracted",
+        [
+          "third-person singular imperfect active indicative"
+        ]
       ]
     },
     "legēbāmus": {
       "verb": [
-        "first-person plural imperfect active indicative"
+        "extracted",
+        [
+          "first-person plural imperfect active indicative"
+        ]
       ]
     },
     "legēbātis": {
       "verb": [
-        "second-person plural imperfect active indicative"
+        "extracted",
+        [
+          "second-person plural imperfect active indicative"
+        ]
       ]
     },
     "legēbant": {
       "verb": [
-        "third-person plural imperfect active indicative"
+        "extracted",
+        [
+          "third-person plural imperfect active indicative"
+        ]
       ]
     },
     "legam": {
       "verb": [
-        "first-person singular future active indicative",
-        "first-person singular present active subjunctive"
+        "extracted",
+        [
+          "first-person singular future active indicative",
+          "first-person singular present active subjunctive"
+        ]
       ]
     },
     "legēs": {
       "verb": [
-        "second-person singular future active indicative"
+        "extracted",
+        [
+          "second-person singular future active indicative"
+        ]
       ]
     },
     "leget": {
       "verb": [
-        "third-person singular future active indicative"
+        "extracted",
+        [
+          "third-person singular future active indicative"
+        ]
       ]
     },
     "legēmus": {
       "verb": [
-        "first-person plural future active indicative"
+        "extracted",
+        [
+          "first-person plural future active indicative"
+        ]
       ]
     },
     "legētis": {
       "verb": [
-        "second-person plural future active indicative"
+        "extracted",
+        [
+          "second-person plural future active indicative"
+        ]
       ]
     },
     "legent": {
       "verb": [
-        "third-person plural future active indicative"
+        "extracted",
+        [
+          "third-person plural future active indicative"
+        ]
       ]
     },
     "lēgistī": {
       "verb": [
-        "second-person singular perfect active indicative"
+        "extracted",
+        [
+          "second-person singular perfect active indicative"
+        ]
       ]
     },
     "lēgit": {
       "verb": [
-        "third-person singular perfect active indicative"
+        "extracted",
+        [
+          "third-person singular perfect active indicative"
+        ]
       ]
     },
     "lēgimus": {
       "verb": [
-        "first-person plural perfect active indicative"
+        "extracted",
+        [
+          "first-person plural perfect active indicative"
+        ]
       ]
     },
     "lēgistis": {
       "verb": [
-        "second-person plural perfect active indicative"
+        "extracted",
+        [
+          "second-person plural perfect active indicative"
+        ]
       ]
     },
     "lēgērunt": {
       "verb": [
-        "third-person plural perfect active indicative"
+        "extracted",
+        [
+          "third-person plural perfect active indicative"
+        ]
       ]
     },
     "lēgēre": {
       "verb": [
-        "third-person plural perfect active indicative"
+        "extracted",
+        [
+          "third-person plural perfect active indicative"
+        ]
       ]
     },
     "lēgeram": {
       "verb": [
-        "first-person singular pluperfect active indicative"
+        "extracted",
+        [
+          "first-person singular pluperfect active indicative"
+        ]
       ]
     },
     "lēgerās": {
       "verb": [
-        "second-person singular pluperfect active indicative"
+        "extracted",
+        [
+          "second-person singular pluperfect active indicative"
+        ]
       ]
     },
     "lēgerat": {
       "verb": [
-        "third-person singular pluperfect active indicative"
+        "extracted",
+        [
+          "third-person singular pluperfect active indicative"
+        ]
       ]
     },
     "lēgerāmus": {
       "verb": [
-        "first-person plural pluperfect active indicative"
+        "extracted",
+        [
+          "first-person plural pluperfect active indicative"
+        ]
       ]
     },
     "lēgerātis": {
       "verb": [
-        "second-person plural pluperfect active indicative"
+        "extracted",
+        [
+          "second-person plural pluperfect active indicative"
+        ]
       ]
     },
     "lēgerant": {
       "verb": [
-        "third-person plural pluperfect active indicative"
+        "extracted",
+        [
+          "third-person plural pluperfect active indicative"
+        ]
       ]
     },
     "lēgerō": {
       "verb": [
-        "first-person singular future perfect active indicative"
+        "extracted",
+        [
+          "first-person singular future perfect active indicative"
+        ]
       ]
     },
     "lēgeris": {
       "verb": [
-        "second-person singular future perfect active indicative"
+        "extracted",
+        [
+          "second-person singular future perfect active indicative"
+        ]
       ]
     },
     "lēgerit": {
       "verb": [
-        "third-person singular future perfect active indicative",
-        "third-person singular perfect active subjunctive"
+        "extracted",
+        [
+          "third-person singular future perfect active indicative",
+          "third-person singular perfect active subjunctive"
+        ]
       ]
     },
     "lēgerimus": {
       "verb": [
-        "first-person plural future perfect active indicative"
+        "extracted",
+        [
+          "first-person plural future perfect active indicative"
+        ]
       ]
     },
     "lēgeritis": {
       "verb": [
-        "second-person plural future perfect active indicative"
+        "extracted",
+        [
+          "second-person plural future perfect active indicative"
+        ]
       ]
     },
     "lēgerint": {
       "verb": [
-        "third-person plural future perfect active indicative",
-        "third-person plural perfect active subjunctive"
+        "extracted",
+        [
+          "third-person plural future perfect active indicative",
+          "third-person plural perfect active subjunctive"
+        ]
       ]
     },
     "legor": {
       "verb": [
-        "first-person singular present passive indicative"
+        "extracted",
+        [
+          "first-person singular present passive indicative"
+        ]
       ]
     },
     "legeris": {
       "verb": [
-        "second-person singular present passive indicative"
+        "extracted",
+        [
+          "second-person singular present passive indicative"
+        ]
       ]
     },
     "legitur": {
       "verb": [
-        "third-person singular present passive indicative"
+        "extracted",
+        [
+          "third-person singular present passive indicative"
+        ]
       ]
     },
     "legimur": {
       "verb": [
-        "first-person plural present passive indicative"
+        "extracted",
+        [
+          "first-person plural present passive indicative"
+        ]
       ]
     },
     "legiminī": {
       "verb": [
-        "second-person plural present imperative passive",
-        "second-person plural present passive indicative"
+        "extracted",
+        [
+          "second-person plural present imperative passive",
+          "second-person plural present passive indicative"
+        ]
       ]
     },
     "leguntur": {
       "verb": [
-        "third-person plural present passive indicative"
+        "extracted",
+        [
+          "third-person plural present passive indicative"
+        ]
       ]
     },
     "legēbar": {
       "verb": [
-        "first-person singular imperfect passive indicative"
+        "extracted",
+        [
+          "first-person singular imperfect passive indicative"
+        ]
       ]
     },
     "legēbāris": {
       "verb": [
-        "second-person singular imperfect passive indicative"
+        "extracted",
+        [
+          "second-person singular imperfect passive indicative"
+        ]
       ]
     },
     "legēbāre": {
       "verb": [
-        "second-person singular imperfect passive indicative"
+        "extracted",
+        [
+          "second-person singular imperfect passive indicative"
+        ]
       ]
     },
     "legēbātur": {
       "verb": [
-        "third-person singular imperfect passive indicative"
+        "extracted",
+        [
+          "third-person singular imperfect passive indicative"
+        ]
       ]
     },
     "legēbāmur": {
       "verb": [
-        "first-person plural imperfect passive indicative"
+        "extracted",
+        [
+          "first-person plural imperfect passive indicative"
+        ]
       ]
     },
     "legēbāminī": {
       "verb": [
-        "second-person plural imperfect passive indicative"
+        "extracted",
+        [
+          "second-person plural imperfect passive indicative"
+        ]
       ]
     },
     "legēbantur": {
       "verb": [
-        "third-person plural imperfect passive indicative"
+        "extracted",
+        [
+          "third-person plural imperfect passive indicative"
+        ]
       ]
     },
     "legar": {
       "verb": [
-        "first-person singular future passive indicative",
-        "first-person singular present passive subjunctive"
+        "extracted",
+        [
+          "first-person singular future passive indicative",
+          "first-person singular present passive subjunctive"
+        ]
       ]
     },
     "legēris": {
       "verb": [
-        "second-person singular future passive indicative"
+        "extracted",
+        [
+          "second-person singular future passive indicative"
+        ]
       ]
     },
     "legēre": {
       "verb": [
-        "second-person singular future passive indicative"
+        "extracted",
+        [
+          "second-person singular future passive indicative"
+        ]
       ]
     },
     "legētur": {
       "verb": [
-        "third-person singular future passive indicative"
+        "extracted",
+        [
+          "third-person singular future passive indicative"
+        ]
       ]
     },
     "legēmur": {
       "verb": [
-        "first-person plural future passive indicative"
+        "extracted",
+        [
+          "first-person plural future passive indicative"
+        ]
       ]
     },
     "legēminī": {
       "verb": [
-        "second-person plural future passive indicative"
+        "extracted",
+        [
+          "second-person plural future passive indicative"
+        ]
       ]
     },
     "legentur": {
       "verb": [
-        "third-person plural future passive indicative"
+        "extracted",
+        [
+          "third-person plural future passive indicative"
+        ]
       ]
     },
     "lēctus + present active indicative of sum": {
       "verb": [
-        "perfect passive indicative"
+        "extracted",
+        [
+          "perfect passive indicative"
+        ]
       ]
     },
     "lēctus + imperfect active indicative of sum": {
       "verb": [
-        "pluperfect passive indicative"
+        "extracted",
+        [
+          "pluperfect passive indicative"
+        ]
       ]
     },
     "lēctus + future active indicative of sum": {
       "verb": [
-        "future perfect passive indicative"
+        "extracted",
+        [
+          "future perfect passive indicative"
+        ]
       ]
     },
     "legās": {
       "verb": [
-        "second-person singular present active subjunctive"
+        "extracted",
+        [
+          "second-person singular present active subjunctive"
+        ]
       ]
     },
     "legat": {
       "verb": [
-        "third-person singular present active subjunctive"
+        "extracted",
+        [
+          "third-person singular present active subjunctive"
+        ]
       ]
     },
     "legāmus": {
       "verb": [
-        "first-person plural present active subjunctive"
+        "extracted",
+        [
+          "first-person plural present active subjunctive"
+        ]
       ]
     },
     "legātis": {
       "verb": [
-        "second-person plural present active subjunctive"
+        "extracted",
+        [
+          "second-person plural present active subjunctive"
+        ]
       ]
     },
     "legant": {
       "verb": [
-        "third-person plural present active subjunctive"
+        "extracted",
+        [
+          "third-person plural present active subjunctive"
+        ]
       ]
     },
     "legerem": {
       "verb": [
-        "first-person singular imperfect active subjunctive"
+        "extracted",
+        [
+          "first-person singular imperfect active subjunctive"
+        ]
       ]
     },
     "legerēs": {
       "verb": [
-        "second-person singular imperfect active subjunctive"
+        "extracted",
+        [
+          "second-person singular imperfect active subjunctive"
+        ]
       ]
     },
     "legeret": {
       "verb": [
-        "third-person singular imperfect active subjunctive"
+        "extracted",
+        [
+          "third-person singular imperfect active subjunctive"
+        ]
       ]
     },
     "legerēmus": {
       "verb": [
-        "first-person plural imperfect active subjunctive"
+        "extracted",
+        [
+          "first-person plural imperfect active subjunctive"
+        ]
       ]
     },
     "legerētis": {
       "verb": [
-        "second-person plural imperfect active subjunctive"
+        "extracted",
+        [
+          "second-person plural imperfect active subjunctive"
+        ]
       ]
     },
     "legerent": {
       "verb": [
-        "third-person plural imperfect active subjunctive"
+        "extracted",
+        [
+          "third-person plural imperfect active subjunctive"
+        ]
       ]
     },
     "lēgerim": {
       "verb": [
-        "first-person singular perfect active subjunctive"
+        "extracted",
+        [
+          "first-person singular perfect active subjunctive"
+        ]
       ]
     },
     "lēgerīs": {
       "verb": [
-        "second-person singular perfect active subjunctive"
+        "extracted",
+        [
+          "second-person singular perfect active subjunctive"
+        ]
       ]
     },
     "lēgerīmus": {
       "verb": [
-        "first-person plural perfect active subjunctive"
+        "extracted",
+        [
+          "first-person plural perfect active subjunctive"
+        ]
       ]
     },
     "lēgerītis": {
       "verb": [
-        "second-person plural perfect active subjunctive"
+        "extracted",
+        [
+          "second-person plural perfect active subjunctive"
+        ]
       ]
     },
     "lēgissem": {
       "verb": [
-        "first-person singular pluperfect active subjunctive"
+        "extracted",
+        [
+          "first-person singular pluperfect active subjunctive"
+        ]
       ]
     },
     "lēgissēs": {
       "verb": [
-        "second-person singular pluperfect active subjunctive"
+        "extracted",
+        [
+          "second-person singular pluperfect active subjunctive"
+        ]
       ]
     },
     "lēgisset": {
       "verb": [
-        "third-person singular pluperfect active subjunctive"
+        "extracted",
+        [
+          "third-person singular pluperfect active subjunctive"
+        ]
       ]
     },
     "lēgissēmus": {
       "verb": [
-        "first-person plural pluperfect active subjunctive"
+        "extracted",
+        [
+          "first-person plural pluperfect active subjunctive"
+        ]
       ]
     },
     "lēgissētis": {
       "verb": [
-        "second-person plural pluperfect active subjunctive"
+        "extracted",
+        [
+          "second-person plural pluperfect active subjunctive"
+        ]
       ]
     },
     "lēgissent": {
       "verb": [
-        "third-person plural pluperfect active subjunctive"
+        "extracted",
+        [
+          "third-person plural pluperfect active subjunctive"
+        ]
       ]
     },
     "legāris": {
       "verb": [
-        "second-person singular present passive subjunctive"
+        "extracted",
+        [
+          "second-person singular present passive subjunctive"
+        ]
       ]
     },
     "legāre": {
       "verb": [
-        "second-person singular present passive subjunctive"
+        "extracted",
+        [
+          "second-person singular present passive subjunctive"
+        ]
       ]
     },
     "legātur": {
       "verb": [
-        "third-person singular present passive subjunctive"
+        "extracted",
+        [
+          "third-person singular present passive subjunctive"
+        ]
       ]
     },
     "legāmur": {
       "verb": [
-        "first-person plural present passive subjunctive"
+        "extracted",
+        [
+          "first-person plural present passive subjunctive"
+        ]
       ]
     },
     "legāminī": {
       "verb": [
-        "second-person plural present passive subjunctive"
+        "extracted",
+        [
+          "second-person plural present passive subjunctive"
+        ]
       ]
     },
     "legantur": {
       "verb": [
-        "third-person plural present passive subjunctive"
+        "extracted",
+        [
+          "third-person plural present passive subjunctive"
+        ]
       ]
     },
     "legerer": {
       "verb": [
-        "first-person singular imperfect passive subjunctive"
+        "extracted",
+        [
+          "first-person singular imperfect passive subjunctive"
+        ]
       ]
     },
     "legerēris": {
       "verb": [
-        "second-person singular imperfect passive subjunctive"
+        "extracted",
+        [
+          "second-person singular imperfect passive subjunctive"
+        ]
       ]
     },
     "legerēre": {
       "verb": [
-        "second-person singular imperfect passive subjunctive"
+        "extracted",
+        [
+          "second-person singular imperfect passive subjunctive"
+        ]
       ]
     },
     "legerētur": {
       "verb": [
-        "third-person singular imperfect passive subjunctive"
+        "extracted",
+        [
+          "third-person singular imperfect passive subjunctive"
+        ]
       ]
     },
     "legerēmur": {
       "verb": [
-        "first-person plural imperfect passive subjunctive"
+        "extracted",
+        [
+          "first-person plural imperfect passive subjunctive"
+        ]
       ]
     },
     "legerēminī": {
       "verb": [
-        "second-person plural imperfect passive subjunctive"
+        "extracted",
+        [
+          "second-person plural imperfect passive subjunctive"
+        ]
       ]
     },
     "legerentur": {
       "verb": [
-        "third-person plural imperfect passive subjunctive"
+        "extracted",
+        [
+          "third-person plural imperfect passive subjunctive"
+        ]
       ]
     },
     "lēctus + present active subjunctive of sum": {
       "verb": [
-        "perfect passive subjunctive"
+        "extracted",
+        [
+          "perfect passive subjunctive"
+        ]
       ]
     },
     "lēctus + imperfect active subjunctive of sum": {
       "verb": [
-        "pluperfect passive subjunctive"
+        "extracted",
+        [
+          "pluperfect passive subjunctive"
+        ]
       ]
     },
     "lege": {
       "verb": [
-        "second-person singular present imperative active"
+        "extracted",
+        [
+          "second-person singular present imperative active"
+        ]
       ]
     },
     "legite": {
       "verb": [
-        "second-person plural present imperative active"
+        "extracted",
+        [
+          "second-person plural present imperative active"
+        ]
       ]
     },
     "legitō": {
       "verb": [
-        "singular future imperative active second/third-person"
+        "extracted",
+        [
+          "singular future imperative active second/third-person"
+        ]
       ]
     },
     "legitōte": {
       "verb": [
-        "second-person plural future imperative active"
+        "extracted",
+        [
+          "second-person plural future imperative active"
+        ]
       ]
     },
     "leguntō": {
       "verb": [
-        "third-person plural future imperative active"
+        "extracted",
+        [
+          "third-person plural future imperative active"
+        ]
       ]
     },
     "legitor": {
       "verb": [
-        "singular future imperative passive second/third-person"
+        "extracted",
+        [
+          "singular future imperative passive second/third-person"
+        ]
       ]
     },
     "leguntor": {
       "verb": [
-        "third-person plural future imperative passive"
+        "extracted",
+        [
+          "third-person plural future imperative passive"
+        ]
       ]
     },
     "legī": {
       "verb": [
-        "present passive infinitive"
+        "extracted",
+        [
+          "present passive infinitive"
+        ]
       ]
     },
     "legēns": {
       "verb": [
-        "present active participle"
+        "extracted",
+        [
+          "present active participle"
+        ]
       ]
     },
     "lēctūrum esse": {
       "verb": [
-        "future active infinitive"
+        "extracted",
+        [
+          "future active infinitive"
+        ]
       ]
     },
     "lēctum īrī": {
       "verb": [
-        "future passive infinitive"
+        "extracted",
+        [
+          "future passive infinitive"
+        ]
       ]
     },
     "lēctūrus": {
       "verb": [
-        "future active participle"
+        "extracted",
+        [
+          "future active participle"
+        ]
       ]
     },
     "legendus": {
       "verb": [
-        "future passive participle"
+        "extracted",
+        [
+          "future passive participle"
+        ]
       ]
     },
     "legundus": {
       "verb": [
-        "future passive participle"
+        "extracted",
+        [
+          "future passive participle"
+        ]
       ]
     },
     "lēgisse": {
       "verb": [
-        "perfect active infinitive"
+        "extracted",
+        [
+          "perfect active infinitive"
+        ]
       ]
     },
     "lēctum esse": {
       "verb": [
-        "perfect passive infinitive"
+        "extracted",
+        [
+          "perfect passive infinitive"
+        ]
       ]
     },
     "lēctus": {
       "verb": [
-        "perfect passive participle"
+        "extracted",
+        [
+          "perfect passive participle"
+        ]
       ]
     },
     "lēctum fore": {
       "verb": [
-        "future perfect passive infinitive"
+        "extracted",
+        [
+          "future perfect passive infinitive"
+        ]
       ]
     },
     "lēctūrum fuisse": {
       "verb": [
-        "perfect active infinitive potential"
+        "extracted",
+        [
+          "perfect active infinitive potential"
+        ]
       ]
     },
     "legendī": {
       "verb": [
-        "genitive gerund noun-from-verb"
+        "extracted",
+        [
+          "genitive gerund noun-from-verb"
+        ]
       ]
     },
     "legendō": {
       "verb": [
-        "dative gerund noun-from-verb",
-        "gerund noun-from-verb ablative"
+        "extracted",
+        [
+          "dative gerund noun-from-verb",
+          "gerund noun-from-verb ablative"
+        ]
       ]
     },
     "legendum": {
       "verb": [
-        "accusative gerund noun-from-verb"
+        "extracted",
+        [
+          "accusative gerund noun-from-verb"
+        ]
       ]
     },
     "lēctū": {
       "verb": [
-        "noun-from-verb ablative supine"
+        "extracted",
+        [
+          "noun-from-verb ablative supine"
+        ]
       ]
     }
   },
   "lilium": {
     "līliī": {
       "noun": [
-        "genitive",
-        "genitive singular"
+        "extracted",
+        [
+          "genitive",
+          "genitive singular"
+        ]
       ]
     },
     "līlī": {
       "noun": [
-        "genitive",
-        "genitive singular"
+        "extracted",
+        [
+          "genitive",
+          "genitive singular"
+        ]
       ]
     },
     "līlia": {
       "noun": [
-        "accusative plural",
-        "nominative plural",
-        "vocative plural"
+        "extracted",
+        [
+          "accusative plural",
+          "nominative plural",
+          "vocative plural"
+        ]
       ]
     },
     "līliōrum": {
       "noun": [
-        "genitive plural"
+        "extracted",
+        [
+          "genitive plural"
+        ]
       ]
     },
     "līliō": {
       "noun": [
-        "singular ablative",
-        "dative singular"
+        "extracted",
+        [
+          "singular ablative",
+          "dative singular"
+        ]
       ]
     },
     "līliīs": {
       "noun": [
-        "plural ablative",
-        "dative plural"
+        "extracted",
+        [
+          "plural ablative",
+          "dative plural"
+        ]
       ]
     },
     "līlium": {
       "noun": [
-        "accusative singular",
-        "vocative singular"
+        "extracted",
+        [
+          "accusative singular",
+          "vocative singular"
+        ]
       ]
     }
   },
   "rectus": {
     "rēcta": {
       "verb": [
-        "feminine",
-        "accusative plural neuter",
-        "nominative plural neuter",
-        "vocative plural neuter",
-        "nominative singular feminine",
-        "vocative singular feminine"
+        "extracted",
+        [
+          "feminine",
+          "accusative plural neuter",
+          "nominative plural neuter",
+          "vocative plural neuter",
+          "nominative singular feminine",
+          "vocative singular feminine"
+        ]
       ]
     },
     "rēctum": {
       "verb": [
-        "neuter",
-        "accusative singular masculine",
-        "accusative singular neuter",
-        "nominative singular neuter",
-        "vocative singular neuter"
+        "extracted",
+        [
+          "neuter",
+          "accusative singular masculine",
+          "accusative singular neuter",
+          "nominative singular neuter",
+          "vocative singular neuter"
+        ]
       ]
     },
     "rēctior": {
       "verb": [
-        "comparative"
+        "extracted",
+        [
+          "comparative"
+        ]
       ]
     },
     "rēctissimus": {
       "verb": [
-        "superlative"
+        "extracted",
+        [
+          "superlative"
+        ]
       ]
     },
     "rēctē": {
       "verb": [
-        "adverb"
+        "extracted",
+        [
+          "adverb"
+        ]
       ]
     },
     "rēctus": {
       "verb": [
-        "nominative singular masculine"
+        "extracted",
+        [
+          "nominative singular masculine"
+        ]
       ]
     },
     "rēctī": {
       "verb": [
-        "nominative plural masculine",
-        "vocative plural masculine",
-        "genitive singular masculine",
-        "genitive singular neuter"
+        "extracted",
+        [
+          "nominative plural masculine",
+          "vocative plural masculine",
+          "genitive singular masculine",
+          "genitive singular neuter"
+        ]
       ]
     },
     "rēctae": {
       "verb": [
-        "nominative plural feminine",
-        "vocative plural feminine",
-        "dative singular feminine",
-        "genitive singular feminine"
+        "extracted",
+        [
+          "nominative plural feminine",
+          "vocative plural feminine",
+          "dative singular feminine",
+          "genitive singular feminine"
+        ]
       ]
     },
     "rēctōrum": {
       "verb": [
-        "genitive plural masculine",
-        "genitive plural neuter"
+        "extracted",
+        [
+          "genitive plural masculine",
+          "genitive plural neuter"
+        ]
       ]
     },
     "rēctārum": {
       "verb": [
-        "genitive plural feminine"
+        "extracted",
+        [
+          "genitive plural feminine"
+        ]
       ]
     },
     "rēctō": {
       "verb": [
-        "singular masculine ablative",
-        "singular neuter ablative",
-        "dative singular masculine",
-        "dative singular neuter"
+        "extracted",
+        [
+          "singular masculine ablative",
+          "singular neuter ablative",
+          "dative singular masculine",
+          "dative singular neuter"
+        ]
       ]
     },
     "rēctīs": {
       "verb": [
-        "plural masculine feminine neuter ablative",
-        "dative plural masculine feminine neuter"
+        "extracted",
+        [
+          "plural masculine feminine neuter ablative",
+          "dative plural masculine feminine neuter"
+        ]
       ]
     },
     "rēctam": {
       "verb": [
-        "accusative singular feminine"
+        "extracted",
+        [
+          "accusative singular feminine"
+        ]
       ]
     },
     "rēctōs": {
       "verb": [
-        "accusative plural masculine"
+        "extracted",
+        [
+          "accusative plural masculine"
+        ]
       ]
     },
     "rēctās": {
       "verb": [
-        "accusative plural feminine"
+        "extracted",
+        [
+          "accusative plural feminine"
+        ]
       ]
     },
     "rēctā": {
       "verb": [
-        "singular feminine ablative"
+        "extracted",
+        [
+          "singular feminine ablative"
+        ]
       ]
     },
     "rēcte": {
       "verb": [
-        "vocative singular masculine"
+        "extracted",
+        [
+          "vocative singular masculine"
+        ]
       ]
     }
   },
   "domus": {
     "domūs": {
       "noun": [
-        "genitive",
-        "accusative plural",
-        "nominative plural",
-        "vocative plural",
-        "genitive singular"
+        "extracted",
+        [
+          "genitive",
+          "accusative plural",
+          "nominative plural",
+          "vocative plural",
+          "genitive singular"
+        ]
       ]
     },
     "domī": {
       "noun": [
-        "genitive",
-        "genitive singular",
-        "locative singular"
+        "extracted",
+        [
+          "genitive",
+          "genitive singular",
+          "locative singular"
+        ]
       ]
     },
     "domuum": {
       "noun": [
-        "genitive plural"
+        "extracted",
+        [
+          "genitive plural"
+        ]
       ]
     },
     "domōrum": {
       "noun": [
-        "genitive plural"
+        "extracted",
+        [
+          "genitive plural"
+        ]
       ]
     },
     "domuī": {
       "noun": [
-        "dative singular"
+        "extracted",
+        [
+          "dative singular"
+        ]
       ]
     },
     "domō": {
       "noun": [
-        "singular ablative",
-        "dative singular"
+        "extracted",
+        [
+          "singular ablative",
+          "dative singular"
+        ]
       ]
     },
     "domū": {
       "noun": [
-        "singular ablative",
-        "dative singular"
+        "extracted",
+        [
+          "singular ablative",
+          "dative singular"
+        ]
       ]
     },
     "domibus": {
       "noun": [
-        "plural ablative",
-        "dative plural"
+        "extracted",
+        [
+          "plural ablative",
+          "dative plural"
+        ]
       ]
     },
     "domum": {
       "noun": [
-        "accusative singular"
+        "extracted",
+        [
+          "accusative singular"
+        ]
       ]
     },
     "domōs": {
       "noun": [
-        "accusative plural"
+        "extracted",
+        [
+          "accusative plural"
+        ]
       ]
     },
     "demus": {
       "noun": [
-        "alternative"
+        "extracted",
+        [
+          "alternative"
+        ]
       ]
     }
   }

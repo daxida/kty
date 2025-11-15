@@ -1,0 +1,150 @@
+{
+  "снег": {
+    "снег": {
+      "noun": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[sʲnʲek]",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "snow": {
+              "_tags": [
+                "inanimate",
+                "masculine"
+              ],
+              "_examples": [
+                {
+                  "text": "идёт снег",
+                  "translation": "it is snowing"
+                },
+                {
+                  "text": "мо́крый снег",
+                  "translation": "sleet, wet snow"
+                },
+                {
+                  "text": "пе́рвый снег",
+                  "translation": "the first snow"
+                },
+                {
+                  "text": "ски́дывать/ски́нуть снег с кры́ши",
+                  "translation": "to throw the snow off the roof"
+                },
+                {
+                  "text": "как снег на́ голову",
+                  "translation": "like a bolt from the blue (unexpectedly, suddenly)"
+                },
+                {
+                  "text": "что́-либо ну́жно, как прошлого́дний снег",
+                  "translation": "something is not needed in the least"
+                },
+                {
+                  "text": "зимо́й сне́га не вы́просить",
+                  "translation": "(said about someone mean, stingy)"
+                },
+                {
+                  "text": "Дава́й поваля́емся в снегу́!",
+                  "translation": "Let's roll in the snow!"
+                }
+              ]
+            },
+            "snow, the white electrical noise on a TV set when there is no TV signal": {
+              "_tags": [
+                "figuratively",
+                "inanimate",
+                "masculine"
+              ],
+              "_examples": []
+            },
+            "cocaine": {
+              "_tags": [
+                "inanimate",
+                "masculine",
+                "slang"
+              ],
+              "_examples": []
+            }
+          },
+          "etymology_text": "Inherited from Proto-Slavic *sněgъ, from Proto-Balto-Slavic *snáigas, from Proto-Indo-European *snóygʷʰos.",
+          "head_info_text": "снег • (sneg) m inan (genitive сне́га, nominative plural снега́, genitive plural снего́в, relational adjective сне́жный or снегово́й, diminutive снежо́к)",
+          "wlink": "https://en.wiktionary.org/wiki/снег#Russian",
+          "klink": "https://kaikki.org/dictionary/Russian/meaning/с/сн/снег.html"
+        }
+      }
+    }
+  },
+  "побелеть": {
+    "побеле́ть": {
+      "verb": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[pəbʲɪˈlʲetʲ]",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "to turn white, (intransitive) to whiten": {
+              "_tags": [
+                "perfective"
+              ],
+              "_examples": []
+            },
+            "to turn gray": {
+              "_tags": [
+                "colloquial",
+                "perfective"
+              ],
+              "_examples": []
+            },
+            "to become brighter": {
+              "_tags": [
+                "colloquial",
+                "perfective"
+              ],
+              "_examples": []
+            },
+            "to dawn": {
+              "_tags": [
+                "colloquial",
+                "impersonal",
+                "perfective"
+              ],
+              "_examples": []
+            }
+          },
+          "etymology_text": "по- (po-) + беле́ть (belétʹ)",
+          "head_info_text": "побеле́ть • (pobelétʹ) pf (imperfective беле́ть)",
+          "wlink": "https://en.wiktionary.org/wiki/побелеть#Russian",
+          "klink": "https://kaikki.org/dictionary/Russian/meaning/п/по/побелеть.html"
+        }
+      }
+    }
+  },
+  "зимний": {
+    "зи́мний": {
+      "adj": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[ˈzɪmnei̯]",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "cold": {
+              "_tags": [],
+              "_examples": []
+            }
+          },
+          "etymology_text": "From Proto-Slavic *zimьnъ. Morphologically, from зима́ (zymá) + -ний (-nyj).\nRelated to зи́мній (zýmnij).",
+          "head_info_text": "зи́мний • (zýmnyj)",
+          "wlink": "https://en.wiktionary.org/wiki/зимний#Russian",
+          "klink": "https://kaikki.org/dictionary/Russian/meaning/з/зи/зимний.html"
+        }
+      }
+    }
+  }
+}
