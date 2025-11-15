@@ -17,6 +17,109 @@
         [
           "singular"
         ]
+      ],
+      [
+        "κόρφος",
+        [
+          "masculine"
+        ]
+      ],
+      [
+        "κόρφος",
+        [
+          "accusative singular"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "κόρφοι",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "κόρφος",
+        [
+          "nominative plural"
+        ]
+      ],
+      [
+        "κόρφος",
+        [
+          "vocative plural"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "κόρφου",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "κόρφος",
+        [
+          "genitive singular"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "κόρφων",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "κόρφος",
+        [
+          "genitive plural"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "κόρφους",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "κόρφος",
+        [
+          "accusative plural"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "κόρφε",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "κόρφος",
+        [
+          "vocative singular"
+        ]
       ]
     ],
     0,
@@ -58,6 +161,243 @@
         [
           "vocative"
         ]
+      ],
+      [
+        "αζωικός",
+        [
+          "accusative singular masculine"
+        ]
+      ],
+      [
+        "αζωικός",
+        [
+          "accusative singular neuter"
+        ]
+      ],
+      [
+        "αζωικός",
+        [
+          "nominative singular neuter"
+        ]
+      ],
+      [
+        "αζωικός",
+        [
+          "vocative singular neuter"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "αζωική",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "αζωικός",
+        [
+          "accusative singular feminine"
+        ]
+      ],
+      [
+        "αζωικός",
+        [
+          "nominative singular feminine"
+        ]
+      ],
+      [
+        "αζωικός",
+        [
+          "vocative singular feminine"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "αζωικού",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "αζωικός",
+        [
+          "genitive singular masculine"
+        ]
+      ],
+      [
+        "αζωικός",
+        [
+          "genitive singular neuter"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "αζωικής",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "αζωικός",
+        [
+          "genitive singular feminine"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "αζωικέ",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "αζωικός",
+        [
+          "vocative singular masculine"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "αζωικοί",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "αζωικός",
+        [
+          "nominative plural masculine"
+        ]
+      ],
+      [
+        "αζωικός",
+        [
+          "vocative plural masculine"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "αζωικές",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "αζωικός",
+        [
+          "accusative plural feminine"
+        ]
+      ],
+      [
+        "αζωικός",
+        [
+          "nominative plural feminine"
+        ]
+      ],
+      [
+        "αζωικός",
+        [
+          "vocative plural feminine"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "αζωικά",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "αζωικός",
+        [
+          "accusative plural neuter"
+        ]
+      ],
+      [
+        "αζωικός",
+        [
+          "nominative plural neuter"
+        ]
+      ],
+      [
+        "αζωικός",
+        [
+          "vocative plural neuter"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "αζωικών",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "αζωικός",
+        [
+          "genitive plural feminine"
+        ]
+      ],
+      [
+        "αζωικός",
+        [
+          "genitive plural masculine"
+        ]
+      ],
+      [
+        "αζωικός",
+        [
+          "genitive plural neuter"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "αζωικούς",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "αζωικός",
+        [
+          "accusative plural masculine"
+        ]
       ]
     ],
     0,
@@ -74,6 +414,98 @@
         "foo",
         [
           "redirected from fooInflected"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "γορίλλες",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "γορίλλας",
+        [
+          "accusative plural"
+        ]
+      ],
+      [
+        "γορίλλας",
+        [
+          "nominative plural"
+        ]
+      ],
+      [
+        "γορίλλας",
+        [
+          "vocative plural"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "γορίλλα",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "γορίλλας",
+        [
+          "accusative singular"
+        ]
+      ],
+      [
+        "γορίλλας",
+        [
+          "genitive singular"
+        ]
+      ],
+      [
+        "γορίλλας",
+        [
+          "vocative singular"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "γορίλλων",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "γορίλλας",
+        [
+          "genitive plural"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "γορίλας",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "γορίλλας",
+        [
+          "transliteration"
         ]
       ]
     ],

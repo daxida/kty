@@ -5,7 +5,50 @@
         "inflection",
         [
           "accusative",
-          "singular"
+          "singular",
+          "masculine",
+          "accusative singular"
+        ]
+      ]
+    },
+    "κόρφοι": {
+      "noun": [
+        "extracted",
+        [
+          "nominative plural",
+          "vocative plural"
+        ]
+      ]
+    },
+    "κόρφου": {
+      "noun": [
+        "extracted",
+        [
+          "genitive singular"
+        ]
+      ]
+    },
+    "κόρφων": {
+      "noun": [
+        "extracted",
+        [
+          "genitive plural"
+        ]
+      ]
+    },
+    "κόρφους": {
+      "noun": [
+        "extracted",
+        [
+          "accusative plural"
+        ]
+      ]
+    },
+    "κόρφε": {
+      "noun": [
+        "extracted",
+        [
+          "vocative singular"
         ]
       ]
     }
@@ -19,7 +62,93 @@
           "singular",
           "neuter",
           "nominative",
-          "vocative"
+          "vocative",
+          "accusative singular masculine",
+          "accusative singular neuter",
+          "nominative singular neuter",
+          "vocative singular neuter"
+        ]
+      ]
+    },
+    "αζωική": {
+      "adj": [
+        "extracted",
+        [
+          "accusative singular feminine",
+          "nominative singular feminine",
+          "vocative singular feminine"
+        ]
+      ]
+    },
+    "αζωικού": {
+      "adj": [
+        "extracted",
+        [
+          "genitive singular masculine",
+          "genitive singular neuter"
+        ]
+      ]
+    },
+    "αζωικής": {
+      "adj": [
+        "extracted",
+        [
+          "genitive singular feminine"
+        ]
+      ]
+    },
+    "αζωικέ": {
+      "adj": [
+        "extracted",
+        [
+          "vocative singular masculine"
+        ]
+      ]
+    },
+    "αζωικοί": {
+      "adj": [
+        "extracted",
+        [
+          "nominative plural masculine",
+          "vocative plural masculine"
+        ]
+      ]
+    },
+    "αζωικές": {
+      "adj": [
+        "extracted",
+        [
+          "accusative plural feminine",
+          "nominative plural feminine",
+          "vocative plural feminine"
+        ]
+      ]
+    },
+    "αζωικά": {
+      "adj": [
+        "extracted",
+        [
+          "accusative plural neuter",
+          "nominative plural neuter",
+          "vocative plural neuter"
+        ]
+      ]
+    },
+    "αζωικών": {
+      "adj": [
+        "extracted",
+        [
+          "genitive plural feminine",
+          "genitive plural masculine",
+          "genitive plural neuter"
+        ]
+      ]
+    },
+    "αζωικούς": {
+      "adj": [
+        "extracted",
+        [
+          "accusative plural masculine"
         ]
       ]
     }
@@ -30,6 +159,44 @@
         "inflection",
         [
           "redirected from fooInflected"
+        ]
+      ]
+    }
+  },
+  "γορίλλας": {
+    "γορίλλες": {
+      "noun": [
+        "extracted",
+        [
+          "accusative plural",
+          "nominative plural",
+          "vocative plural"
+        ]
+      ]
+    },
+    "γορίλλα": {
+      "noun": [
+        "extracted",
+        [
+          "accusative singular",
+          "genitive singular",
+          "vocative singular"
+        ]
+      ]
+    },
+    "γορίλλων": {
+      "noun": [
+        "extracted",
+        [
+          "genitive plural"
+        ]
+      ]
+    },
+    "γορίλας": {
+      "noun": [
+        "extracted",
+        [
+          "transliteration"
         ]
       ]
     }

@@ -3,18 +3,46 @@
     "κόρφος": {
       "noun": {
         "0": {
-          "ipa": [],
+          "ipa": [
+            {
+              "ipa": "ˈkoɾ.fos",
+              "tags": []
+            }
+          ],
           "glossTree": {
             "η αγκαλιά, ο κόλπος, το μέρος του σώματος ανάμεσα στους βραχίονες και το στήθος": {
-              "_tags": [],
+              "_tags": [
+                "vulgar",
+                "masculine"
+              ],
               "_examples": [
                 {
                   "text": "αποκοιμήθηκε στον κόρφο της μάνας του",
                   "translation": ""
                 }
               ]
+            },
+            "το στήθος, οι μαστοί γυναίκας": {
+              "_tags": [
+                "vulgar",
+                "masculine"
+              ],
+              "_examples": [
+                {
+                  "text": "※ Διονύσιος Σολωμός, Ὕμνος εἰς τὴν Ἐλευθερίαν, στροφή 85",
+                  "translation": "Ἡ ψυχή μου ἀναγαλλιάζει\nπὼς ὁ κόρφος καθεμιᾶς\nγλυκοβύζαστο ἐτοιμάζει\nγάλα ἀνδρείας κι ἐλευθεριάς."
+                }
+              ]
+            },
+            "κόλπος θαλάσσιος": {
+              "_tags": [
+                "Demotic",
+                "masculine"
+              ],
+              "_examples": []
             }
           },
+          "etymology_text": "κόρφος < (κληρονομημένο) μεσαιωνική ελληνική κόρφος < ελληνιστική κοινή *κόλφος (με ανομοίωση [lf > rf]) < αρχαία ελληνική κόλπος (με ανομοίωση διάρκειας [lp > fl])\n: Για το *κόλφος δείτε και το golfo καθώς και την τροπή αδελφός > αδερφός",
           "wlink": "https://el.wiktionary.org/wiki/κόρφος#Greek",
           "klink": "https://kaikki.org/dictionary/Greek/meaning/κ/κό/κόρφος.html"
         }
@@ -28,11 +56,13 @@
           "ipa": [],
           "glossTree": {
             "που δεν εμφανίζει ίχνη ζωής": {
-              "_tags": [],
+              "_tags": [
+                "masculine"
+              ],
               "_examples": []
             }
           },
-          "etymology_text": ": αζωικός < (λόγιο δάνειο) γαλλική azoïque < αρχαία ελληνική ἀ- + ζωικός < ζῷον",
+          "etymology_text": "αζωικός < (λόγιο δάνειο) γαλλική azoïque < αρχαία ελληνική ἀ- + ζωικός < ζῷον",
           "wlink": "https://el.wiktionary.org/wiki/αζωικός#Greek",
           "klink": "https://kaikki.org/dictionary/Greek/meaning/α/αζ/αζωικός.html"
         }
@@ -46,12 +76,15 @@
           "ipa": [],
           "glossTree": {
             "το μεγαλύτερο εν ζωή είδος πιθήκου. Ανήκει στα πρωτεύοντα θηλαστικά. Είναι φυτοφάγος και ενδημεί στα δάση της Αφρικής.": {
-              "_tags": [],
+              "_tags": [
+                "masculine"
+              ],
               "_examples": []
             },
             "ο σωματοφύλακας, ο μπράβος": {
               "_tags": [
-                "figuratively"
+                "figuratively",
+                "masculine"
               ],
               "_examples": [
                 {
@@ -61,6 +94,7 @@
               ]
             }
           },
+          "etymology_text": "γορίλλας < λόγιο ενδογενές δάνειο: νεολατινική gorilla < αρχαία ελληνική Γόριλλαι (φυλή τριχωτών γυναικών)",
           "wlink": "https://el.wiktionary.org/wiki/γορίλλας#Greek",
           "klink": "https://kaikki.org/dictionary/Greek/meaning/γ/γο/γορίλλας.html"
         }
