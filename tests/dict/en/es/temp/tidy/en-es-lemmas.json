@@ -1,0 +1,54 @@
+{
+  "fast": {
+    "fast": {
+      "adj": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "/fɑːst/",
+              "tags": [
+                "Australia",
+                "New-Zealand",
+                "London",
+                "Received-Pronunciation"
+              ]
+            },
+            {
+              "ipa": "/fæst/",
+              "tags": [
+                "US",
+                "UK"
+              ]
+            }
+          ],
+          "glossTree": {
+            "Rápido, veloz.": {
+              "_tags": [],
+              "_examples": []
+            },
+            "Adelantado.": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "Your watch is some minutes fast",
+                  "translation": "Tu reloj va algunos minutos adelantado."
+                }
+              ]
+            },
+            "Firme, fijo, sólido.": {
+              "_tags": [],
+              "_examples": []
+            },
+            "Cachondo, entregado a los placeres.": {
+              "_tags": [],
+              "_examples": []
+            }
+          },
+          "etymology_text": "Del inglés medio fast, del inglés antiguo fæst.",
+          "wlink": "https://es.wiktionary.org/wiki/fast#English",
+          "klink": "https://kaikki.org/dictionary/English/meaning/f/fa/fast.html"
+        }
+      }
+    }
+  }
+}

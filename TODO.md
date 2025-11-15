@@ -28,8 +28,11 @@
 - [x] rename downloaded en versions raw jsonls to make it consistent (and to be able to rust tests...)
 - [x] move FilterKey validation to CLI
 - [x] verbose flag
+- [x] [en] finish porting the EN testsuite
+- [x] finish porting the testsuite
 
-- [ ] [en] finish porting the testsuite (did Japanese, Spanish, German, etc.)
+- [ ] bring the registry code
+- [ ] rename/refactor Tidy now that we won't have to fight with diffs
 
 - [ ] localize tags for fun?
 - [ ] Exit code?

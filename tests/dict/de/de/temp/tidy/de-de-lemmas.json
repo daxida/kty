@@ -1,0 +1,153 @@
+{
+  "Rock": {
+    "Rock": {
+      "noun": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[ʁɔk]",
+              "tags": []
+            },
+            {
+              "ipa": "[ɹɔk]",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "populäre Musikrichtung, die Anfang der 1950er Jahre in den USA entstand": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "Der Rock ist nicht totzukriegen.",
+                  "translation": ""
+                }
+              ]
+            }
+          },
+          "wlink": "https://de.wiktionary.org/wiki/Rock#German",
+          "klink": "https://kaikki.org/dictionary/German/meaning/R/Ro/Rock.html"
+        },
+        "1": {
+          "ipa": [
+            {
+              "ipa": "[ʁɔk]",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "in arabischen Märchen: flugfähiger Vogel in der Größe eines Elefanten": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "Sindbad band sich, um seinem Schicksal auf einer abgelegenen Insel zu entkommen, an ein Bein des Vogels Rock.",
+                  "translation": ""
+                }
+              ]
+            }
+          },
+          "wlink": "https://de.wiktionary.org/wiki/Rock#German",
+          "klink": "https://kaikki.org/dictionary/German/meaning/R/Ro/Rock.html"
+        }
+      }
+    }
+  },
+  "Garage": {
+    "Garage": {
+      "noun": {
+        "0": {
+          "ipa": [
+            {
+              "ipa": "[ɡaˈʁaːʒə]",
+              "tags": [
+                "Germany"
+              ]
+            },
+            {
+              "ipa": "[ɡaˈʁaːʃ]",
+              "tags": [
+                "Austrian German"
+              ]
+            },
+            {
+              "ipa": "[ɡaˈʁaːʃə]",
+              "tags": [
+                "Swiss Standard German"
+              ]
+            },
+            {
+              "ipa": "[ˈɡaʁaːʃ]",
+              "tags": []
+            }
+          ],
+          "glossTree": {
+            "Raum zum dauerhaften Ab- und Unterstellen von Kraftfahrzeugen": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "Ich werde das Auto in die Garage schaffen.",
+                  "translation": ""
+                },
+                {
+                  "text": "„Ein Mann steht vor seinem Opel allein in einer Garage.“",
+                  "translation": ""
+                },
+                {
+                  "text": "„Leo stand schon draußen vor der Garage und blickte ängstlich auf seine Armbanduhr.“",
+                  "translation": ""
+                },
+                {
+                  "text": "„Als ich zur Garage gehe, sehe ich die Post auf dem Wohnzimmertisch.“",
+                  "translation": ""
+                },
+                {
+                  "text": "„Er ging zur Garage, um nach Guiseppe zu sehen.“",
+                  "translation": ""
+                }
+              ]
+            },
+            "Raum zum kurzfristigen Ab- und Unterstellen von Kraftfahrzeugen": {
+              "_tags": [],
+              "_examples": [
+                {
+                  "text": "„Ein Mann steht vor seinem Opel allein in einer Garage.“",
+                  "translation": ""
+                },
+                {
+                  "text": "„Leo stand schon draußen vor der Garage und blickte ängstlich auf seine Armbanduhr.“",
+                  "translation": ""
+                },
+                {
+                  "text": "„Als ich zur Garage gehe, sehe ich die Post auf dem Wohnzimmertisch.“",
+                  "translation": ""
+                },
+                {
+                  "text": "„Er ging zur Garage, um nach Guiseppe zu sehen.“",
+                  "translation": ""
+                }
+              ]
+            },
+            "auf die Reparatur und Wartung von Automobilen ausgerichtete Werkstatt": {
+              "_tags": [
+                "rare"
+              ],
+              "_examples": []
+            },
+            "Geschäft, das sowohl als eine auf die Reparatur von Kraftfahrzeugen spezialisierte Werkstatt als auch als Verkaufslokal von Kraftfahrzeugen dient": {
+              "_tags": [
+                "Swiss Standard German"
+              ],
+              "_examples": [
+                {
+                  "text": "„Selbstverständlich werden in der Garage auch künftig Fremdmarken repariert.“",
+                  "translation": ""
+                }
+              ]
+            }
+          },
+          "wlink": "https://de.wiktionary.org/wiki/Garage#German",
+          "klink": "https://kaikki.org/dictionary/German/meaning/G/Ga/Garage.html"
+        }
+      }
+    }
+  }
+}

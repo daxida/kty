@@ -242,15 +242,7 @@ type FormsMap = Map<
 
 fn flat_iter_forms(
     form_map: &FormsMap,
-) -> impl Iterator<
-    Item = (
-        &String,
-        &String,
-        &Pos,
-        &FormSource,
-        &Vec<String>,
-    ),
-> {
+) -> impl Iterator<Item = (&String, &String, &Pos, &FormSource, &Vec<String>)> {
     form_map.iter().flat_map(|(lemma, forms)| {
         forms.iter().flat_map(move |(form, pos_map)| {
             pos_map
@@ -262,15 +254,7 @@ fn flat_iter_forms(
 
 fn flat_iter_forms_mut(
     form_map: &mut FormsMap,
-) -> impl Iterator<
-    Item = (
-        &String,
-        &String,
-        &Pos,
-        &mut FormSource,
-        &mut Vec<String>,
-    ),
-> {
+) -> impl Iterator<Item = (&String, &String, &Pos, &mut FormSource, &mut Vec<String>)> {
     form_map.iter_mut().flat_map(|(lemma, forms)| {
         forms.iter_mut().flat_map(move |(form, pos_map)| {
             pos_map
@@ -445,7 +429,7 @@ impl Tidy {
         for (_, _, _, _, tags) in flat_iter_forms(&self.forms_map) {
             let mut seen = IndexSet::new();
             for tag in tags {
-                assert!(seen.insert(tag), "Duplicate tag found: {tag}");
+                debug_assert!(seen.insert(tag), "Duplicate tag found: {tag}");
             }
         }
     }
@@ -591,6 +575,21 @@ fn preprocess_word_entry(args: &Args, word_entry: &mut WordEntry, ret: &mut Tidy
                     if words.contains(&short_tag) && !sense.tags.contains(&long_tag) {
                         sense.tags.push(long_tag);
                     }
+                }
+            }
+        }
+    }
+
+    // WARN: mutates word_entry::senses::sense::tags
+    //
+    // [ru]
+    // This is a good idea that should probably go to every language where it makes sense.
+    // Below there is a "safest" version for Greek (where the tags that we propagate are narrowed).
+    if matches!(args.target, Lang::Ru) {
+        for sense in &mut word_entry.senses {
+            for tag in &word_entry.tags {
+                if !sense.tags.contains(tag) {
+                    sense.tags.push(tag.into());
                 }
             }
         }
@@ -827,8 +826,6 @@ fn process_word_entry(args: &Args, word_entry: &WordEntry) -> RawSenseEntry {
 
     let gloss_tree = get_gloss_tree(word_entry);
 
-    
-
     RawSenseEntry {
         ipa: ipas_grouped,
         gloss_tree,
@@ -1054,6 +1051,34 @@ fn handle_inflection_gloss(args: &Args, word_entry: &WordEntry, sense: &Sense, r
             }
         }
         Lang::En => handle_inflection_gloss_en(args, word_entry, sense, ret),
+        Lang::De => {
+            if sense.glosses.is_empty() {
+                return;
+            }
+
+            static INFLECTION_RE: LazyLock<Regex> = LazyLock::new(|| {
+                Regex::new(
+        r"^(.*)des (?:Verbs|Adjektivs|Substantivs|Demonstrativpronomens|Possessivpronomens|Pronomens) (.*)$"
+    ).unwrap()
+            });
+
+            if let Some(caps) = INFLECTION_RE.captures(&sense.glosses[0]) {
+                if let (Some(inflection_tags), Some(lemma)) = (caps.get(1), caps.get(2)) {
+                    let inflection_tags = inflection_tags.as_str().trim();
+                    let lemma = lemma.as_str().trim();
+
+                    if !inflection_tags.is_empty() {
+                        ret.insert_inflections_forms(
+                            &lemma,
+                            &word_entry.word,
+                            &word_entry.pos,
+                            FormSource::Inflection,
+                            vec![inflection_tags.to_string()],
+                        );
+                    }
+                }
+            }
+        }
         _ => (),
     }
 }
@@ -1062,13 +1087,13 @@ fn handle_inflection_gloss(args: &Args, word_entry: &WordEntry, sense: &Sense, r
 //
 // tested in the es-en suite
 fn handle_inflection_gloss_en(args: &Args, word_entry: &WordEntry, sense: &Sense, ret: &mut Tidy) {
-    let glosses = sense.glosses.clone();
-    if glosses.is_empty() {
+    if sense.glosses.is_empty() {
         return;
     }
 
     // Split glosses by ##
-    let gloss_pieces: Vec<String> = glosses
+    let gloss_pieces: Vec<String> = sense
+        .glosses
         .iter()
         .flat_map(|gloss| {
             gloss

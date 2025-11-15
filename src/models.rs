@@ -31,7 +31,7 @@ pub struct WordEntry {
     pub sounds: Vec<Sound>,
 
     pub senses: Vec<Sense>,
-    tags: Vec<Tag>, // unused
+    pub tags: Vec<Tag>,
 
     pub forms: Vec<Form>,
     pub form_of: Vec<AltForm>,
