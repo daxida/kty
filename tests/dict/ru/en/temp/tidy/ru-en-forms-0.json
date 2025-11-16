@@ -1,24 +1,4 @@
 {
-  "возни́кнуть": {
-    "возни́к": {
-      "verb": [
-        "inflection",
-        [
-          "short masculine singular past indicative perfective"
-        ]
-      ]
-    }
-  },
-  "простыня́": {
-    "простынёй": {
-      "noun": [
-        "inflection",
-        [
-          "instrumental singular"
-        ]
-      ]
-    }
-  },
   "снег": {
     "сне́га": {
       "noun": [
@@ -139,6 +119,26 @@
         "extracted",
         [
           "alternative"
+        ]
+      ]
+    }
+  },
+  "возни́кнуть": {
+    "возни́к": {
+      "verb": [
+        "inflection",
+        [
+          "short masculine singular past indicative perfective"
+        ]
+      ]
+    }
+  },
+  "простыня́": {
+    "простынёй": {
+      "noun": [
+        "inflection",
+        [
+          "instrumental singular"
         ]
       ]
     }

@@ -211,25 +211,29 @@ impl Args {
         Ok(())
     }
 
-    // TODO: rename English downloads to X-en-extract for consistency really
-
     /// Different in English and non-English editions.
     ///
-    /// Example (el): `el-extract.jsonl.gz`
-    /// Example (en): `kaikki.org-dictionary-English.jsonl.gz`
-    pub fn filename_raw_jsonl_gz(&self) -> String {
+    /// Example (el):    `https://kaikki.org/elwiktionary/raw-wiktextract-data.jsonl.gz`
+    /// Example (sh-en): `https://kaikki.org/dictionary/Serbo-Croatian/kaikki.org-dictionary-SerboCroatian.jsonl.gz`
+    pub fn url_raw_jsonl_gz(&self) -> String {
+        let root = "https://kaikki.org";
+
         match self.edition {
+            // Default download name is: kaikki.org-dictionary-TARGET_LANGUAGE.jsonl.gz
             Lang::En => {
+                let long = self.source.long();
                 // Serbo-Croatian, Ancient Greek and such cases
-                let language_no_special_chars: String = self
-                    .source
-                    .long()
+                let language_no_special_chars: String = long
                     .chars()
                     .filter(|c| *c != ' ' && *c != '-')
                     .collect();
-                format!("kaikki.org-dictionary-{language_no_special_chars}.jsonl.gz")
+                let source_long_esc = long.replace(' ', "%20");
+                format!(
+                    "{root}/dictionary/{source_long_esc}/kaikki.org-dictionary-{language_no_special_chars}.jsonl.gz"
+                )
             }
-            _ => format!("{}-extract.jsonl.gz", self.edition),
+            // Default download name is: raw-wiktextract-data.jsonl.gz
+            other => format!("{root}/{other}wiktionary/raw-wiktextract-data.jsonl.gz",),
         }
     }
 

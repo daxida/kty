@@ -14,13 +14,12 @@
 - [x] move jsons to assets so one can delete DATA safely 
 - [x] add data/ to gitignore, rename language/ to dict/
 - [x] add --keep-files (sort of)
-- [x] add --filter/reject 
+- [x] add --filter/reject
 - [x] basic README
-- [x] remove (some) emojis
 - [x] remove edition language publicly
 - [x] rename TidyReturn to Tidy, pass it silently to write yomitan
 - [x] iterdir for testsuite (instead of hardcoding)
-- [x] also log non-skipped pos/tags
+- [x] log non-skipped pos/tags
 - [x] remove RawEntryfoo code
 - [x] [RELEASE]
 - [x] don't write .gz file to disk
@@ -28,10 +27,12 @@
 - [x] rename downloaded en versions raw jsonls to make it consistent (and to be able to rust tests...)
 - [x] move FilterKey validation to CLI
 - [x] verbose flag
-- [x] [en] finish porting the EN testsuite
-- [x] finish porting the testsuite
+- [x] port the testsuite
 - [x] bring the registry code
 - [x] rename/refactor Tidy now that we won't have to fight with diffs
+- [x] keep-files > should not even write temp to begin with!
+- [x] to run tests --pretty --keep-files
+- [x] add diagnostic to tests
 
 - [ ] localize tags for fun?
 - [ ] Exit code?

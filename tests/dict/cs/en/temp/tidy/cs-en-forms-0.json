@@ -1,14 +1,91 @@
 {
-  "přít": {
-    "přela": {
-      "verb": [
-        "inflection",
+  "zpráva": {
+    "zprávička": {
+      "noun": [
+        "extracted",
         [
-          "neuter plural past active participle",
-          "feminine singular past active participle"
+          "diminutive"
         ]
       ]
     },
+    "zprávy": {
+      "noun": [
+        "extracted",
+        [
+          "accusative plural",
+          "nominative plural",
+          "vocative plural",
+          "genitive singular"
+        ]
+      ]
+    },
+    "zpráv": {
+      "noun": [
+        "extracted",
+        [
+          "genitive plural"
+        ]
+      ]
+    },
+    "zprávě": {
+      "noun": [
+        "extracted",
+        [
+          "dative singular",
+          "locative singular"
+        ]
+      ]
+    },
+    "zprávám": {
+      "noun": [
+        "extracted",
+        [
+          "dative plural"
+        ]
+      ]
+    },
+    "zprávu": {
+      "noun": [
+        "extracted",
+        [
+          "accusative singular"
+        ]
+      ]
+    },
+    "zprávo": {
+      "noun": [
+        "extracted",
+        [
+          "vocative singular"
+        ]
+      ]
+    },
+    "zprávách": {
+      "noun": [
+        "extracted",
+        [
+          "locative plural"
+        ]
+      ]
+    },
+    "zprávou": {
+      "noun": [
+        "extracted",
+        [
+          "instrumental singular"
+        ]
+      ]
+    },
+    "zprávami": {
+      "noun": [
+        "extracted",
+        [
+          "instrumental plural"
+        ]
+      ]
+    }
+  },
+  "přít": {
     "přu": {
       "verb": [
         "extracted",
@@ -107,90 +184,13 @@
           "plural present"
         ]
       ]
-    }
-  },
-  "zpráva": {
-    "zprávička": {
-      "noun": [
-        "extracted",
-        [
-          "diminutive"
-        ]
-      ]
     },
-    "zprávy": {
-      "noun": [
-        "extracted",
+    "přela": {
+      "verb": [
+        "inflection",
         [
-          "accusative plural",
-          "nominative plural",
-          "vocative plural",
-          "genitive singular"
-        ]
-      ]
-    },
-    "zpráv": {
-      "noun": [
-        "extracted",
-        [
-          "genitive plural"
-        ]
-      ]
-    },
-    "zprávě": {
-      "noun": [
-        "extracted",
-        [
-          "dative singular",
-          "locative singular"
-        ]
-      ]
-    },
-    "zprávám": {
-      "noun": [
-        "extracted",
-        [
-          "dative plural"
-        ]
-      ]
-    },
-    "zprávu": {
-      "noun": [
-        "extracted",
-        [
-          "accusative singular"
-        ]
-      ]
-    },
-    "zprávo": {
-      "noun": [
-        "extracted",
-        [
-          "vocative singular"
-        ]
-      ]
-    },
-    "zprávách": {
-      "noun": [
-        "extracted",
-        [
-          "locative plural"
-        ]
-      ]
-    },
-    "zprávou": {
-      "noun": [
-        "extracted",
-        [
-          "instrumental singular"
-        ]
-      ]
-    },
-    "zprávami": {
-      "noun": [
-        "extracted",
-        [
-          "instrumental plural"
+          "neuter plural past active participle",
+          "feminine singular past active participle"
         ]
       ]
     }

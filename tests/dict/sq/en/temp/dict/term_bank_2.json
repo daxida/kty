@@ -1,22 +1,5 @@
 [
   [
-    "ik",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "iki",
-        [
-          "second-person singular imperative"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
     "akëll",
     "",
     "non-lemma",
@@ -44,6 +27,23 @@
         "akull",
         [
           "alternative dialectal"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "ik",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "iki",
+        [
+          "second-person singular imperative"
         ]
       ]
     ],

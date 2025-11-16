@@ -1,39 +1,5 @@
 [
   [
-    "возник",
-    "возни́к",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "возни́кнуть",
-        [
-          "short masculine singular past indicative perfective"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "простынеи",
-    "простынёй",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "простыня́",
-        [
-          "instrumental singular"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
     "снега",
     "сне́га",
     "non-lemma",
@@ -294,6 +260,40 @@
         "снег",
         [
           "alternative"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "возник",
+    "возни́к",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "возни́кнуть",
+        [
+          "short masculine singular past indicative perfective"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "простынеи",
+    "простынёй",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "простыня́",
+        [
+          "instrumental singular"
         ]
       ]
     ],

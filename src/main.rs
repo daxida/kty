@@ -1,7 +1,7 @@
 // #![allow(unused_variables)]
 // #![allow(unused_imports)]
 
-use anyhow::{Ok, Result, bail};
+use anyhow::{Context, Ok, Result, bail};
 use flate2::read::GzDecoder;
 use indexmap::{IndexMap, IndexSet};
 use regex::Regex;
@@ -69,7 +69,7 @@ fn skip_because_file_exists(skipped: &str, path: &Path) {
 
 /// Download the raw jsonl from kaikki.
 ///
-/// Does not write the .gz artifact to disk.
+/// Does not write the .gz file to disk.
 fn download_jsonl(args: &Args) -> Result<()> {
     let path_raw_jsonl = args.path_raw_jsonl();
 
@@ -78,18 +78,7 @@ fn download_jsonl(args: &Args) -> Result<()> {
         return Ok(());
     }
 
-    let url = match args.edition {
-        // Default download name is: kaikki.org-dictionary-TARGET_LANGUAGE.jsonl.gz
-        Lang::En => {
-            // TODO: Test Serbo-Croatian (iso: sh), we only deal with spaces for now when escaping
-            let filename = args.filename_raw_jsonl_gz();
-            let source_long_esc = args.source.long().replace(' ', "%20");
-            format!("https://kaikki.org/dictionary/{source_long_esc}/{filename}")
-        }
-        // Default download name is: raw-wiktextract-data.jsonl.gz
-        other => format!("https://kaikki.org/{other}wiktionary/raw-wiktextract-data.jsonl.gz"),
-    };
-
+    let url = args.url_raw_jsonl_gz();
     println!("{DOWNLOAD_C} Downloading {url}");
 
     let response = match ureq::get(url).call() {
@@ -171,13 +160,8 @@ fn filter_jsonl(args: &Args) -> Result<()> {
             continue;
         }
 
-        let word_entry: WordEntry = match serde_json::from_str(&line) {
-            core::result::Result::Ok(v) => v,
-            Err(e) => {
-                error!("Error decoding JSON @ filter (line {line_count})");
-                bail!(e)
-            }
-        };
+        let word_entry: WordEntry =
+            serde_json::from_str(&line).with_context(|| "Error decoding JSON @ filter")?;
 
         if line_count % print_interval == 0 {
             printed_progress = true;
@@ -219,7 +203,7 @@ fn filter_jsonl(args: &Args) -> Result<()> {
 
 type Map<K, V> = IndexMap<K, V>; // Preserve insertion order
 
-type LemmaDict = Map<
+type LemmaMap = Map<
     String, // lemma
     Map<
         String, // reading
@@ -233,7 +217,7 @@ type LemmaDict = Map<
     >,
 >;
 
-type FormsMap = Map<
+type FormMap = Map<
     String, // lemma
     Map<
         String, // form
@@ -246,25 +230,25 @@ type FormsMap = Map<
 >;
 
 fn flat_iter_forms(
-    form_map: &FormsMap,
+    form_map: &FormMap,
 ) -> impl Iterator<Item = (&String, &String, &Pos, &FormSource, &Vec<String>)> {
     form_map.iter().flat_map(|(lemma, forms)| {
         forms.iter().flat_map(move |(form, pos_map)| {
             pos_map
                 .iter()
-                .map(move |(pos, (source, infls))| (lemma, form, pos, source, infls))
+                .map(move |(pos, (source, tags))| (lemma, form, pos, source, tags))
         })
     })
 }
 
 fn flat_iter_forms_mut(
-    form_map: &mut FormsMap,
+    form_map: &mut FormMap,
 ) -> impl Iterator<Item = (&String, &String, &Pos, &mut FormSource, &mut Vec<String>)> {
     form_map.iter_mut().flat_map(|(lemma, forms)| {
         forms.iter_mut().flat_map(move |(form, pos_map)| {
             pos_map
                 .iter_mut()
-                .map(move |(pos, (source, infls))| (lemma, form, pos, source, infls))
+                .map(move |(pos, (source, tags))| (lemma, form, pos, source, tags))
         })
     })
 }
@@ -273,13 +257,29 @@ fn flat_iter_forms_mut(
 //
 // In the future, consider alt_of, form_of
 #[allow(unused)]
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "lowercase")]
 enum FormSource {
     /// Form extracted from `word_entry.forms`
     Extracted,
     /// Form added via gloss analysis ("is inflection of...")
     Inflection,
+}
+
+fn form_map_len(form_map: &FormMap) -> usize {
+    flat_iter_forms(form_map).count()
+}
+
+fn form_map_len_of_source(form_map: &FormMap, source: FormSource) -> usize {
+    flat_iter_forms(form_map).filter(|(_, _, _, src, _)| **src == source).count()
+}
+
+fn form_map_len_extracted(form_map: &FormMap) -> usize {
+    form_map_len_of_source(form_map, FormSource::Extracted)
+}
+
+fn form_map_len_inflection(form_map: &FormMap) -> usize {
+    form_map_len_of_source(form_map, FormSource::Inflection)
 }
 
 // Lemmainfo in the original
@@ -332,23 +332,18 @@ struct Ipa {
     tags: Vec<Tag>,
 }
 
-/// Intermediate representation: useful for snapshots and debugging
+/// Intermediate representation: used for snapshots and debugging.
 #[derive(Debug, Default)]
 struct Tidy {
-    lemma_dict: LemmaDict,
-
-    /// Forms that come from deinflection
-    forms_map: FormsMap, // TODO: Rename to FormsDict for consistency
-
-    /// Forms that come from expanding forms attribute (processforms)
-    automated_forms_map: FormsMap,
+    lemma_map: LemmaMap,
+    form_map: FormMap,
 }
 
 impl Tidy {
     // This is usually called at the end, so it could just move the arguments...
     fn insert_lemma_entry(&mut self, lemma: &str, reading: &str, pos: &str, entry: RawSenseEntry) {
         let etym_map = self
-            .lemma_dict
+            .lemma_map
             .entry(lemma.to_string())
             .or_default()
             .entry(reading.to_string())
@@ -361,16 +356,17 @@ impl Tidy {
         etym_map.insert(next_etymology_number, entry);
     }
 
-    /// Generic helper to insert tags into a nested map
-    fn insert_tags(
-        map: &mut FormsMap,
+    fn insert_form(
+        &mut self,
         lemma: &str,
         form: &str,
         pos: &str,
         source: FormSource,
-        tags: Vec<String>,
+        tags: Vec<Tag>,
     ) {
-        let entry = map
+        debug_assert_ne!(lemma, form);
+        let entry = self
+            .form_map
             .entry(lemma.to_string())
             .or_default()
             .entry(form.to_string())
@@ -380,72 +376,19 @@ impl Tidy {
 
         entry.1.extend(tags);
     }
+}
 
-    // rg: add_deinflection adddeinflection
-    fn insert_inflections_forms(
-        &mut self,
-        lemma: &str,
-        form: &str,
-        pos: &str,
-        source: FormSource,
-        tags: Vec<Tag>,
-    ) {
-        debug_assert!(matches!(source, FormSource::Inflection));
-        debug_assert_ne!(lemma, form);
-        Self::insert_tags(&mut self.forms_map, lemma, form, pos, source, tags);
-    }
+fn postprocess_forms(form_map: &mut FormMap) {
+    for (_, _, _, _, tags) in flat_iter_forms_mut(form_map) {
+        // Keep only unique tags
+        let mut seen = IndexSet::new();
+        seen.extend(tags.drain(..));
+        *tags = seen.into_iter().collect();
 
-    fn insert_expansion_forms(
-        &mut self,
-        lemma: &str,
-        form: &str,
-        pos: &str,
-        source: FormSource,
-        tags: Vec<Tag>,
-    ) {
-        debug_assert!(matches!(source, FormSource::Extracted));
-        debug_assert_ne!(lemma, form);
-        Self::insert_tags(
-            &mut self.automated_forms_map,
-            lemma,
-            form,
-            pos,
-            source,
-            tags,
-        );
-    }
-
-    /// Return both inner `FormsMap` merged
-    ///
-    /// removes redundant tags on the process! TODO: should be done somewhere else for clarity
-    fn all_forms(&self) -> FormsMap {
-        let mut merged = self.forms_map.clone();
-
-        for (lemma, form, pos, source, tags) in flat_iter_forms(&self.automated_forms_map) {
-            let merged_form_map = merged.entry(lemma.clone()).or_default();
-            let merged_pos_map = merged_form_map.entry(form.clone()).or_default();
-
-            let entry = merged_pos_map
-                .entry(pos.clone())
-                .or_insert_with(|| (source.clone(), Vec::new()));
-
-            entry.1.extend(tags.clone());
-        }
-
-        // WARN: this mutates tags
-        for (_, _, _, _, tags) in flat_iter_forms_mut(&mut merged) {
-            // Keep only unique tags
-            let mut seen = IndexSet::new();
-            seen.extend(tags.drain(..));
-            *tags = seen.into_iter().collect();
-
-            // Merge person tags and sort
-            *tags = merge_person_tags(tags);
-            sort_tags_by_similar(tags);
-            remove_redundant_tags(tags);
-        }
-
-        merged
+        // Merge person tags and sort
+        *tags = merge_person_tags(tags);
+        sort_tags_by_similar(tags);
+        remove_redundant_tags(tags);
     }
 }
 
@@ -454,11 +397,25 @@ fn tidy(args: &Args, path_jsonl: &Path) -> Result<Tidy> {
     if !path_jsonl.exists() {
         bail!("{path_jsonl:?} does not exist @ tidy")
     }
+
     let ret = tidy_run(args, path_jsonl)?;
+
+    let n_lemmas = ret.lemma_map.len(); // this may be odd, should do the same that we do for forms
+    let n_forms = form_map_len(&ret.form_map);
+    let n_deinflected_forms = form_map_len_inflection(&ret.form_map);
+    let n_extracted_forms = form_map_len_extracted(&ret.form_map);
+    debug_assert_eq!(n_forms, n_deinflected_forms + n_extracted_forms);
+    let n_entries = n_lemmas + n_forms;
+    println!(
+        "Found {n_entries} entries: {n_lemmas} lemmas, {n_forms} forms \
+({n_deinflected_forms} inflections, {n_extracted_forms} extracted)"
+    );
+
     if args.keep_files {
         debug!("Writing Tidy result to disk");
         write_tidy(args, &ret)?;
     }
+
     Ok(ret)
 }
 
@@ -468,7 +425,7 @@ static PARENS_RE: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\(.+?\)").unwr
 fn tidy_run(args: &Args, reader_path: &Path) -> Result<Tidy> {
     let mut ret = Tidy::default();
 
-    let reader_file = File::open(&reader_path)?;
+    let reader_file = File::open(reader_path)?;
     let mut reader = BufReader::new(reader_file);
     let mut line = String::with_capacity(1 << 10);
 
@@ -484,13 +441,8 @@ fn tidy_run(args: &Args, reader_path: &Path) -> Result<Tidy> {
             continue;
         }
 
-        let mut word_entry: WordEntry = match serde_json::from_str(&line) {
-            core::result::Result::Ok(v) => v,
-            Err(e) => {
-                error!("Error decoding JSON @ tidy");
-                bail!(e)
-            }
-        };
+        let mut word_entry: WordEntry =
+            serde_json::from_str(&line).with_context(|| "Error decoding JSON @ tidy")?;
 
         // rg searchword
         // debug (with only relevant, as in, deserialized, information)
@@ -518,6 +470,8 @@ fn tidy_run(args: &Args, reader_path: &Path) -> Result<Tidy> {
             ret.insert_lemma_entry(&word_entry.word, &reading, &word_entry.pos, raw_sense_entry);
         }
     }
+
+    postprocess_forms(&mut ret.form_map);
 
     Ok(ret)
 }
@@ -660,7 +614,7 @@ fn process_forms(word_entry: &WordEntry, ret: &mut Tidy) {
 
         sort_tags(&mut filtered_tags);
 
-        ret.insert_expansion_forms(
+        ret.insert_form(
             &word_entry.word,
             &form.form,
             &word_entry.pos,
@@ -1007,7 +961,7 @@ fn handle_inflection_gloss(args: &Args, word_entry: &WordEntry, sense: &Sense, r
                 .tags
                 .iter()
                 .filter(|tag| VALID_TAGS.contains(&tag.as_str()))
-                .map(|t| t.to_string())
+                .map(std::string::ToString::to_string)
                 .collect();
             let inflection_tags: Vec<_> = if allowed_tags.is_empty() {
                 vec![format!("redirected from {}", word_entry.word)]
@@ -1015,7 +969,7 @@ fn handle_inflection_gloss(args: &Args, word_entry: &WordEntry, sense: &Sense, r
                 allowed_tags
             };
             for lemma in &sense.form_of {
-                ret.insert_inflections_forms(
+                ret.insert_form(
                     &lemma.word,
                     &word_entry.word,
                     &word_entry.pos,
@@ -1043,7 +997,7 @@ fn handle_inflection_gloss(args: &Args, word_entry: &WordEntry, sense: &Sense, r
                 let lemma = lemma.as_str().trim();
 
                 if !inflection_tags.is_empty() {
-                    ret.insert_inflections_forms(
+                    ret.insert_form(
                         lemma,
                         &word_entry.word,
                         &word_entry.pos,
@@ -1125,7 +1079,7 @@ fn handle_inflection_gloss_en(args: &Args, word_entry: &WordEntry, sense: &Sense
         let cform_str = get_canonical_word_form(args, word_entry);
 
         for inflection in inflections {
-            ret.insert_inflections_forms(
+            ret.insert_form(
                 lemma,
                 // &word_entry.word, // < here, not canonical
                 cform_str,
@@ -1147,41 +1101,27 @@ fn write_tidy(args: &Args, ret: &Tidy) -> Result<()> {
     let opath = args.path_lemmas();
     let file = File::create(&opath)?;
     let writer = BufWriter::new(file);
+
     if args.pretty {
-        serde_json::to_writer_pretty(writer, &ret.lemma_dict)?;
+        serde_json::to_writer_pretty(writer, &ret.lemma_map)?;
     } else {
-        serde_json::to_writer(writer, &ret.lemma_dict)?;
+        serde_json::to_writer(writer, &ret.lemma_map)?;
     }
-    pretty_println_at_path(
-        &format!("Wrote tidy lemmas: {}", ret.lemma_dict.len()),
-        &opath,
-    );
+    pretty_println_at_path("Wrote tidy lemmas", &opath);
 
     // Forms are written by chunks in the original (cf. mapChunks). Not sure if needed.
     // If I even change that, do NOT hardcode the forms number (i.e. the 0 in ...forms-0.json)
     let opath = args.path_forms();
     let file = File::create(&opath)?;
     let writer = BufWriter::new(file);
-    let all_forms = ret.all_forms();
+
     if args.pretty {
-        serde_json::to_writer_pretty(writer, &all_forms)?;
+        serde_json::to_writer_pretty(writer, &ret.form_map)?;
     } else {
-        serde_json::to_writer(writer, &all_forms)?;
+        serde_json::to_writer(writer, &ret.form_map)?;
     }
-    let n_forms: usize = all_forms.values().map(|v| v.len()).sum();
-    let n_deinflected_forms: usize = ret.forms_map.values().map(|v| v.len()).sum();
-    let n_extracted_forms: usize = ret.automated_forms_map.values().map(|v| v.len()).sum();
-    pretty_println_at_path(
-        &format!(
-            "Wrote tidy forms: {} (D{},E{})",
-            n_forms, n_deinflected_forms, n_extracted_forms
-        ),
-        &opath,
-    );
-    println!(
-        "* For a total of: {} entries",
-        n_forms + ret.lemma_dict.len()
-    );
+
+    pretty_println_at_path("Wrote tidy forms", &opath);
 
     Ok(())
 }
@@ -1424,12 +1364,12 @@ fn normalize_orthography(source_lang: Lang, term: &str) -> String {
 #[tracing::instrument(skip_all)]
 fn make_yomitan_lemmas(
     args: &Args,
-    lemma_dict: LemmaDict,
+    lemma_map: LemmaMap,
     diagnostics: &mut Diagnostics,
 ) -> Vec<YomitanEntry> {
     let mut yomitan_entries = Vec::new();
 
-    for (lemma, readings) in lemma_dict {
+    for (lemma, readings) in lemma_map {
         for (reading, pos_word) in readings {
             for (pos, etyms) in pos_word {
                 for (_etym_number, info) in etyms {
@@ -1444,6 +1384,7 @@ fn make_yomitan_lemmas(
     yomitan_entries
 }
 
+// TODO: consume info
 fn make_yomitan_lemma(
     args: &Args,
     lemma: &str,
@@ -1741,10 +1682,11 @@ fn get_structured_examples(args: &Args, examples: &[Example]) -> Node {
     )
 }
 
-fn make_yomitan_forms(args: &Args, forms_dict: FormsMap) -> Vec<YomitanEntry> {
+fn make_yomitan_forms(args: &Args, form_map: FormMap) -> Vec<YomitanEntry> {
     let mut yomitan_entries = Vec::new();
 
-    for (lemma, form, _pos, _source, glosses) in flat_iter_forms(&forms_dict) {
+    // TODO: consume form_map
+    for (lemma, form, _pos, _source, glosses) in flat_iter_forms(&form_map) {
         let mut inflection_hypotheses: Vec<Vec<String>> = Vec::new();
         for gloss in glosses {
             let hypotheses: Vec<Vec<String>> = vec![vec![gloss.into()]];
@@ -1793,13 +1735,8 @@ fn make_yomitan_forms(args: &Args, forms_dict: FormsMap) -> Vec<YomitanEntry> {
 fn load_json<T: DeserializeOwned>(path: &Path) -> Result<T> {
     let file = File::open(path)?;
     let reader = std::io::BufReader::new(file);
-    match serde_json::from_reader(reader) {
-        core::result::Result::Ok(value) => Ok(value),
-        Err(e) => {
-            error!("Failed to parse JSON @ {}: {}", path.display(), e);
-            Err(e)?
-        }
-    }
+    serde_json::from_reader(reader)
+        .with_context(|| format!("Failed to parse JSON @ {}", path.display()))
 }
 
 // Return default in case of path not found
@@ -1827,28 +1764,27 @@ fn make_yomitan(
 ) -> Result<()> {
     println!("Making yomitan dict...");
 
-    let (lemma_dict, forms_map) = if let Some(ret) = tidy_cache {
+    let (lemma_map, form_map) = if let Some(ret) = tidy_cache {
         debug!("Skip loading Tidy result: passing it instead");
-        let all_forms = ret.all_forms();
-        (ret.lemma_dict, all_forms)
+        (ret.lemma_map, ret.form_map)
     } else {
         debug!("Loading Tidy result from disk");
-        let lemma_path = args.path_lemmas();
+        let lemmas_path = args.path_lemmas();
         let forms_path = args.path_forms();
 
-        if !lemma_path.exists() || !forms_path.exists() {
+        if !lemmas_path.exists() || !forms_path.exists() {
             bail!(
                 "can not proceed with make_yomitan. Are you running --skip-tidy without --keep-files?"
             )
         }
 
-        let lemma_dict: LemmaDict = load_json(&lemma_path)?;
-        let forms_map: FormsMap = load_json(&forms_path)?;
-        (lemma_dict, forms_map)
+        let lemma_map: LemmaMap = load_json(&lemmas_path)?;
+        let form_map: FormMap = load_json(&forms_path)?;
+        (lemma_map, form_map)
     };
 
-    let yomitan_entries = make_yomitan_lemmas(args, lemma_dict, diagnostics);
-    let yomitan_forms = make_yomitan_forms(args, forms_map);
+    let yomitan_entries = make_yomitan_lemmas(args, lemma_map, diagnostics);
+    let yomitan_forms = make_yomitan_forms(args, form_map);
 
     write_yomitan(args, yomitan_entries, yomitan_forms)
 }
@@ -1890,14 +1826,14 @@ fn write_yomitan(
     zip.write_all(&tag_bank_bytes)?;
 
     let mut bank_index = 0;
-    let banks = [("lemmas", yomitan_entries), ("forms", yomitan_forms)];
+    let banks = [("lemma", yomitan_entries), ("form", yomitan_forms)];
     for (entry_ty, entries) in banks {
         let (out_sink, out_dir) = if args.keep_files {
             (BankSink::Disk, &temp_out_dir)
         } else {
             (BankSink::Zip(&mut zip, options), &path_zip)
         };
-        write_banks(args, entries, &mut bank_index, entry_ty, &out_dir, out_sink)?;
+        write_banks(args, entries, &mut bank_index, entry_ty, out_dir, out_sink)?;
     }
 
     // If keep_files, read the disk files and zip them
@@ -1925,7 +1861,7 @@ enum BankSink<'a> {
     Zip(&'a mut ZipWriter<File>, SimpleFileOptions),
 }
 
-/// Writes `yomitan_entries` in batches to out_sink (either disk or a zip).
+/// Writes `yomitan_entries` in batches to `out_sink` (either disk or a zip).
 #[tracing::instrument(skip_all, fields(ty = %entry_ty))]
 fn write_banks(
     args: &Args,
@@ -1977,7 +1913,7 @@ fn write_banks(
             print!("\r\x1b[K");
         }
         pretty_print_at_path(
-            &format!("Wrote {entry_ty} bank {bank_num}/{total_bank_num} ({upto} entries)"),
+            &format!("Wrote yomitan {entry_ty} bank {bank_num}/{total_bank_num} ({upto} entries)"),
             &file_path,
         );
         std::io::stdout().flush()?;
@@ -2184,7 +2120,7 @@ mod tests {
     // NOTE: tidy and yomitan do not use args.edition in the original
     //
     // Read the expected result in the snapshot first, then compare
-    fn shapshot_for_lang(source: &str, target: &str, fixture_dir: &PathBuf) -> Result<()> {
+    fn shapshot_for_lang(source: &str, target: &str, fixture_dir: &Path) -> Result<()> {
         let mut args = Args {
             keep_files: true,
             pretty: true,

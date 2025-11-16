@@ -1,21 +1,192 @@
 [
   [
-    "přela",
+    "zprávička",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "přít",
+        "zpráva",
         [
-          "neuter plural past active participle"
+          "diminutive"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "zprávy",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "zpráva",
+        [
+          "accusative plural"
         ]
       ],
       [
-        "přít",
+        "zpráva",
         [
-          "feminine singular past active participle"
+          "nominative plural"
+        ]
+      ],
+      [
+        "zpráva",
+        [
+          "vocative plural"
+        ]
+      ],
+      [
+        "zpráva",
+        [
+          "genitive singular"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "zpráv",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "zpráva",
+        [
+          "genitive plural"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "zprávě",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "zpráva",
+        [
+          "dative singular"
+        ]
+      ],
+      [
+        "zpráva",
+        [
+          "locative singular"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "zprávám",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "zpráva",
+        [
+          "dative plural"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "zprávu",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "zpráva",
+        [
+          "accusative singular"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "zprávo",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "zpráva",
+        [
+          "vocative singular"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "zprávách",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "zpráva",
+        [
+          "locative plural"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "zprávou",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "zpráva",
+        [
+          "instrumental singular"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "zprávami",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "zpráva",
+        [
+          "instrumental plural"
         ]
       ]
     ],
@@ -245,193 +416,22 @@
     ""
   ],
   [
-    "zprávička",
+    "přela",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "zpráva",
+        "přít",
         [
-          "diminutive"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "zprávy",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "zpráva",
-        [
-          "accusative plural"
+          "neuter plural past active participle"
         ]
       ],
       [
-        "zpráva",
+        "přít",
         [
-          "nominative plural"
-        ]
-      ],
-      [
-        "zpráva",
-        [
-          "vocative plural"
-        ]
-      ],
-      [
-        "zpráva",
-        [
-          "genitive singular"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "zpráv",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "zpráva",
-        [
-          "genitive plural"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "zprávě",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "zpráva",
-        [
-          "dative singular"
-        ]
-      ],
-      [
-        "zpráva",
-        [
-          "locative singular"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "zprávám",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "zpráva",
-        [
-          "dative plural"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "zprávu",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "zpráva",
-        [
-          "accusative singular"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "zprávo",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "zpráva",
-        [
-          "vocative singular"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "zprávách",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "zpráva",
-        [
-          "locative plural"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "zprávou",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "zpráva",
-        [
-          "instrumental singular"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "zprávami",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "zpráva",
-        [
-          "instrumental plural"
+          "feminine singular past active participle"
         ]
       ]
     ],

@@ -1,26 +1,4 @@
 {
-  "recebir": {
-    "reciba": {
-      "verb": [
-        "inflection",
-        [
-          "first/third-person singular present subjunctive",
-          "third-person singular imperative"
-        ]
-      ]
-    }
-  },
-  "recibir": {
-    "reciba": {
-      "verb": [
-        "inflection",
-        [
-          "first/third-person singular present subjunctive",
-          "third-person singular imperative"
-        ]
-      ]
-    }
-  },
   "vivir": {
     "vivo": {
       "verb": [
@@ -1100,6 +1078,28 @@
         "extracted",
         [
           "formal accusative second-person plural imperative object-third-person object-plural"
+        ]
+      ]
+    }
+  },
+  "recebir": {
+    "reciba": {
+      "verb": [
+        "inflection",
+        [
+          "first/third-person singular present subjunctive",
+          "third-person singular imperative"
+        ]
+      ]
+    }
+  },
+  "recibir": {
+    "reciba": {
+      "verb": [
+        "inflection",
+        [
+          "first/third-person singular present subjunctive",
+          "third-person singular imperative"
         ]
       ]
     }

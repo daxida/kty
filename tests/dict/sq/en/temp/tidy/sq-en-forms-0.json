@@ -1,14 +1,4 @@
 {
-  "iki": {
-    "ik": {
-      "verb": [
-        "inflection",
-        [
-          "second-person singular imperative"
-        ]
-      ]
-    }
-  },
   "akull": {
     "akëll": {
       "adv": [
@@ -23,6 +13,16 @@
         "extracted",
         [
           "alternative dialectal"
+        ]
+      ]
+    }
+  },
+  "iki": {
+    "ik": {
+      "verb": [
+        "inflection",
+        [
+          "second-person singular imperative"
         ]
       ]
     }

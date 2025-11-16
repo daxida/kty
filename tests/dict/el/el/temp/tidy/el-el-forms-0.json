@@ -1,14 +1,5 @@
 {
   "κόρφος": {
-    "κόρφο": {
-      "noun": [
-        "inflection",
-        [
-          "masculine",
-          "accusative singular"
-        ]
-      ]
-    },
     "κόρφοι": {
       "noun": [
         "extracted",
@@ -34,6 +25,15 @@
         ]
       ]
     },
+    "κόρφο": {
+      "noun": [
+        "extracted",
+        [
+          "masculine",
+          "accusative singular"
+        ]
+      ]
+    },
     "κόρφους": {
       "noun": [
         "extracted",
@@ -52,17 +52,6 @@
     }
   },
   "αζωικός": {
-    "αζωικό": {
-      "adj": [
-        "inflection",
-        [
-          "accusative singular masculine",
-          "accusative singular neuter",
-          "nominative singular neuter",
-          "vocative singular neuter"
-        ]
-      ]
-    },
     "αζωική": {
       "adj": [
         "extracted",
@@ -70,6 +59,17 @@
           "accusative singular feminine",
           "nominative singular feminine",
           "vocative singular feminine"
+        ]
+      ]
+    },
+    "αζωικό": {
+      "adj": [
+        "extracted",
+        [
+          "accusative singular masculine",
+          "accusative singular neuter",
+          "nominative singular neuter",
+          "vocative singular neuter"
         ]
       ]
     },

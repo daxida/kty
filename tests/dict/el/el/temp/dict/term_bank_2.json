@@ -1,28 +1,5 @@
 [
   [
-    "κόρφο",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "κόρφος",
-        [
-          "masculine"
-        ]
-      ],
-      [
-        "κόρφος",
-        [
-          "accusative singular"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
     "κόρφοι",
     "",
     "non-lemma",
@@ -80,6 +57,29 @@
     ""
   ],
   [
+    "κόρφο",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "κόρφος",
+        [
+          "masculine"
+        ]
+      ],
+      [
+        "κόρφος",
+        [
+          "accusative singular"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
     "κόρφους",
     "",
     "non-lemma",
@@ -107,6 +107,35 @@
         "κόρφος",
         [
           "vocative singular"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "αζωική",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "αζωικός",
+        [
+          "accusative singular feminine"
+        ]
+      ],
+      [
+        "αζωικός",
+        [
+          "nominative singular feminine"
+        ]
+      ],
+      [
+        "αζωικός",
+        [
+          "vocative singular feminine"
         ]
       ]
     ],
@@ -142,35 +171,6 @@
         "αζωικός",
         [
           "vocative singular neuter"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "αζωική",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "αζωικός",
-        [
-          "accusative singular feminine"
-        ]
-      ],
-      [
-        "αζωικός",
-        [
-          "nominative singular feminine"
-        ]
-      ],
-      [
-        "αζωικός",
-        [
-          "vocative singular feminine"
         ]
       ]
     ],

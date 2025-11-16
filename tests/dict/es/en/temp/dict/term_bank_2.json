@@ -1,51 +1,5 @@
 [
   [
-    "reciba",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "recebir",
-        [
-          "first/third-person singular present subjunctive"
-        ]
-      ],
-      [
-        "recebir",
-        [
-          "third-person singular imperative"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "reciba",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "recibir",
-        [
-          "first/third-person singular present subjunctive"
-        ]
-      ],
-      [
-        "recibir",
-        [
-          "third-person singular imperative"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
     "vivo",
     "",
     "non-lemma",
@@ -2495,6 +2449,52 @@
         "vivir",
         [
           "formal accusative second-person plural imperative object-third-person object-plural"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "reciba",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "recebir",
+        [
+          "first/third-person singular present subjunctive"
+        ]
+      ],
+      [
+        "recebir",
+        [
+          "third-person singular imperative"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "reciba",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "recibir",
+        [
+          "first/third-person singular present subjunctive"
+        ]
+      ],
+      [
+        "recibir",
+        [
+          "third-person singular imperative"
         ]
       ]
     ],

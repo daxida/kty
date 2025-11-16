@@ -1,28 +1,5 @@
 [
   [
-    "démarche",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "démarcher",
-        [
-          "first/third-person singular present indicative/subjunctive"
-        ]
-      ],
-      [
-        "démarcher",
-        [
-          "second-person singular imperative"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
     "prenant",
     "",
     "non-lemma",
@@ -1296,6 +1273,29 @@
         "sembler",
         [
           "third-person plural imperfect subjunctive"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "démarche",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "démarcher",
+        [
+          "first/third-person singular present indicative/subjunctive"
+        ]
+      ],
+      [
+        "démarcher",
+        [
+          "second-person singular imperative"
         ]
       ]
     ],
