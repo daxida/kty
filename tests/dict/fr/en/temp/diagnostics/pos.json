@@ -1,0 +1,18 @@
+{
+  "rejected": {
+    "adv": [
+      1,
+      "d'accord"
+    ]
+  },
+  "accepted": {
+    "verb": [
+      2,
+      "prendre"
+    ],
+    "noun": [
+      1,
+      "chambre"
+    ]
+  }
+}

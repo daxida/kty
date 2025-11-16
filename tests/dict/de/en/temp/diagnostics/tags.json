@@ -1,0 +1,46 @@
+{
+  "rejected": {
+    "strong": [
+      3,
+      "pflegen"
+    ],
+    "class-4": [
+      1,
+      "pflegen"
+    ],
+    "weak": [
+      1,
+      "pflegen"
+    ],
+    "also": [
+      1,
+      "Herz"
+    ],
+    "agent": [
+      1,
+      "Fahrer"
+    ],
+    "form-of": [
+      1,
+      "Fahrer"
+    ]
+  },
+  "accepted": {
+    "masculine": [
+      2,
+      "Fuchs"
+    ],
+    "feminine": [
+      2,
+      "Base"
+    ],
+    "neuter": [
+      1,
+      "Herz"
+    ],
+    "rare": [
+      1,
+      "Herz"
+    ]
+  }
+}

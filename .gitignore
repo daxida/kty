@@ -1,8 +1,5 @@
 /target
 
-/tests/**/index.json
-/tests/**/diagnostics/
-
 # There should not be code/assets in data
 /data
 

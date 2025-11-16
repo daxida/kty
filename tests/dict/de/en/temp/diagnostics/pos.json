@@ -1,0 +1,18 @@
+{
+  "rejected": {
+    "prep": [
+      1,
+      "von"
+    ]
+  },
+  "accepted": {
+    "noun": [
+      5,
+      "Fuchs"
+    ],
+    "verb": [
+      1,
+      "pflegen"
+    ]
+  }
+}

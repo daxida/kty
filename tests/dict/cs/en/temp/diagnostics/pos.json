@@ -1,0 +1,18 @@
+{
+  "rejected": {
+    "prep": [
+      1,
+      "pro"
+    ]
+  },
+  "accepted": {
+    "noun": [
+      1,
+      "zpráva"
+    ],
+    "verb": [
+      1,
+      "přít"
+    ]
+  }
+}

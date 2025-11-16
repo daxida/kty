@@ -1,0 +1,54 @@
+{
+  "rejected": {
+    "declension-2": [
+      3,
+      "lilium"
+    ],
+    "declension-1": [
+      2,
+      "fama"
+    ],
+    "conjugation-3": [
+      1,
+      "lego"
+    ],
+    "form-of": [
+      1,
+      "rectus"
+    ],
+    "passive": [
+      1,
+      "rectus"
+    ],
+    "perfect": [
+      1,
+      "rectus"
+    ],
+    "declension-4": [
+      1,
+      "domus"
+    ]
+  },
+  "accepted": {
+    "feminine": [
+      2,
+      "fama"
+    ],
+    "neuter": [
+      1,
+      "lilium"
+    ],
+    "not-comparable": [
+      1,
+      "usque"
+    ],
+    "participle": [
+      1,
+      "rectus"
+    ],
+    "irregular": [
+      1,
+      "domus"
+    ]
+  }
+}

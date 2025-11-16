@@ -1,0 +1,18 @@
+{
+  "rejected": {
+    "adv": [
+      1,
+      "usque"
+    ]
+  },
+  "accepted": {
+    "noun": [
+      3,
+      "fama"
+    ],
+    "verb": [
+      2,
+      "lego"
+    ]
+  }
+}
