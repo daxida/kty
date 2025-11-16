@@ -30,11 +30,10 @@ pub struct Args {
     #[arg(default_value = "kty")]
     pub dict_name: String,
 
-    // Should be "keep_files", but this is better for testing
-    //
-    /// Delete temporary files
-    #[arg(long)]
-    pub delete_files: bool,
+    // The filter file is always writen to disk, regardless of this.
+    /// Write intermediate files to disk
+    #[arg(long, short)]
+    pub keep_files: bool,
 
     /// Redownload kaikki files
     #[arg(long, short)]
@@ -52,8 +51,8 @@ pub struct Args {
     #[arg(long)]
     pub skip_yomitan: bool,
 
-    /// (debug) Stop filtering after the nth jsonline.
-    /// -1 for taking all entries
+    /// (debug) Only take the first n jsonlines before filtering.
+    /// -1 for taking all jsonlines
     #[arg(long, default_value_t = -1)]
     pub first: i32,
 
@@ -63,10 +62,10 @@ pub struct Args {
     //   `--filter pos,adv`
     //
     // You can specify this option multiple times:
-    //   `--filter pos,adv --filter tag,noun`
+    //   `--filter pos,adv --filter word,foo`
     //
     /// (debug) Only include entries matching certain key–value filters
-    #[arg(long, value_parser = parse_tuple)]
+    #[arg(long, value_parser = parse_tuple, conflicts_with = "skip_filter")]
     pub filter: Vec<(FilterKey, String)>,
 
     // This filtering is done at filter_jsonl
@@ -75,20 +74,19 @@ pub struct Args {
     //   `--reject pos,adj`
     //
     // You can specify this option multiple times:
-    //   `--reject pos,adj --reject tag,name`
+    //   `--reject pos,adj --reject word,foo`
     //
     /// (debug) Exclude entries matching certain key–value filters
-    #[arg(long, value_parser = parse_tuple)]
+    #[arg(long, value_parser = parse_tuple, conflicts_with = "skip_filter")]
     pub reject: Vec<(FilterKey, String)>,
 
-    // Run to_write instead of to_pretty_writter
-    /// (debug) Write jsons without whitespace. Faster but unreadable
+    /// Write jsons with whitespace.
     #[arg(long)]
-    pub ugly: bool,
+    pub pretty: bool,
 
     /// (test) Modify the root directory. For testing, set this to "tests"
     #[arg(long, default_value = "data")]
-    root_dir: PathBuf,
+    pub root_dir: PathBuf,
 
     // If I ever decide on making this more powerful, these are good defaults:
     // https://github.com/astral-sh/ruff/blob/276f1d0d88d7815f70fabb712af44bb4de85d9a7/crates/ty/docs/tracing.md?plain=1#L19
@@ -103,7 +101,10 @@ fn validate_edition(s: &str) -> Result<Lang, String> {
     if lang.has_edition() {
         core::result::Result::Ok(lang)
     } else {
-        Err(format!("{s} is not a language with an edition"))
+        Err(format!(
+            "{s} is not a language with an edition.\n{}",
+            Lang::has_edition_help_message()
+        ))
     }
 }
 
@@ -150,13 +151,9 @@ impl Args {
     }
 
     pub fn set_edition(&mut self, lang: &str) -> Result<()> {
-        let iso = Lang::from_str(lang).map_err(|e| anyhow!(e))?;
-        if iso.has_edition() {
-            self.edition = iso;
-            Ok(())
-        } else {
-            Err(anyhow!("{lang} is not a language with an edition"))
-        }
+        let iso = validate_edition(lang).map_err(|e| anyhow!(e))?;
+        self.edition = iso;
+        Ok(())
     }
 
     pub fn set_source(&mut self, lang: &str) -> Result<()> {
@@ -166,7 +163,7 @@ impl Args {
     }
 
     pub fn set_target(&mut self, lang: &str) -> Result<()> {
-        let iso = Lang::from_str(lang).map_err(|e| anyhow!(e))?;
+        let iso = validate_edition(lang).map_err(|e| anyhow!(e))?;
         self.target = iso;
         Ok(())
     }
@@ -204,11 +201,13 @@ impl Args {
 
     pub fn setup_dirs(&self) -> Result<()> {
         fs::create_dir_all(self.kaik_dir())?;
-        fs::create_dir_all(self.tidy_dir())?;
-        fs::create_dir_all(self.dict_dir())?;
-        fs::create_dir_all(self.temp_dir())?;
         fs::create_dir_all(self.pathdir_dict())?;
-        fs::create_dir_all(self.pathdir_dict_temp())?;
+
+        if self.keep_files {
+            fs::create_dir_all(self.tidy_dir())?;
+            fs::create_dir_all(self.pathdir_dict_temp())?;
+        }
+
         Ok(())
     }
 
@@ -317,5 +316,9 @@ mod tests {
         assert!(Args::try_parse_from(["kty", "el", "el", "--filter", "foo,bar"]).is_err());
         assert!(Args::try_parse_from(["kty", "el", "el", "--filter", "word,hello"]).is_ok());
         assert!(Args::try_parse_from(["kty", "el", "el", "--reject", "pos,name"]).is_ok());
+        assert!(
+            Args::try_parse_from(["kty", "el", "el", "--skip-filter", "--reject", "pos,name"])
+                .is_err()
+        );
     }
 }

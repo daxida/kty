@@ -6,7 +6,6 @@
         [
           "second-person plural imperative",
           "second-person plural present indicative",
-          "third-person singular present",
           "third-person singular present indicative"
         ]
       ]
@@ -202,7 +201,6 @@
       "noun": [
         "extracted",
         [
-          "genitive",
           "genitive singular"
         ]
       ]
@@ -211,7 +209,6 @@
       "noun": [
         "extracted",
         [
-          "plural",
           "accusative plural definite",
           "genitive plural definite",
           "nominative plural definite"
@@ -302,7 +299,6 @@
       "noun": [
         "extracted",
         [
-          "genitive",
           "genitive singular"
         ]
       ]
@@ -339,7 +335,6 @@
       "noun": [
         "extracted",
         [
-          "plural",
           "accusative plural definite",
           "dative plural definite",
           "genitive plural definite",

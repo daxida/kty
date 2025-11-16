@@ -101,8 +101,15 @@ def generate_lang_rs(langs: list[Lang], f) -> None:
     # has_edition
     w(f"{idt}pub const fn has_edition(&self) -> bool {{\n")
     w(f"{idt * 2}use Lang::*;\n")
-    with_edition = " | ".join(lang.iso.title() for lang in langs if lang.has_edition)
-    w(f"{idt * 2}matches!(self, {with_edition})\n")
+    with_edition_title = " | ".join(
+        lang.iso.title() for lang in langs if lang.has_edition
+    )
+    w(f"{idt * 2}matches!(self, {with_edition_title})\n")
+    w(f"{idt}}}\n\n")
+
+    with_edition = " | ".join(lang.iso for lang in langs if lang.has_edition)
+    w(f"{idt}pub const fn has_edition_help_message() -> &'static str {{\n")
+    w(f'{idt * 2}"Valid editions: {with_edition}"\n')
     w(f"{idt}}}\n\n")
 
     # long: Lang::El => "Greek"

@@ -4,18 +4,18 @@
       "adj": [
         "inflection",
         [
-          "Genitiv Singular Maskulinum der starken Deklination des Positivs",
-          "Akkusativ Singular Maskulinum der starken Deklination des Positivs",
-          "Genitiv Singular Neutrum der starken Deklination des Positivs",
-          "Dativ Plural alle Genera der starken Deklination des Positivs",
-          "Genitiv Singular alle Genera der schwachen Deklination des Positivs",
-          "Dativ Singular alle Genera der schwachen Deklination des Positivs",
-          "Akkusativ Singular Maskulinum der schwachen Deklination des Positivs",
+          "Alle Kasus Plural alle Genera der gemischten Deklination des Positivs",
           "Alle Kasus Plural alle Genera der schwachen Deklination des Positivs",
-          "Genitiv Singular alle Genera der gemischten Deklination des Positivs",
-          "Dativ Singular alle Genera der gemischten Deklination des Positivs",
+          "Dativ Plural alle Genera der starken Deklination des Positivs",
           "Akkusativ Singular Maskulinum der gemischten Deklination des Positivs",
-          "Alle Kasus Plural alle Genera der gemischten Deklination des Positivs"
+          "Akkusativ Singular Maskulinum der schwachen Deklination des Positivs",
+          "Akkusativ Singular Maskulinum der starken Deklination des Positivs",
+          "Dativ Singular alle Genera der gemischten Deklination des Positivs",
+          "Dativ Singular alle Genera der schwachen Deklination des Positivs",
+          "Genitiv Singular Maskulinum der starken Deklination des Positivs",
+          "Genitiv Singular Neutrum der starken Deklination des Positivs",
+          "Genitiv Singular alle Genera der gemischten Deklination des Positivs",
+          "Genitiv Singular alle Genera der schwachen Deklination des Positivs"
         ]
       ]
     }

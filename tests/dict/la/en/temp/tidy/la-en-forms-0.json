@@ -4,7 +4,6 @@
       "noun": [
         "extracted",
         [
-          "genitive",
           "nominative plural",
           "vocative plural",
           "dative singular",
@@ -68,7 +67,6 @@
         "extracted",
         [
           "present active infinitive",
-          "present infinitive",
           "second-person singular present imperative passive",
           "second-person singular present passive indicative"
         ]
@@ -78,7 +76,6 @@
       "verb": [
         "extracted",
         [
-          "perfect active",
           "first-person singular perfect active indicative"
         ]
       ]
@@ -87,7 +84,6 @@
       "verb": [
         "extracted",
         [
-          "supine",
           "accusative noun-from-verb supine"
         ]
       ]
@@ -1048,7 +1044,6 @@
       "noun": [
         "extracted",
         [
-          "genitive",
           "genitive singular"
         ]
       ]
@@ -1057,7 +1052,6 @@
       "noun": [
         "extracted",
         [
-          "genitive",
           "genitive singular"
         ]
       ]
@@ -1113,7 +1107,6 @@
       "verb": [
         "extracted",
         [
-          "feminine",
           "accusative plural neuter",
           "nominative plural neuter",
           "vocative plural neuter",
@@ -1126,7 +1119,6 @@
       "verb": [
         "extracted",
         [
-          "neuter",
           "accusative singular masculine",
           "accusative singular neuter",
           "nominative singular neuter",
@@ -1271,7 +1263,6 @@
       "noun": [
         "extracted",
         [
-          "genitive",
           "accusative plural",
           "nominative plural",
           "vocative plural",
@@ -1283,7 +1274,6 @@
       "noun": [
         "extracted",
         [
-          "genitive",
           "genitive singular",
           "locative singular"
         ]

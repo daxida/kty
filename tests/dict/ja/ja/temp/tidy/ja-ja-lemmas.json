@@ -1,0 +1,118 @@
+{
+  "立命": {
+    "立命": {
+      "noun": {
+        "0": {
+          "ipa": [],
+          "glossTree": {
+            "天寿を全うし、人為によって損なわないこと。": {}
+          },
+          "wlink": "https://ja.wiktionary.org/wiki/立命#Japanese",
+          "klink": "https://kaikki.org/dictionary/Japanese/meaning/立/立命/立命.html"
+        }
+      }
+    }
+  },
+  "全然": {
+    "全然": {
+      "adv": {
+        "0": {
+          "ipa": [],
+          "glossTree": {
+            "全く、すべて、まるっきり。": {
+              "tags": [
+                "dated"
+              ],
+              "examples": [
+                {
+                  "text": "一体生徒が全然悪るいです。",
+                  "translation": ""
+                },
+                {
+                  "text": "この老婆の生死が、全然、自分の意志に支配されていると云う事を意識した。",
+                  "translation": ""
+                }
+              ]
+            },
+            "（後に否定的な表現を伴い）全ての点で。全く。一つ残らず。": {
+              "examples": [
+                {
+                  "text": "この犯人の当てっこをやって私が驚いたのは、日本の作家の作品には、このゲームに適する作品が全然ないということだった。",
+                  "translation": ""
+                },
+                {
+                  "text": "自分は或る對象を、思考とか言語などをもつて、順序立てて取扱ふことが全然出來なくなつてしまつたのです。",
+                  "translation": ""
+                },
+                {
+                  "text": "その上、我々の収入の性質が実業家の収入などとは、全然違つてゐる。",
+                  "translation": ""
+                },
+                {
+                  "text": "「釣れましたか」「全然でした」",
+                  "translation": ""
+                },
+                {
+                  "text": "用法:不存在を表す「ない」や、動詞・形容詞の打ち消しのほか、「違う」「別だ」「逆だ」「反対だ」などの非同一性を表す語や、「だめだ」などの語を修飾する。",
+                  "translation": ""
+                }
+              ]
+            },
+            "（肯定表現で）非常に。": {
+              "examples": [
+                {
+                  "text": "用法:現在の日本語では、違和感のある用法とされる。",
+                  "translation": ""
+                }
+              ],
+              "children": {
+                "（相手の意見や懸念、あるいは一般的な通念に対する反駁）まったく。十分に。": {
+                  "examples": [
+                    {
+                      "text": "アプレゲールは全然エライよ。",
+                      "translation": ""
+                    },
+                    {
+                      "text": "「大丈夫？」「全然平気だよ」",
+                      "translation": ""
+                    },
+                    {
+                      "text": "「あんまりおいしくないけどよかったらどうぞ」「全然おいしいじゃない。全然いけるよ」",
+                      "translation": ""
+                    }
+                  ]
+                },
+                "（比較）断然。": {
+                  "examples": [
+                    {
+                      "text": "こっちのほうが全然いいと思うよ。",
+                      "translation": ""
+                    }
+                  ]
+                },
+                "（「全然だめだ」からの類推）完全に。まったく。": {
+                  "examples": [
+                    {
+                      "text": "これでは全然負けだと思った。",
+                      "translation": ""
+                    },
+                    {
+                      "text": "そんなの全然無理無理。",
+                      "translation": ""
+                    },
+                    {
+                      "text": "このチームはまだまだ全然弱い。",
+                      "translation": ""
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "wlink": "https://ja.wiktionary.org/wiki/全然#Japanese",
+          "klink": "https://kaikki.org/dictionary/Japanese/meaning/全/全然/全然.html"
+        }
+      }
+    }
+  }
+}

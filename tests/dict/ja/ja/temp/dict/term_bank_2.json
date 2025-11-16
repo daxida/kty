@@ -1,21 +1,21 @@
 [
   [
-    "přela",
+    "し",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "přít",
+        "立命",
         [
-          "neuter plural past active participle"
+          "continuative"
         ]
       ],
       [
-        "přít",
+        "立命",
         [
-          "feminine singular past active participle"
+          "imperfective"
         ]
       ]
     ],
@@ -23,16 +23,16 @@
     ""
   ],
   [
-    "přu",
+    "せ",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "přít",
+        "立命",
         [
-          "first-person singular indicative"
+          "imperfective"
         ]
       ]
     ],
@@ -40,22 +40,39 @@
     ""
   ],
   [
-    "přeme",
+    "さ",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "přít",
+        "立命",
         [
-          "first-person plural imperative"
+          "imperfective"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "する",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "立命",
+        [
+          "attributive"
         ]
       ],
       [
-        "přít",
+        "立命",
         [
-          "first-person plural indicative"
+          "terminal"
         ]
       ]
     ],
@@ -63,16 +80,16 @@
     ""
   ],
   [
-    "přeš",
+    "すれ",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "přít",
+        "立命",
         [
-          "second-person singular indicative"
+          "hypothetical"
         ]
       ]
     ],
@@ -80,22 +97,16 @@
     ""
   ],
   [
-    "přete",
+    "しろ",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "přít",
+        "立命",
         [
-          "second-person plural imperative"
-        ]
-      ],
-      [
-        "přít",
-        [
-          "second-person plural indicative"
+          "imperative"
         ]
       ]
     ],
@@ -103,16 +114,16 @@
     ""
   ],
   [
-    "při",
+    "せよ",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "přít",
+        "立命",
         [
-          "second-person singular imperative"
+          "imperative"
         ]
       ]
     ],
@@ -120,22 +131,16 @@
     ""
   ],
   [
-    "pře",
+    "立命しない",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "přít",
+        "立命",
         [
-          "singular masculine present"
-        ]
-      ],
-      [
-        "přít",
-        [
-          "third-person singular indicative"
+          "negative"
         ]
       ]
     ],
@@ -143,16 +148,16 @@
     ""
   ],
   [
-    "přou",
+    "未然形 + ない",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "přít",
+        "立命",
         [
-          "third-person plural indicative"
+          "negative"
         ]
       ]
     ],
@@ -160,16 +165,16 @@
     ""
   ],
   [
-    "pra",
+    "立命される",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "přít",
+        "立命",
         [
-          "singular masculine present"
+          "active passive possibly honorific"
         ]
       ]
     ],
@@ -177,16 +182,16 @@
     ""
   ],
   [
-    "příc",
+    "未然形 + れる",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "přít",
+        "立命",
         [
-          "singular feminine neuter present"
+          "active passive possibly honorific"
         ]
       ]
     ],
@@ -194,16 +199,16 @@
     ""
   ],
   [
-    "prouc",
+    "立命します",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "přít",
+        "立命",
         [
-          "singular feminine neuter present"
+          "polite"
         ]
       ]
     ],
@@ -211,16 +216,16 @@
     ""
   ],
   [
-    "příce",
+    "連用形 + ます",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "přít",
+        "立命",
         [
-          "plural present"
+          "polite"
         ]
       ]
     ],
@@ -228,16 +233,16 @@
     ""
   ],
   [
-    "prouce",
+    "立命した",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "přít",
+        "立命",
         [
-          "plural present"
+          "past completive"
         ]
       ]
     ],
@@ -245,16 +250,16 @@
     ""
   ],
   [
-    "zprávička",
+    "連用形 + た",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "zpráva",
+        "立命",
         [
-          "diminutive"
+          "past completive"
         ]
       ]
     ],
@@ -262,34 +267,16 @@
     ""
   ],
   [
-    "zprávy",
+    "立命する",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "zpráva",
+        "立命",
         [
-          "accusative plural"
-        ]
-      ],
-      [
-        "zpráva",
-        [
-          "nominative plural"
-        ]
-      ],
-      [
-        "zpráva",
-        [
-          "vocative plural"
-        ]
-      ],
-      [
-        "zpráva",
-        [
-          "genitive singular"
+          "definitive"
         ]
       ]
     ],
@@ -297,16 +284,16 @@
     ""
   ],
   [
-    "zpráv",
+    "終止形のみ",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "zpráva",
+        "立命",
         [
-          "genitive plural"
+          "definitive"
         ]
       ]
     ],
@@ -314,22 +301,16 @@
     ""
   ],
   [
-    "zprávě",
+    "立命すること",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "zpráva",
+        "立命",
         [
-          "dative singular"
-        ]
-      ],
-      [
-        "zpráva",
-        [
-          "locative singular"
+          "noun-from-verb"
         ]
       ]
     ],
@@ -337,16 +318,16 @@
     ""
   ],
   [
-    "zprávám",
+    "連体形 + こと",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "zpráva",
+        "立命",
         [
-          "dative plural"
+          "noun-from-verb"
         ]
       ]
     ],
@@ -354,16 +335,16 @@
     ""
   ],
   [
-    "zprávu",
+    "立命しろ",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "zpráva",
+        "立命",
         [
-          "accusative singular"
+          "imperative"
         ]
       ]
     ],
@@ -371,16 +352,16 @@
     ""
   ],
   [
-    "zprávo",
+    "立命せよ",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "zpráva",
+        "立命",
         [
-          "vocative singular"
+          "imperative"
         ]
       ]
     ],
@@ -388,50 +369,16 @@
     ""
   ],
   [
-    "zprávách",
+    "命令形のみ",
     "",
     "non-lemma",
     "",
     0,
     [
       [
-        "zpráva",
+        "立命",
         [
-          "locative plural"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "zprávou",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "zpráva",
-        [
-          "instrumental singular"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "zprávami",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "zpráva",
-        [
-          "instrumental plural"
+          "imperative"
         ]
       ]
     ],

@@ -129,6 +129,10 @@ impl Lang {
         matches!(self, Zh | Cs | Nl | En | Fr | De | El | Id | It | Ja | Ku | Ko | Ms | Pl | Pt | Ru | Es | Th | Tr | Vi)
     }
 
+    pub const fn has_edition_help_message() -> &'static str {
+        "Valid editions: zh | cs | nl | en | fr | de | el | id | it | ja | ku | ko | ms | pl | pt | ru | es | th | tr | vi"
+    }
+
     pub const fn long(&self) -> &'static str {
         match self {
             Self::Sq => "Albanian",

@@ -26,7 +26,6 @@
       "verb": [
         "extracted",
         [
-          "first-person singular present",
           "first-person singular present indicative"
         ]
       ]
@@ -36,8 +35,7 @@
         "extracted",
         [
           "informal second-person singular imperative vos-form",
-          "first-person singular indicative preterite",
-          "first-person singular preterite"
+          "first-person singular indicative preterite"
         ]
       ]
     },
@@ -45,8 +43,7 @@
       "verb": [
         "extracted",
         [
-          "singular masculine past participle",
-          "past participle"
+          "singular masculine past participle"
         ]
       ]
     },
@@ -290,9 +287,6 @@
         "extracted",
         [
           "first/third-person singular present subjunctive",
-          "third-person singular imperative",
-          "third-person singular imperative negative",
-          "formal third-person second-person-semantically singular imperative",
           "formal third-person second-person-semantically singular imperative negative"
         ]
       ]
@@ -318,7 +312,6 @@
       "verb": [
         "extracted",
         [
-          "first-person plural imperative",
           "first-person plural imperative negative",
           "first-person plural present subjunctive"
         ]
@@ -337,10 +330,7 @@
       "verb": [
         "extracted",
         [
-          "third-person plural imperative",
-          "third-person plural imperative negative",
           "third-person plural present subjunctive",
-          "formal third-person second-person-semantically plural imperative",
           "formal third-person second-person-semantically plural imperative negative"
         ]
       ]

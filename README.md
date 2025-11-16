@@ -31,15 +31,15 @@ Arguments:
   [DICT_NAME]  Dictionary name [default: kty]
 
 Options:
-      --delete-files         Delete temporary files
+  -k, --keep-files           Write intermediate files to disk
   -r, --redownload           Redownload kaikki files
       --skip-filter          Skip filtering the jsonl
       --skip-tidy            Skip running tidy (IR generation)
       --skip-yomitan         Skip running yomitan (mainly for testing)
-      --first <FIRST>        (debug) Stop filtering after the nth jsonline. -1 for taking all entries [default: -1]
+      --first <FIRST>        (debug) Only take the first n jsonlines before filtering. -1 for taking all jsonlines [default: -1]
       --filter <FILTER>      (debug) Only include entries matching certain key–value filters
       --reject <REJECT>      (debug) Exclude entries matching certain key–value filters
-      --ugly                 (debug) Write jsons without whitespace. Faster but unreadable
+      --pretty               Write jsons with whitespace
       --root-dir <ROOT_DIR>  (test) Modify the root directory. For testing, set this to "tests" [default: data]
   -v, --verbose              Verbose output
   -h, --help                 Print help
@@ -51,5 +51,5 @@ Options:
 Tests are run with `cargo test`. If you only want to run tests for a single language pair, without capturing output:
 
 ```
-cargo run -- ja en --root-dir=tests
+cargo run -- ja en --root-dir=tests --keep-files --pretty
 ```

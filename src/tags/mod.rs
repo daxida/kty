@@ -129,13 +129,15 @@ pub fn sort_tags_by_similar(tags: &mut [Tag]) {
 }
 
 /// Remove tag1 if there is a tag2 such that tag1 <= tag2
+///
+/// Takes space-separated tags.
 pub fn remove_redundant_tags(tags: &mut Vec<Tag>) {
-    let snapshot = tags.clone();
-    let mut keep = vec![true; snapshot.len()];
+    let mut keep = vec![true; tags.len()];
 
-    for i in 0..snapshot.len() {
-        for j in i..snapshot.len() {
-            if i != j && tags_are_subset(&snapshot[i], &snapshot[j]) {
+    for i in 0..tags.len() {
+        for j in 0..tags.len() {
+            // tag_i <= tag_j
+            if i != j && tags_are_subset(&tags[i], &tags[j]) {
                 keep[i] = false;
                 break;
             }
@@ -347,9 +349,20 @@ mod tests {
     }
 
     #[test]
-    fn test_remove_redundant_tags() {
+    fn test_remove_redundant_tags1() {
         let mut received = to_string_vec(&["foo", "bar", "foo bar", "foo bar zee"]);
         let expected = to_string_vec(&["foo bar zee"]);
+        remove_redundant_tags(&mut received);
+        assert_eq!(received, expected);
+    }
+
+    #[test]
+    fn test_remove_redundant_tags2() {
+        let mut received = to_string_vec(&[
+            "first-person singular indicative preterite",
+            "first-person singular preterite",
+        ]);
+        let expected = to_string_vec(&["first-person singular indicative preterite"]);
         remove_redundant_tags(&mut received);
         assert_eq!(received, expected);
     }

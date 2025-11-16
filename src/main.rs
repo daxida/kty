@@ -4,14 +4,6 @@
 use anyhow::{Context, Ok, Result, bail};
 use flate2::read::GzDecoder;
 use indexmap::{IndexMap, IndexSet};
-use kty::cli::{Args, FilterKey};
-use kty::lang::Lang;
-use kty::locale::get_locale_examples_string;
-use kty::models::{Example, Form, HeadTemplate, Pos, Sense, Tag, WordEntry};
-use kty::tags::{
-    BLACKLISTED_TAGS, IDENTITY_TAGS, REDUNDANT_TAGS, find_pos, find_tag_in_bank,
-    get_tag_bank_as_tag_info, merge_person_tags, sort_tags,
-};
 use regex::Regex;
 use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
@@ -19,12 +11,24 @@ use std::fs::{self, File};
 use std::io::{BufRead, BufReader, BufWriter, Write};
 use std::path::Path;
 use std::sync::LazyLock;
-use tracing::{Level, debug, error, info, span, trace, warn};
 use tracing_subscriber::EnvFilter;
 use tracing_subscriber::fmt::format::FmtSpan;
 use unicode_normalization::UnicodeNormalization;
 use zip::ZipWriter;
 use zip::write::SimpleFileOptions;
+
+#[allow(unused)]
+use tracing::{Level, debug, error, info, span, trace, warn};
+
+use kty::cli::{Args, FilterKey};
+use kty::lang::Lang;
+use kty::locale::get_locale_examples_string;
+use kty::models::{Example, Form, HeadTemplate, Pos, Sense, Tag, WordEntry};
+use kty::tags::{
+    BLACKLISTED_TAGS, IDENTITY_TAGS, REDUNDANT_TAGS, find_pos, find_tag_in_bank,
+    get_tag_bank_as_tag_info, merge_person_tags, remove_redundant_tags, sort_tags,
+    sort_tags_by_similar,
+};
 
 fn get_file_size_in_mb(path: &Path) -> Result<f64> {
     let metadata = fs::metadata(path)?;
@@ -34,10 +38,15 @@ fn get_file_size_in_mb(path: &Path) -> Result<f64> {
 }
 
 fn pretty_msg_at_path(msg: &str, path: &Path) -> String {
-    let size_mb = get_file_size_in_mb(path).unwrap_or(-1.0);
     let at = "\x1b[1;36m@\x1b[0m"; // bold + cyan
-    let size_str = format!("\x1b[1m{size_mb:.2} MB\x1b[0m"); // bold
-    format!("{msg} {at} {} ({})", path.display(), size_str)
+    match get_file_size_in_mb(path) {
+        core::result::Result::Ok(size_mb) => {
+            let size_str = format!("\x1b[1m{size_mb:.2} MB\x1b[0m"); // bold
+            format!("{msg} {at} {} ({})", path.display(), size_str)
+        }
+        // Happens when we write to zip
+        Err(..) => format!("{msg} {at} {}", path.display()),
+    }
 }
 
 fn pretty_println_at_path(msg: &str, path: &Path) {
@@ -114,10 +123,7 @@ fn download_jsonl(args: &Args) -> Result<()> {
     Ok(())
 }
 
-/// Filter by language iso and other input give key-value pairs.
-///
-/// Does not fully deserialize into WordEntry, it only checks that "lang_code" is equal to the
-/// source language.
+/// Filter by source language iso and other input-given key-value pairs.
 #[tracing::instrument(skip(args), fields(source = %args.source))]
 fn filter_jsonl(args: &Args) -> Result<()> {
     // English edition already gives them filtered.
@@ -215,19 +221,6 @@ type LemmaDict = Map<
     >,
 >;
 
-// Not included in the dictionary: only used for debug
-//
-// In the future, consider alt_of, form_of
-#[allow(unused)]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "lowercase")]
-enum FormSource {
-    /// Form extracted from `word_entry.forms`
-    Extracted,
-    /// Form added via gloss analysis ("is inflection of...")
-    Inflection,
-}
-
 type FormsMap = Map<
     String, // lemma
     Map<
@@ -262,6 +255,19 @@ fn flat_iter_forms_mut(
                 .map(move |(pos, (source, infls))| (lemma, form, pos, source, infls))
         })
     })
+}
+
+// Not included in the dictionary: only used for debug
+//
+// In the future, consider alt_of, form_of
+#[allow(unused)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
+enum FormSource {
+    /// Form extracted from `word_entry.forms`
+    Extracted,
+    /// Form added via gloss analysis ("is inflection of...")
+    Inflection,
 }
 
 // Lemmainfo in the original
@@ -327,7 +333,8 @@ struct Tidy {
 }
 
 impl Tidy {
-    fn insert_lemma_entry(&mut self, lemma: &str, reading: &str, pos: &str, entry: &RawSenseEntry) {
+    // This is usually called at the end, so it could just move the arguments...
+    fn insert_lemma_entry(&mut self, lemma: &str, reading: &str, pos: &str, entry: RawSenseEntry) {
         let etym_map = self
             .lemma_dict
             .entry(lemma.to_string())
@@ -337,10 +344,9 @@ impl Tidy {
             .entry(pos.to_string())
             .or_default();
 
-        // Assign a new etymology number incrementally
-        let etymology_number = etym_map.len().to_string();
+        let next_etymology_number = etym_map.len().to_string();
 
-        etym_map.insert(etymology_number, entry.clone());
+        etym_map.insert(next_etymology_number, entry);
     }
 
     /// Generic helper to insert tags into a nested map
@@ -373,10 +379,7 @@ impl Tidy {
         tags: Vec<Tag>,
     ) {
         debug_assert!(matches!(source, FormSource::Inflection));
-        // TODO: normalizeinflection
-        if lemma == form {
-            return; // NOP: we don't add tautological forms
-        }
+        debug_assert_ne!(lemma, form);
         Self::insert_tags(&mut self.forms_map, lemma, form, pos, source, tags);
     }
 
@@ -389,10 +392,7 @@ impl Tidy {
         tags: Vec<Tag>,
     ) {
         debug_assert!(matches!(source, FormSource::Extracted));
-        // TODO: normalizeinflection
-        if lemma == form {
-            return; // NOP: we don't add tautological forms
-        }
+        debug_assert_ne!(lemma, form);
         Self::insert_tags(
             &mut self.automated_forms_map,
             lemma,
@@ -420,23 +420,20 @@ impl Tidy {
             entry.1.extend(tags.clone());
         }
 
-        // TODO: move this somewhere else
-        // remove redundant tags
-        // turned off for the moment since it messes diffs, but it works fine
-        // for (_, _, _, tags) in flat_iter_forms_mut(&mut merged) {
-        //     kty::tags::remove_redundant_tags(tags);
-        // }
+        // WARN: this mutates tags
+        for (_, _, _, _, tags) in flat_iter_forms_mut(&mut merged) {
+            // Keep only unique tags
+            let mut seen = IndexSet::new();
+            seen.extend(tags.drain(..));
+            *tags = seen.into_iter().collect();
+
+            // Merge person tags and sort
+            *tags = merge_person_tags(tags);
+            sort_tags_by_similar(tags);
+            remove_redundant_tags(tags);
+        }
 
         merged
-    }
-    // INVARIANTS: for debug (maybe put this as a test)
-    fn check_invariants(&self) {
-        for (_, _, _, _, tags) in flat_iter_forms(&self.forms_map) {
-            let mut seen = IndexSet::new();
-            for tag in tags {
-                debug_assert!(seen.insert(tag), "Duplicate tag found: {tag}");
-            }
-        }
     }
 }
 
@@ -445,24 +442,25 @@ fn tidy(args: &Args, path_jsonl: &Path) -> Result<Tidy> {
     let input_file =
         File::open(path_jsonl).with_context(|| format!("Failed to open: {path_jsonl:?} @ tidy"))?;
     let reader = BufReader::new(input_file);
-    let ret = tidy_go(args, reader)?;
-    write_tidy(args, &ret)?;
+    let ret = tidy_run(args, reader)?;
+    if args.keep_files {
+        debug!("Writing Tidy result to disk");
+        write_tidy(args, &ret)?;
+    }
     Ok(ret)
 }
 
 static PARENS_RE: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\(.+?\)").unwrap());
 
-// TODO: refactor, much of this should go to handle_line > handle_word_entry
 #[tracing::instrument(skip_all)]
-fn tidy_go(args: &Args, reader: BufReader<File>) -> Result<Tidy> {
+fn tidy_run(args: &Args, reader: BufReader<File>) -> Result<Tidy> {
     let mut ret = Tidy::default();
 
     for line in reader.lines() {
         let line = line?;
         // We can not remove the is_empty check and the deserialization error handling, because
         // the tests will call directly this function without previously filtering.
-        //
-        // only relevant for tests - the kaikki jsonlines should not contain empty lines
+        // This is only relevant for tests - the kaikki jsonlines should not contain empty lines.
         if line.is_empty() {
             continue;
         }
@@ -493,46 +491,13 @@ fn tidy_go(args: &Args, reader: BufReader<File>) -> Result<Tidy> {
             continue;
         }
 
-        // debug (for nested stuff)
-        // if let Some(existing) = ret.lemma_dict.get(&word_entry.word) {
-        //     error!("'{}' already has an entry: {:?}", word_entry.word, existing);
-        // }
-
         // rg insertlemma handleline
-        // easy version of handleLine
         let reading = get_reading(args, &word_entry);
-        let raw_sense_entry = process_word_entry(args, &word_entry);
-
-        ret.insert_lemma_entry(
-            &word_entry.word,
-            &reading,
-            &word_entry.pos,
-            &raw_sense_entry,
-        );
+        if let Some(raw_sense_entry) = process_word_entry(args, &word_entry) {
+            debug_assert!(!raw_sense_entry.gloss_tree.is_empty());
+            ret.insert_lemma_entry(&word_entry.word, &reading, &word_entry.pos, raw_sense_entry);
+        }
     }
-
-    // postprocessing
-    //
-    // the original only similar sorts automated forms... (not sure why?)
-    for (_, _, _, _, tags) in flat_iter_forms_mut(&mut ret.automated_forms_map) {
-        // Keep only unique tags
-        let mut seen = IndexSet::new();
-        tags.retain(|tag| seen.insert(tag.clone()));
-
-        *tags = merge_person_tags(tags);
-        kty::tags::sort_tags_by_similar(tags);
-    }
-    for (_, _, _, _, tags) in flat_iter_forms_mut(&mut ret.forms_map) {
-        // Keep only unique tags
-        let mut seen = IndexSet::new();
-        tags.retain(|tag| seen.insert(tag.clone()));
-    }
-
-    // TODO: rg: handleautomatedforms
-    // dump automated_forms_map to forms_map via add_deinflections
-
-    // TODO: Remove this once done with testing
-    ret.check_invariants();
 
     Ok(ret)
 }
@@ -640,6 +605,10 @@ fn preprocess_word_entry(args: &Args, word_entry: &mut WordEntry, ret: &mut Tidy
 // rg: processforms
 fn process_forms(word_entry: &WordEntry, ret: &mut Tidy) {
     for form in &word_entry.forms {
+        if form.form == word_entry.word {
+            continue;
+        }
+
         // bunch of validation: skip
         // blacklisted forms (happens at least in English)
         if form.form == "-" {
@@ -707,7 +676,7 @@ fn get_reading(args: &Args, word_entry: &WordEntry) -> String {
 /// this will return fāma).
 fn get_canonical_word_form<'a>(args: &Args, word_entry: &'a WordEntry) -> &'a str {
     match args.source {
-        Lang::La | Lang::Ru => match get_canonical_form(word_entry) {
+        Lang::La | Lang::Ru | Lang::Grc => match get_canonical_form(word_entry) {
             Some(cform) => &cform.form,
             None => &word_entry.word,
         },
@@ -785,40 +754,7 @@ fn get_japanese_reading(_args: &Args, word_entry: &WordEntry) -> String {
 }
 
 // rg: handleline handle_line
-fn process_word_entry(args: &Args, word_entry: &WordEntry) -> RawSenseEntry {
-    // default version getphonetictranscription
-    let ipas: Vec<_> = word_entry
-        .sounds
-        .iter()
-        .filter_map(|sound| {
-            if sound.ipa.is_empty() {
-                return None;
-            }
-            let ipa = sound.ipa.clone();
-            let mut tags = sound.tags.clone();
-            if !sound.note.is_empty() {
-                tags.push(sound.note.clone());
-            }
-            Some(Ipa { ipa, tags })
-        })
-        .collect();
-
-    // done in saveIpaResult - we just group it here
-    // basically group by ipa
-    let mut ipas_grouped: Vec<Ipa> = Vec::new();
-    for ipa in ipas {
-        if let Some(existing) = ipas_grouped.iter_mut().find(|e| e.ipa == ipa.ipa) {
-            for tag in ipa.tags {
-                if !existing.tags.contains(&tag) {
-                    existing.tags.push(tag);
-                }
-            }
-        } else {
-            ipas_grouped.push(ipa.clone());
-        }
-    }
-
-    // etymology_text
+fn process_word_entry(args: &Args, word_entry: &WordEntry) -> Option<RawSenseEntry> {
     // Reconvert to Option ~ a bit dumb, could deserialize it as Option, but we use defaults
     // at most WordEntry attributes so I think it's better to be consistent
     let etymology_text = if word_entry.etymology_text.is_empty() {
@@ -827,18 +763,19 @@ fn process_word_entry(args: &Args, word_entry: &WordEntry) -> RawSenseEntry {
         Some(word_entry.etymology_text.clone())
     };
 
-    let head_info_text = get_head_info(&word_entry.head_templates);
-
     let gloss_tree = get_gloss_tree(word_entry);
+    if gloss_tree.is_empty() {
+        return None;
+    }
 
-    RawSenseEntry {
-        ipa: ipas_grouped,
+    Some(RawSenseEntry {
+        ipa: get_ipas(word_entry),
         gloss_tree,
         etymology_text,
-        head_info_text,
+        head_info_text: get_head_info(&word_entry.head_templates),
         link_wiktionary: get_link_wiktionary(args, &word_entry.word),
         link_kaikki: get_link_kaikki(args, &word_entry.word),
-    }
+    })
 }
 
 // Useful for debugging too
@@ -852,7 +789,6 @@ fn get_link_wiktionary(args: &Args, word: &str) -> String {
 }
 
 // Same debug but for kaikki
-#[allow(unused)]
 fn get_link_kaikki(args: &Args, word: &str) -> String {
     let chars: Vec<_> = word.chars().collect();
     let first = chars[0]; // word can't be empty
@@ -878,6 +814,37 @@ fn get_link_kaikki(args: &Args, word: &str) -> String {
     unescaped_url.replace(' ', "%20")
 }
 
+// default version getphonetictranscription
+fn get_ipas(word_entry: &WordEntry) -> Vec<Ipa> {
+    let ipas_iter = word_entry.sounds.iter().filter_map(|sound| {
+        if sound.ipa.is_empty() {
+            return None;
+        }
+        let ipa = sound.ipa.clone();
+        let mut tags = sound.tags.clone();
+        if !sound.note.is_empty() {
+            tags.push(sound.note.clone());
+        }
+        Some(Ipa { ipa, tags })
+    });
+
+    // rg: saveIpaResult - Group by ipa
+    let mut ipas_grouped: Vec<Ipa> = Vec::new();
+    for ipa in ipas_iter {
+        if let Some(existing) = ipas_grouped.iter_mut().find(|e| e.ipa == ipa.ipa) {
+            for tag in ipa.tags {
+                if !existing.tags.contains(&tag) {
+                    existing.tags.push(tag);
+                }
+            }
+        } else {
+            ipas_grouped.push(ipa);
+        }
+    }
+
+    ipas_grouped
+}
+
 // rg: getheadinfo
 // if there is no head_templates we compile the regex pointlessly but it should return None
 fn get_head_info(head_templates: &[HeadTemplate]) -> Option<String> {
@@ -891,13 +858,6 @@ fn get_head_info(head_templates: &[HeadTemplate]) -> Option<String> {
     None
 }
 
-// isnt this in javascript
-// {"_type": "map", "map": [[key, value]]}
-//
-// equal to just
-// {key: value} ?
-//
-// It doesn't really matter... it's just the IR
 fn get_gloss_tree(entry: &WordEntry) -> GlossTree {
     let mut gloss_tree = GlossTree::new();
 
@@ -913,17 +873,6 @@ fn get_gloss_tree(entry: &WordEntry) -> GlossTree {
             .collect();
         // Stable sort: examples with translations first
         filtered_examples.sort_by_key(|ex| ex.translation.is_empty());
-
-        // for gloss in &sense.glosses {
-        //     gloss_tree.insert(
-        //         gloss.clone(),
-        //         GlossInfo {
-        //             _tags: sense.tags.clone(),
-        //             _examples: filtered_examples.clone(),
-        //             _children: Map::default(),
-        //         },
-        //     );
-        // }
 
         insert_glosses(
             &mut gloss_tree,
@@ -1067,20 +1016,20 @@ fn handle_inflection_gloss(args: &Args, word_entry: &WordEntry, sense: &Sense, r
     ).unwrap()
             });
 
-            if let Some(caps) = INFLECTION_RE.captures(&sense.glosses[0]) {
-                if let (Some(inflection_tags), Some(lemma)) = (caps.get(1), caps.get(2)) {
-                    let inflection_tags = inflection_tags.as_str().trim();
-                    let lemma = lemma.as_str().trim();
+            if let Some(caps) = INFLECTION_RE.captures(&sense.glosses[0])
+                && let (Some(inflection_tags), Some(lemma)) = (caps.get(1), caps.get(2))
+            {
+                let inflection_tags = inflection_tags.as_str().trim();
+                let lemma = lemma.as_str().trim();
 
-                    if !inflection_tags.is_empty() {
-                        ret.insert_inflections_forms(
-                            &lemma,
-                            &word_entry.word,
-                            &word_entry.pos,
-                            FormSource::Inflection,
-                            vec![inflection_tags.to_string()],
-                        );
-                    }
+                if !inflection_tags.is_empty() {
+                    ret.insert_inflections_forms(
+                        lemma,
+                        &word_entry.word,
+                        &word_entry.pos,
+                        FormSource::Inflection,
+                        vec![inflection_tags.to_string()],
+                    );
                 }
             }
         }
@@ -1178,10 +1127,10 @@ fn write_tidy(args: &Args, ret: &Tidy) -> Result<()> {
     let opath = args.path_lemmas();
     let file = File::create(&opath)?;
     let writer = BufWriter::new(file);
-    if args.ugly {
-        serde_json::to_writer(writer, &ret.lemma_dict)?;
-    } else {
+    if args.pretty {
         serde_json::to_writer_pretty(writer, &ret.lemma_dict)?;
+    } else {
+        serde_json::to_writer(writer, &ret.lemma_dict)?;
     }
     pretty_println_at_path(
         &format!("Wrote tidy lemmas: {}", ret.lemma_dict.len()),
@@ -1194,10 +1143,10 @@ fn write_tidy(args: &Args, ret: &Tidy) -> Result<()> {
     let file = File::create(&opath)?;
     let writer = BufWriter::new(file);
     let all_forms = ret.all_forms();
-    if args.ugly {
-        serde_json::to_writer(writer, &all_forms)?;
-    } else {
+    if args.pretty {
         serde_json::to_writer_pretty(writer, &all_forms)?;
+    } else {
+        serde_json::to_writer(writer, &all_forms)?;
     }
     let n_forms: usize = all_forms.values().map(|v| v.len()).sum();
     let n_deinflected_forms: usize = ret.forms_map.values().map(|v| v.len()).sum();
@@ -1315,7 +1264,7 @@ where
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct GenericNode {
     /// 'span' | 'div' | 'ol' | 'ul' | 'li' | 'details' | 'summary'
-    /// INVARIANT is not respected here (tag could be any string)
+    /// INVARIANT is not verified here (tag could be any string)
     pub tag: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
@@ -1353,7 +1302,7 @@ pub enum DetailedDefinition {
 
 impl DetailedDefinition {
     /// Build a `DetailedDefinition::StructuredContent` variant from a Node
-    pub fn structured(content: Node) -> Self {
+    fn structured(content: Node) -> Self {
         Self::StructuredContent(StructuredContent {
             ty: "structured-content".to_string(),
             content,
@@ -1364,8 +1313,8 @@ impl DetailedDefinition {
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct StructuredContent {
     #[serde(rename = "type")]
-    pub ty: String, // should be hardcoded to "structured-content" (but then to serialize it...)
-    pub content: Node,
+    ty: String, // should be hardcoded to "structured-content" (but then to serialize it...)
+    content: Node,
 }
 
 fn wrap(tag: &str, content_ty: &str, content: Node) -> Node {
@@ -1381,21 +1330,26 @@ fn wrap(tag: &str, content_ty: &str, content: Node) -> Node {
     .to_node()
 }
 
-type TagCounter = Map<Tag, usize>;
-type PosCounter = Map<Pos, usize>;
+// Do not distinguish between Tag and Pos (String) to make it more ergonomic.
+
+type Key = String; // A tag or pos
+type Word = String; // A word
+// Vec of words in which the tag/pos was encountered
+type CounterValue = Vec<Word>;
+type Counter = Map<Key, CounterValue>;
 
 // For debugging purposes
 #[derive(Debug, Default)]
 struct Diagnostics {
     /// Tags found in bank
-    accepted_tags: TagCounter,
+    accepted_tags: Counter,
     /// Tags not found in bank
-    rejected_tags: TagCounter,
+    rejected_tags: Counter,
 
     /// POS found in bank
-    accepted_pos: PosCounter,
+    accepted_pos: Counter,
     /// POS not found in bank
-    rejected_pos: PosCounter,
+    rejected_pos: Counter,
 }
 
 impl Diagnostics {
@@ -1403,38 +1357,31 @@ impl Diagnostics {
         Self::default()
     }
 
-    fn increment_accepted_tag(&mut self, tag: Tag) {
-        *self.accepted_tags.entry(tag).or_insert(0) += 1;
+    fn is_empty(&self) -> bool {
+        self.accepted_tags.is_empty()
+            && self.rejected_tags.is_empty()
+            && self.accepted_pos.is_empty()
+            && self.rejected_pos.is_empty()
     }
 
-    fn increment_rejected_tag(&mut self, tag: Tag) {
-        *self.rejected_tags.entry(tag).or_insert(0) += 1;
+    fn increment(map: &mut Counter, key: Key, word: Word) {
+        map.entry(key).or_default().push(word);
     }
 
-    fn increment_accepted_pos(&mut self, pos: Pos) {
-        *self.accepted_pos.entry(pos).or_insert(0) += 1;
+    fn increment_accepted_tag(&mut self, tag: Key, word: Word) {
+        Self::increment(&mut self.accepted_tags, tag, word);
     }
 
-    fn increment_rejected_pos(&mut self, pos: Pos) {
-        *self.rejected_pos.entry(pos).or_insert(0) += 1;
+    fn increment_rejected_tag(&mut self, tag: Key, word: Word) {
+        Self::increment(&mut self.rejected_tags, tag, word);
     }
 
-    #[allow(unused)] // replaced for writing diagnostics but can be of use later on
-    fn log(&self) {
-        let span = span!(Level::INFO, "diagnostics");
-        let _span = span.enter();
+    fn increment_accepted_pos(&mut self, pos: Key, word: Word) {
+        Self::increment(&mut self.accepted_pos, pos, word);
+    }
 
-        let skipped_tags_count: usize = self.rejected_tags.values().sum();
-        let skipped_pos_count: usize = self.rejected_pos.values().sum();
-
-        debug!(
-            "skipped tags ({}): {:?}",
-            skipped_tags_count, self.rejected_tags
-        );
-        debug!(
-            "skipped  pos ({}): {:?}",
-            skipped_pos_count, self.rejected_pos
-        );
+    fn increment_rejected_pos(&mut self, pos: Key, word: Word) {
+        Self::increment(&mut self.rejected_pos, pos, word);
     }
 }
 
@@ -1457,25 +1404,17 @@ fn normalize_orthography(source_lang: Lang, term: &str) -> String {
 #[tracing::instrument(skip_all)]
 fn make_yomitan_lemmas(
     args: &Args,
-    lemma_dict: &LemmaDict,
+    lemma_dict: LemmaDict,
     diagnostics: &mut Diagnostics,
 ) -> Vec<YomitanEntry> {
     let mut yomitan_entries = Vec::new();
 
     for (lemma, readings) in lemma_dict {
         for (reading, pos_word) in readings {
-            let normalized_lemma = normalize_orthography(args.source, lemma);
-
             for (pos, etyms) in pos_word {
                 for (_etym_number, info) in etyms {
-                    let yomitan_entry = make_yomitan_lemma(
-                        args,
-                        reading,
-                        &normalized_lemma,
-                        pos,
-                        info,
-                        diagnostics,
-                    );
+                    let yomitan_entry =
+                        make_yomitan_lemma(args, &lemma, &reading, &pos, info, diagnostics);
                     yomitan_entries.push(yomitan_entry);
                 }
             }
@@ -1487,18 +1426,22 @@ fn make_yomitan_lemmas(
 
 fn make_yomitan_lemma(
     args: &Args,
-    reading: &String,
-    normalized_lemma: &String,
-    pos: &Pos,
-    info: &RawSenseEntry,
+    lemma: &str,
+    reading: &str,
+    pos: &Pos, // should be &str
+    info: RawSenseEntry,
     diagnostics: &mut Diagnostics,
 ) -> YomitanEntry {
     // rg: findpartofspeech findpos
     let found_pos: String = if let Some(short_pos) = find_pos(pos) {
-        diagnostics.increment_accepted_pos(pos.into());
+        if args.keep_files {
+            diagnostics.increment_accepted_pos(pos.to_string(), lemma.to_string());
+        }
         short_pos
     } else {
-        diagnostics.increment_rejected_pos(pos.into());
+        if args.keep_files {
+            diagnostics.increment_rejected_pos(pos.to_string(), lemma.to_string());
+        }
         pos
     }
     .to_string();
@@ -1520,23 +1463,21 @@ fn make_yomitan_lemma(
         match find_tag_in_bank(tag) {
             None => {
                 // try modified tag: skip
-                if tag != pos {
-                    diagnostics.increment_rejected_tag(tag.into());
+                if tag != pos && args.keep_files {
+                    diagnostics.increment_rejected_tag(tag.to_string(), lemma.to_string());
                 }
             }
             Some(res) => {
-                if tag != pos {
-                    diagnostics.increment_accepted_tag(tag.into());
+                if tag != pos && args.keep_files {
+                    diagnostics.increment_accepted_tag(tag.to_string(), lemma.to_string());
                 }
                 common_short_tags_recognized.push(res.short_tag);
             }
         }
-        // save to ymtTags to write later: skip
     }
     // Some filtering here: skip
     let definition_tags = common_short_tags_recognized.join(" ");
 
-    // gloss_tree
     let gloss_content =
         get_structured_glosses(args, &info.gloss_tree, &common_short_tags_recognized);
 
@@ -1555,15 +1496,11 @@ fn make_yomitan_lemma(
 
     let detailed_definition = DetailedDefinition::structured(detailed_definition_content);
 
-    let yomitan_reading = if *reading == *normalized_lemma {
-        ""
-    } else {
-        reading
-    };
+    let yomitan_reading = if *reading == *lemma { "" } else { reading };
 
     YomitanEntry(
-        normalized_lemma.clone(),
-        yomitan_reading.into(),
+        lemma.to_string(),
+        yomitan_reading.to_string(),
         definition_tags,
         found_pos,
         0,
@@ -1784,10 +1721,10 @@ fn get_structured_examples(args: &Args, examples: &[Example]) -> Node {
     )
 }
 
-fn make_yomitan_forms(args: &Args, forms_dict: &FormsMap) -> Vec<YomitanEntry> {
+fn make_yomitan_forms(args: &Args, forms_dict: FormsMap) -> Vec<YomitanEntry> {
     let mut yomitan_entries = Vec::new();
 
-    for (lemma, form, _pos, _source, glosses) in flat_iter_forms(forms_dict) {
+    for (lemma, form, _pos, _source, glosses) in flat_iter_forms(&forms_dict) {
         let mut inflection_hypotheses: Vec<Vec<String>> = Vec::new();
         for gloss in glosses {
             let hypotheses: Vec<Vec<String>> = vec![vec![gloss.into()]];
@@ -1806,16 +1743,16 @@ fn make_yomitan_forms(args: &Args, forms_dict: &FormsMap) -> Vec<YomitanEntry> {
                 }
             }
         }
-        // TODO: sort tags
-        let deinflection_definitions: Vec<DetailedDefinition> = inflection_hypotheses
+
+        let deinflection_definitions: Vec<_> = inflection_hypotheses
             .clone()
             .into_iter()
             .map(|hy| DetailedDefinition::Inflection((lemma.to_string(), hy)))
             .collect();
 
-        // just push for now
         let normalized = normalize_orthography(args.source, form);
         let reading = if normalized == *form { "" } else { form };
+
         let yomitan_entry = YomitanEntry(
             normalized,
             reading.into(),
@@ -1826,6 +1763,7 @@ fn make_yomitan_forms(args: &Args, forms_dict: &FormsMap) -> Vec<YomitanEntry> {
             0,
             String::new(),
         );
+
         yomitan_entries.push(yomitan_entry);
     }
 
@@ -1867,21 +1805,31 @@ fn make_yomitan(
     diagnostics: &mut Diagnostics,
     tidy_cache: Option<Tidy>,
 ) -> Result<()> {
+    println!("Making yomitan dict...");
+
     let (lemma_dict, forms_map) = if let Some(ret) = tidy_cache {
-        trace!("Skip loading Tidy result: passing it instead");
+        debug!("Skip loading Tidy result: passing it instead");
         let all_forms = ret.all_forms();
         (ret.lemma_dict, all_forms)
     } else {
-        trace!("Loading Tidy result");
+        debug!("Loading Tidy result from disk");
         let lemma_path = args.path_lemmas();
-        let lemma_dict: LemmaDict = load_json(&lemma_path)?;
         let forms_path = args.path_forms();
+
+        if !lemma_path.exists() || !forms_path.exists() {
+            bail!(
+                "can not proceed with make_yomitan. Are you running --skip-tidy without --keep-files?"
+            )
+        }
+
+        let lemma_dict: LemmaDict = load_json(&lemma_path)?;
         let forms_map: FormsMap = load_json(&forms_path)?;
         (lemma_dict, forms_map)
     };
 
-    let yomitan_entries = make_yomitan_lemmas(args, &lemma_dict, diagnostics);
-    let yomitan_forms = make_yomitan_forms(args, &forms_map);
+    let yomitan_entries = make_yomitan_lemmas(args, lemma_dict, diagnostics);
+    let yomitan_forms = make_yomitan_forms(args, forms_map);
+
     write_yomitan(args, yomitan_entries, yomitan_forms)
 }
 
@@ -1890,48 +1838,54 @@ fn write_yomitan(
     yomitan_entries: Vec<YomitanEntry>,
     yomitan_forms: Vec<YomitanEntry>,
 ) -> Result<()> {
-    let out_dir = args.pathdir_dict_temp();
+    let temp_out_dir = args.pathdir_dict_temp();
 
-    // clean the folder to prevent pollution from other runs
-    fs::remove_dir_all(&out_dir)?;
-    fs::create_dir(&out_dir)?;
+    // clean the folder if any, to prevent pollution from other runs
+    if temp_out_dir.exists() {
+        fs::remove_dir_all(&temp_out_dir)?;
+        fs::create_dir(&temp_out_dir)?;
+    }
 
-    let index_string = get_index(args);
-    let index_path = args.pathdir_dict_temp().join("index.json");
-    fs::write(index_path, index_string)?;
-
-    let mut bank_index = 0;
-    write_in_banks(args, &out_dir, yomitan_entries, "lemmas", &mut bank_index)?;
-    write_in_banks(args, &out_dir, yomitan_forms, "forms", &mut bank_index)?;
-
-    // Now zip everything
-    let file = File::create(args.path_dict())?;
+    let path_zip = args.path_dict();
+    let file = File::create(&path_zip)?;
     let mut zip = ZipWriter::new(file);
     let options = SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated);
 
+    // Zip index.json
+    let index_string = get_index(args);
+    zip.start_file("index.json", options)?;
+    zip.write_all(index_string.as_bytes())?;
+
     // Copy paste styles.css (include_bytes! to append them to the binary)
     let input_path = args.path_styles();
-    // let styles_bytes =
-    //     fs::read(&input_path).with_context(|| format!("Failed to open: {input_path:?} @ yomitan"))?;
     const STYLES_CSS: &[u8] = include_bytes!("../assets/styles.css"); // = ../args.path_styles()
-    let styles_bytes = STYLES_CSS;
     let fname = input_path.file_name().and_then(|s| s.to_str()).unwrap();
     zip.start_file(fname, options)?;
-    zip.write_all(styles_bytes)?;
+    zip.write_all(STYLES_CSS)?;
 
     // Copy paste tag_bank.json
-    // NOTE: In the original, we only add to the dictionary those tags that appear in at least one
-    // term. I don't see the point of supporting that as of now. Just dump every possible one.
     let tag_bank = get_tag_bank_as_tag_info();
     let tag_bank_bytes = serde_json::to_vec_pretty(&tag_bank)?;
     zip.start_file("tag_bank_1.json", options)?;
     zip.write_all(&tag_bank_bytes)?;
 
-    for entry in fs::read_dir(args.pathdir_dict_temp())? {
-        let entry = entry?;
-        let path = entry.path();
+    let mut bank_index = 0;
+    let banks = [("lemmas", yomitan_entries), ("forms", yomitan_forms)];
+    for (entry_ty, entries) in banks {
+        let (out_sink, out_dir) = if args.keep_files {
+            (BankSink::Disk, &temp_out_dir)
+        } else {
+            (BankSink::Zip(&mut zip, options), &path_zip)
+        };
+        write_banks(args, entries, &mut bank_index, entry_ty, &out_dir, out_sink)?;
+    }
 
-        if path.is_file() {
+    // If keep_files, read the disk files and zip them
+    if args.keep_files {
+        for entry in fs::read_dir(args.pathdir_dict_temp())? {
+            let entry = entry?;
+            let path = entry.path();
+            debug_assert!(path.is_file());
             let name = path.file_name().unwrap().to_string_lossy();
             let bytes = fs::read(&path)?;
             zip.start_file(name.as_ref(), options)?;
@@ -1946,61 +1900,83 @@ fn write_yomitan(
     Ok(())
 }
 
-/// Writes `yomitan_entries` in batches as JSONL files.
-#[tracing::instrument(skip(args, out_dir, yomitan_entries, bank_index), fields(entry_ty = %entry_ty))]
-fn write_in_banks(
+enum BankSink<'a> {
+    Disk,
+    Zip(&'a mut ZipWriter<File>, SimpleFileOptions),
+}
+
+/// Writes `yomitan_entries` in batches to out_sink (either disk or a zip).
+#[tracing::instrument(skip_all, fields(ty = %entry_ty))]
+fn write_banks(
     args: &Args,
-    out_dir: &Path,
-    mut yomitan_entries: Vec<YomitanEntry>,
-    entry_ty: &str,
+    yomitan_entries: Vec<YomitanEntry>,
     bank_index: &mut usize,
+    entry_ty: &str,
+    out_dir: &Path,
+    mut out_sink: BankSink,
 ) -> Result<()> {
-    let batch_size = 25_000;
+    let bank_size = 25_000;
     let total_entries = yomitan_entries.len();
-    let total_batch_num = total_entries.div_ceil(batch_size);
-    let mut batch_num = 0;
+    let total_bank_num = total_entries.div_ceil(bank_size);
 
-    while !yomitan_entries.is_empty() {
+    match &out_sink {
+        BankSink::Disk => debug!("Writing {entry_ty} banks to disk"),
+        BankSink::Zip(..) => debug!("Writing {entry_ty} banks to zip"),
+    }
+
+    let mut bank_num = 0;
+    let mut start = 0;
+
+    while start < total_entries {
         *bank_index += 1;
-        batch_num += 1;
+        bank_num += 1;
 
-        let upto = yomitan_entries.len().min(batch_size);
-        let file_path = out_dir.join(format!("term_bank_{bank_index}.json"));
-        let mut file = BufWriter::new(File::create(&file_path)?);
+        let bank_name = format!("term_bank_{bank_index}.json");
+        let file_path = out_dir.join(&bank_name);
 
-        // potentially faster but low priority
-        //
-        // for entry in yomitan_entries.drain(0..upto) {
-        //     serde_json::to_writer_pretty(&mut file, &entry)?;
-        //     file.write_all(b"\n,")?; // fails at edges < CARE
-        // }
+        let mut writer: Box<dyn Write> = match out_sink {
+            BankSink::Disk => Box::new(BufWriter::new(File::create(&file_path)?)),
+            BankSink::Zip(ref mut zip, options) => {
+                zip.start_file(&bank_name, options)?;
+                Box::new(BufWriter::new(zip))
+            }
+        };
 
-        let batch: Vec<_> = yomitan_entries.drain(0..upto).collect();
-        if args.ugly {
-            serde_json::to_writer(&mut file, &batch)?;
+        let end = (start + bank_size).min(total_entries);
+        let bank = &yomitan_entries[start..end];
+        let upto = end - start;
+
+        if args.pretty {
+            serde_json::to_writer_pretty(&mut writer, &bank)?;
         } else {
-            serde_json::to_writer_pretty(&mut file, &batch)?;
+            serde_json::to_writer(&mut writer, &bank)?;
         }
+        writer.flush()?;
 
-        file.flush()?;
-
-        if batch_num > 1 {
+        if bank_num > 1 {
             print!("\r\x1b[K");
         }
         pretty_print_at_path(
-            &format!("Wrote {entry_ty} batch {batch_num}/{total_batch_num} ({upto} entries)"),
+            &format!("Wrote {entry_ty} bank {bank_num}/{total_bank_num} ({upto} entries)"),
             &file_path,
         );
-        if batch_num == total_batch_num {
-            println!();
-        }
         std::io::stdout().flush()?;
+
+        start = end;
+    }
+
+    if bank_num == total_bank_num {
+        println!();
     }
 
     Ok(())
 }
 
 fn write_diagnostics(args: &Args, diagnostics: &Diagnostics) -> Result<()> {
+    if diagnostics.is_empty() {
+        return Ok(());
+    }
+
     let pathdir = args.pathdir_diagnostics();
     fs::create_dir_all(&pathdir)?;
 
@@ -2021,28 +1997,39 @@ fn write_diagnostics(args: &Args, diagnostics: &Diagnostics) -> Result<()> {
 }
 
 // hacky: takes advantage of insertion order
-fn sort_indexmap(map: &IndexMap<String, usize>) -> IndexMap<String, usize> {
-    let mut entries: Vec<_> = map.iter().collect();
-    entries.sort_by(|a, b| b.1.cmp(a.1));
-    let mut sorted_map = IndexMap::new();
-    for (k, v) in entries {
-        sorted_map.insert(k.into(), *v);
+fn convert_and_sort_indexmap(map: &Counter) -> IndexMap<String, (usize, Word)> {
+    // Display first word
+    let mut entries: Vec<_> = map
+        .iter()
+        .filter_map(|(key, words)| {
+            words
+                .first()
+                .cloned()
+                .map(|first_word| (key.clone(), (words.len(), first_word)))
+        })
+        .collect();
+
+    entries.sort_by(|a, b| b.1.0.cmp(&a.1.0));
+    let mut sorted = IndexMap::with_capacity(entries.len());
+    for (key, value) in entries {
+        sorted.insert(key, value);
     }
-    sorted_map
+
+    sorted
 }
 
 fn write_sorted_json(
     pathdir: &Path,
     name: &str,
-    accepted: &TagCounter,
-    rejected: &TagCounter,
+    accepted: &Counter,
+    rejected: &Counter,
 ) -> Result<()> {
     if accepted.is_empty() && rejected.is_empty() {
         return Ok(());
     }
 
-    let accepted_sorted = sort_indexmap(accepted);
-    let rejected_sorted = sort_indexmap(rejected);
+    let accepted_sorted = convert_and_sort_indexmap(accepted);
+    let rejected_sorted = convert_and_sort_indexmap(rejected);
     let json: IndexMap<&'static str, _> =
         IndexMap::from_iter([("rejected", rejected_sorted), ("accepted", accepted_sorted)]);
 
@@ -2073,12 +2060,7 @@ fn run(args: &Args) -> Result<()> {
         make_yomitan(args, &mut diagnostics, tidy_cache)?;
     }
 
-    // diagnostics.log();
     write_diagnostics(args, &diagnostics)?;
-
-    if args.delete_files {
-        fs::remove_dir_all(args.temp_dir())?;
-    }
 
     Ok(())
 }
@@ -2101,7 +2083,14 @@ fn setup_tracing(args: &Args) {
 fn main() -> Result<()> {
     let args = Args::parse_args();
     setup_tracing(&args);
+
     debug!("{args:#?}");
+    // Can't go in parse_args since we haven't setup tracing at that point
+    if !args.keep_files && (args.skip_tidy || args.skip_yomitan) {
+        // The code might still work if we had artifacts from a previous run
+        warn!("keep-files is disabled while tidy/yomitan is skipped");
+    }
+
     run(&args)
 }
 
@@ -2176,12 +2165,14 @@ mod tests {
     //
     // Read the expected result in the snapshot first, then compare
     fn shapshot_for_lang(source: &str, target: &str, fixture_dir: &PathBuf) -> Result<()> {
-        let mut args = Args::default();
-
-        args.set_dict_name("kty");
+        let mut args = Args {
+            keep_files: true,
+            pretty: true,
+            root_dir: fixture_dir.to_path_buf(),
+            ..Default::default()
+        };
         args.set_source(source)?;
         args.set_target(target)?;
-        args.set_root_dir(fixture_dir);
 
         // it would be better to do something like args.path()
         let fixture_path = fixture_dir.join(format!("kaikki/{source}-{target}-extract.jsonl"));
@@ -2213,8 +2204,6 @@ mod tests {
             eprintln!("{}", String::from_utf8_lossy(&output.stdout));
             bail!("changes!")
         }
-
-        // diagnostics.log();
 
         Ok(())
     }
