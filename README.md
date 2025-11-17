@@ -13,7 +13,7 @@ $ git clone https://github.com/daxida/kty
 $ cargo install --path=kty
 $ kty main de en
 ...
-✓ Wrote yomitan dict @ data/dict/de/en/kty.zip (20.94 MB)
+✓ Wrote yomitan dict @ data/dict/de/en/kty-de-en.zip (20.94 MB)
 ```
 
 A list of supported languages isos can be found at `assets/language.json`

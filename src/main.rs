@@ -1083,22 +1083,21 @@ fn write_tidy(args: &Args, pm: &PathManager, ret: &Tidy) -> Result<()> {
     Ok(())
 }
 
-fn get_index(args: &Args) -> String {
+fn get_index(dict_name: &str, source: Lang, target: Lang) -> String {
     let current_date = chrono::Utc::now().format("%Y-%m-%d");
     format!(
         r#"{{
-  "title": "{}",
+  "title": "{dict_name}",
   "format": 3,
-  "revision": "{}",
+  "revision": "{current_date}",
   "sequenced": true,
   "author": "Kaikki-to-Yomitan contributors",
   "url": "https://github.com/yomidevs/kaikki-to-yomitan",
   "description": "Dictionaries for various language pairs generated from Wiktionary data, via Kaikki and Kaikki-to-Yomitan.",
   "attribution": "https://kaikki.org/",
-  "sourceLanguage": "{}",
-  "targetLanguage": "{}"
-}}"#,
-        args.dict_name, current_date, args.source, args.target
+  "sourceLanguage": "{source}",
+  "targetLanguage": "{target}"
+}}"#
     )
 }
 
@@ -1767,7 +1766,7 @@ fn write_yomitan(
     let options = SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated);
 
     // Zip index.json
-    let index_string = get_index(args);
+    let index_string = get_index(&pm.dict_name_expanded(), args.source, args.target);
     zip.start_file("index.json", options)?;
     zip.write_all(index_string.as_bytes())?;
 
@@ -2001,7 +2000,7 @@ fn make_glossary_run(args: &Args, pm: &PathManager, path_jsonl_raw: &Path) -> Re
         return Ok(());
     }
 
-    let index_string = get_index(args);
+    let index_string = get_index(&pm.dict_name_expanded(), args.source, args.target);
     zip.start_file("index.json", options)?;
     zip.write_all(index_string.as_bytes())?;
 
@@ -2026,14 +2025,7 @@ fn make_glossary_run(args: &Args, pm: &PathManager, path_jsonl_raw: &Path) -> Re
     let out_dir = PathBuf::from("unused_for_zip"); // only for printing
     let entry_ty = "entry";
     let out_sink = BankSink::Zip(&mut zip, options);
-    write_banks(
-        args,
-        entries,
-        &mut bank_index,
-        entry_ty,
-        &out_dir,
-        out_sink,
-    )?;
+    write_banks(args, entries, &mut bank_index, entry_ty, &out_dir, out_sink)?;
 
     zip.finish()?;
 

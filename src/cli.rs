@@ -319,16 +319,29 @@ impl PathManager {
         self.dir_temp().join("dict")
     }
 
+    // Should not go here, but since it uses dict_ty...
+    // It exists so the dictionary index is in sync with PathManager::path_dict
+    //
     /// Depends on the dictionary type (main, glossary etc.)
     ///
-    /// Example: `data/dict/el/el/dictionary_name.zip`
-    /// Example: `data/dict/el/el/dictionary_name.zip`
+    /// Example: `dictionary_name-el-en`
+    /// Example: `dictionary_name-el-en-gloss`
+    pub fn dict_name_expanded(&self) -> String {
+        match self.dict_ty {
+            DictionaryType::Main => format!("{}-{}-{}", self.dict_name, self.source, self.target),
+            DictionaryType::Glossary => {
+                format!("{}-{}-{}-gloss", self.dict_name, self.source, self.target)
+            }
+        }
+    }
+
+    /// Depends on the dictionary type (main, glossary etc.)
+    ///
+    /// Example: `data/dict/el/en/dictionary_name-el-en.zip`
+    /// Example: `data/dict/el/en/dictionary_name-el-en-gloss.zip`
     pub fn path_dict(&self) -> PathBuf {
-        let final_dict_name = match self.dict_ty {
-            DictionaryType::Main => self.dict_name.clone(),
-            DictionaryType::Glossary => format!("{}-glossary", self.dict_name),
-        };
-        self.dir_dict().join(format!("{final_dict_name}.zip"))
+        self.dir_dict()
+            .join(format!("{}.zip", self.dict_name_expanded()))
     }
 
     // Assets paths
