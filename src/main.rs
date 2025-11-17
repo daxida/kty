@@ -1,15 +1,33 @@
-// #![allow(unused_variables)]
-// #![allow(unused_imports)]
+//! Schema of the main dictionary.
+//!
+//! ```text
+//! +--------------------+-----------------------------------------------+--------------------------------------+
+//! | Step               | En edition                                    | Non-En edition                       |
+//! |                    | (target = en)                                 |                                      |
+//! +--------------------+-----------------------------------------------+--------------------------------------+
+//! | Download           | <source>-<target>-extract.jsonl               | <target>-extract.jsonl               |
+//! +--------------------+-----------------------------------------------+--------------------------------------+
+//! | Filter             | unchanged (already filtered)                  | <source>-<target>-extract.jsonl      |
+//! |                    |                                               |                                      |
+//! |                    | if filter params are provided:                |                                      |
+//! |                    | → <source>-<target>-extract.tmp.jsonl         |                                      |
+//! |                    |-----------------------------------------------+--------------------------------------|
+//! |                    | The filtered file path (either .jsonl or .tmp.jsonl) is passed to Tidy.              |
+//! +--------------------+-----------------------------------------------+--------------------------------------+
+//! | Tidy (common)      | output to temp/tidy or kept in memory                                                |
+//! +--------------------+--------------------------------------------------------------------------------------+
+//! | Yomitan (common)   | output to temp/dict or directly to .zip                                              |
+//! +--------------------+--------------------------------------------------------------------------------------+
+//! ```
 
 use anyhow::{Context, Ok, Result, bail};
-use flate2::read::GzDecoder;
 use indexmap::{IndexMap, IndexSet};
 use regex::Regex;
 use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
 use std::fs::{self, File};
 use std::io::{BufRead, BufReader, BufWriter, Write};
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::sync::LazyLock;
 use tracing_subscriber::EnvFilter;
 use tracing_subscriber::fmt::format::FmtSpan;
@@ -20,7 +38,8 @@ use zip::write::SimpleFileOptions;
 #[allow(unused)]
 use tracing::{Level, debug, error, info, span, trace, warn};
 
-use kty::cli::{Args, FilterKey};
+use kty::cli::{Args, Cli, FilterKey, PathManager};
+use kty::download::download_jsonl;
 use kty::lang::Lang;
 use kty::locale::get_locale_examples_string;
 use kty::models::{Example, Form, HeadTemplate, Pos, Sense, Tag, WordEntry};
@@ -29,106 +48,36 @@ use kty::tags::{
     get_tag_bank_as_tag_info, merge_person_tags, remove_redundant_tags, sort_tags,
     sort_tags_by_similar,
 };
-
-fn get_file_size_in_mb(path: &Path) -> Result<f64> {
-    let metadata = fs::metadata(path)?;
-    let size_bytes = metadata.len();
-    let size_mb = size_bytes as f64 / (1024.0 * 1024.0);
-    Ok(size_mb)
-}
-
-fn pretty_msg_at_path(msg: &str, path: &Path) -> String {
-    let at = "\x1b[1;36m@\x1b[0m"; // bold + cyan
-    match get_file_size_in_mb(path) {
-        core::result::Result::Ok(size_mb) => {
-            let size_str = format!("\x1b[1m{size_mb:.2} MB\x1b[0m"); // bold
-            format!("{msg} {at} {} ({})", path.display(), size_str)
-        }
-        // Happens when we write to zip
-        Err(..) => format!("{msg} {at} {}", path.display()),
-    }
-}
-
-fn pretty_println_at_path(msg: &str, path: &Path) {
-    println!("{}", pretty_msg_at_path(msg, path));
-}
-
-fn pretty_print_at_path(msg: &str, path: &Path) {
-    print!("{}", pretty_msg_at_path(msg, path));
-}
-
-// Some pretty printing codepoints
-const DOWNLOAD_C: &str = "⬇";
-const SKIP_C: &str = "⏭";
-const CHECK_C: &str = "✓";
-
-fn skip_because_file_exists(skipped: &str, path: &Path) {
-    let msg = format!("{SKIP_C} Skipping {skipped}: file already exists");
-    pretty_println_at_path(&msg, path);
-}
-
-/// Download the raw jsonl from kaikki.
-///
-/// Does not write the .gz file to disk.
-fn download_jsonl(args: &Args) -> Result<()> {
-    let path_raw_jsonl = args.path_raw_jsonl();
-
-    if path_raw_jsonl.exists() && !args.redownload {
-        skip_because_file_exists("download", &path_raw_jsonl);
-        return Ok(());
-    }
-
-    let url = args.url_raw_jsonl_gz();
-    println!("{DOWNLOAD_C} Downloading {url}");
-
-    let response = match ureq::get(url).call() {
-        core::result::Result::Ok(response) => response,
-        Err(err @ ureq::Error::StatusCode(404)) => {
-            // Normally this is caught at CLI time, but in case language.json or lang.rs
-            // are outdated / wrong it may reach this...
-            bail!(
-                "{err}. Does the language {} ({}) have an edition?",
-                args.edition.long(),
-                args.edition
-            )
-        }
-        Err(err) => bail!(err),
-    };
-
-    if let Some(last_modified) = response.headers().get("last-modified") {
-        info!("Raw jsonl was last modified: {:?}", last_modified);
-    }
-
-    let reader = response.into_body().into_reader();
-    // We can't use gzip's ureq feature because there is no content-encoding in headers
-    // https://github.com/tatuylonen/wiktextract/issues/1482
-    let mut decoder = GzDecoder::new(reader);
-
-    let mut writer = BufWriter::new(File::create(&path_raw_jsonl)?);
-    std::io::copy(&mut decoder, &mut writer)?;
-
-    pretty_println_at_path(&format!("{CHECK_C} Downloaded"), &path_raw_jsonl);
-
-    Ok(())
-}
+use kty::utils::{CHECK_C, SKIP_C, pretty_print_at_path, pretty_println_at_path};
 
 /// Filter by source language iso and other input-given key-value pairs.
-#[tracing::instrument(skip(args), fields(source = %args.source))]
-fn filter_jsonl(args: &Args) -> Result<()> {
+///
+/// For the English edition, it is a bit tricky. The downloaded jsonl is already filtered. We
+/// skip filtering again, unless we are given extra filter parameters.
+///
+/// In that case, we write a new filtered tmp.jsonl file, and we return its path, different from
+/// the default <source>-<target>.extract.jsonl, to be passed to the tidy function.
+#[tracing::instrument(skip_all, fields(source = %args.source))]
+fn filter_jsonl(args: &Args, path_jsonl_raw: &Path, path_jsonl: PathBuf) -> Result<PathBuf> {
     // English edition already gives them filtered.
-    // Yet don't skip if we have filter arguments.
-    if matches!(args.edition, Lang::En) && args.filter.is_empty() && args.reject.is_empty() {
+    // Yet don't skip if we have filter arguments (forced filtering).
+    if matches!(args.edition, Lang::En) && !args.has_filter_params() {
         println!("{SKIP_C} Skipping filtering: english edition detected");
-        return Ok(());
+        return Ok(path_jsonl);
     }
 
     // rust default is 8 * (1 << 10) := 8KB
     let capacity = 256 * (1 << 10);
 
-    let reader_path = args.path_raw_jsonl();
+    let reader_path = path_jsonl_raw;
     let reader_file = File::open(&reader_path)?;
     let mut reader = BufReader::with_capacity(capacity, reader_file);
-    let writer_path = args.path_jsonl();
+    let writer_path = match args.edition {
+        Lang::En => path_jsonl.with_extension("tmp.jsonl"),
+        _ => path_jsonl,
+    };
+    debug_assert_ne!(reader_path, writer_path);
+
     let writer_file = File::create(&writer_path)?;
     let mut writer = BufWriter::with_capacity(capacity, writer_file);
     debug!("Filtering: {reader_path:?} > {writer_path:?}",);
@@ -185,18 +134,23 @@ fn filter_jsonl(args: &Args) -> Result<()> {
         writer.write_all(line.as_bytes())?;
     }
 
-    writer.flush()?;
-
     if printed_progress {
         println!();
     }
 
+    writer.flush()?;
+
+    if fs::metadata(&writer_path)?.len() == 0 {
+        fs::remove_file(&writer_path)?;
+        bail!("no valid entries for these filters. Exiting.");
+    }
+
     pretty_println_at_path(
         &format!("{CHECK_C} Filtered {extracted_lines_counter} lines out of {line_count}"),
-        &args.path_jsonl(),
+        &writer_path,
     );
 
-    Ok(())
+    Ok(writer_path)
 }
 
 // Tidy: internal types
@@ -271,7 +225,9 @@ fn form_map_len(form_map: &FormMap) -> usize {
 }
 
 fn form_map_len_of_source(form_map: &FormMap, source: FormSource) -> usize {
-    flat_iter_forms(form_map).filter(|(_, _, _, src, _)| **src == source).count()
+    flat_iter_forms(form_map)
+        .filter(|(_, _, _, src, _)| **src == source)
+        .count()
 }
 
 fn form_map_len_extracted(form_map: &FormMap) -> usize {
@@ -393,10 +349,12 @@ fn postprocess_forms(form_map: &mut FormMap) {
 }
 
 #[tracing::instrument(skip_all)]
-fn tidy(args: &Args, path_jsonl: &Path) -> Result<Tidy> {
+fn tidy(args: &Args, pm: &PathManager, path_jsonl: &Path) -> Result<Tidy> {
     if !path_jsonl.exists() {
         bail!("{path_jsonl:?} does not exist @ tidy")
     }
+
+    debug!("Reading jsonlines @ {}", path_jsonl.display());
 
     let ret = tidy_run(args, path_jsonl)?;
 
@@ -413,7 +371,7 @@ fn tidy(args: &Args, path_jsonl: &Path) -> Result<Tidy> {
 
     if args.keep_files {
         debug!("Writing Tidy result to disk");
-        write_tidy(args, &ret)?;
+        write_tidy(args, pm, &ret)?;
     }
 
     Ok(ret)
@@ -1097,8 +1055,8 @@ fn handle_inflection_gloss_en(args: &Args, word_entry: &WordEntry, sense: &Sense
 ///
 /// This is effectively a snapshot of our tidy intermediate representation.
 #[tracing::instrument(skip_all)]
-fn write_tidy(args: &Args, ret: &Tidy) -> Result<()> {
-    let opath = args.path_lemmas();
+fn write_tidy(args: &Args, pm: &PathManager, ret: &Tidy) -> Result<()> {
+    let opath = pm.path_lemmas();
     let file = File::create(&opath)?;
     let writer = BufWriter::new(file);
 
@@ -1111,7 +1069,7 @@ fn write_tidy(args: &Args, ret: &Tidy) -> Result<()> {
 
     // Forms are written by chunks in the original (cf. mapChunks). Not sure if needed.
     // If I even change that, do NOT hardcode the forms number (i.e. the 0 in ...forms-0.json)
-    let opath = args.path_forms();
+    let opath = pm.path_forms();
     let file = File::create(&opath)?;
     let writer = BufWriter::new(file);
 
@@ -1120,7 +1078,6 @@ fn write_tidy(args: &Args, ret: &Tidy) -> Result<()> {
     } else {
         serde_json::to_writer(writer, &ret.form_map)?;
     }
-
     pretty_println_at_path("Wrote tidy forms", &opath);
 
     Ok(())
@@ -1147,7 +1104,7 @@ fn get_index(args: &Args) -> String {
 
 // https://github.com/MarvNC/yomichan-dict-builder/blob/master/src/types/yomitan/termbank.ts
 // @ TermInformation
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct YomitanEntry(
     pub String,                  // term
     pub String,                  // reading
@@ -1255,7 +1212,7 @@ pub struct BacklinkContent {
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(untagged)]
 pub enum DetailedDefinition {
-    // Plain(String),
+    Text(String),
     StructuredContent(StructuredContent),
     Inflection((String, Vec<String>)),
 }
@@ -1759,6 +1716,7 @@ fn load_json<T: DeserializeOwned>(path: &Path) -> Result<T> {
 #[tracing::instrument(skip_all)]
 fn make_yomitan(
     args: &Args,
+    pm: &PathManager,
     diagnostics: &mut Diagnostics,
     tidy_cache: Option<Tidy>,
 ) -> Result<()> {
@@ -1769,8 +1727,8 @@ fn make_yomitan(
         (ret.lemma_map, ret.form_map)
     } else {
         debug!("Loading Tidy result from disk");
-        let lemmas_path = args.path_lemmas();
-        let forms_path = args.path_forms();
+        let lemmas_path = pm.path_lemmas();
+        let forms_path = pm.path_forms();
 
         if !lemmas_path.exists() || !forms_path.exists() {
             bail!(
@@ -1786,15 +1744,16 @@ fn make_yomitan(
     let yomitan_entries = make_yomitan_lemmas(args, lemma_map, diagnostics);
     let yomitan_forms = make_yomitan_forms(args, form_map);
 
-    write_yomitan(args, yomitan_entries, yomitan_forms)
+    write_yomitan(args, pm, yomitan_entries, yomitan_forms)
 }
 
 fn write_yomitan(
     args: &Args,
+    pm: &PathManager,
     yomitan_entries: Vec<YomitanEntry>,
     yomitan_forms: Vec<YomitanEntry>,
 ) -> Result<()> {
-    let temp_out_dir = args.pathdir_dict_temp();
+    let temp_out_dir = pm.dir_temp_dict();
 
     // clean the folder if any, to prevent pollution from other runs
     if temp_out_dir.exists() {
@@ -1802,7 +1761,7 @@ fn write_yomitan(
         fs::create_dir(&temp_out_dir)?;
     }
 
-    let path_zip = args.path_dict();
+    let path_zip = pm.path_dict();
     let file = File::create(&path_zip)?;
     let mut zip = ZipWriter::new(file);
     let options = SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated);
@@ -1813,7 +1772,7 @@ fn write_yomitan(
     zip.write_all(index_string.as_bytes())?;
 
     // Copy paste styles.css (include_bytes! to append them to the binary)
-    let input_path = args.path_styles();
+    let input_path = pm.path_styles();
     const STYLES_CSS: &[u8] = include_bytes!("../assets/styles.css"); // = ../args.path_styles()
     let fname = input_path.file_name().and_then(|s| s.to_str()).unwrap();
     zip.start_file(fname, options)?;
@@ -1838,7 +1797,7 @@ fn write_yomitan(
 
     // If keep_files, read the disk files and zip them
     if args.keep_files {
-        for entry in fs::read_dir(args.pathdir_dict_temp())? {
+        for entry in fs::read_dir(temp_out_dir)? {
             let entry = entry?;
             let path = entry.path();
             debug_assert!(path.is_file());
@@ -1851,7 +1810,7 @@ fn write_yomitan(
 
     zip.finish()?;
 
-    pretty_println_at_path(&format!("{CHECK_C} Wrote yomitan dict"), &args.path_dict());
+    pretty_println_at_path(&format!("{CHECK_C} Wrote yomitan dict"), &pm.path_dict());
 
     Ok(())
 }
@@ -1862,7 +1821,7 @@ enum BankSink<'a> {
 }
 
 /// Writes `yomitan_entries` in batches to `out_sink` (either disk or a zip).
-#[tracing::instrument(skip_all, fields(ty = %entry_ty))]
+#[tracing::instrument(skip_all)]
 fn write_banks(
     args: &Args,
     yomitan_entries: Vec<YomitanEntry>,
@@ -1928,22 +1887,252 @@ fn write_banks(
     Ok(())
 }
 
-fn write_diagnostics(args: &Args, diagnostics: &Diagnostics) -> Result<()> {
+fn make_dict_glossary(args: &Args, pm: &PathManager) -> Result<()> {
+    pm.setup_dirs()?;
+
+    // should go to the cli
+    if args.source == args.target {
+        bail!("a glossary dictionary is never monolingual. Source must be different from target.");
+    }
+    // should go to the cli
+    // The source must be an edition since that's where we are going to fish for translations
+    if !args.source.has_edition() {
+        bail!("source language must have an edition.");
+    }
+
+    let source = args.source;
+    let target = args.source;
+
+    // we are not filtering, so use path_jsonl
+    let path_jsonl = pm.path_jsonl(source, target);
+    debug_assert!(path_jsonl.exists());
+
+    download_jsonl(source, target, &path_jsonl, args.redownload)?;
+    make_glossary_run(args, pm, &path_jsonl)?;
+
+    Ok(())
+}
+
+/// Build a glossary (short dictionary) from a monolingual edition JSONL file.
+///
+/// This function generates a *translation glossary* for a given `<source> → <target>`
+/// language pair. Unlike the main dictionary pipeline, this performs all steps
+/// (filtering, tidying, and Yomitan conversion) in a single operation.
+///
+/// It downloads (or loads from disk) the *monolingual edition* file for `<source>`
+/// (i.e. `<source>-<source>-extract.jsonl`), referenced by `path_jsonl_raw`. Then we look for
+/// translations such that lang_code = <target>
+#[tracing::instrument(skip_all)]
+fn make_glossary_run(args: &Args, pm: &PathManager, path_jsonl_raw: &Path) -> Result<()> {
+    // rust default is 8 * (1 << 10) := 8KB
+    let capacity = 256 * (1 << 10);
+
+    let reader_path = PathBuf::from(path_jsonl_raw);
+    let reader_file = File::open(&reader_path)?;
+    let mut reader = BufReader::with_capacity(capacity, reader_file);
+
+    let writer_path = pm.path_dict();
+    debug_assert_ne!(reader_path, writer_path);
+    debug!("Writing: {reader_path:?} > {writer_path:?}");
+
+    let writer_file = File::create(&writer_path)?;
+    let mut zip = ZipWriter::new(writer_file);
+    let options = SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated);
+
+    let print_interval = 5000;
+    let mut line_count = 1;
+    let mut printed_progress = false;
+
+    let mut filter = args.filter.clone();
+    let reject = args.reject.clone();
+    let lang_code_filter = (FilterKey::LangCode, args.source.to_string());
+    filter.push(lang_code_filter);
+    debug!("Filter {filter:?} - Reject {reject:?}");
+
+    let mut line = String::with_capacity(1 << 10);
+    let mut entries = Vec::new();
+
+    loop {
+        line.clear();
+        match reader.read_line(&mut line)? {
+            0 => break, // EOF
+            _ => {}
+        }
+
+        line_count += 1;
+
+        // Only relevant for tests. Kaikki jsonlines should not contain empty lines
+        if line.trim().is_empty() {
+            continue;
+        }
+
+        let word_entry: WordEntry =
+            serde_json::from_str(&line).with_context(|| "Error decoding JSON @ filter")?;
+
+        if line_count % print_interval == 0 {
+            printed_progress = true;
+            print!("Processed {line_count} lines...\r");
+            std::io::stdout().flush()?;
+        }
+
+        if line_count == args.first {
+            break;
+        }
+
+        if !filter.iter().all(|(k, v)| k.field_value(&word_entry) == v) {
+            continue;
+        }
+
+        let yomitan_entry = make_glossary_yomitan_entry(args, &word_entry);
+        if let Some(yomitan_entry) = yomitan_entry {
+            entries.push(yomitan_entry);
+        }
+    }
+
+    if printed_progress {
+        println!();
+    }
+
+    println!("Found {} entries", entries.len());
+    if entries.is_empty() {
+        // Compared to filter_jsonl, this is not an error since it does not prevent any code that
+        // comes after (there is nothing after! this function does *everything*).
+        // warn!("no valid entries for these filters. Exiting.");
+        return Ok(());
+    }
+
+    let index_string = get_index(args);
+    zip.start_file("index.json", options)?;
+    zip.write_all(index_string.as_bytes())?;
+
+    if args.keep_files {
+        // also write to disk for debugging
+        let mut bank_index = 0;
+        let out_dir = pm.dir_temp_dict();
+        let entry_ty = "entry";
+        fs::create_dir_all(&out_dir)?;
+        let out_sink = BankSink::Disk;
+        write_banks(
+            args,
+            entries.clone(),
+            &mut bank_index,
+            &entry_ty,
+            &out_dir,
+            out_sink,
+        )?;
+    }
+
+    let mut bank_index = 0;
+    let out_dir = PathBuf::from("unused_for_zip"); // only for printing
+    let entry_ty = "entry";
+    let out_sink = BankSink::Zip(&mut zip, options);
+    write_banks(
+        args,
+        entries,
+        &mut bank_index,
+        &entry_ty,
+        &out_dir,
+        out_sink,
+    )?;
+
+    zip.finish()?;
+
+    pretty_println_at_path(
+        &format!("{CHECK_C} Wrote yomitan glossary dict"),
+        &writer_path,
+    );
+
+    Ok(())
+}
+
+fn make_glossary_yomitan_entry(args: &Args, word_entry: &WordEntry) -> Option<YomitanEntry> {
+    // rg: process translations processtranslations
+    let target = args.target.to_string();
+
+    // The original was fetching translations from the Senses too, but those are documented nowhere
+    // and there is not a single occurence in the testsuite.
+    let mut translations: Map<Option<String>, Vec<String>> = Map::new();
+    for translation in &word_entry.translations {
+        if translation.lang_code != target || translation.word.is_empty() {
+            continue;
+        }
+
+        let sense = if translation.sense.is_empty() {
+            None
+        } else {
+            Some(translation.sense.clone())
+        };
+
+        let sense_translations = translations.entry(sense).or_default();
+        sense_translations.push(translation.word.clone());
+    }
+
+    if translations.is_empty() {
+        return None;
+    }
+
+    let mut definitions = Vec::new();
+    for (sense, translations) in translations {
+        match sense {
+            None => {
+                for translation in translations {
+                    definitions.push(DetailedDefinition::Text(translation));
+                }
+            }
+            Some(sense) => {
+                let mut structured_translations_content = Node::Array(Box::default());
+                let structured_sense = wrap("span", "", Node::Text(sense));
+                structured_translations_content.push(structured_sense);
+                let mut structured_translations_array = Node::Array(Box::default());
+                for translation in translations {
+                    structured_translations_array.push(wrap("li", "", Node::Text(translation)));
+                }
+                structured_translations_content.push(wrap("ul", "", structured_translations_array));
+                let structured_translations = DetailedDefinition::structured(wrap(
+                    "div",
+                    "",
+                    structured_translations_content,
+                ));
+                definitions.push(structured_translations);
+            }
+        }
+    }
+
+    let reading = get_reading(args, word_entry);
+    let found_pos = match find_pos(&word_entry.pos) {
+        Some(short_pos) => short_pos.to_string(),
+        None => word_entry.pos.clone(),
+    };
+    let definition_tags = found_pos.clone();
+
+    Some(YomitanEntry(
+        word_entry.word.clone(),
+        reading.to_string(),
+        definition_tags,
+        found_pos,
+        0,
+        definitions,
+        0,
+        String::new(),
+    ))
+}
+
+fn write_diagnostics(pm: &PathManager, diagnostics: &Diagnostics) -> Result<()> {
     if diagnostics.is_empty() {
         return Ok(());
     }
 
-    let pathdir = args.pathdir_diagnostics();
-    fs::create_dir_all(&pathdir)?;
+    let dir_diagnostics = pm.dir_diagnostics();
+    fs::create_dir_all(&dir_diagnostics)?;
 
     write_sorted_json(
-        &pathdir,
+        &dir_diagnostics,
         "pos.json",
         &diagnostics.accepted_pos,
         &diagnostics.rejected_pos,
     )?;
     write_sorted_json(
-        &pathdir,
+        &dir_diagnostics,
         "tags.json",
         &diagnostics.accepted_tags,
         &diagnostics.rejected_tags,
@@ -1975,7 +2164,7 @@ fn convert_and_sort_indexmap(map: &Counter) -> IndexMap<String, (usize, Word)> {
 }
 
 fn write_sorted_json(
-    pathdir: &Path,
+    dir_diagnostics: &Path,
     name: &str,
     accepted: &Counter,
     rejected: &Counter,
@@ -1990,45 +2179,54 @@ fn write_sorted_json(
         IndexMap::from_iter([("rejected", rejected_sorted), ("accepted", accepted_sorted)]);
 
     let content = serde_json::to_string_pretty(&json)?;
-    fs::write(pathdir.join(name), content)?;
+    fs::write(dir_diagnostics.join(name), content)?;
     Ok(())
 }
 
 #[tracing::instrument(skip_all)]
-fn run(args: &Args) -> Result<()> {
-    args.setup_dirs()?;
+fn make_dict_main(args: &Args, pm: &PathManager) -> Result<()> {
+    pm.setup_dirs()?;
 
-    download_jsonl(args)?;
+    let path_jsonl_raw = pm.path_jsonl_raw();
+    download_jsonl(args.source, args.target, &path_jsonl_raw, args.redownload)?;
 
+    let mut path_jsonl = pm.path_jsonl(args.source, args.target);
     if !args.skip_filter {
-        filter_jsonl(args)?;
-    }
+        path_jsonl = filter_jsonl(args, &path_jsonl_raw, path_jsonl)?
+    };
 
     let tidy_cache = if args.skip_tidy {
         None
     } else {
-        let ret = tidy(args, &args.path_jsonl())?;
+        let ret = tidy(args, pm, &path_jsonl)?;
         Some(ret)
     };
 
     let mut diagnostics = Diagnostics::new();
     if !args.skip_yomitan {
-        make_yomitan(args, &mut diagnostics, tidy_cache)?;
+        make_yomitan(args, pm, &mut diagnostics, tidy_cache)?;
     }
 
-    write_diagnostics(args, &diagnostics)?;
+    write_diagnostics(pm, &diagnostics)?;
 
     Ok(())
 }
 
-fn setup_tracing(args: &Args) {
+fn setup_tracing(verbose: bool) {
     // tracing_subscriber::fmt::init();
     // Same defaults as the above, without timestamps
+
+    let filter = EnvFilter::try_from_default_env().unwrap_or_else(|_| {
+        if verbose {
+            // Only we are set to debug. ureq and other libs stay the same.
+            EnvFilter::new(format!("{}=debug", env!("CARGO_PKG_NAME")))
+        } else {
+            EnvFilter::new("warn")
+        }
+    });
+
     tracing_subscriber::fmt()
-        .with_env_filter(
-            EnvFilter::try_from_default_env()
-                .unwrap_or_else(|_| EnvFilter::new(if args.verbose { "debug" } else { "warn" })),
-        )
+        .with_env_filter(filter)
         .with_span_events(FmtSpan::CLOSE)
         // .without_time()
         .with_target(true)
@@ -2037,17 +2235,26 @@ fn setup_tracing(args: &Args) {
 }
 
 fn main() -> Result<()> {
-    let args = Args::parse_args();
-    setup_tracing(&args);
+    let (cli, pm) = Cli::parse_cli();
 
-    debug!("{args:#?}");
-    // Can't go in parse_args since we haven't setup tracing at that point
-    if !args.keep_files && (args.skip_tidy || args.skip_yomitan) {
-        // The code might still work if we had artifacts from a previous run
-        warn!("keep-files is disabled while tidy/yomitan is skipped");
+    setup_tracing(cli.verbose);
+
+    match cli.command {
+        kty::cli::Command::Main(args) => {
+            debug!("Making main dictionary");
+            debug!("{args:#?}");
+            if !args.keep_files && (args.skip_tidy || args.skip_yomitan) {
+                // The code might still work if we had artifacts from a previous run
+                warn!("keep-files is disabled while tidy/yomitan is skipped");
+            }
+            make_dict_main(&args, &pm)
+        }
+        kty::cli::Command::Glossary(args) => {
+            debug!("Making glossary");
+            debug!("{args:#?}");
+            make_dict_glossary(&args, &pm)
+        }
     }
-
-    run(&args)
 }
 
 #[cfg(test)]
@@ -2071,7 +2278,9 @@ mod tests {
 
         // iterdir and search for source-target-extract.jsonl files
         // issues no errors on wrong filenames and just ignores them
-        let mut cases: Vec<(String, String)> = Vec::new();
+        let mut cases = Vec::new();
+        let mut langs_in_testsuite = Vec::new();
+
         for entry in fs::read_dir(&fixture_input_dir).unwrap() {
             let entry = entry.unwrap();
             let path = entry.path();
@@ -2080,36 +2289,64 @@ mod tests {
                 && let Some(base) = fname.strip_suffix("-extract.jsonl")
                 && let Some((source, target)) = base.split_once('-')
             {
-                cases.push((source.to_string(), target.to_string()));
+                let src = source.parse::<Lang>().unwrap();
+                let tar = target.parse::<Lang>().unwrap();
+                cases.push((src, tar));
+
+                if !langs_in_testsuite.contains(&src) {
+                    langs_in_testsuite.push(src);
+                }
+                if !langs_in_testsuite.contains(&tar) {
+                    langs_in_testsuite.push(tar);
+                }
             }
         }
 
         debug!("Found {} cases: {cases:?}", cases.len());
 
         // failfast
-        for (lang, expected) in cases {
-            if let Err(e) = shapshot_for_lang(&lang, &expected, &fixture_dir) {
-                panic!("({lang}): {e}");
+        for (source, target) in cases.clone() {
+            let args = Args {
+                source,
+                target,
+                keep_files: true,
+                pretty: true,
+                root_dir: fixture_dir.to_path_buf(),
+                ..Default::default()
+            };
+            let pm = PathManager::from_args(&args, kty::cli::DictionaryType::Main);
+
+            if let Err(e) = shapshot_main(&args, &pm) {
+                panic!("({source}): {e}");
             }
         }
 
-        // let mut errors = Vec::new();
-        // for (lang, expected) in cases {
-        //     if let Err(e) = shapshot_for_lang(&lang, &expected, &fixture_dir) {
-        //         errors.push(format!("({lang}): {e}"));
-        //     }
-        // }
-        //
-        // assert!(
-        //     errors.is_empty(),
-        //     "Some expected_shape_for_lang tests failed:\n{}",
-        //     errors.join("\n")
-        // )
+        for (source, target) in cases {
+            if source != target {
+                continue;
+            }
+            let path_monolingual =
+                fixture_input_dir.join(format!("{source}-{source}-extract.jsonl"));
+
+            for possible_target in &langs_in_testsuite {
+                let args = Args {
+                    source,
+                    target: *possible_target,
+                    keep_files: true,
+                    pretty: true,
+                    root_dir: fixture_dir.to_path_buf(),
+                    ..Default::default()
+                };
+                let pm = PathManager::from_args(&args, kty::cli::DictionaryType::Glossary);
+                pm.setup_dirs().unwrap(); // this makes some noise but ok
+                make_glossary_run(&args, &pm, &path_monolingual).unwrap();
+            }
+        }
     }
 
     /// Delete generated artifacts from previous tests runs, if any
-    fn delete_previous_output(args: &Args) -> Result<()> {
-        let pathdir_dict_temp = args.pathdir_dict_temp();
+    fn delete_previous_output(pm: &PathManager) -> Result<()> {
+        let pathdir_dict_temp = pm.dir_temp_dict();
         if pathdir_dict_temp.exists() {
             debug!("Deleting previous output: {pathdir_dict_temp:?}");
             fs::remove_dir_all(pathdir_dict_temp)?;
@@ -2120,30 +2357,20 @@ mod tests {
     // NOTE: tidy and yomitan do not use args.edition in the original
     //
     // Read the expected result in the snapshot first, then compare
-    fn shapshot_for_lang(source: &str, target: &str, fixture_dir: &Path) -> Result<()> {
-        let mut args = Args {
-            keep_files: true,
-            pretty: true,
-            root_dir: fixture_dir.to_path_buf(),
-            ..Default::default()
-        };
-        args.set_source(source)?;
-        args.set_target(target)?;
-
-        // it would be better to do something like args.path()
-        let fixture_path = fixture_dir.join(format!("kaikki/{source}-{target}-extract.jsonl"));
+    fn shapshot_main(args: &Args, pm: &PathManager) -> Result<()> {
+        let fixture_path = pm.path_jsonl(args.source, args.target);
         if !fixture_path.exists() {
             bail!("Fixture path {fixture_path:?} does not exist")
         }
         eprintln!("***** Starting test @ {fixture_path:?}");
 
-        delete_previous_output(&args)?;
+        delete_previous_output(&pm)?;
 
-        args.setup_dirs().unwrap(); // this makes some noise but ok
-        tidy(&args, &fixture_path)?;
+        pm.setup_dirs().unwrap(); // this makes some noise but ok
+        tidy(&args, pm, &fixture_path)?;
         let mut diagnostics = Diagnostics::new();
-        make_yomitan(&args, &mut diagnostics, None)?;
-        write_diagnostics(&args, &diagnostics)?;
+        make_yomitan(&args, pm, &mut diagnostics, None)?;
+        write_diagnostics(pm, &diagnostics)?;
 
         // check git --diff for charges in the generated json
         let output = std::process::Command::new("git")
@@ -2153,7 +2380,7 @@ mod tests {
                 "--unified=0", // show 0 context lines
                 "--",
                 // we don't care about tidy files
-                &args.pathdir_dict_temp().to_string_lossy(),
+                &pm.dir_temp_dict().to_string_lossy(),
             ])
             .output()?;
         if !output.stdout.is_empty() {

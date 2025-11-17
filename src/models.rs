@@ -36,6 +36,8 @@ pub struct WordEntry {
     pub forms: Vec<Form>,
     pub form_of: Vec<AltForm>,
     alt_of: Vec<AltForm>, // unused
+
+    pub translations: Vec<Translation>, // used in glossary
 }
 
 // To be avoided as much as possible: sort of internal field.
@@ -85,4 +87,12 @@ pub struct Form {
     pub form: String,
     pub tags: Vec<Tag>,
     pub ruby: Vec<(String, String)>, // [ja] (kanji, hiragana)
+}
+
+#[derive(Debug, Deserialize, Serialize, Default)]
+#[serde(default)]
+pub struct Translation {
+    pub lang_code: String,
+    pub word: String,
+    pub sense: String,
 }

@@ -1,14 +1,40 @@
-use anyhow::{Ok, Result, anyhow, bail};
-use clap::Parser;
+use anyhow::{Ok, Result, bail};
+use clap::{Parser, Subcommand};
+use std::fmt;
 use std::fs;
 use std::path::PathBuf;
-use std::str::FromStr;
 
 use crate::lang::Lang;
 use crate::models::WordEntry;
 
-#[derive(Parser, Debug, Default)]
+#[derive(Debug, Parser)]
 #[command(version)]
+pub struct Cli {
+    #[command(subcommand)]
+    pub command: Command,
+
+    // NOTE: the order in which this --verbose flag appears in subcommands help seems cursed.
+    //
+    /// Verbose output
+    #[arg(long, short, global = true)]
+    pub verbose: bool,
+}
+
+#[derive(Debug, Subcommand)]
+pub enum Command {
+    /// Main dictionary
+    Main(Args),
+
+    // Many attributes of Args don't make any sense here, but this is simpler and the only
+    // alternative I know of is a bunch of code duplication that I would rather avoid. Having some
+    // sort of "ShareArgs" runs into the issue of having to type args.shared.edition instead of
+    // args.edition etc.
+    //
+    /// Short dictionary made from translations
+    Glossary(Args),
+}
+
+#[derive(Parser, Debug, Default)]
 pub struct Args {
     // We hide this for simplicity and because for our purposes, this is always equal to the target
     // language. We still keep this around in case it becomes useful later down the road.
@@ -87,13 +113,6 @@ pub struct Args {
     /// (test) Modify the root directory. For testing, set this to "tests"
     #[arg(long, default_value = "data")]
     pub root_dir: PathBuf,
-
-    // If I ever decide on making this more powerful, these are good defaults:
-    // https://github.com/astral-sh/ruff/blob/276f1d0d88d7815f70fabb712af44bb4de85d9a7/crates/ty/docs/tracing.md?plain=1#L19
-    // https://github.com/astral-sh/ruff/blob/276f1d0d88d7815f70fabb712af44bb4de85d9a7/crates/ty/src/logging.rs
-    /// Verbose output
-    #[arg(long, short)]
-    pub verbose: bool,
 }
 
 fn validate_edition(s: &str) -> Result<Lang, String> {
@@ -143,98 +162,115 @@ impl FilterKey {
     }
 }
 
+impl Cli {
+    pub fn parse_cli() -> (Self, PathManager) {
+        let mut cli = Self::parse();
+        // we should be getting rid of edition at some point...
+        let pm = match cli.command {
+            Command::Main(ref mut args) => {
+                args.edition = args.target;
+                PathManager::from_args(args, DictionaryType::Main)
+            }
+            Command::Glossary(ref mut args) => {
+                args.edition = args.target;
+                PathManager::from_args(args, DictionaryType::Glossary)
+            }
+        };
+        (cli, pm)
+    }
+}
+
 impl Args {
-    pub fn parse_args() -> Self {
-        let mut args = Self::parse();
-        args.edition = args.target;
-        args
+    pub fn has_filter_params(&self) -> bool {
+        !self.filter.is_empty() || !self.reject.is_empty() || self.first != -1
     }
+}
 
-    pub fn set_edition(&mut self, lang: &str) -> Result<()> {
-        let iso = validate_edition(lang).map_err(|e| anyhow!(e))?;
-        self.edition = iso;
-        Ok(())
+#[derive(Debug)]
+pub enum DictionaryType {
+    Main,
+    Glossary,
+}
+
+impl From<&Command> for DictionaryType {
+    fn from(cmd: &Command) -> Self {
+        match cmd {
+            Command::Main(_) => Self::Main,
+            Command::Glossary(_) => Self::Glossary,
+        }
     }
+}
 
-    pub fn set_source(&mut self, lang: &str) -> Result<()> {
-        let iso = Lang::from_str(lang).map_err(|e| anyhow!(e))?;
-        self.source = iso;
-        Ok(())
+impl fmt::Display for DictionaryType {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::Main => write!(f, "main"),
+            Self::Glossary => write!(f, "glossary"),
+        }
     }
+}
 
-    pub fn set_target(&mut self, lang: &str) -> Result<()> {
-        let iso = validate_edition(lang).map_err(|e| anyhow!(e))?;
-        self.target = iso;
-        Ok(())
-    }
+/// Helper struct to manage paths.
+//
+// It could have done directly with args, but tracking dict_ty is quite tricky. Also, this makes
+// the intent of every call to either args or pm (PathManager) clearer. And better autocomplete!
+#[derive(Debug)]
+pub struct PathManager {
+    edition: Lang,
+    source: Lang,
+    target: Lang,
+    dict_name: String,
+    dict_ty: DictionaryType,
+    root_dir: PathBuf,
+    keep_files: bool,
+}
 
-    pub fn set_dict_name(&mut self, dict_name: &str) {
-        self.dict_name = dict_name.into();
-    }
-
-    /// Example: `data`
-    pub fn set_root_dir(&mut self, new: &PathBuf) {
-        self.root_dir = new.into();
+impl PathManager {
+    pub fn from_args(args: &Args, dict_ty: DictionaryType) -> Self {
+        PathManager {
+            edition: args.edition,
+            source: args.source,
+            target: args.target,
+            dict_name: args.dict_name.clone(),
+            dict_ty: dict_ty,
+            root_dir: args.root_dir.clone(),
+            keep_files: args.keep_files,
+        }
     }
 
     /// Example: `data/kaikki`
-    fn kaik_dir(&self) -> PathBuf {
+    fn dir_kaik(&self) -> PathBuf {
         self.root_dir.join("kaikki")
     }
-    /// Example: `data/dict`
-    fn dict_dir(&self) -> PathBuf {
-        self.root_dir.join("dict")
-    }
     /// Example: `data/dict/el/el`
-    fn pathdir_dict(&self) -> PathBuf {
-        self.dict_dir()
+    fn dir_dict(&self) -> PathBuf {
+        self.root_dir
+            .join("dict")
             .join(format!("{}/{}", self.source, self.target))
     }
-    /// Example: `data/dict/el/el/temp`
-    pub fn temp_dir(&self) -> PathBuf {
-        self.pathdir_dict().join("temp")
+    /// Depends on the type of dictionary being made.
+    ///
+    /// Example: `data/dict/el/el/temp-main`
+    /// Example: `data/dict/el/el/temp-glossary`
+    fn dir_temp(&self) -> PathBuf {
+        // Maybe remove the "temp-" altogether?
+        self.dir_dict().join(format!("temp-{}", self.dict_ty))
     }
     /// Example: `data/dict/el/el/temp/tidy`
-    fn tidy_dir(&self) -> PathBuf {
-        self.temp_dir().join("tidy")
+    fn dir_tidy(&self) -> PathBuf {
+        self.dir_temp().join("tidy")
     }
 
     pub fn setup_dirs(&self) -> Result<()> {
-        fs::create_dir_all(self.kaik_dir())?;
-        fs::create_dir_all(self.pathdir_dict())?;
+        fs::create_dir_all(self.dir_kaik())?;
+        fs::create_dir_all(self.dir_dict())?;
 
         if self.keep_files {
-            fs::create_dir_all(self.tidy_dir())?;
-            fs::create_dir_all(self.pathdir_dict_temp())?;
+            fs::create_dir_all(self.dir_tidy())?; // not needed for glossary
+            fs::create_dir_all(self.dir_temp_dict())?;
         }
 
         Ok(())
-    }
-
-    /// Different in English and non-English editions.
-    ///
-    /// Example (el):    `https://kaikki.org/elwiktionary/raw-wiktextract-data.jsonl.gz`
-    /// Example (sh-en): `https://kaikki.org/dictionary/Serbo-Croatian/kaikki.org-dictionary-SerboCroatian.jsonl.gz`
-    pub fn url_raw_jsonl_gz(&self) -> String {
-        let root = "https://kaikki.org";
-
-        match self.edition {
-            // Default download name is: kaikki.org-dictionary-TARGET_LANGUAGE.jsonl.gz
-            Lang::En => {
-                let long = self.source.long();
-                // Serbo-Croatian, Ancient Greek and such cases
-                let language_no_special_chars: String = long
-                    .chars()
-                    .filter(|c| *c != ' ' && *c != '-')
-                    .collect();
-                let source_long_esc = long.replace(' ', "%20");
-                format!(
-                    "{root}/dictionary/{source_long_esc}/kaikki.org-dictionary-{language_no_special_chars}.jsonl.gz"
-                )
-            }
-            // Default download name is: raw-wiktextract-data.jsonl.gz
-            other => format!("{root}/{other}wiktionary/raw-wiktextract-data.jsonl.gz",),
-        }
     }
 
     /// Different in English and non-English editions. The English download is already filtered.
@@ -242,8 +278,8 @@ impl Args {
     /// Example (el):    `data/kaikki/el-extract.jsonl`
     /// Example (en-en): `data/kaikki/en-en-extract.jsonl`
     /// Example (de-en): `data/kaikki/de-en-extract.jsonl`
-    pub fn path_raw_jsonl(&self) -> PathBuf {
-        self.kaik_dir().join(match self.edition {
+    pub fn path_jsonl_raw(&self) -> PathBuf {
+        self.dir_kaik().join(match self.edition {
             Lang::En => format!("{}-{}-extract.jsonl", self.source, self.target),
             _ => format!("{}-extract.jsonl", self.edition),
         })
@@ -251,56 +287,66 @@ impl Args {
 
     /// `data/kaikki/source-target.jsonl`
     ///
+    /// Source and target are passed as arguments because some dictionaries may require a different
+    /// combination in their input. F.e., the el-en glossary is made out of el-el-extract.jsonl
+    ///
     /// Example (en-el): `data/kaikki/en-el-extract.jsonl`
-    pub fn path_jsonl(&self) -> PathBuf {
-        self.kaik_dir()
-            .join(format!("{}-{}-extract.jsonl", self.source, self.target))
+    pub fn path_jsonl(&self, source: Lang, target: Lang) -> PathBuf {
+        self.dir_kaik()
+            .join(format!("{}-{}-extract.jsonl", source, target))
     }
 
     /// `data/dict/source/target/temp/tidy/source-target-lemmas.json`
     ///
     /// Example: `data/dict/el/el/temp/tidy/el-el-lemmas.json`
     pub fn path_lemmas(&self) -> PathBuf {
-        self.tidy_dir()
+        self.dir_tidy()
             .join(format!("{}-{}-lemmas.json", self.source, self.target))
     }
 
-    /// `data/dict/source/target/temp/tidy/source-target-forms-0.json`
+    /// `data/dict/source/target/temp/tidy/source-target-forms.json`
     ///
-    /// Example: `data/dict/el/el/temp/tidy/el-el-forms-0.json`
+    /// Example: `data/dict/el/el/temp/tidy/el-el-forms.json`
     pub fn path_forms(&self) -> PathBuf {
-        self.tidy_dir()
-            .join(format!("{}-{}-forms-0.json", self.source, self.target))
+        self.dir_tidy()
+            .join(format!("{}-{}-forms.json", self.source, self.target))
     }
 
     /// Temporary working directory path used before zipping the dictionary.
     ///
     /// Example: `data/dict/el/el/temp/dict`
-    pub fn pathdir_dict_temp(&self) -> PathBuf {
-        self.temp_dir().join("dict")
+    pub fn dir_temp_dict(&self) -> PathBuf {
+        self.dir_temp().join("dict")
     }
 
+    /// Depends on the dictionary type (main, glossary etc.)
+    ///
+    /// Example: `data/dict/el/el/dictionary_name.zip`
     /// Example: `data/dict/el/el/dictionary_name.zip`
     pub fn path_dict(&self) -> PathBuf {
-        self.pathdir_dict().join(format!("{}.zip", self.dict_name))
+        let final_dict_name = match self.dict_ty {
+            DictionaryType::Main => self.dict_name.clone(),
+            DictionaryType::Glossary => format!("{}-glossary", self.dict_name),
+        };
+        self.dir_dict().join(format!("{}.zip", final_dict_name))
     }
 
     // Assets paths
 
-    fn pathdir_assets(&self) -> PathBuf {
+    fn dir_assets(&self) -> PathBuf {
         PathBuf::from("assets")
     }
 
     /// Example: `assets/styles.css`
     pub fn path_styles(&self) -> PathBuf {
-        self.pathdir_assets().join("styles.css")
+        self.dir_assets().join("styles.css")
     }
 
     // Diagnostics paths
 
     /// Example: `data/dict/el/el/temp/diagnostics`
-    pub fn pathdir_diagnostics(&self) -> PathBuf {
-        self.temp_dir().join("diagnostics")
+    pub fn dir_diagnostics(&self) -> PathBuf {
+        self.dir_temp().join("diagnostics")
     }
 }
 
@@ -309,20 +355,31 @@ mod tests {
     use super::*;
 
     #[test]
+    fn test_base_commands() {
+        assert!(Cli::try_parse_from(["kty", "main", "el", "en"]).is_ok());
+        assert!(Cli::try_parse_from(["kty", "glossary", "el", "en"]).is_ok());
+    }
+
+    #[test]
     fn test_set_inexistent_edition() {
-        let mut args = Args::default();
-        assert!(args.set_edition("grc").is_err());
-        assert!(args.set_edition("grc").is_err());
+        assert!(Args::try_parse_from(["_pname", "el", "grc"]).is_err());
     }
 
     #[test]
     fn test_filter_flag() {
-        assert!(Args::try_parse_from(["kty", "el", "el", "--filter", "foo,bar"]).is_err());
-        assert!(Args::try_parse_from(["kty", "el", "el", "--filter", "word,hello"]).is_ok());
-        assert!(Args::try_parse_from(["kty", "el", "el", "--reject", "pos,name"]).is_ok());
+        assert!(Args::try_parse_from(["_pname", "el", "el", "--filter", "foo,bar"]).is_err());
+        assert!(Args::try_parse_from(["_pname", "el", "el", "--filter", "word,hello"]).is_ok());
+        assert!(Args::try_parse_from(["_pname", "el", "el", "--reject", "pos,name"]).is_ok());
         assert!(
-            Args::try_parse_from(["kty", "el", "el", "--skip-filter", "--reject", "pos,name"])
-                .is_err()
+            Args::try_parse_from([
+                "_pname",
+                "el",
+                "el",
+                "--skip-filter",
+                "--reject",
+                "pos,name"
+            ])
+            .is_err()
         );
     }
 }

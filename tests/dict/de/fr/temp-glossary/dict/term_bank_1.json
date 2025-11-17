@@ -1,0 +1,108 @@
+[
+  [
+    "Rock",
+    "Rock",
+    "n",
+    "n",
+    0,
+    [
+      {
+        "type": "structured-content",
+        "content": {
+          "tag": "div",
+          "content": [
+            {
+              "tag": "span",
+              "content": "Musik: populäre Musikrichtung, die Anfang der 1950er Jahre in den USA entstand"
+            },
+            {
+              "tag": "ul",
+              "content": [
+                {
+                  "tag": "li",
+                  "content": "rock"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    0,
+    ""
+  ],
+  [
+    "Garage",
+    "Garage",
+    "n",
+    "n",
+    0,
+    [
+      {
+        "type": "structured-content",
+        "content": {
+          "tag": "div",
+          "content": [
+            {
+              "tag": "span",
+              "content": "Raum zum dauerhaften Ab- und Unterstellen von Kraftfahrzeugen"
+            },
+            {
+              "tag": "ul",
+              "content": [
+                {
+                  "tag": "li",
+                  "content": "garage"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "structured-content",
+        "content": {
+          "tag": "div",
+          "content": [
+            {
+              "tag": "span",
+              "content": "Raum zum kurzfristigen Ab- und Unterstellen von Kraftfahrzeugen"
+            },
+            {
+              "tag": "ul",
+              "content": [
+                {
+                  "tag": "li",
+                  "content": "garage"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "type": "structured-content",
+        "content": {
+          "tag": "div",
+          "content": [
+            {
+              "tag": "span",
+              "content": "selten: auf die Reparatur und Wartung von Automobilen ausgerichtete Werkstatt"
+            },
+            {
+              "tag": "ul",
+              "content": [
+                {
+                  "tag": "li",
+                  "content": "garage"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    0,
+    ""
+  ]
+]

@@ -1,0 +1,84 @@
+use anyhow::{Result, bail};
+use flate2::read::GzDecoder;
+use std::fs::File;
+use std::io::BufWriter;
+use std::path::Path;
+
+use crate::lang::Lang;
+use crate::utils::{CHECK_C, pretty_println_at_path, skip_because_file_exists};
+
+// TODO: this should take a source/target/folder relative to where is run
+//       so we are not locked to download certain combinations based on args (relevant for
+//       glossary)
+
+/// Different in English and non-English editions.
+///
+/// Example (el):    `https://kaikki.org/elwiktionary/raw-wiktextract-data.jsonl.gz`
+/// Example (sh-en): `https://kaikki.org/dictionary/Serbo-Croatian/kaikki.org-dictionary-SerboCroatian.jsonl.gz`
+pub fn url_raw_jsonl_gz(source: Lang, target: Lang) -> String {
+    let root = "https://kaikki.org";
+
+    match target {
+        // Default download name is: kaikki.org-dictionary-TARGET_LANGUAGE.jsonl.gz
+        Lang::En => {
+            let long = source.long();
+            // Serbo-Croatian, Ancient Greek and such cases
+            let language_no_special_chars: String =
+                long.chars().filter(|c| *c != ' ' && *c != '-').collect();
+            let source_long_esc = long.replace(' ', "%20");
+            format!(
+                "{root}/dictionary/{source_long_esc}/kaikki.org-dictionary-{language_no_special_chars}.jsonl.gz"
+            )
+        }
+        // Default download name is: raw-wiktextract-data.jsonl.gz
+        other => format!("{root}/{other}wiktionary/raw-wiktextract-data.jsonl.gz",),
+    }
+}
+
+/// Download the raw jsonl from kaikki and write it to path_jsonl_raw.
+///
+/// Does not write the .gz file to disk.
+pub fn download_jsonl(
+    source: Lang,
+    target: Lang,
+    path_jsonl_raw: &Path,
+    redownload: bool,
+) -> Result<()> {
+    if path_jsonl_raw.exists() && !redownload {
+        skip_because_file_exists("download", &path_jsonl_raw);
+        return Ok(());
+    }
+
+    let url = url_raw_jsonl_gz(source, target);
+    println!("⬇ Downloading {url}");
+
+    let response = match ureq::get(url).call() {
+        Ok(response) => response,
+        Err(err @ ureq::Error::StatusCode(404)) => {
+            // Normally this is caught at CLI time, but in case language.json or lang.rs
+            // are outdated / wrong it may reach this...
+            bail!(
+                "{err}. Does the language {} ({}) have an edition?",
+                target.long(),
+                target
+            )
+        }
+        Err(err) => bail!(err),
+    };
+
+    if let Some(last_modified) = response.headers().get("last-modified") {
+        tracing::info!("Download was last modified: {:?}", last_modified);
+    }
+
+    let reader = response.into_body().into_reader();
+    // We can't use gzip's ureq feature because there is no content-encoding in headers
+    // https://github.com/tatuylonen/wiktextract/issues/1482
+    let mut decoder = GzDecoder::new(reader);
+
+    let mut writer = BufWriter::new(File::create(&path_jsonl_raw)?);
+    std::io::copy(&mut decoder, &mut writer)?;
+
+    pretty_println_at_path(&format!("{CHECK_C} Downloaded"), &path_jsonl_raw);
+
+    Ok(())
+}

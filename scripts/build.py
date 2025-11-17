@@ -84,7 +84,7 @@ def generate_lang_rs(langs: list[Lang], f) -> None:
     w("use serde::{Deserialize, Serialize};\n\n")
 
     # pub enum Lang { En, Fr, ... }
-    w("#[derive(Debug, Clone, Copy, Serialize, Deserialize, Default)]\n")
+    w("#[derive(Debug, Clone, Copy, Serialize, Deserialize, Default, PartialEq)]\n")
     w("pub enum Lang {\n")
     # Add English on top as the default variant
     w(f"{idt}/// English\n")  # doc
@@ -97,6 +97,11 @@ def generate_lang_rs(langs: list[Lang], f) -> None:
     w("}\n\n")
 
     w("impl Lang {\n")
+
+    is_supported = " | ".join(lang.iso for lang in langs)
+    w(f"{idt}pub const fn is_supported_iso_help_message() -> &'static str {{\n")
+    w(f'{idt * 2}"Supported isos: {is_supported}"\n')
+    w(f"{idt}}}\n\n")
 
     # has_edition
     w(f"{idt}pub const fn has_edition(&self) -> bool {{\n")
@@ -121,6 +126,7 @@ def generate_lang_rs(langs: list[Lang], f) -> None:
     w(f"{idt}}}\n\n")
 
     # to_string, hack to not have a huge match
+    w(f"{idt}/// Return the iso code as a String.\n")
     w(f"{idt}pub fn to_string(&self) -> String {{\n")
     w(f'{idt * 2}format!("{{self:?}}").to_lowercase()\n')
     w(f"{idt}}}\n")
@@ -133,7 +139,9 @@ def generate_lang_rs(langs: list[Lang], f) -> None:
     w(f"{idt * 2}match s.to_lowercase().as_str() {{\n")
     for lang in langs:
         w(f'{idt * 3}"{lang.iso.lower()}" => Ok(Self::{lang.iso.title()}),\n')
-    w(f'{idt * 3}_ => Err(format!("Unsupported ISO code: {{s}}")),\n')
+    w(
+        f"{idt * 3}_ => Err(format!(\"unsupported iso code '{{s}}'\\n{{}}\", Self::is_supported_iso_help_message())),\n"
+    )
     w(f"{idt * 2}}}\n")
     w(f"{idt}}}\n")
     w("}\n\n")

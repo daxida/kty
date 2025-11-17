@@ -1,0 +1,20 @@
+{
+  "fast": {
+    "faster": {
+      "adj": [
+        "extracted",
+        [
+          "comparative"
+        ]
+      ]
+    },
+    "fastest": {
+      "adj": [
+        "extracted",
+        [
+          "superlative"
+        ]
+      ]
+    }
+  }
+}

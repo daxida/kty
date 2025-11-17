@@ -1,0 +1,38 @@
+[
+  [
+    "Rock",
+    "Rock",
+    "n",
+    "n",
+    0,
+    [
+      {
+        "type": "structured-content",
+        "content": {
+          "tag": "div",
+          "content": [
+            {
+              "tag": "span",
+              "content": "Musik: populäre Musikrichtung, die Anfang der 1950er Jahre in den USA entstand"
+            },
+            {
+              "tag": "ul",
+              "content": [
+                {
+                  "tag": "li",
+                  "content": "ロック"
+                },
+                {
+                  "tag": "li",
+                  "content": "ロックンロール"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    0,
+    ""
+  ]
+]

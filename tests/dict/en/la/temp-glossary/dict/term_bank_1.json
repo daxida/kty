@@ -1,0 +1,78 @@
+[
+  [
+    "bring",
+    "bring",
+    "v",
+    "v",
+    0,
+    [
+      {
+        "type": "structured-content",
+        "content": {
+          "tag": "div",
+          "content": [
+            {
+              "tag": "span",
+              "content": "to transport toward somebody/somewhere"
+            },
+            {
+              "tag": "ul",
+              "content": [
+                {
+                  "tag": "li",
+                  "content": "addō"
+                },
+                {
+                  "tag": "li",
+                  "content": "addūcō"
+                },
+                {
+                  "tag": "li",
+                  "content": "portō"
+                },
+                {
+                  "tag": "li",
+                  "content": "afferō"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    0,
+    ""
+  ],
+  [
+    "falcon",
+    "falcon",
+    "n",
+    "n",
+    0,
+    [
+      {
+        "type": "structured-content",
+        "content": {
+          "tag": "div",
+          "content": [
+            {
+              "tag": "span",
+              "content": "bird of the genus Falco"
+            },
+            {
+              "tag": "ul",
+              "content": [
+                {
+                  "tag": "li",
+                  "content": "falcō"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    0,
+    ""
+  ]
+]

@@ -2,7 +2,7 @@
 /// The source code can be found at scripts/build.py
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Copy, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, Default, PartialEq)]
 pub enum Lang {
     /// English
     #[default]
@@ -124,6 +124,10 @@ pub enum Lang {
 }
 
 impl Lang {
+    pub const fn is_supported_iso_help_message() -> &'static str {
+        "Supported isos: sq | grc | ar | aii | bn | zh | cs | da | nl | en | enm | ang | eo | fi | fr | de | el | afb | he | hi | hu | id | ga | sga | it | ja | kn | kk | km | ku | ko | la | lv | apc | ms | mr | mn | mt | nb | nn | fa | pl | pt | ro | ru | sh | scn | sl | ajp | es | sv | tl | te | th | tr | uk | ur | vi"
+    }
+
     pub const fn has_edition(&self) -> bool {
         use Lang::*;
         matches!(self, Zh | Cs | Nl | En | Fr | De | El | Id | It | Ja | Ku | Ko | Ms | Pl | Pt | Ru | Es | Th | Tr | Vi)
@@ -196,6 +200,7 @@ impl Lang {
         }
     }
 
+    /// Return the iso code as a String.
     pub fn to_string(&self) -> String {
         format!("{self:?}").to_lowercase()
     }
@@ -264,7 +269,7 @@ impl std::str::FromStr for Lang {
             "uk" => Ok(Self::Uk),
             "ur" => Ok(Self::Ur),
             "vi" => Ok(Self::Vi),
-            _ => Err(format!("Unsupported ISO code: {s}")),
+            _ => Err(format!("unsupported iso code '{s}'\n{}", Self::is_supported_iso_help_message())),
         }
     }
 }

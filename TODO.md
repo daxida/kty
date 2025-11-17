@@ -1,51 +1,14 @@
-- [x] Download data from kaikki
-- [x] basic cli, dict, test
-- [x] replace expected in basic test with actual kaikki to yomitan
-- [x] narrow lang type (el, Greek, greek) < MAKE SCRIPT
-- [x] basic logger, forms / form_of
-- [x] fix ipas
-- [x] basic etymology_text, head_info_text
-- [x] add non-edition lang to tests / workflow (target vs edition etc.) > sq has no edition
-- [x] replace elapsed time with tracing
-- [x] add Greek testsuite, English testsuite
-- [x] Remove redundant tags (turned off for testing)
-- [x] tag_bank, styles.css
-- [x] write missing tags / pos etc.
-- [x] move jsons to assets so one can delete DATA safely 
-- [x] add data/ to gitignore, rename language/ to dict/
-- [x] add --keep-files (sort of)
-- [x] add --filter/reject
-- [x] basic README
-- [x] remove edition language publicly
-- [x] rename TidyReturn to Tidy, pass it silently to write yomitan
-- [x] iterdir for testsuite (instead of hardcoding)
-- [x] log non-skipped pos/tags
-- [x] remove RawEntryfoo code
-- [x] [RELEASE]
-- [x] don't write .gz file to disk
-- [x] do the backlink in tidy instead (better for debug)
-- [x] rename downloaded en versions raw jsonls to make it consistent (and to be able to rust tests...)
-- [x] move FilterKey validation to CLI
-- [x] verbose flag
-- [x] port the testsuite
-- [x] bring the registry code
-- [x] rename/refactor Tidy now that we won't have to fight with diffs
-- [x] keep-files > should not even write temp to begin with!
-- [x] to run tests --pretty --keep-files
-- [x] add diagnostic to tests
+- [ ] try to pass paths instead of the whole pm
 
-- [ ] localize tags for fun?
-- [ ] Exit code?
-
-# Requires porting the testsuite first or its a mess
-- [ ] Be faster ? flamegraph
-- [ ] A way to be faster is to shrink as much as possible the Tidy objects
-- [ ] Args > Args + Ctx (context)
-- [ ] calver
-
-
-- [x] ureq over reqwest - bloaty-metafile 
-      @ [reddit](https://www.reddit.com/r/rust/comments/1osdnzd/i_shrunk_my_rust_binary_from_11mb_to_45mb_with/)
+- [x] path manager
+- [x] glossary dict should be output in el/en/dict but the temp files in el/en/temp_glossary 
+- [x] add sense translation to see if they change tests > they dont
+- [x] gloss dict testing
+- [x] gloss dict working (the formatted ones)
+- [x] gloss dictionaries
+- [x] update README
+- [x] gloss dict basic working (did Text)
+- [x] filter when the edition is english
 
 ## FAILED
 - also pass cached filtering wordentries
@@ -56,6 +19,11 @@
 ## USELESS BACKLOG
 - [ ] I don't think the build.py is really needed, maybe just read the jsons at runtime...
 - [ ] dont hardcode forms/lemmas when writing IR < write_tidy_result (apparently this is done by original for forms only?)
+- [ ] Be faster ? flamegraph (A way to be faster is to shrink as much as possible the Tidy objects)
+- [ ] localize tags for fun? pointless, kaikki already took this decision of using English as lingua franca
+- [ ] Exit code? pointless
+- [ ] calver? maybe if I ever do releases
+- [ ] fix subcommands (shared args) > is this even possible?
 
 ## DIFFS
 - filetree
@@ -77,3 +45,5 @@
 
 ## NOTES
 - the '\r' trick depends on terminal size!
+- [x] ureq over reqwest - bloaty-metafile 
+      @ [reddit](https://www.reddit.com/r/rust/comments/1osdnzd/i_shrunk_my_rust_binary_from_11mb_to_45mb_with/)
