@@ -171,10 +171,46 @@ type LemmaMap = Map<
     >,
 >;
 
+// Note that the order is inverted when converted to a Yomitan entry.
+//
+// I assume it was done this way to simplify the FormMap visualization.
+//
+// Example entry in FormMap:
+//
+// "uninflected": {
+//   "inflected": {
+//     "verb": [
+//       "inflection",
+//       [
+//         "masculine"
+//       ]
+//     ]
+//   }
+// }
+//
+// Matching YomitanEntry:
+//
+// [
+//   "inflected",       <- lemma, what we search in the dictionary
+//   "",
+//   "non-lemma",
+//   "",
+//   0,
+//   [
+//     [
+//       "uninflected", <- form, where we are redirected
+//       [
+//         "masculine"
+//       ]
+//     ]
+//   ],
+//   0,
+//   ""
+// ]
 type FormMap = Map<
-    String, // lemma
+    String, // uninflected ~ form
     Map<
-        String, // form
+        String, // inflected ~ lemma
         Map<
             Pos, // pos
             // Vec<String>, // inflections (tags really)
@@ -183,26 +219,28 @@ type FormMap = Map<
     >,
 >;
 
+/// Iterates over: uninflected, inflected, pos, source, tags
 fn flat_iter_forms(
     form_map: &FormMap,
 ) -> impl Iterator<Item = (&String, &String, &Pos, &FormSource, &Vec<String>)> {
-    form_map.iter().flat_map(|(lemma, forms)| {
-        forms.iter().flat_map(move |(form, pos_map)| {
+    form_map.iter().flat_map(|(uninfl, infl_map)| {
+        infl_map.iter().flat_map(move |(infl, pos_map)| {
             pos_map
                 .iter()
-                .map(move |(pos, (source, tags))| (lemma, form, pos, source, tags))
+                .map(move |(pos, (source, tags))| (uninfl, infl, pos, source, tags))
         })
     })
 }
 
+/// Iterates over: uninflected, inflected, pos, source, tags
 fn flat_iter_forms_mut(
     form_map: &mut FormMap,
 ) -> impl Iterator<Item = (&String, &String, &Pos, &mut FormSource, &mut Vec<String>)> {
-    form_map.iter_mut().flat_map(|(lemma, forms)| {
-        forms.iter_mut().flat_map(move |(form, pos_map)| {
+    form_map.iter_mut().flat_map(|(uninfl, infl_map)| {
+        infl_map.iter_mut().flat_map(move |(infl, pos_map)| {
             pos_map
                 .iter_mut()
-                .map(move |(pos, (source, tags))| (lemma, form, pos, source, tags))
+                .map(move |(pos, (source, tags))| (uninfl, infl, pos, source, tags))
         })
     })
 }
@@ -314,18 +352,18 @@ impl Tidy {
 
     fn insert_form(
         &mut self,
-        lemma: &str,
-        form: &str,
+        uninflected: &str,
+        inflected: &str,
         pos: &str,
         source: FormSource,
         tags: Vec<Tag>,
     ) {
-        debug_assert_ne!(lemma, form);
+        debug_assert_ne!(uninflected, inflected);
         let entry = self
             .form_map
-            .entry(lemma.to_string())
+            .entry(uninflected.to_string())
             .or_default()
-            .entry(form.to_string())
+            .entry(inflected.to_string())
             .or_default()
             .entry(pos.to_string())
             .or_insert_with(|| (source, Vec::new()));
@@ -436,6 +474,15 @@ fn tidy_run(args: &Args, reader_path: &Path) -> Result<Tidy> {
 
 // Everything that mutates word_entry
 fn preprocess_word_entry(args: &Args, word_entry: &mut WordEntry, ret: &mut Tidy) {
+    // WARN: mutates word_entry::pos
+    //
+    // The whole point being displaying a better tag.
+    //
+    // https://github.com/tatuylonen/wiktextract/pull/1489
+    // if word_entry.pos == "verb" && word_entry.tags.iter().any(|t| t == "participle") {
+    //     word_entry.pos = "participle".to_string();
+    // }
+
     // WARN: mutates word_entry::senses::glosses
     //
     // rg: final dot
@@ -517,15 +564,33 @@ fn preprocess_word_entry(args: &Args, word_entry: &mut WordEntry, ret: &mut Tidy
 
     // WARN: mutates word_entry::senses
     //
-    // easy inflection handling
-    // if is_inflection_gloss then process inflection glosses etc.
+    // What if the current word is an inflection but *also* has an inflection table?
+    // https://el.wiktionary.org/wiki/ψηφίσας
     //
-    // make a vec for senses not inflected etc. filter
-    // temporarily take ownership of the old senses
+    // That is, imagine participle A comes from verb B, but A is treated as an adjective, so
+    // it has a declension table. If we are not careful, every word C in the table that is a form
+    // of A will not appear in the dictionary!
+    //
+    // It does not happen in English, but bear with this fake example:
+    // * C = runnings < A = running < B = run
+    // then, by saying that A is just a form of B, we will remove the sense, and the entry won't be
+    // added to lemmas because there are no senses at all. All the information in the declension
+    // table saying C < A will yield no results. Effectively, hovering over C in yomitan will show
+    // nothing. Not ideal.
+    //
+    // There are two choices, make C point to B, or keep A as a non-lemma. We opt for the latter,
+    // checking that there are no trivial forms (C) in WordEntry. Only then we can safely delete
+    // the sense.
+    //
+    // Note that deleting senses is a good decision overall: it reduces clutter and forces the
+    // redirect. One just has to be careful about when to do it
+    //
     let old_senses = std::mem::take(&mut word_entry.senses);
     let mut senses_without_inflections = Vec::new();
     for sense in old_senses {
-        if is_inflection_gloss(args, word_entry, &sense) {
+        if is_inflection_gloss(args, word_entry, &sense)
+            && get_non_trivial_forms(word_entry).next().is_none()
+        {
             handle_inflection_gloss(args, word_entry, &sense, ret);
         } else {
             senses_without_inflections.push(sense);
@@ -534,20 +599,18 @@ fn preprocess_word_entry(args: &Args, word_entry: &mut WordEntry, ret: &mut Tidy
     word_entry.senses = senses_without_inflections;
 }
 
-// rg: processforms
-fn process_forms(word_entry: &WordEntry, ret: &mut Tidy) {
-    for form in &word_entry.forms {
+fn get_non_trivial_forms(word_entry: &WordEntry) -> impl Iterator<Item = &Form> {
+    word_entry.forms.iter().filter(move |form| {
         if form.form == word_entry.word {
-            continue;
+            return false;
         }
 
-        // bunch of validation: skip
         // blacklisted forms (happens at least in English)
         if form.form == "-" {
-            continue;
+            return false;
         }
 
-        // easy filtering tags
+        // blacklisted tags (happens at least in Russian: romanization)
         let is_blacklisted = form
             .tags
             .iter()
@@ -557,9 +620,16 @@ fn process_forms(word_entry: &WordEntry, ret: &mut Tidy) {
             .iter()
             .all(|tag| IDENTITY_TAGS.contains(&tag.as_str()));
         if is_blacklisted || is_identity {
-            continue;
+            return false;
         }
 
+        true
+    })
+}
+
+// rg: processforms
+fn process_forms(word_entry: &WordEntry, ret: &mut Tidy) {
+    for form in get_non_trivial_forms(word_entry) {
         let mut filtered_tags: Vec<Tag> = form
             .tags
             .clone()
@@ -926,9 +996,9 @@ fn handle_inflection_gloss(args: &Args, word_entry: &WordEntry, sense: &Sense, r
             } else {
                 allowed_tags
             };
-            for lemma in &sense.form_of {
+            for form in &sense.form_of {
                 ret.insert_form(
-                    &lemma.word,
+                    &form.word,
                     &word_entry.word,
                     &word_entry.pos,
                     FormSource::Inflection,
@@ -949,14 +1019,13 @@ fn handle_inflection_gloss(args: &Args, word_entry: &WordEntry, sense: &Sense, r
             });
 
             if let Some(caps) = INFLECTION_RE.captures(&sense.glosses[0])
-                && let (Some(inflection_tags), Some(lemma)) = (caps.get(1), caps.get(2))
+                && let (Some(inflection_tags), Some(uninflected)) = (caps.get(1), caps.get(2))
             {
                 let inflection_tags = inflection_tags.as_str().trim();
-                let lemma = lemma.as_str().trim();
 
                 if !inflection_tags.is_empty() {
                     ret.insert_form(
-                        lemma,
+                        uninflected.as_str(),
                         &word_entry.word,
                         &word_entry.pos,
                         FormSource::Inflection,
@@ -1000,7 +1069,6 @@ fn handle_inflection_gloss_en(args: &Args, word_entry: &WordEntry, sense: &Sense
     static INFLECTION_RE_2: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\s+").unwrap());
 
     for mut inflection in gloss_pieces {
-        // Extract lemma
         if let Some(caps) = LEMMA_RE.captures(&inflection)
             && let Some(lemma) = caps.get(1)
         {
@@ -1031,16 +1099,15 @@ fn handle_inflection_gloss_en(args: &Args, word_entry: &WordEntry, sense: &Sense
         }
     }
 
-    if let Some(lemma) = lemmas.iter().next() {
+    if let Some(uninflected) = lemmas.iter().next() {
         // Not sure if this is better (cf. ru-en) over word_entry.word but it is what was done in
         // the original, so lets not change that for the moment.
         let cform_str = get_canonical_word_form(args, word_entry);
 
         for inflection in inflections {
             ret.insert_form(
-                lemma,
-                // &word_entry.word, // < here, not canonical
-                cform_str,
+                uninflected,
+                &cform_str,
                 &word_entry.pos,
                 FormSource::Inflection,
                 vec![inflection],
@@ -1658,20 +1725,26 @@ fn get_structured_examples(args: &Args, examples: &[Example]) -> Option<Node> {
 fn make_yomitan_forms(args: &Args, form_map: FormMap) -> Vec<YomitanEntry> {
     let mut yomitan_entries = Vec::new();
 
-    for (lemma, form, _pos, _source, tags) in flat_iter_forms(&form_map) {
+    for (uninflected, inflected, _pos, _source, tags) in flat_iter_forms(&form_map) {
         // There was some hypotheses lingo here in the original that I didn't fully understand
         // and it didn't seem to do anything for the testsuite...
 
         let deinflection_definitions: Vec<_> = tags
             .into_iter()
-            .map(|tag| DetailedDefinition::Inflection((lemma.to_string(), vec![tag.to_string()])))
+            .map(|tag| {
+                DetailedDefinition::Inflection((uninflected.to_string(), vec![tag.to_string()]))
+            })
             .collect();
 
-        let normalized_form = normalize_orthography(args.source, form);
-        let reading = if normalized_form == *form { "" } else { form };
+        let normalized_inflected = normalize_orthography(args.source, inflected);
+        let reading = if normalized_inflected == *inflected {
+            ""
+        } else {
+            inflected
+        };
 
         let yomitan_entry = YomitanEntry(
-            normalized_form,
+            normalized_inflected,
             reading.into(),
             "non-lemma".into(),
             String::new(),
