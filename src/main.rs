@@ -1658,38 +1658,20 @@ fn get_structured_examples(args: &Args, examples: &[Example]) -> Option<Node> {
 fn make_yomitan_forms(args: &Args, form_map: FormMap) -> Vec<YomitanEntry> {
     let mut yomitan_entries = Vec::new();
 
-    // TODO: consume form_map
-    for (lemma, form, _pos, _source, glosses) in flat_iter_forms(&form_map) {
-        let mut inflection_hypotheses: Vec<Vec<String>> = Vec::new();
-        for gloss in glosses {
-            let hypotheses: Vec<Vec<String>> = vec![vec![gloss.into()]];
+    for (lemma, form, _pos, _source, tags) in flat_iter_forms(&form_map) {
+        // There was some hypotheses lingo here in the original that I didn't fully understand
+        // and it didn't seem to do anything for the testsuite...
 
-            // Normalize each hypothesis: trim each inflection, drop empties, convert NBSP back to space
-            for hypothesis in hypotheses {
-                let normalized: Vec<String> = hypothesis
-                    .into_iter()
-                    .map(|inflection| inflection.trim().to_string())
-                    .filter(|s| !s.is_empty())
-                    .map(|s| s.replace('\u{00A0}', " ")) // kludge from the original
-                    .collect();
-
-                if !normalized.is_empty() {
-                    inflection_hypotheses.push(normalized);
-                }
-            }
-        }
-
-        let deinflection_definitions: Vec<_> = inflection_hypotheses
-            .clone()
+        let deinflection_definitions: Vec<_> = tags
             .into_iter()
-            .map(|hy| DetailedDefinition::Inflection((lemma.to_string(), hy)))
+            .map(|tag| DetailedDefinition::Inflection((lemma.to_string(), vec![tag.to_string()])))
             .collect();
 
-        let normalized = normalize_orthography(args.source, form);
-        let reading = if normalized == *form { "" } else { form };
+        let normalized_form = normalize_orthography(args.source, form);
+        let reading = if normalized_form == *form { "" } else { form };
 
         let yomitan_entry = YomitanEntry(
-            normalized,
+            normalized_form,
             reading.into(),
             "non-lemma".into(),
             String::new(),
