@@ -1,0 +1,89 @@
+{
+  "έρχομαι": {
+    "έρχομαι": {
+      "verb": {
+        "0": {
+          "glossTree": {
+            "to come": {
+              "examples": [
+                {
+                  "text": "Την είδα να έρχεται στην κατεύθυνσή μου.",
+                  "translation": "I saw her coming in my direction."
+                },
+                {
+                  "text": "Ήρθε ακόμα ο γιατρός;",
+                  "translation": "Has the doctor come yet?"
+                },
+                {
+                  "text": "Ο χειμώνας έρχεται.",
+                  "translation": "Winter is coming."
+                },
+                {
+                  "text": "Ήρθα πρώτος στο αγώνισμα.",
+                  "translation": "I came first in the competition."
+                }
+              ]
+            },
+            "to cost": {
+              "examples": [
+                {
+                  "text": "Πόσο έρχεται αυτό το αμάξι;",
+                  "translation": "How much is this car?"
+                }
+              ]
+            },
+            "come to": {
+              "examples": [
+                {
+                  "text": "Τελικά, οι δυό τους ήρθαν στα χέρια.",
+                  "translation": "In the end, they came to blows."
+                },
+                {
+                  "text": "Θα έρθουν πολλά πράγματα στο φως όταν βγει το νέο βιβλίο.",
+                  "translation": "A lot of things will come to light when the new book comes out."
+                },
+                {
+                  "text": "Οι αρχηγοί των κομμάτων της βουλής ήρθαν σε συμφωνία.",
+                  "translation": "The party leaders in parliament came to an agreement."
+                }
+              ]
+            },
+            "to suit, match (go well with)": {
+              "examples": [
+                {
+                  "text": "Αυτό το φόρεμα δε σου ήρθε καλά.",
+                  "translation": "That dress doesn't suit you."
+                }
+              ]
+            },
+            "feel like, get the urge (to have a desire for)": {
+              "tags": [
+                "pronoun",
+                "weak",
+                "with-genitive"
+              ],
+              "examples": [
+                {
+                  "text": "Πώς σου ήρθε να φορέσεις τόσο άσχημο παλτό;",
+                  "translation": "What possessed you to wear that ugly coat?"
+                },
+                {
+                  "text": "Κάθε φορά που τον βλέπω, μου έρχεται να τον σπάσω στο ξύλο.",
+                  "translation": "Every time I see him, I get the urge to beat him up."
+                },
+                {
+                  "text": "Η ταινία ήταν τόσο βαρετή που μου ήρθε να σηκωθώ και να φύγω.",
+                  "translation": "The film was so boring that I felt like getting up and leaving."
+                }
+              ]
+            }
+          },
+          "etymology_text": "From Ancient Greek ἔρχομαι (érkhomai, “I go”), from Proto-Indo-European *h₁ergʰ- (“to move, go”). The meaning shift and the perfective forms are from the suppletive aorist ἦλθον (êlthon, “I came”) (with regular shift λθ > ρθ). Compare also the Albanian form erdha (“I came”).",
+          "head_info_text": "έρχομαι • (érchomai)",
+          "wlink": "https://en.wiktionary.org/wiki/έρχομαι#Greek",
+          "klink": "https://kaikki.org/dictionary/Greek/meaning/έ/έρ/έρχομαι.html"
+        }
+      }
+    }
+  }
+}

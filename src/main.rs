@@ -602,9 +602,20 @@ fn get_non_trivial_forms(word_entry: &WordEntry) -> impl Iterator<Item = &Form> 
         }
 
         // blacklisted forms (happens at least in English)
+        // Usually it has the meaning of "empty cell" in an inflection table
         if form.form == "-" {
             return false;
         }
+
+        // https://github.com/tatuylonen/wiktextract/issues/1494
+        // this should fix it, but it is hacky
+        // * wait until the editor's answer: https://en.wiktionary.org/wiki/User_talk:Saltmarsh
+        //   in case they fix the template and this is not needed.
+        // if matches!(args.source, Lang::El) {
+        //     if form.form == "ο" || form.form == "η" {
+        //         return false;
+        //     }
+        // }
 
         // blacklisted tags (happens at least in Russian: romanization)
         let is_blacklisted = form

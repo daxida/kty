@@ -1,0 +1,464 @@
+{
+  "έρχομαι": {
+    "ήρθα": {
+      "verb": [
+        "extracted",
+        [
+          "first-person singular past perfective passive indicative"
+        ]
+      ]
+    },
+    "ήλθα": {
+      "verb": [
+        "extracted",
+        [
+          "first-person singular past perfective passive indicative"
+        ]
+      ]
+    },
+    "έρθω": {
+      "verb": [
+        "extracted",
+        [
+          "first-person singular perfective passive indicative dependent"
+        ]
+      ]
+    },
+    "έλθω": {
+      "verb": [
+        "extracted",
+        [
+          "first-person singular future perfective passive indicative",
+          "first-person singular perfective passive indicative dependent"
+        ]
+      ]
+    },
+    "έρχεσαι": {
+      "verb": [
+        "extracted",
+        [
+          "second-person singular present imperfective passive indicative"
+        ]
+      ]
+    },
+    "έρθεις": {
+      "verb": [
+        "extracted",
+        [
+          "second-person singular perfective passive indicative dependent"
+        ]
+      ]
+    },
+    "έλθεις": {
+      "verb": [
+        "extracted",
+        [
+          "second-person singular perfective passive indicative dependent"
+        ]
+      ]
+    },
+    "έρχεται": {
+      "verb": [
+        "extracted",
+        [
+          "third-person singular present imperfective passive indicative"
+        ]
+      ]
+    },
+    "έρθει": {
+      "verb": [
+        "extracted",
+        [
+          "passive infinitive-aorist",
+          "third-person singular perfective passive indicative dependent"
+        ]
+      ]
+    },
+    "έλθει": {
+      "verb": [
+        "extracted",
+        [
+          "passive infinitive-aorist",
+          "third-person singular perfective passive indicative dependent"
+        ]
+      ]
+    },
+    "ερχόμαστε": {
+      "verb": [
+        "extracted",
+        [
+          "first-person plural present imperfective passive indicative"
+        ]
+      ]
+    },
+    "έρθουμε": {
+      "verb": [
+        "extracted",
+        [
+          "first-person plural perfective passive indicative dependent"
+        ]
+      ]
+    },
+    "έλθουμε": {
+      "verb": [
+        "extracted",
+        [
+          "first-person plural perfective passive indicative dependent"
+        ]
+      ]
+    },
+    "έλθομε": {
+      "verb": [
+        "extracted",
+        [
+          "first-person plural perfective passive indicative rare dependent"
+        ]
+      ]
+    },
+    "έρχεστε": {
+      "verb": [
+        "extracted",
+        [
+          "second-person plural imperative imperfective passive",
+          "second-person plural present imperfective passive indicative"
+        ]
+      ]
+    },
+    "ερχόσαστε": {
+      "verb": [
+        "extracted",
+        [
+          "second-person plural present imperfective passive indicative"
+        ]
+      ]
+    },
+    "έρθετε": {
+      "verb": [
+        "extracted",
+        [
+          "second-person plural perfective passive indicative dependent"
+        ]
+      ]
+    },
+    "έλθετε": {
+      "verb": [
+        "extracted",
+        [
+          "second-person plural perfective passive indicative dependent"
+        ]
+      ]
+    },
+    "έρχονται": {
+      "verb": [
+        "extracted",
+        [
+          "third-person plural present imperfective passive indicative"
+        ]
+      ]
+    },
+    "έρθουν": {
+      "verb": [
+        "extracted",
+        [
+          "third-person plural perfective passive indicative dependent"
+        ]
+      ]
+    },
+    "έρθουνε": {
+      "verb": [
+        "extracted",
+        [
+          "third-person plural perfective passive indicative dependent"
+        ]
+      ]
+    },
+    "έλθουν": {
+      "verb": [
+        "extracted",
+        [
+          "third-person plural perfective passive indicative dependent"
+        ]
+      ]
+    },
+    "έλθουνε": {
+      "verb": [
+        "extracted",
+        [
+          "third-person plural perfective passive indicative dependent"
+        ]
+      ]
+    },
+    "ερχόμουν": {
+      "verb": [
+        "extracted",
+        [
+          "first-person singular imperfect imperfective passive indicative"
+        ]
+      ]
+    },
+    "ερχόμουνα": {
+      "verb": [
+        "extracted",
+        [
+          "first-person singular imperfect imperfective passive indicative"
+        ]
+      ]
+    },
+    "ερχόσουν": {
+      "verb": [
+        "extracted",
+        [
+          "second-person singular imperfect imperfective passive indicative"
+        ]
+      ]
+    },
+    "ερχόσουνα": {
+      "verb": [
+        "extracted",
+        [
+          "second-person singular imperfect imperfective passive indicative"
+        ]
+      ]
+    },
+    "ήρθες": {
+      "verb": [
+        "extracted",
+        [
+          "second-person singular past perfective passive indicative"
+        ]
+      ]
+    },
+    "ήλθες": {
+      "verb": [
+        "extracted",
+        [
+          "second-person singular past perfective passive indicative"
+        ]
+      ]
+    },
+    "ερχόταν": {
+      "verb": [
+        "extracted",
+        [
+          "third-person singular imperfect imperfective passive indicative"
+        ]
+      ]
+    },
+    "ερχότανε": {
+      "verb": [
+        "extracted",
+        [
+          "third-person singular imperfect imperfective passive indicative"
+        ]
+      ]
+    },
+    "ήρθε": {
+      "verb": [
+        "extracted",
+        [
+          "third-person singular past perfective passive indicative"
+        ]
+      ]
+    },
+    "ήλθε": {
+      "verb": [
+        "extracted",
+        [
+          "third-person singular past perfective passive indicative"
+        ]
+      ]
+    },
+    "ερχόμασταν": {
+      "verb": [
+        "extracted",
+        [
+          "first-person plural imperfect imperfective passive indicative"
+        ]
+      ]
+    },
+    "-όμαστε": {
+      "verb": [
+        "extracted",
+        [
+          "informal first-person plural imperfect imperfective passive indicative"
+        ]
+      ]
+    },
+    "ήρθαμε": {
+      "verb": [
+        "extracted",
+        [
+          "first-person plural past perfective passive indicative"
+        ]
+      ]
+    },
+    "ήλθαμε": {
+      "verb": [
+        "extracted",
+        [
+          "first-person plural past perfective passive indicative"
+        ]
+      ]
+    },
+    "ερχόσασταν": {
+      "verb": [
+        "extracted",
+        [
+          "second-person plural imperfect imperfective passive indicative"
+        ]
+      ]
+    },
+    "-όσαστε": {
+      "verb": [
+        "extracted",
+        [
+          "informal second-person plural imperfect imperfective passive indicative"
+        ]
+      ]
+    },
+    "ήρθατε": {
+      "verb": [
+        "extracted",
+        [
+          "second-person plural past perfective passive indicative"
+        ]
+      ]
+    },
+    "ήλθατε": {
+      "verb": [
+        "extracted",
+        [
+          "second-person plural past perfective passive indicative"
+        ]
+      ]
+    },
+    "έρχονταν": {
+      "verb": [
+        "extracted",
+        [
+          "third-person plural imperfect imperfective passive indicative"
+        ]
+      ]
+    },
+    "ερχόντουσαν": {
+      "verb": [
+        "extracted",
+        [
+          "informal third-person plural imperfect imperfective passive indicative"
+        ]
+      ]
+    },
+    "ήρθαν": {
+      "verb": [
+        "extracted",
+        [
+          "third-person plural past perfective passive indicative"
+        ]
+      ]
+    },
+    "ήρθανε": {
+      "verb": [
+        "extracted",
+        [
+          "third-person plural past perfective passive indicative"
+        ]
+      ]
+    },
+    "ήλθαν": {
+      "verb": [
+        "extracted",
+        [
+          "third-person plural past perfective passive indicative"
+        ]
+      ]
+    },
+    "ήλθανε": {
+      "verb": [
+        "extracted",
+        [
+          "third-person plural past perfective passive indicative"
+        ]
+      ]
+    },
+    "θα έρχομαι": {
+      "verb": [
+        "extracted",
+        [
+          "first-person singular future imperfective passive indicative progressive"
+        ]
+      ]
+    },
+    "θα έρθω": {
+      "verb": [
+        "extracted",
+        [
+          "first-person singular future perfective passive indicative"
+        ]
+      ]
+    },
+    "Formed using present": {
+      "verb": [
+        "extracted",
+        [
+          "future imperfective perfective passive subjunctive"
+        ]
+      ]
+    },
+    "dependent (for simple past)": {
+      "verb": [
+        "extracted",
+        [
+          "future imperfective perfective passive subjunctive"
+        ]
+      ]
+    },
+    "present perfect from above with a particle (να, ας).": {
+      "verb": [
+        "extracted",
+        [
+          "future imperfective perfective passive subjunctive"
+        ]
+      ]
+    },
+    "έλα": {
+      "verb": [
+        "extracted",
+        [
+          "second-person singular imperative perfective passive"
+        ]
+      ]
+    },
+    "ελάτε": {
+      "verb": [
+        "extracted",
+        [
+          "second-person plural imperative perfective passive"
+        ]
+      ]
+    },
+    "ερχόμενος": {
+      "verb": [
+        "extracted",
+        [
+          "present passive participle"
+        ]
+      ]
+    },
+    "η": {
+      "verb": [
+        "extracted",
+        [
+          "present passive participle"
+        ]
+      ]
+    },
+    "ο": {
+      "verb": [
+        "extracted",
+        [
+          "present passive participle"
+        ]
+      ]
+    }
+  }
+}
