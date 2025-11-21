@@ -38,7 +38,7 @@ use zip::write::SimpleFileOptions;
 #[allow(unused)]
 use tracing::{Level, debug, error, info, span, trace, warn};
 
-use kty::cli::{Args, Cli, DictionaryType, FilterKey, PathManager};
+use kty::cli::{Args, ArgsOptions, Cli, DictionaryType, FilterKey, PathManager, SimpleArgs};
 use kty::download::download_jsonl;
 use kty::lang::Lang;
 use kty::locale::get_locale_examples_string;
@@ -57,11 +57,17 @@ use kty::utils::{CHECK_C, SKIP_C, pretty_print_at_path, pretty_println_at_path};
 ///
 /// In that case, we write a new filtered tmp.jsonl file, and we return its path, different from
 /// the default <source>-<target>.extract.jsonl, to be passed to the tidy function.
-#[tracing::instrument(skip_all, fields(source = %args.source))]
-fn filter_jsonl(args: &Args, path_jsonl_raw: &Path, path_jsonl: PathBuf) -> Result<PathBuf> {
+#[tracing::instrument(skip_all, fields(source = %source))]
+fn filter_jsonl(
+    edition: Lang,
+    source: Lang,
+    options: &ArgsOptions,
+    path_jsonl_raw: &Path,
+    path_jsonl: PathBuf,
+) -> Result<PathBuf> {
     // English edition already gives them filtered.
     // Yet don't skip if we have filter arguments (forced filtering).
-    if matches!(args.edition, Lang::En) && !args.has_filter_params() {
+    if matches!(edition, Lang::En) && !options.has_filter_params() {
         println!("{SKIP_C} Skipping filtering: english edition detected");
         return Ok(path_jsonl);
     }
@@ -72,7 +78,7 @@ fn filter_jsonl(args: &Args, path_jsonl_raw: &Path, path_jsonl: PathBuf) -> Resu
     let reader_path = path_jsonl_raw;
     let reader_file = File::open(reader_path)?;
     let mut reader = BufReader::with_capacity(capacity, reader_file);
-    let writer_path = match args.edition {
+    let writer_path = match edition {
         Lang::En => path_jsonl.with_extension("tmp.jsonl"),
         _ => path_jsonl,
     };
@@ -87,9 +93,9 @@ fn filter_jsonl(args: &Args, path_jsonl_raw: &Path, path_jsonl: PathBuf) -> Resu
     let mut extracted_lines_counter = 0;
     let mut printed_progress = false;
 
-    let mut filter = args.filter.clone();
-    let reject = args.reject.clone();
-    let lang_code_filter = (FilterKey::LangCode, args.source.to_string());
+    let mut filter = options.filter.clone();
+    let reject = options.reject.clone();
+    let lang_code_filter = (FilterKey::LangCode, source.to_string());
     filter.push(lang_code_filter);
     debug!("Filter {filter:?} - Reject {reject:?}");
 
@@ -117,7 +123,7 @@ fn filter_jsonl(args: &Args, path_jsonl_raw: &Path, path_jsonl: PathBuf) -> Resu
             std::io::stdout().flush()?;
         }
 
-        if line_count == args.first {
+        if line_count == options.first {
             break;
         }
 
@@ -385,13 +391,21 @@ fn postprocess_forms(form_map: &mut FormMap) {
 
 #[tracing::instrument(skip_all)]
 fn tidy(args: &Args, pm: &PathManager, path_jsonl: &Path) -> Result<Tidy> {
+    // In case we run this in the testsuite with no CLI validation.
+    debug_assert_eq!(args.lang.edition, args.lang.target);
+
     if !path_jsonl.exists() {
         bail!("{:?} does not exist @ tidy", path_jsonl.display())
     }
 
     debug!("Reading jsonlines @ {}", path_jsonl.display());
 
-    let ret = tidy_run(args, path_jsonl)?;
+    let ret = tidy_run(
+        args.lang.edition,
+        args.lang.source,
+        args.lang.target,
+        path_jsonl,
+    )?;
 
     let n_lemmas = ret.lemma_map.len(); // this may be odd, should do the same that we do for forms
     let n_forms = form_map_len(&ret.form_map);
@@ -404,7 +418,7 @@ fn tidy(args: &Args, pm: &PathManager, path_jsonl: &Path) -> Result<Tidy> {
 ({n_deinflected_forms} inflections, {n_extracted_forms} extracted)"
     );
 
-    if args.keep_files {
+    if args.options.keep_files {
         debug!("Writing Tidy result to disk");
         write_tidy(args, pm, &ret)?;
     }
@@ -415,7 +429,7 @@ fn tidy(args: &Args, pm: &PathManager, path_jsonl: &Path) -> Result<Tidy> {
 static PARENS_RE: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\(.+?\)").unwrap());
 
 #[tracing::instrument(skip_all)]
-fn tidy_run(args: &Args, reader_path: &Path) -> Result<Tidy> {
+fn tidy_run(edition: Lang, source: Lang, target: Lang, reader_path: &Path) -> Result<Tidy> {
     let mut ret = Tidy::default();
 
     let reader_file = File::open(reader_path)?;
@@ -445,7 +459,7 @@ fn tidy_run(args: &Args, reader_path: &Path) -> Result<Tidy> {
         // }
 
         // Everything that mutates word_entry
-        preprocess_word_entry(args, &mut word_entry, &mut ret);
+        preprocess_word_entry(source, target, &mut word_entry, &mut ret);
 
         // rg processforms
         process_forms(&word_entry, &mut ret);
@@ -456,8 +470,8 @@ fn tidy_run(args: &Args, reader_path: &Path) -> Result<Tidy> {
         }
 
         // rg insertlemma handleline
-        let reading = get_reading(args, &word_entry);
-        if let Some(raw_sense_entry) = process_word_entry(args, &word_entry) {
+        let reading = get_reading(source, &word_entry);
+        if let Some(raw_sense_entry) = process_word_entry(edition, source, &word_entry) {
             debug_assert!(!raw_sense_entry.gloss_tree.is_empty());
             ret.insert_lemma_entry(&word_entry.word, &reading, &word_entry.pos, raw_sense_entry);
         }
@@ -469,7 +483,7 @@ fn tidy_run(args: &Args, reader_path: &Path) -> Result<Tidy> {
 }
 
 // Everything that mutates word_entry
-fn preprocess_word_entry(args: &Args, word_entry: &mut WordEntry, ret: &mut Tidy) {
+fn preprocess_word_entry(source: Lang, target: Lang, word_entry: &mut WordEntry, ret: &mut Tidy) {
     // WARN: mutates word_entry::pos
     //
     // The whole point being displaying a better tag.
@@ -499,7 +513,7 @@ fn preprocess_word_entry(args: &Args, word_entry: &mut WordEntry, ret: &mut Tidy
     // [en]
     // not entirely sure why this hack was needed... (can't we just look at forms?)
     // it does indeed add some tags from head_templates in the grc/en testsuite
-    if matches!(args.target, Lang::En) {
+    if matches!(target, Lang::En) {
         let tag_matches = [
             ["pf", "perfective"],
             ["impf", "imperfective"],
@@ -530,7 +544,7 @@ fn preprocess_word_entry(args: &Args, word_entry: &mut WordEntry, ret: &mut Tidy
     // [ru]
     // This is a good idea that should probably go to every language where it makes sense.
     // Below there is a "safest" version for Greek (where the tags that we propagate are narrowed).
-    if matches!(args.target, Lang::Ru) {
+    if matches!(target, Lang::Ru) {
         for sense in &mut word_entry.senses {
             for tag in &word_entry.tags {
                 if !sense.tags.contains(tag) {
@@ -543,7 +557,7 @@ fn preprocess_word_entry(args: &Args, word_entry: &mut WordEntry, ret: &mut Tidy
     // WARN: mutates word_entry::senses::sense::tags
     //
     // [el] Fetch gender from a matching form
-    if matches!(args.target, Lang::El) {
+    if matches!(target, Lang::El) {
         let gender_tags = ["masculine", "feminine", "neuter"];
         for form in &word_entry.forms {
             if form.form == word_entry.word {
@@ -584,10 +598,10 @@ fn preprocess_word_entry(args: &Args, word_entry: &mut WordEntry, ret: &mut Tidy
     let old_senses = std::mem::take(&mut word_entry.senses);
     let mut senses_without_inflections = Vec::new();
     for sense in old_senses {
-        if is_inflection_gloss(args, word_entry, &sense)
+        if is_inflection_gloss(target, word_entry, &sense)
             && get_non_trivial_forms(word_entry).next().is_none()
         {
-            handle_inflection_gloss(args, word_entry, &sense, ret);
+            handle_inflection_gloss(source, target, word_entry, &sense, ret);
         } else {
             senses_without_inflections.push(sense);
         }
@@ -660,9 +674,9 @@ fn process_forms(word_entry: &WordEntry, ret: &mut Tidy) {
 }
 
 // There are potentially more than one, but I haven't seen that happen
-fn get_reading(args: &Args, word_entry: &WordEntry) -> String {
-    match args.source {
-        Lang::Ja => get_japanese_reading(args, word_entry),
+fn get_reading(source: Lang, word_entry: &WordEntry) -> String {
+    match source {
+        Lang::Ja => get_japanese_reading(word_entry),
         Lang::Fa => {
             // use romanization over canonical_word_form
             let romanization_form = word_entry
@@ -674,7 +688,7 @@ fn get_reading(args: &Args, word_entry: &WordEntry) -> String {
                 None => word_entry.word.clone(),
             }
         }
-        _ => get_canonical_word(args, word_entry).to_string(),
+        _ => get_canonical_word(source, word_entry).to_string(),
     }
 }
 
@@ -683,8 +697,8 @@ fn get_reading(args: &Args, word_entry: &WordEntry) -> String {
 /// For most languages, this is equal to word, but for, let's say, Latin, there may be a
 /// difference (cf. <https://en.wiktionary.org/wiki/fama>, where `word_entry.word` is fama, but
 /// this will return fāma).
-fn get_canonical_word<'a>(args: &Args, word_entry: &'a WordEntry) -> &'a str {
-    match args.source {
+fn get_canonical_word(source: Lang, word_entry: &WordEntry) -> &str {
+    match source {
         Lang::La | Lang::Ru | Lang::Grc => match get_canonical_form(word_entry) {
             Some(cform) => &cform.form,
             None => &word_entry.word,
@@ -702,7 +716,7 @@ fn get_canonical_form(word_entry: &WordEntry) -> Option<&Form> {
 }
 
 // Does not support multiple readings
-fn get_japanese_reading(_args: &Args, word_entry: &WordEntry) -> String {
+fn get_japanese_reading(word_entry: &WordEntry) -> String {
     // The original parses head_templates directly (which probably deserves a PR to
     // wiktextract), although imo pronunciation templates should have been better.
     // There is no pronunciation template info in en-wiktextract, and while I think that
@@ -763,7 +777,11 @@ fn get_japanese_reading(_args: &Args, word_entry: &WordEntry) -> String {
 }
 
 // rg: handleline handle_line
-fn process_word_entry(args: &Args, word_entry: &WordEntry) -> Option<RawSenseEntry> {
+fn process_word_entry(
+    edition: Lang,
+    source: Lang,
+    word_entry: &WordEntry,
+) -> Option<RawSenseEntry> {
     // Reconvert to Option ~ a bit dumb, could deserialize it as Option, but we use defaults
     // at most WordEntry attributes so I think it's better to be consistent
     let etymology_text = if word_entry.etymology_text.is_empty() {
@@ -781,23 +799,23 @@ fn process_word_entry(args: &Args, word_entry: &WordEntry) -> Option<RawSenseEnt
         gloss_tree,
         etymology_text,
         head_info_text: get_head_info(&word_entry.head_templates),
-        link_wiktionary: get_link_wiktionary(args, &word_entry.word),
-        link_kaikki: get_link_kaikki(args, &word_entry.word),
+        link_wiktionary: get_link_wiktionary(edition, source, &word_entry.word),
+        link_kaikki: get_link_kaikki(edition, source, &word_entry.word),
     })
 }
 
 // Useful for debugging too
-fn get_link_wiktionary(args: &Args, word: &str) -> String {
+fn get_link_wiktionary(edition: Lang, source: Lang, word: &str) -> String {
     format!(
         "https://{}.wiktionary.org/wiki/{}#{}",
-        args.target,
+        edition,
         word,
-        args.source.long()
+        source.long()
     )
 }
 
 // Same debug but for kaikki
-fn get_link_kaikki(args: &Args, word: &str) -> String {
+fn get_link_kaikki(edition: Lang, source: Lang, word: &str) -> String {
     let chars: Vec<_> = word.chars().collect();
     let first = chars[0]; // word can't be empty
     let first_two = if chars.len() < 2 {
@@ -809,15 +827,18 @@ fn get_link_kaikki(args: &Args, word: &str) -> String {
     // 伸す >> 伸/伸す/伸す (when word.chars().count() < 2)
     // up >> u/up/up (word.len() is irrelevant, only char count matters)
     let search_query = format!("{first}/{first_two}/{word}");
-    let dictionary = match args.edition {
+    let dictionary = match edition {
         Lang::En => "dictionary".to_string(),
         other => format!("{other}wiktionary"),
     };
+    let localized_source = match edition {
+        Lang::En | Lang::El => source.long(),
+        // https://github.com/tatuylonen/wiktextract/issues/1497
+        _ => "All%20languages%20combined",
+    };
     let unescaped_url = format!(
         "https://kaikki.org/{}/{}/meaning/{}.html",
-        dictionary,
-        args.source.long(),
-        search_query
+        dictionary, localized_source, search_query
     );
     unescaped_url.replace(' ', "%20")
 }
@@ -936,8 +957,8 @@ fn insert_glosses(
 // Should be sense again...
 //
 // We pass the wordentry too in case the discrimination needs more info
-fn is_inflection_gloss(args: &Args, _word_entry: &WordEntry, sense: &Sense) -> bool {
-    match args.target {
+fn is_inflection_gloss(target: Lang, _word_entry: &WordEntry, sense: &Sense) -> bool {
+    match target {
         Lang::De => {
             static RE_INFLECTION_DE: LazyLock<Regex> = LazyLock::new(|| {
                 Regex::new(r" des (Verbs|Adjektivs|Substantivs|Demonstrativpronomens|Possessivpronomens|Pronomens)").unwrap()
@@ -976,8 +997,14 @@ fn is_inflection_gloss(args: &Args, _word_entry: &WordEntry, sense: &Sense) -> b
     }
 }
 
-fn handle_inflection_gloss(args: &Args, word_entry: &WordEntry, sense: &Sense, ret: &mut Tidy) {
-    match args.target {
+fn handle_inflection_gloss(
+    source: Lang,
+    target: Lang,
+    word_entry: &WordEntry,
+    sense: &Sense,
+    ret: &mut Tidy,
+) {
+    match target {
         Lang::El => {
             const VALID_TAGS: [&str; 9] = [
                 "masculine",
@@ -1012,7 +1039,7 @@ fn handle_inflection_gloss(args: &Args, word_entry: &WordEntry, sense: &Sense, r
                 );
             }
         }
-        Lang::En => handle_inflection_gloss_en(args, word_entry, sense, ret),
+        Lang::En => handle_inflection_gloss_en(source, word_entry, sense, ret),
         Lang::De => {
             if sense.glosses.is_empty() {
                 return;
@@ -1047,7 +1074,7 @@ fn handle_inflection_gloss(args: &Args, word_entry: &WordEntry, sense: &Sense, r
 // this is awful
 //
 // tested in the es-en suite
-fn handle_inflection_gloss_en(args: &Args, word_entry: &WordEntry, sense: &Sense, ret: &mut Tidy) {
+fn handle_inflection_gloss_en(source: Lang, word_entry: &WordEntry, sense: &Sense, ret: &mut Tidy) {
     if sense.glosses.is_empty() {
         return;
     }
@@ -1108,7 +1135,7 @@ fn handle_inflection_gloss_en(args: &Args, word_entry: &WordEntry, sense: &Sense
     if let Some(uninflected) = lemmas.iter().next() {
         // Not sure if this is better (cf. ru-en) over word_entry.word but it is what was done in
         // the original, so lets not change that for the moment.
-        let inflected = get_canonical_word(args, word_entry);
+        let inflected = get_canonical_word(source, word_entry);
 
         for inflection in inflections {
             ret.insert_form(
@@ -1133,7 +1160,7 @@ fn write_tidy(args: &Args, pm: &PathManager, ret: &Tidy) -> Result<()> {
     let file = File::create(&opath)?;
     let writer = BufWriter::new(file);
 
-    if args.pretty {
+    if args.options.pretty {
         serde_json::to_writer_pretty(writer, &ret.lemma_map)?;
     } else {
         serde_json::to_writer(writer, &ret.lemma_map)?;
@@ -1146,7 +1173,7 @@ fn write_tidy(args: &Args, pm: &PathManager, ret: &Tidy) -> Result<()> {
     let file = File::create(&opath)?;
     let writer = BufWriter::new(file);
 
-    if args.pretty {
+    if args.options.pretty {
         serde_json::to_writer_pretty(writer, &ret.form_map)?;
     } else {
         serde_json::to_writer(writer, &ret.form_map)?;
@@ -1238,7 +1265,7 @@ impl Node {
     }
 
     #[must_use]
-    fn to_array_node(self) -> Self {
+    fn into_array_node(self) -> Self {
         Self::Array(vec![self])
     }
 }
@@ -1287,7 +1314,7 @@ pub struct GenericNode {
 }
 
 impl GenericNode {
-    fn to_node(self) -> Node {
+    fn into_node(self) -> Node {
         Node::Generic(Box::new(self))
     }
 }
@@ -1358,7 +1385,7 @@ fn wrap(tag: NTag, content_ty: &str, content: Node) -> Node {
         },
         content,
     }
-    .to_node()
+    .into_node()
 }
 
 // Do not distinguish between Tag and Pos (String) to make it more ergonomic.
@@ -1417,8 +1444,8 @@ impl Diagnostics {
 }
 
 // For el/en/fr this is trivial ~ Needs lang script for the rest
-fn normalize_orthography(source_lang: Lang, term: &str) -> String {
-    match source_lang {
+fn normalize_orthography(source: Lang, term: &str) -> String {
+    match source {
         Lang::Grc | Lang::La | Lang::Ru => {
             // Normalize to NFD and drop combining accents
             term.nfd()
@@ -1466,12 +1493,12 @@ fn make_yomitan_lemma(
 ) -> YomitanEntry {
     // rg: findpartofspeech findpos
     let found_pos: String = if let Some(short_pos) = find_pos(pos) {
-        if args.keep_files {
+        if args.options.keep_files {
             diagnostics.increment_accepted_pos(pos.to_string(), lemma.to_string());
         }
         short_pos
     } else {
-        if args.keep_files {
+        if args.options.keep_files {
             diagnostics.increment_rejected_pos(pos.to_string(), lemma.to_string());
         }
         pos
@@ -1493,8 +1520,11 @@ fn make_yomitan_lemma(
         detailed_definition_content.push(structured_preamble);
     }
 
-    let structured_glosses =
-        get_structured_glosses(args, &info.gloss_tree, &common_short_tags_recognized);
+    let structured_glosses = get_structured_glosses(
+        args.lang.target,
+        &info.gloss_tree,
+        &common_short_tags_recognized,
+    );
     detailed_definition_content.push(structured_glosses);
 
     let backlink = get_structured_backlink(&info.link_wiktionary, &info.link_kaikki);
@@ -1537,12 +1567,12 @@ fn get_recognized_tags(
         match find_tag_in_bank(tag) {
             None => {
                 // try modified tag: skip
-                if tag != pos && args.keep_files {
+                if tag != pos && args.options.keep_files {
                     diagnostics.increment_rejected_tag(tag.to_string(), lemma.to_string());
                 }
             }
             Some(res) => {
-                if tag != pos && args.keep_files {
+                if tag != pos && args.options.keep_files {
                     diagnostics.increment_accepted_tag(tag.to_string(), lemma.to_string());
                 }
                 common_short_tags_recognized.push(res.short_tag);
@@ -1554,7 +1584,7 @@ fn get_recognized_tags(
 }
 
 fn build_details_entry(ty: &str, content: &str) -> Node {
-    let mut summary = wrap(NTag::Summary, "summary-entry", Node::Text(ty.into())).to_array_node();
+    let mut summary = wrap(NTag::Summary, "summary-entry", Node::Text(ty.into())).into_array_node();
     let div = wrap(
         NTag::Div,
         &format!("{ty}-content"),
@@ -1579,7 +1609,7 @@ fn get_structured_preamble(
     }
     let preamble = wrap(NTag::Div, "preamble", preamble_content);
 
-    wrap(NTag::Div, "", preamble.to_array_node())
+    wrap(NTag::Div, "", preamble.into_array_node())
 }
 
 #[allow(unused)]
@@ -1596,7 +1626,7 @@ fn get_structured_backlink(wlink: &str, klink: &str) -> Node {
 
 // should return Node for consistency
 fn get_structured_glosses(
-    args: &Args,
+    target: Lang,
     gloss_tree: &GlossTree,
     common_short_tags_recognized: &[Tag],
 ) -> Node {
@@ -1604,7 +1634,7 @@ fn get_structured_glosses(
     for (gloss, gloss_info) in gloss_tree {
         let synthetic_branch = GlossTree::from_iter([(gloss.clone(), gloss_info.clone())]);
         let nested_gloss =
-            get_structured_glosses_go(args, &synthetic_branch, common_short_tags_recognized, 0);
+            get_structured_glosses_go(target, &synthetic_branch, common_short_tags_recognized, 0);
         let structured_gloss = wrap(NTag::Li, "", Node::Array(nested_gloss));
         sense_content.push(structured_gloss);
     }
@@ -1614,7 +1644,7 @@ fn get_structured_glosses(
 // Recursive helper
 // should return Node for consistency
 fn get_structured_glosses_go(
-    args: &Args,
+    target: Lang,
     gloss_tree: &GlossTree,
     common_short_tags_recognized: &[Tag],
     level: usize,
@@ -1642,7 +1672,7 @@ fn get_structured_glosses_go(
         let gloss_content = Node::Text(gloss.into());
         level_content.push(gloss_content);
 
-        if let Some(structured_examples) = get_structured_examples(args, &gloss_info.examples) {
+        if let Some(structured_examples) = get_structured_examples(target, &gloss_info.examples) {
             level_content.push(structured_examples);
         }
 
@@ -1655,7 +1685,7 @@ fn get_structured_glosses_go(
             new_common_short_tags_recognized.extend(minimal_tags);
 
             let child_defs = get_structured_glosses_go(
-                args,
+                target,
                 &gloss_info.children,
                 &new_common_short_tags_recognized,
                 level + 1,
@@ -1694,7 +1724,7 @@ fn get_structured_tags(tags: &[Tag], common_short_tags_recognized: &[Tag]) -> Op
             ])),
             content: Node::Text(short_tag),
         }
-        .to_node();
+        .into_node();
 
         structured_tags_content.push(structured_tag_content);
     }
@@ -1710,7 +1740,7 @@ fn get_structured_tags(tags: &[Tag], common_short_tags_recognized: &[Tag]) -> Op
     }
 }
 
-fn get_structured_examples(args: &Args, examples: &[Example]) -> Option<Node> {
+fn get_structured_examples(target: Lang, examples: &[Example]) -> Option<Node> {
     if examples.is_empty() {
         return None;
     }
@@ -1718,9 +1748,9 @@ fn get_structured_examples(args: &Args, examples: &[Example]) -> Option<Node> {
     let mut structured_examples_content = wrap(
         NTag::Summary,
         "summary-entry",
-        Node::Text(get_locale_examples_string(&args.target, examples.len())),
+        Node::Text(get_locale_examples_string(&target, examples.len())),
     )
-    .to_array_node();
+    .into_array_node();
 
     for example in examples {
         let mut structured_example_content = wrap(
@@ -1728,7 +1758,7 @@ fn get_structured_examples(args: &Args, examples: &[Example]) -> Option<Node> {
             "example-sentence-a",
             Node::Text(example.text.clone()),
         )
-        .to_array_node();
+        .into_array_node();
         if !example.translation.is_empty() {
             let structured_translation_content = wrap(
                 NTag::Div,
@@ -1753,7 +1783,7 @@ fn get_structured_examples(args: &Args, examples: &[Example]) -> Option<Node> {
 }
 
 #[tracing::instrument(skip_all)]
-fn make_yomitan_forms(args: &Args, form_map: FormMap) -> Vec<YomitanEntry> {
+fn make_yomitan_forms(source: Lang, form_map: FormMap) -> Vec<YomitanEntry> {
     let mut yomitan_entries = Vec::new();
 
     for (uninflected, inflected, _pos, _source, tags) in flat_iter_forms(&form_map) {
@@ -1767,7 +1797,7 @@ fn make_yomitan_forms(args: &Args, form_map: FormMap) -> Vec<YomitanEntry> {
             })
             .collect();
 
-        let normalized_inflected = normalize_orthography(args.source, inflected);
+        let normalized_inflected = normalize_orthography(source, inflected);
         let reading = if normalized_inflected == *inflected {
             ""
         } else {
@@ -1844,7 +1874,7 @@ fn make_yomitan(
     };
 
     let yomitan_entries = make_yomitan_lemmas(args, lemma_map, diagnostics);
-    let yomitan_forms = make_yomitan_forms(args, form_map);
+    let yomitan_forms = make_yomitan_forms(args.lang.source, form_map);
 
     write_yomitan(args, pm, yomitan_entries, yomitan_forms)
 }
@@ -1868,43 +1898,51 @@ fn write_yomitan(
     let path_zip = pm.path_dict();
     let file = File::create(&path_zip)?;
     let mut zip = ZipWriter::new(file);
-    let options = SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated);
+    let zip_options =
+        SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated);
 
     // Zip index.json
-    let index_string = get_index(&pm.dict_name_expanded(), args.source, args.target);
-    zip.start_file("index.json", options)?;
+    let index_string = get_index(&pm.dict_name_expanded(), args.lang.source, args.lang.target);
+    zip.start_file("index.json", zip_options)?;
     zip.write_all(index_string.as_bytes())?;
 
     // Copy paste styles.css
-    zip.start_file("styles.css", options)?;
+    zip.start_file("styles.css", zip_options)?;
     zip.write_all(STYLES_CSS)?;
 
     // Copy paste tag_bank.json
     let tag_bank = get_tag_bank_as_tag_info();
     let tag_bank_bytes = serde_json::to_vec_pretty(&tag_bank)?;
-    zip.start_file("tag_bank_1.json", options)?; // it needs to end in _1
+    zip.start_file("tag_bank_1.json", zip_options)?; // it needs to end in _1
     zip.write_all(&tag_bank_bytes)?;
 
     let mut bank_index = 0;
     let banks = [("lemma", yomitan_entries), ("form", yomitan_forms)];
     for (entry_ty, entries) in banks {
-        let (out_sink, out_dir) = if args.keep_files {
+        let (out_sink, out_dir) = if args.options.keep_files {
             (BankSink::Disk, &temp_out_dir)
         } else {
-            (BankSink::Zip(&mut zip, options), &path_zip)
+            (BankSink::Zip(&mut zip, zip_options), &path_zip)
         };
-        write_banks(args, entries, &mut bank_index, entry_ty, out_dir, out_sink)?;
+        write_banks(
+            &args.options,
+            entries,
+            &mut bank_index,
+            entry_ty,
+            out_dir,
+            out_sink,
+        )?;
     }
 
     // If keep_files, read the disk files and zip them
-    if args.keep_files {
+    if args.options.keep_files {
         for entry in fs::read_dir(temp_out_dir)? {
             let entry = entry?;
             let path = entry.path();
             debug_assert!(path.is_file());
             let name = path.file_name().unwrap().to_string_lossy();
             let bytes = fs::read(&path)?;
-            zip.start_file(name.as_ref(), options)?;
+            zip.start_file(name.as_ref(), zip_options)?;
             zip.write_all(&bytes)?;
         }
     }
@@ -1924,7 +1962,7 @@ enum BankSink<'a> {
 /// Writes `yomitan_entries` in batches to `out_sink` (either disk or a zip).
 #[tracing::instrument(skip_all)]
 fn write_banks(
-    args: &Args,
+    options: &ArgsOptions,
     yomitan_entries: Vec<YomitanEntry>,
     bank_index: &mut usize,
     entry_ty: &str,
@@ -1968,13 +2006,13 @@ fn write_banks(
 
         let mut writer: Box<dyn Write> = match out_sink {
             BankSink::Disk => Box::new(BufWriter::new(File::create(&file_path)?)),
-            BankSink::Zip(ref mut zip, options) => {
-                zip.start_file(&bank_name, options)?;
+            BankSink::Zip(ref mut zip, zip_options) => {
+                zip.start_file(&bank_name, zip_options)?;
                 Box::new(BufWriter::new(zip))
             }
         };
 
-        if args.pretty {
+        if options.pretty {
             serde_json::to_writer_pretty(&mut writer, &bank)?;
         } else {
             serde_json::to_writer(&mut writer, &bank)?;
@@ -2000,64 +2038,39 @@ fn write_banks(
     Ok(())
 }
 
-fn make_dict_glossary(args: &Args, pm: &PathManager) -> Result<()> {
-    pm.setup_dirs()?;
-
-    // should go to the cli
-    if args.source == args.target {
-        bail!("a glossary dictionary is never monolingual. Source must be different from target.");
-    }
-    // should go to the cli
-    // The source must be an edition since that's where we are going to fish for translations
-    if !args.source.has_edition() {
-        bail!("source language must have an edition.");
-    }
-
-    let source = args.source;
-    let target = args.source;
-
-    // we are not filtering, so use path_jsonl
-    let path_jsonl = pm.path_jsonl(source, target);
-    debug_assert!(path_jsonl.exists());
-
-    download_jsonl(source, target, &path_jsonl, args.redownload)?;
-    make_simple_dict(DictionaryType::Glossary, args, pm, &path_jsonl)?;
-
-    Ok(())
-}
-
-fn make_dict_ipa(args: &Args, pm: &PathManager) -> Result<()> {
-    pm.setup_dirs()?;
-
-    let source = args.source;
-    let target = args.target;
-
-    // we are not filtering, so use path_jsonl
-    let path_jsonl = pm.path_jsonl(source, target);
-    debug_assert!(path_jsonl.exists());
-
-    download_jsonl(source, target, &path_jsonl, args.redownload)?;
-    make_simple_dict(DictionaryType::Ipa, args, pm, &path_jsonl)?;
-
-    Ok(())
-}
-
 impl SimpleDictionary for DictionaryType {
-    fn make_yomitan_entry(&self, args: &Args, entry: &WordEntry) -> Option<YomitanEntry> {
+    fn make_yomitan_entry(
+        &self,
+        source: Lang,
+        target: Lang,
+        entry: &WordEntry,
+    ) -> Option<YomitanEntry> {
         match self {
             Self::Main => unimplemented!("Main dictionary is made differently"),
-            Self::Glossary => make_glossary_yomitan_entry(args, entry),
-            Self::Ipa => make_ipa_yomitan_entry(args, entry),
+            Self::Glossary => make_glossary_yomitan_entry(source, target, entry),
+            Self::Ipa => make_ipa_yomitan_entry(source, entry),
         }
     }
 }
 
 // Abstracts the writing process for simple dictionaries that do not require Tidy
 trait SimpleDictionary {
-    fn make_yomitan_entry(&self, args: &Args, entry: &WordEntry) -> Option<YomitanEntry>;
+    fn make_yomitan_entry(
+        &self,
+        source: Lang,
+        target: Lang,
+        entry: &WordEntry,
+    ) -> Option<YomitanEntry>;
 }
 
-fn make_simple_dict<D>(dict: D, args: &Args, pm: &PathManager, path_jsonl_raw: &Path) -> Result<()>
+fn make_simple_dict<D>(
+    dict: D,
+    source: Lang,
+    target: Lang,
+    options: &ArgsOptions,
+    pm: &PathManager,
+    path_jsonl_raw: &Path,
+) -> Result<()>
 where
     D: SimpleDictionary,
 {
@@ -2074,15 +2087,16 @@ where
 
     let writer_file = File::create(&writer_path)?;
     let mut zip = ZipWriter::new(writer_file);
-    let options = SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated);
+    let zip_options =
+        SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated);
 
     let print_interval = 5000;
     let mut line_count = 1;
     let mut printed_progress = false;
 
-    let mut filter = args.filter.clone();
-    let reject = args.reject.clone();
-    let lang_code_filter = (FilterKey::LangCode, args.source.to_string());
+    let mut filter = options.filter.clone();
+    let reject = options.reject.clone();
+    let lang_code_filter = (FilterKey::LangCode, source.to_string());
     filter.push(lang_code_filter);
     debug!("Filter {filter:?} - Reject {reject:?}");
 
@@ -2111,7 +2125,7 @@ where
             std::io::stdout().flush()?;
         }
 
-        if line_count == args.first {
+        if line_count == options.first {
             break;
         }
 
@@ -2119,7 +2133,7 @@ where
             continue;
         }
 
-        let yomitan_entry = dict.make_yomitan_entry(args, &word_entry);
+        let yomitan_entry = dict.make_yomitan_entry(source, target, &word_entry);
         if let Some(yomitan_entry) = yomitan_entry {
             entries.push(yomitan_entry);
         }
@@ -2137,30 +2151,37 @@ where
         return Ok(());
     }
 
-    let index_string = get_index(&pm.dict_name_expanded(), args.source, args.target);
-    zip.start_file("index.json", options)?;
+    let index_string = get_index(&pm.dict_name_expanded(), source, target);
+    zip.start_file("index.json", zip_options)?;
     zip.write_all(index_string.as_bytes())?;
 
-    zip.start_file("styles.css", options)?;
+    zip.start_file("styles.css", zip_options)?;
     zip.write_all(STYLES_CSS)?;
 
     let tag_bank = get_tag_bank_as_tag_info();
     let tag_bank_bytes = serde_json::to_vec_pretty(&tag_bank)?;
-    zip.start_file("tag_bank_1.json", options)?; // it needs to end in _1
+    zip.start_file("tag_bank_1.json", zip_options)?; // it needs to end in _1
     zip.write_all(&tag_bank_bytes)?;
 
     let entry_ty = "entry";
 
-    if args.keep_files {
+    if options.keep_files {
         let out_dir = pm.dir_temp_dict();
         let out_sink = BankSink::Disk;
         fs::create_dir_all(&out_dir)?;
-        write_banks(args, entries.clone(), &mut 0, entry_ty, &out_dir, out_sink)?;
+        write_banks(
+            options,
+            entries.clone(),
+            &mut 0,
+            entry_ty,
+            &out_dir,
+            out_sink,
+        )?;
     }
 
     let out_dir = PathBuf::from("unused_for_zip"); // only for printing
-    let out_sink = BankSink::Zip(&mut zip, options);
-    write_banks(args, entries, &mut 0, entry_ty, &out_dir, out_sink)?;
+    let out_sink = BankSink::Zip(&mut zip, zip_options);
+    write_banks(options, entries, &mut 0, entry_ty, &out_dir, out_sink)?;
 
     zip.finish()?;
 
@@ -2172,9 +2193,13 @@ where
     Ok(())
 }
 
-fn make_glossary_yomitan_entry(args: &Args, word_entry: &WordEntry) -> Option<YomitanEntry> {
+fn make_glossary_yomitan_entry(
+    source: Lang,
+    target: Lang,
+    word_entry: &WordEntry,
+) -> Option<YomitanEntry> {
     // rg: process translations processtranslations
-    let target = args.target.to_string();
+    let target = target.to_string();
 
     // The original was fetching translations from the Senses too, but those are documented nowhere
     // and there is not a single occurence in the testsuite.
@@ -2229,7 +2254,7 @@ fn make_glossary_yomitan_entry(args: &Args, word_entry: &WordEntry) -> Option<Yo
         }
     }
 
-    let reading = get_reading(args, word_entry);
+    let reading = get_reading(source, word_entry);
     let found_pos = match find_pos(&word_entry.pos) {
         Some(short_pos) => short_pos.to_string(),
         None => word_entry.pos.clone(),
@@ -2248,8 +2273,8 @@ fn make_glossary_yomitan_entry(args: &Args, word_entry: &WordEntry) -> Option<Yo
     )))
 }
 
-fn make_ipa_yomitan_entry(args: &Args, word_entry: &WordEntry) -> Option<YomitanEntry> {
-    let reading = get_reading(args, word_entry);
+fn make_ipa_yomitan_entry(source: Lang, word_entry: &WordEntry) -> Option<YomitanEntry> {
+    let reading = get_reading(source, word_entry);
     let ipas = get_ipas(word_entry);
 
     let phonetic_transcription = PhoneticTranscription {
@@ -2332,17 +2357,30 @@ fn write_sorted_json(
 
 #[tracing::instrument(skip_all)]
 fn make_dict_main(args: &Args, pm: &PathManager) -> Result<()> {
+    debug_assert_eq!(args.lang.edition, args.lang.target);
+
     pm.setup_dirs()?;
 
     let path_jsonl_raw = pm.path_jsonl_raw();
-    download_jsonl(args.source, args.target, &path_jsonl_raw, args.redownload)?;
+    download_jsonl(
+        args.lang.edition,
+        args.lang.source,
+        &path_jsonl_raw,
+        args.options.redownload,
+    )?;
 
-    let mut path_jsonl = pm.path_jsonl(args.source, args.target);
-    if !args.skip_filter {
-        path_jsonl = filter_jsonl(args, &path_jsonl_raw, path_jsonl)?;
+    let mut path_jsonl = pm.path_jsonl(args.lang.source, args.lang.target);
+    if !args.skip.filtering {
+        path_jsonl = filter_jsonl(
+            args.lang.edition,
+            args.lang.source,
+            &args.options,
+            &path_jsonl_raw,
+            path_jsonl,
+        )?;
     }
 
-    let tidy_cache = if args.skip_tidy {
+    let tidy_cache = if args.skip.tidy {
         None
     } else {
         let ret = tidy(args, pm, &path_jsonl)?;
@@ -2350,11 +2388,71 @@ fn make_dict_main(args: &Args, pm: &PathManager) -> Result<()> {
     };
 
     let mut diagnostics = Diagnostics::new();
-    if !args.skip_yomitan {
+    if !args.skip.yomitan {
         make_yomitan(args, pm, &mut diagnostics, tidy_cache)?;
     }
 
     write_diagnostics(pm, &diagnostics)?;
+
+    Ok(())
+}
+
+fn make_dict_glossary(args: &SimpleArgs, pm: &PathManager) -> Result<()> {
+    pm.setup_dirs()?;
+
+    // should go to the cli
+    if args.lang.source == args.lang.target {
+        bail!("a glossary dictionary is never monolingual. Source must be different from target.");
+    }
+    // should go to the cli
+    // The source must be an edition since that's where we are going to fish for translations
+    if !args.lang.source.has_edition() {
+        bail!("source language must have an edition.");
+    }
+
+    // TODO: remove this
+    let edition = args.lang.edition;
+    let source = args.lang.source;
+    let target = args.lang.source;
+
+    // we are not filtering, so use path_jsonl
+    let path_jsonl = pm.path_jsonl(source, target);
+    debug_assert!(path_jsonl.exists());
+
+    download_jsonl(edition, source, &path_jsonl, args.options.redownload)?;
+    make_simple_dict(
+        DictionaryType::Glossary,
+        source,
+        target,
+        &args.options,
+        pm,
+        &path_jsonl,
+    )?;
+
+    Ok(())
+}
+
+fn make_dict_ipa(args: &SimpleArgs, pm: &PathManager) -> Result<()> {
+    pm.setup_dirs()?;
+
+    // TODO: remove this
+    let edition = args.lang.edition;
+    let source = args.lang.source;
+    let target = args.lang.target;
+
+    // we are not filtering, so use path_jsonl
+    let path_jsonl = pm.path_jsonl(source, target);
+    debug_assert!(path_jsonl.exists());
+
+    download_jsonl(edition, source, &path_jsonl, args.options.redownload)?;
+    make_simple_dict(
+        DictionaryType::Ipa,
+        source,
+        target,
+        &args.options,
+        pm,
+        &path_jsonl,
+    )?;
 
     Ok(())
 }
@@ -2390,7 +2488,7 @@ fn main() -> Result<()> {
         kty::cli::Command::Main(args) => {
             debug!("Making main dictionary");
             debug!("{args:#?}");
-            if !args.keep_files && (args.skip_tidy || args.skip_yomitan) {
+            if !args.options.keep_files && (args.skip.tidy || args.skip.yomitan) {
                 // The code might still work if we had artifacts from a previous run
                 warn!("keep-files is disabled while tidy/yomitan is skipped");
             }
@@ -2413,6 +2511,7 @@ fn main() -> Result<()> {
 mod tests {
     use super::*;
     use anyhow::{Ok, Result};
+    use kty::cli::{ArgsLang, SimpleArgs};
     use std::path::PathBuf;
 
     /// Clean empty folders and zip artifacts under folder "root" recursively
@@ -2442,6 +2541,46 @@ mod tests {
         }
 
         is_empty
+    }
+
+    fn fixture_args(edition: Lang, source: Lang, target: Lang, fixture_dir: &PathBuf) -> Args {
+        Args {
+            lang: ArgsLang {
+                edition,
+                source,
+                target,
+            },
+            options: ArgsOptions {
+                keep_files: true,
+                pretty: true,
+                root_dir: fixture_dir.clone(),
+                ..Default::default()
+            },
+            ..Default::default()
+        }
+    }
+
+    // TODO: Ideally we should only need this. The extra skip parameters of Args are not used in testing.
+    fn fixture_simple_args(
+        edition: Lang,
+        source: Lang,
+        target: Lang,
+        fixture_dir: &PathBuf,
+    ) -> SimpleArgs {
+        SimpleArgs {
+            lang: ArgsLang {
+                edition,
+                source,
+                target,
+            },
+            options: ArgsOptions {
+                keep_files: true,
+                pretty: true,
+                root_dir: fixture_dir.clone(),
+                ..Default::default()
+            },
+            ..Default::default()
+        }
     }
 
     // test via snapshots and commits like the original
@@ -2483,15 +2622,9 @@ mod tests {
         // failfast
         // main
         for (source, target) in &cases {
-            let args = Args {
-                source: *source,
-                target: *target,
-                keep_files: true,
-                pretty: true,
-                root_dir: fixture_dir.clone(),
-                ..Default::default()
-            };
-            let pm = PathManager::from_args(&args, DictionaryType::Main);
+            let edition = *target;
+            let args = fixture_args(edition, *source, *target, &fixture_dir);
+            let pm = PathManager::from_args(DictionaryType::Main, &args);
 
             if let Err(e) = shapshot_main(&args, &pm) {
                 panic!("({source}): {e}");
@@ -2507,34 +2640,38 @@ mod tests {
                 fixture_input_dir.join(format!("{source}-{source}-extract.jsonl"));
 
             for possible_target in &langs_in_testsuite {
-                let args = Args {
-                    source: *source,
-                    target: *possible_target,
-                    keep_files: true,
-                    pretty: true,
-                    root_dir: fixture_dir.clone(),
-                    ..Default::default()
-                };
-                let pm = PathManager::from_args(&args, DictionaryType::Glossary);
+                let edition = *source;
+                let args = fixture_simple_args(edition, *source, *possible_target, &fixture_dir);
+                let pm = PathManager::from_simple_args(DictionaryType::Glossary, &args);
                 pm.setup_dirs().unwrap(); // this makes some noise but ok
-                make_simple_dict(DictionaryType::Glossary, &args, &pm, &path_monolingual).unwrap();
+                make_simple_dict(
+                    DictionaryType::Glossary,
+                    args.lang.source,
+                    args.lang.target,
+                    &args.options,
+                    &pm,
+                    &path_monolingual,
+                )
+                .unwrap();
             }
         }
 
         // ipa
         for (source, target) in &cases {
-            let args = Args {
-                source: *source,
-                target: *target,
-                keep_files: true,
-                pretty: true,
-                root_dir: fixture_dir.clone(),
-                ..Default::default()
-            };
-            let pm = PathManager::from_args(&args, DictionaryType::Ipa);
+            let edition = *target;
+            let args = fixture_simple_args(edition, *source, *target, &fixture_dir);
+            let pm = PathManager::from_simple_args(DictionaryType::Ipa, &args);
             pm.setup_dirs().unwrap(); // this makes some noise but ok
-            let fixture_path = pm.path_jsonl(args.source, args.target);
-            make_simple_dict(DictionaryType::Ipa, &args, &pm, &fixture_path).unwrap();
+            let fixture_path = pm.path_jsonl(args.lang.source, args.lang.target);
+            make_simple_dict(
+                DictionaryType::Ipa,
+                args.lang.source,
+                args.lang.target,
+                &args.options,
+                &pm,
+                &fixture_path,
+            )
+            .unwrap();
         }
 
         clean_empty_dirs(&fixture_dir.join("dict"));
@@ -2554,7 +2691,7 @@ mod tests {
     //
     // Read the expected result in the snapshot first, then compare
     fn shapshot_main(args: &Args, pm: &PathManager) -> Result<()> {
-        let fixture_path = pm.path_jsonl(args.source, args.target);
+        let fixture_path = pm.path_jsonl(args.lang.source, args.lang.target);
         if !fixture_path.exists() {
             bail!("Fixture path {fixture_path:?} does not exist")
         }

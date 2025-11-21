@@ -7,18 +7,14 @@ use std::path::Path;
 use crate::lang::Lang;
 use crate::utils::{CHECK_C, pretty_println_at_path, skip_because_file_exists};
 
-// TODO: this should take a source/target/folder relative to where is run
-//       so we are not locked to download certain combinations based on args (relevant for
-//       glossary)
-
 /// Different in English and non-English editions.
 ///
 /// Example (el):    `https://kaikki.org/elwiktionary/raw-wiktextract-data.jsonl.gz`
 /// Example (sh-en): `https://kaikki.org/dictionary/Serbo-Croatian/kaikki.org-dictionary-SerboCroatian.jsonl.gz`
-pub fn url_raw_jsonl_gz(source: Lang, target: Lang) -> String {
+pub fn url_raw_jsonl_gz(edition: Lang, source: Lang) -> String {
     let root = "https://kaikki.org";
 
-    match target {
+    match edition {
         // Default download name is: kaikki.org-dictionary-TARGET_LANGUAGE.jsonl.gz
         Lang::En => {
             let long = source.long();
@@ -39,8 +35,8 @@ pub fn url_raw_jsonl_gz(source: Lang, target: Lang) -> String {
 ///
 /// Does not write the .gz file to disk.
 pub fn download_jsonl(
+    edition: Lang,
     source: Lang,
-    target: Lang,
     path_jsonl_raw: &Path,
     redownload: bool,
 ) -> Result<()> {
@@ -49,7 +45,7 @@ pub fn download_jsonl(
         return Ok(());
     }
 
-    let url = url_raw_jsonl_gz(source, target);
+    let url = url_raw_jsonl_gz(edition, source);
     println!("⬇ Downloading {url}");
 
     let response = match ureq::get(url).call() {
@@ -59,8 +55,8 @@ pub fn download_jsonl(
             // are outdated / wrong it may reach this...
             bail!(
                 "{err}. Does the language {} ({}) have an edition?",
-                target.long(),
-                target
+                edition.long(),
+                edition
             )
         }
         Err(err) => bail!(err),

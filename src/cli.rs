@@ -25,20 +25,45 @@ pub enum Command {
     /// Main dictionary
     Main(Args),
 
-    // Many attributes of Args don't make any sense here, but this is simpler and the only
-    // alternative I know of is a bunch of code duplication that I would rather avoid. Having some
-    // sort of "ShareArgs" runs into the issue of having to type args.shared.edition instead of
-    // args.edition etc.
-    //
     /// Short dictionary made from translations
-    Glossary(Args),
+    Glossary(SimpleArgs),
 
-    Ipa(Args),
+    // Phonetic transcription dictionary
+    Ipa(SimpleArgs),
 }
 
 #[derive(Parser, Debug, Default)]
-#[expect(clippy::struct_excessive_bools)]
 pub struct Args {
+    #[command(flatten)]
+    pub lang: ArgsLang,
+
+    /// Dictionary name
+    #[arg(default_value = "kty")]
+    pub dict_name: String,
+
+    #[command(flatten)]
+    pub options: ArgsOptions,
+
+    // contains these extra skip parameters
+    #[command(flatten)]
+    pub skip: ArgsSkip,
+}
+
+#[derive(Parser, Debug, Default)]
+pub struct SimpleArgs {
+    #[command(flatten)]
+    pub lang: ArgsLang,
+
+    /// Dictionary name
+    #[arg(default_value = "kty")]
+    pub dict_name: String,
+
+    #[command(flatten)]
+    pub options: ArgsOptions,
+}
+
+#[derive(Parser, Debug, Default)]
+pub struct ArgsLang {
     // We hide this for simplicity and because for our purposes, this is always equal to the target
     // language. We still keep this around in case it becomes useful later down the road.
     //
@@ -54,12 +79,11 @@ pub struct Args {
     /// Target language
     #[arg(value_parser = validate_edition)]
     pub target: Lang,
+}
 
-    /// Dictionary name
-    #[arg(default_value = "kty")]
-    pub dict_name: String,
-
-    // The filter file is always writen to disk, regardless of this.
+#[derive(Parser, Debug, Default)]
+pub struct ArgsOptions {
+    // In the main dictionary, the filter file is always writen to disk, regardless of this.
     /// Write intermediate files to disk
     #[arg(long, short)]
     pub keep_files: bool,
@@ -67,18 +91,6 @@ pub struct Args {
     /// Redownload kaikki files
     #[arg(long, short)]
     pub redownload: bool,
-
-    /// Skip filtering the jsonl
-    #[arg(long)]
-    pub skip_filter: bool,
-
-    /// Skip running tidy (IR generation)
-    #[arg(long)]
-    pub skip_tidy: bool,
-
-    /// Skip running yomitan (mainly for testing)
-    #[arg(long)]
-    pub skip_yomitan: bool,
 
     /// (debug) Only take the first n jsonlines before filtering.
     /// -1 for taking all jsonlines
@@ -94,7 +106,7 @@ pub struct Args {
     //   `--filter pos,adv --filter word,foo`
     //
     /// (debug) Only include entries matching certain key–value filters
-    #[arg(long, value_parser = parse_tuple, conflicts_with = "skip_filter")]
+    #[arg(long, value_parser = parse_tuple)]
     pub filter: Vec<(FilterKey, String)>,
 
     // This filtering is done at filter_jsonl
@@ -106,7 +118,7 @@ pub struct Args {
     //   `--reject pos,adj --reject word,foo`
     //
     /// (debug) Exclude entries matching certain key–value filters
-    #[arg(long, value_parser = parse_tuple, conflicts_with = "skip_filter")]
+    #[arg(long, value_parser = parse_tuple)]
     pub reject: Vec<(FilterKey, String)>,
 
     /// Write jsons with whitespace.
@@ -116,6 +128,22 @@ pub struct Args {
     /// (test) Modify the root directory. For testing, set this to "tests"
     #[arg(long, default_value = "data")]
     pub root_dir: PathBuf,
+}
+
+/// Skip arguments. Only relevant for the main dictionary.
+#[derive(Parser, Debug, Default)]
+pub struct ArgsSkip {
+    /// Skip filtering the jsonl
+    #[arg(long = "skip-filtering", help_heading = "Skip")]
+    pub filtering: bool,
+
+    /// Skip running tidy (IR generation)
+    #[arg(long = "skip-tidy", help_heading = "Skip")]
+    pub tidy: bool,
+
+    /// Skip running yomitan (mainly for testing)
+    #[arg(long = "skip-yomitan", help_heading = "Skip")]
+    pub yomitan: bool,
 }
 
 fn validate_edition(s: &str) -> Result<Lang, String> {
@@ -171,23 +199,23 @@ impl Cli {
         // we should be getting rid of edition at some point...
         let pm = match cli.command {
             Command::Main(ref mut args) => {
-                args.edition = args.target;
-                PathManager::from_args(args, DictionaryType::Main)
+                args.lang.edition = args.lang.target;
+                PathManager::from_args(DictionaryType::Main, args)
             }
             Command::Glossary(ref mut args) => {
-                args.edition = args.target;
-                PathManager::from_args(args, DictionaryType::Glossary)
+                args.lang.edition = args.lang.target;
+                PathManager::from_simple_args(DictionaryType::Glossary, args)
             }
             Command::Ipa(ref mut args) => {
-                args.edition = args.target;
-                PathManager::from_args(args, DictionaryType::Ipa)
+                args.lang.edition = args.lang.target;
+                PathManager::from_simple_args(DictionaryType::Ipa, args)
             }
         };
         (cli, pm)
     }
 }
 
-impl Args {
+impl ArgsOptions {
     pub const fn has_filter_params(&self) -> bool {
         !self.filter.is_empty() || !self.reject.is_empty() || self.first != -1
     }
@@ -226,26 +254,41 @@ impl fmt::Display for DictionaryType {
 // the intent of every call to either args or pm (PathManager) clearer. And better autocomplete!
 #[derive(Debug)]
 pub struct PathManager {
+    dict_name: String,
+    dict_ty: DictionaryType,
+
     edition: Lang,
     source: Lang,
     target: Lang,
-    dict_name: String,
-    dict_ty: DictionaryType,
+
     root_dir: PathBuf,
     keep_files: bool,
 }
 
 impl PathManager {
-    pub fn from_args(args: &Args, dict_ty: DictionaryType) -> Self {
+    pub fn new(
+        dict_ty: DictionaryType,
+        dict_name: &str,
+        lang: &ArgsLang,
+        options: &ArgsOptions,
+    ) -> Self {
         Self {
-            edition: args.edition,
-            source: args.source,
-            target: args.target,
-            dict_name: args.dict_name.clone(),
+            dict_name: dict_name.to_string(),
             dict_ty,
-            root_dir: args.root_dir.clone(),
-            keep_files: args.keep_files,
+            edition: lang.edition,
+            source: lang.source,
+            target: lang.target,
+            root_dir: options.root_dir.clone(),
+            keep_files: options.keep_files,
         }
+    }
+
+    pub fn from_args(dict_ty: DictionaryType, args: &Args) -> Self {
+        Self::new(dict_ty, &args.dict_name, &args.lang, &args.options)
+    }
+
+    pub fn from_simple_args(dict_ty: DictionaryType, args: &SimpleArgs) -> Self {
+        Self::new(dict_ty, &args.dict_name, &args.lang, &args.options)
     }
 
     /// Example: `data/kaikki`
@@ -368,31 +411,32 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_base_commands() {
+    fn base_commands() {
         assert!(Cli::try_parse_from(["kty", "main", "el", "en"]).is_ok());
         assert!(Cli::try_parse_from(["kty", "glossary", "el", "en"]).is_ok());
     }
 
     #[test]
-    fn test_set_inexistent_edition() {
-        assert!(Args::try_parse_from(["_pname", "el", "grc"]).is_err());
+    fn main_needs_target_edition() {
+        assert!(Cli::try_parse_from(["kty", "main", "grc", "el"]).is_ok());
+        assert!(Cli::try_parse_from(["kty", "main", "el", "grc"]).is_err());
     }
 
+    // #[test]
+    // fn glossary_needs_source_edition() {
+    //     assert!(Cli::try_parse_from(["kty", "glossary", "grc", "el"]).is_err());
+    //     assert!(Cli::try_parse_from(["kty", "glossary", "el", "grc"]).is_ok());
+    // }
+    //
+    // #[test]
+    // fn glossary_can_not_be_monolingual() {
+    //     assert!(Cli::try_parse_from(["kty", "glossary", "el", "el"]).is_err());
+    // }
+
     #[test]
-    fn test_filter_flag() {
+    fn filter_flag() {
         assert!(Args::try_parse_from(["_pname", "el", "el", "--filter", "foo,bar"]).is_err());
         assert!(Args::try_parse_from(["_pname", "el", "el", "--filter", "word,hello"]).is_ok());
         assert!(Args::try_parse_from(["_pname", "el", "el", "--reject", "pos,name"]).is_ok());
-        assert!(
-            Args::try_parse_from([
-                "_pname",
-                "el",
-                "el",
-                "--skip-filter",
-                "--reject",
-                "pos,name"
-            ])
-            .is_err()
-        );
     }
 }
