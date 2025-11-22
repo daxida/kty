@@ -419,7 +419,7 @@ fn tidy(
 ({n_deinflected_forms} inflections, {n_extracted_forms} extracted)"
     );
 
-    if options.keep_files {
+    if options.save_temps {
         debug!("Writing Tidy result to disk");
         write_tidy(options, pm, &ret)?;
     }
@@ -1506,12 +1506,12 @@ fn make_yomitan_lemma(
 ) -> YomitanEntry {
     // rg: findpartofspeech findpos
     let found_pos: String = if let Some(short_pos) = find_pos(pos) {
-        if options.keep_files {
+        if options.save_temps {
             diagnostics.increment_accepted_pos(pos.to_string(), lemma.to_string());
         }
         short_pos
     } else {
-        if options.keep_files {
+        if options.save_temps {
             diagnostics.increment_rejected_pos(pos.to_string(), lemma.to_string());
         }
         pos
@@ -1580,12 +1580,12 @@ fn get_recognized_tags(
         match find_tag_in_bank(tag) {
             None => {
                 // try modified tag: skip
-                if tag != pos && options.keep_files {
+                if tag != pos && options.save_temps {
                     diagnostics.increment_rejected_tag(tag.to_string(), lemma.to_string());
                 }
             }
             Some(res) => {
-                if tag != pos && options.keep_files {
+                if tag != pos && options.save_temps {
                     diagnostics.increment_accepted_tag(tag.to_string(), lemma.to_string());
                 }
                 common_short_tags_recognized.push(res.short_tag);
@@ -1878,7 +1878,7 @@ fn make_yomitan(
 
         ensure!(
             lemmas_path.exists() && forms_path.exists(),
-            "can not proceed with make_yomitan. Are you running --skip-tidy without --keep-files?"
+            "can not proceed with make_yomitan. Are you running --skip-tidy without --save-temps?"
         );
 
         let lemma_map: LemmaMap = load_json(&lemmas_path)?;
@@ -1888,82 +1888,81 @@ fn make_yomitan(
 
     let yomitan_entries = make_yomitan_lemmas(langs, options, lemma_map, diagnostics);
     let yomitan_forms = make_yomitan_forms(langs.source, form_map);
+    let labelled_entries = [("lemma", yomitan_entries), ("form", yomitan_forms)];
 
-    write_yomitan(langs, options, pm, yomitan_entries, yomitan_forms)
+    write_yomitan(
+        langs.source,
+        langs.target.into(),
+        options,
+        pm,
+        &labelled_entries,
+    )
 }
 
 const STYLES_CSS: &[u8] = include_bytes!("../assets/styles.css"); // = ../args.path_styles()
 
+/// Write lemma / form / whatever banks to either disk or zip.
+///
+/// If save_temps is true, we assume that the user is debugging and does not need the zip.
 fn write_yomitan(
-    langs: &MainLangs,
+    source: Lang,
+    target: Lang,
     options: &ArgsOptions,
     pm: &PathManager,
-    yomitan_entries: Vec<YomitanEntry>,
-    yomitan_forms: Vec<YomitanEntry>,
+    labelled_entries: &[(&str, Vec<YomitanEntry>)],
 ) -> Result<()> {
-    let temp_out_dir = pm.dir_temp_dict();
-
-    // clean the folder if any, to prevent pollution from other runs
-    if temp_out_dir.exists() {
-        fs::remove_dir_all(&temp_out_dir)?;
-        fs::create_dir(&temp_out_dir)?;
-    }
-
-    let path_zip = pm.path_dict();
-    let file = File::create(&path_zip)?;
-    let mut zip = ZipWriter::new(file);
-    let zip_options =
-        SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated);
-
-    // Zip index.json
-    let index_string = get_index(&pm.dict_name_expanded(), langs.source, langs.target.into());
-    zip.start_file("index.json", zip_options)?;
-    zip.write_all(index_string.as_bytes())?;
-
-    // Copy paste styles.css
-    zip.start_file("styles.css", zip_options)?;
-    zip.write_all(STYLES_CSS)?;
-
-    // Copy paste tag_bank.json
-    let tag_bank = get_tag_bank_as_tag_info();
-    let tag_bank_bytes = serde_json::to_vec_pretty(&tag_bank)?;
-    zip.start_file("tag_bank_1.json", zip_options)?; // it needs to end in _1
-    zip.write_all(&tag_bank_bytes)?;
-
     let mut bank_index = 0;
-    let banks = [("lemma", yomitan_entries), ("form", yomitan_forms)];
-    for (entry_ty, entries) in banks {
-        let (out_sink, out_dir) = if options.keep_files {
-            (BankSink::Disk, &temp_out_dir)
-        } else {
-            (BankSink::Zip(&mut zip, zip_options), &path_zip)
-        };
-        write_banks(
-            options,
-            entries,
-            &mut bank_index,
-            entry_ty,
-            out_dir,
-            out_sink,
-        )?;
-    }
 
-    // If keep_files, read the disk files and zip them
-    if options.keep_files {
-        for entry in fs::read_dir(temp_out_dir)? {
-            let entry = entry?;
-            let path = entry.path();
-            debug_assert!(path.is_file());
-            let name = path.file_name().unwrap().to_string_lossy();
-            let bytes = fs::read(&path)?;
-            zip.start_file(name.as_ref(), zip_options)?;
-            zip.write_all(&bytes)?;
+    if options.save_temps {
+        let out_dir = pm.dir_temp_dict();
+        fs::create_dir_all(&out_dir)?;
+        for (entry_ty, entries) in labelled_entries {
+            write_banks(
+                options.pretty,
+                &entries,
+                &mut bank_index,
+                entry_ty,
+                &out_dir,
+                BankSink::Disk,
+            )?;
         }
+    } else {
+        let writer_path = pm.path_dict();
+        let writer_file = File::create(&writer_path)?;
+        let mut zip = ZipWriter::new(writer_file);
+        let zip_options =
+            SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated);
+
+        // Zip index.json
+        let index_string = get_index(&pm.dict_name_expanded(), source, target.into());
+        zip.start_file("index.json", zip_options)?;
+        zip.write_all(index_string.as_bytes())?;
+
+        // Copy paste styles.css
+        zip.start_file("styles.css", zip_options)?;
+        zip.write_all(STYLES_CSS)?;
+
+        // Copy paste tag_bank.json
+        let tag_bank = get_tag_bank_as_tag_info();
+        let tag_bank_bytes = serde_json::to_vec_pretty(&tag_bank)?;
+        zip.start_file("tag_bank_1.json", zip_options)?; // it needs to end in _1
+        zip.write_all(&tag_bank_bytes)?;
+
+        for (entry_ty, entries) in labelled_entries {
+            write_banks(
+                options.pretty,
+                &entries,
+                &mut bank_index,
+                entry_ty,
+                &writer_path,
+                BankSink::Zip(&mut zip, zip_options),
+            )?;
+        }
+
+        zip.finish()?;
+
+        pretty_println_at_path(&format!("{CHECK_C} Wrote yomitan dict"), &pm.path_dict());
     }
-
-    zip.finish()?;
-
-    pretty_println_at_path(&format!("{CHECK_C} Wrote yomitan dict"), &pm.path_dict());
 
     Ok(())
 }
@@ -1976,8 +1975,8 @@ enum BankSink<'a> {
 /// Writes `yomitan_entries` in batches to `out_sink` (either disk or a zip).
 #[tracing::instrument(skip_all)]
 fn write_banks(
-    options: &ArgsOptions,
-    yomitan_entries: Vec<YomitanEntry>,
+    pretty: bool,
+    yomitan_entries: &[YomitanEntry],
     bank_index: &mut usize,
     entry_ty: &str,
     out_dir: &Path,
@@ -1986,11 +1985,6 @@ fn write_banks(
     let bank_size = 25_000;
     let total_entries = yomitan_entries.len();
     let total_bank_num = total_entries.div_ceil(bank_size);
-
-    match &out_sink {
-        BankSink::Disk => debug!("Writing {entry_ty} banks to disk"),
-        BankSink::Zip(..) => debug!("Writing {entry_ty} banks to zip"),
-    }
 
     let mut bank_num = 0;
     let mut start = 0;
@@ -2026,7 +2020,7 @@ fn write_banks(
             }
         };
 
-        if options.pretty {
+        if pretty {
             serde_json::to_writer_pretty(&mut writer, &bank)?;
         } else {
             serde_json::to_writer(&mut writer, &bank)?;
@@ -2187,50 +2181,8 @@ fn make_simple_dict(options: &ArgsOptions, pm: &PathManager) -> Result<()> {
         return Ok(());
     }
 
-    let entry_ty = "entry";
-
-    if options.keep_files {
-        let out_dir = pm.dir_temp_dict();
-        let out_sink = BankSink::Disk;
-        fs::create_dir_all(&out_dir)?;
-        write_banks(
-            options,
-            entries.clone(),
-            &mut 0,
-            entry_ty,
-            &out_dir,
-            out_sink,
-        )?;
-    }
-
-    let writer_path = pm.path_dict();
-    let writer_file = File::create(&writer_path)?;
-    let mut zip = ZipWriter::new(writer_file);
-    let zip_options =
-        SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated);
-
-    let index_string = get_index(&pm.dict_name_expanded(), source, target);
-    zip.start_file("index.json", zip_options)?;
-    zip.write_all(index_string.as_bytes())?;
-
-    zip.start_file("styles.css", zip_options)?;
-    zip.write_all(STYLES_CSS)?;
-
-    let tag_bank = get_tag_bank_as_tag_info();
-    let tag_bank_bytes = serde_json::to_vec_pretty(&tag_bank)?;
-    zip.start_file("tag_bank_1.json", zip_options)?; // it needs to end in _1
-    zip.write_all(&tag_bank_bytes)?;
-
-    let out_dir = PathBuf::from("unused_for_zip"); // only for printing
-    let out_sink = BankSink::Zip(&mut zip, zip_options);
-    write_banks(options, entries, &mut 0, entry_ty, &out_dir, out_sink)?;
-
-    zip.finish()?;
-
-    pretty_println_at_path(
-        &format!("{CHECK_C} Wrote yomitan {} dict", pm.dict_ty()),
-        &writer_path,
-    );
+    let labelled_entries = [("term", entries)];
+    write_yomitan(source, target, options, pm, &labelled_entries)?;
 
     Ok(())
 }
@@ -2558,9 +2510,9 @@ fn main() -> Result<()> {
 
     match cli.command {
         Command::Main(ref mut args) => {
-            if !args.options.keep_files && (args.skip.tidy || args.skip.yomitan) {
+            if !args.options.save_temps && (args.skip.tidy || args.skip.yomitan) {
                 // The code might still work if we had files from a previous run
-                tracing::warn!("keep-files is disabled while tidy/yomitan is skipped");
+                tracing::warn!("save_temps is disabled while tidy/yomitan is skipped");
             }
 
             args.langs.edition = args.langs.target;
@@ -2572,7 +2524,7 @@ fn main() -> Result<()> {
             let source_as_lang: Lang = args.langs.source.into();
             ensure!(
                 source_as_lang != args.langs.target,
-                "a glossary dictionary is never monolingual. Source must be different from target."
+                "in a glossary dictionary source must be different from target."
             );
 
             args.langs.edition = args.langs.source;
@@ -2581,6 +2533,11 @@ fn main() -> Result<()> {
             make_simple_dict(&args.options, &pm)
         }
         Command::GlossaryExtended(ref mut args) => {
+            ensure!(
+                args.langs.source != args.langs.target,
+                "in a glossary dictionary source must be different from target."
+            );
+
             let pm = PathManager::new(DictionaryType::GlossaryExtended, args);
             make_simple_dict(&args.options, &pm)
         }
@@ -2604,8 +2561,8 @@ mod tests {
     use kty::cli::{GlossaryArgs, GlossaryLangs, MainArgs, MainLangs};
     use std::path::PathBuf;
 
-    /// Clean empty folders and zip artifacts under folder "root" recursively
-    fn clean_empty_dirs(root: &Path) -> bool {
+    /// Clean empty folders under folder "root" recursively.
+    fn cleanup(root: &Path) -> bool {
         let entries = fs::read_dir(root).unwrap();
 
         let mut is_empty = true;
@@ -2613,7 +2570,7 @@ mod tests {
         for entry in entries.flatten() {
             let path = entry.path();
             if path.is_dir() {
-                let child_empty = clean_empty_dirs(&path);
+                let child_empty = cleanup(&path);
                 if child_empty {
                     fs::remove_dir(&path).unwrap();
                 } else {
@@ -2624,7 +2581,7 @@ mod tests {
                 .and_then(|e| e.to_str())
                 .is_some_and(|ext| ext.eq_ignore_ascii_case("zip"))
             {
-                fs::remove_file(&path).unwrap();
+                panic!("zip found in tests");
             } else {
                 is_empty = false;
             }
@@ -2635,7 +2592,7 @@ mod tests {
 
     fn fixture_options(fixture_dir: &Path) -> ArgsOptions {
         ArgsOptions {
-            keep_files: true,
+            save_temps: true,
             pretty: true,
             root_dir: fixture_dir.to_path_buf(),
             ..Default::default()
@@ -2755,7 +2712,7 @@ mod tests {
             make_simple_dict(&args.options, &pm).unwrap();
         }
 
-        clean_empty_dirs(&fixture_dir.join("dict"));
+        cleanup(&fixture_dir.join("dict"));
     }
 
     /// Delete generated artifacts from previous tests runs, if any

@@ -141,16 +141,18 @@ pub struct GlossaryExtendedLangs {
 #[derive(Parser, Debug, Default)]
 pub struct ArgsOptions {
     // In the main dictionary, the filter file is always writen to disk, regardless of this.
-    /// Write intermediate files to disk
+    //
+    // If save_temps is true, we assume that the user is debugging and does not need the zip.
+    //
+    /// Write temporary files to disk and skip zipping
     #[arg(long, short)]
-    pub keep_files: bool,
+    pub save_temps: bool,
 
     /// Redownload kaikki files
     #[arg(long, short)]
     pub redownload: bool,
 
-    /// (debug) Only take the first n jsonlines before filtering.
-    /// -1 for taking all jsonlines
+    /// Only keep the first n jsonlines before filtering. -1 keeps all
     #[arg(long, default_value_t = -1)]
     pub first: i32,
 
@@ -162,7 +164,7 @@ pub struct ArgsOptions {
     // You can specify this option multiple times:
     //   `--filter pos,adv --filter word,foo`
     //
-    /// (debug) Only include entries matching certain key–value filters
+    /// Only keep entries matching certain key–value filters
     #[arg(long, value_parser = parse_tuple)]
     pub filter: Vec<(FilterKey, String)>,
 
@@ -174,15 +176,15 @@ pub struct ArgsOptions {
     // You can specify this option multiple times:
     //   `--reject pos,adj --reject word,foo`
     //
-    /// (debug) Exclude entries matching certain key–value filters
+    /// Only keep entries not matching certain key–value filters
     #[arg(long, value_parser = parse_tuple)]
     pub reject: Vec<(FilterKey, String)>,
 
-    /// Write jsons with whitespace.
+    /// Write jsons with whitespace
     #[arg(long)]
     pub pretty: bool,
 
-    /// (test) Modify the root directory. For testing, set this to "tests"
+    /// Change the root directory
     #[arg(long, default_value = "data")]
     pub root_dir: PathBuf,
 }
@@ -382,7 +384,7 @@ pub struct PathManager {
     target: Lang,
 
     root_dir: PathBuf,
-    keep_files: bool,
+    save_temps: bool,
 }
 
 impl PathManager {
@@ -394,7 +396,7 @@ impl PathManager {
             source: args.langs().source(),
             target: args.langs().target(),
             root_dir: args.options().root_dir.clone(),
-            keep_files: args.options().keep_files,
+            save_temps: args.options().save_temps,
         }
     }
 
@@ -435,7 +437,7 @@ impl PathManager {
         fs::create_dir_all(self.dir_kaik())?;
         fs::create_dir_all(self.dir_dict())?;
 
-        if self.keep_files {
+        if self.save_temps {
             fs::create_dir_all(self.dir_tidy())?; // not needed for glossary
             fs::create_dir_all(self.dir_temp_dict())?;
         }
