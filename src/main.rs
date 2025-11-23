@@ -257,7 +257,6 @@ fn flat_iter_forms_mut(
 // Not included in the dictionary: only used for debug
 //
 // In the future, consider alt_of, form_of
-#[allow(unused)]
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "lowercase")]
 enum FormSource {
@@ -1625,7 +1624,7 @@ fn get_structured_preamble(
     wrap(NTag::Div, "", preamble.into_array_node())
 }
 
-#[allow(unused)]
+#[allow(unused_variables)]
 fn get_structured_backlink(wlink: &str, klink: &str) -> Node {
     let mut links = Node::new_array();
 
@@ -2649,6 +2648,10 @@ mod tests {
         let fixture_dir = PathBuf::from("tests");
         // have to hardcode this since we have not initialized args
         let fixture_input_dir = fixture_dir.join("kaikki");
+        let fixture_output_dir = fixture_dir.join("dict");
+
+        // Nuke the output dir to prevent pollution
+        fs::remove_dir_all(fixture_output_dir).unwrap();
 
         // iterdir and search for source-target-extract.jsonl files
         let mut cases = Vec::new();
