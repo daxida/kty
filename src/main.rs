@@ -268,6 +268,15 @@ enum FormSource {
     Inflection,
 }
 
+fn lemma_map_len(lemma_map: &LemmaMap) -> usize {
+    lemma_map
+        .values()
+        .flat_map(|reading_map| reading_map.values())
+        .flat_map(|pos_map| pos_map.values())
+        .map(|ety_map| ety_map.len())
+        .sum()
+}
+
 fn form_map_len(form_map: &FormMap) -> usize {
     flat_iter_forms(form_map).count()
 }
@@ -407,7 +416,7 @@ fn tidy(
 
     let ret = tidy_run(langs, options, path_jsonl)?;
 
-    let n_lemmas = ret.lemma_map.len(); // TODO: this may be odd, should do the same that we do for forms
+    let n_lemmas = lemma_map_len(&ret.lemma_map);
     let n_forms = form_map_len(&ret.form_map);
     let n_deinflected_forms = form_map_len_inflection(&ret.form_map);
     let n_extracted_forms = form_map_len_extracted(&ret.form_map);
