@@ -260,7 +260,7 @@ pub struct DGlossaryExtended;
 #[derive(Debug, Clone, Copy)]
 pub struct DIpa;
 
-/// Enum used by PathManager to dispatch filetree operations (folder names etc.)
+/// Enum used by `PathManager` to dispatch filetree operations (folder names etc.)
 #[derive(Debug, Clone, Copy)]
 pub enum DictionaryType {
     Main,

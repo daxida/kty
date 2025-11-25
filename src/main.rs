@@ -431,6 +431,7 @@ static PARENS_RE: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\(.+?\)").unwr
 #[tracing::instrument(skip_all)]
 fn tidy_run(langs: &MainLangs, reader_path: &Path) -> Result<Tidy> {
     let (edition, source, target) = (langs.edition, langs.source, langs.target);
+    debug_assert_eq!(edition, target);
 
     let mut ret = Tidy::default();
 
@@ -454,16 +455,15 @@ fn tidy_run(langs: &MainLangs, reader_path: &Path) -> Result<Tidy> {
 
         // rg searchword
         // debug (with only relevant, as in, deserialized, information)
-        // if word_entry.word == "зимний" {
-        //     // if args.source.to_string() == "ru" && args.target.to_string() == "en" {
-        //     // println!("{}", serde_json::to_string_pretty(&word_entry.senses)?);
-        //     println!("{}", serde_json::to_string_pretty(&word_entry)?);
+        // if matches!(edition, EditionLang::Ja) && word_entry.word == "立命" {
+        //     warn!("{:?}", langs);
+        //     warn!("{}", get_link_kaikki(edition, source, &word_entry.word));
+        //     warn!("{}", serde_json::to_string_pretty(&word_entry)?);
         // }
 
         // Everything that mutates word_entry
         preprocess_word_entry(source, target, &mut word_entry, &mut ret);
 
-        // rg processforms
         process_forms(&word_entry, &mut ret);
 
         // dont push lemma if inflection
@@ -472,7 +472,7 @@ fn tidy_run(langs: &MainLangs, reader_path: &Path) -> Result<Tidy> {
         }
 
         // rg insertlemma handleline
-        let reading = get_reading(source, &word_entry);
+        let reading = get_reading(edition, source, &word_entry);
         if let Some(raw_sense_entry) = process_word_entry(edition, source, &word_entry) {
             debug_assert!(!raw_sense_entry.gloss_tree.is_empty());
             ret.insert_lemma_entry(&word_entry.word, &reading, &word_entry.pos, raw_sense_entry);
@@ -655,7 +655,7 @@ fn get_non_trivial_forms(word_entry: &WordEntry) -> impl Iterator<Item = &Form> 
     })
 }
 
-// rg: processforms
+/// Add Extracted forms. That is, forms from `word_entry.forms`.
 fn process_forms(word_entry: &WordEntry, ret: &mut Tidy) {
     for form in get_non_trivial_forms(word_entry) {
         let mut filtered_tags: Vec<Tag> = form
@@ -681,10 +681,10 @@ fn process_forms(word_entry: &WordEntry, ret: &mut Tidy) {
 }
 
 // There are potentially more than one, but I haven't seen that happen
-fn get_reading(source: Lang, word_entry: &WordEntry) -> String {
-    match source {
-        Lang::Ja => get_japanese_reading(word_entry),
-        Lang::Fa => match get_romanization_form(word_entry) {
+fn get_reading(edition: EditionLang, source: Lang, word_entry: &WordEntry) -> String {
+    match (edition, source) {
+        (EditionLang::En, Lang::Ja) => get_japanese_reading(word_entry),
+        (EditionLang::En, Lang::Fa) => match get_romanization_form(word_entry) {
             Some(romanization_form) => romanization_form.form.clone(),
             None => word_entry.word.clone(),
         },
@@ -2060,12 +2060,12 @@ impl SimpleDictionary for DGlossary {
 
     fn process(
         &self,
-        _edition: EditionLang,
-        source: Lang,
+        edition: EditionLang,
+        _source: Lang,
         target: Lang,
         entry: &WordEntry,
     ) -> Vec<Self::I> {
-        make_yomitan_entries_glossary(source, target, entry)
+        make_yomitan_entries_glossary(edition, target, entry)
     }
 
     fn paths_jsonl_raw(&self, pm: &PathManager) -> Vec<(EditionLang, PathBuf)> {
@@ -2134,12 +2134,12 @@ impl SimpleDictionary for DIpa {
 
     fn process(
         &self,
-        _edition: EditionLang,
+        edition: EditionLang,
         source: Lang,
         _target: Lang,
         entry: &WordEntry,
     ) -> Vec<Self::I> {
-        make_ir_ipa(source, entry)
+        make_ir_ipa(edition, source, entry)
     }
 
     fn paths_jsonl_raw(&self, pm: &PathManager) -> Vec<(EditionLang, PathBuf)> {
@@ -2169,7 +2169,7 @@ impl SimpleDictionary for DIpa {
 trait SimpleDictionary {
     /// Intermediate representation. Used for postprocessing (merge, etc.) and debugging via snapshots.
     ///
-    /// It can be set to YomitanEntry if we don't want to do anything fancy.
+    /// It can be set to `YomitanEntry` if we don't want to do anything fancy.
     type I: Serialize;
 
     /// Vector of paths to jsonl raw dumps.
@@ -2312,7 +2312,7 @@ fn make_simple_dict<D: SimpleDictionary>(
 }
 
 fn make_yomitan_entries_glossary(
-    source: Lang,
+    source: EditionLang,
     target: Lang,
     word_entry: &WordEntry,
 ) -> Vec<YomitanEntry> {
@@ -2372,7 +2372,7 @@ fn make_yomitan_entries_glossary(
         }
     }
 
-    let reading = get_reading(source, word_entry);
+    let reading = get_reading(source, target, word_entry);
     let found_pos = match find_pos(&word_entry.pos) {
         Some(short_pos) => short_pos.to_string(),
         None => word_entry.pos.clone(),
@@ -2480,7 +2480,7 @@ fn make_yomitan_glossary_extended(ir: IGlossaryExtended) -> YomitanEntry {
 
 type IIpa = (String, PhoneticTranscription);
 
-fn make_ir_ipa(source: Lang, word_entry: &WordEntry) -> Vec<IIpa> {
+fn make_ir_ipa(edition: EditionLang, source: Lang, word_entry: &WordEntry) -> Vec<IIpa> {
     let ipas = get_ipas(word_entry);
 
     if ipas.is_empty() {
@@ -2488,7 +2488,7 @@ fn make_ir_ipa(source: Lang, word_entry: &WordEntry) -> Vec<IIpa> {
     }
 
     let phonetic_transcription = PhoneticTranscription {
-        reading: get_reading(source, word_entry),
+        reading: get_reading(edition, source, word_entry),
         transcriptions: ipas,
     };
 
