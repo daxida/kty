@@ -405,7 +405,7 @@ fn tidy(
 
     debug!("Reading jsonlines @ {}", path_jsonl.display());
 
-    let ret = tidy_run(langs, path_jsonl)?;
+    let ret = tidy_run(langs, options, path_jsonl)?;
 
     let n_lemmas = ret.lemma_map.len(); // TODO: this may be odd, should do the same that we do for forms
     let n_forms = form_map_len(&ret.form_map);
@@ -429,7 +429,7 @@ fn tidy(
 static PARENS_RE: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\(.+?\)").unwrap());
 
 #[tracing::instrument(skip_all)]
-fn tidy_run(langs: &MainLangs, reader_path: &Path) -> Result<Tidy> {
+fn tidy_run(langs: &MainLangs, options: &ArgsOptions, reader_path: &Path) -> Result<Tidy> {
     let (edition, source, target) = (langs.edition, langs.source, langs.target);
     debug_assert_eq!(edition, target);
 
@@ -462,7 +462,7 @@ fn tidy_run(langs: &MainLangs, reader_path: &Path) -> Result<Tidy> {
         // }
 
         // Everything that mutates word_entry
-        preprocess_word_entry(source, target, &mut word_entry, &mut ret);
+        preprocess_word_entry(source, target, options, &mut word_entry, &mut ret);
 
         process_forms(&word_entry, &mut ret);
 
@@ -488,6 +488,7 @@ fn tidy_run(langs: &MainLangs, reader_path: &Path) -> Result<Tidy> {
 fn preprocess_word_entry(
     source: Lang,
     target: EditionLang,
+    options: &ArgsOptions,
     word_entry: &mut WordEntry,
     ret: &mut Tidy,
 ) {
@@ -502,18 +503,20 @@ fn preprocess_word_entry(
 
     // WARN: mutates word_entry::senses::glosses
     //
-    // rg: final dot
+    // rg: full stop
     // https://github.com/yomidevs/yomitan/issues/2232
-    // Add a full stop if there is no trailing punctuation
-    // static TRAILING_PUNCT_RE: LazyLock<Regex> =
-    //     LazyLock::new(|| Regex::new(r"\p{P}$").unwrap());
-    // for sense in word_entry.senses.iter_mut() {
-    //     for gloss in sense.glosses.iter_mut() {
-    //         if !TRAILING_PUNCT_RE.is_match(gloss) {
-    //             gloss.push('.');
-    //         }
-    //     }
-    // }
+    // Add an empty whitespace at the end... and it works!
+    if options.experimental {
+        static TRAILING_PUNCT_RE: LazyLock<Regex> =
+            LazyLock::new(|| Regex::new(r"\p{P}$").unwrap());
+        for sense in &mut word_entry.senses {
+            for gloss in &mut sense.glosses {
+                if !TRAILING_PUNCT_RE.is_match(gloss) {
+                    gloss.push(' ');
+                }
+            }
+        }
+    }
 
     // WARN: mutates word_entry::senses::sense::tags
     //
@@ -606,7 +609,7 @@ fn preprocess_word_entry(
     let mut senses_without_inflections = Vec::new();
     for sense in old_senses {
         if is_inflection_gloss(target, word_entry, &sense)
-            && get_non_trivial_forms(word_entry).next().is_none()
+            && (!options.experimental || get_non_trivial_forms(word_entry).next().is_none())
         {
             handle_inflection_gloss(source, target, word_entry, &sense, ret);
         } else {
@@ -1547,7 +1550,7 @@ fn make_yomitan_lemma(
     );
     detailed_definition_content.push(structured_glosses);
 
-    let backlink = get_structured_backlink(&info.link_wiktionary, &info.link_kaikki);
+    let backlink = get_structured_backlink(&info.link_wiktionary, &info.link_kaikki, options);
     detailed_definition_content.push(backlink);
 
     let detailed_definition = DetailedDefinition::structured(detailed_definition_content);
@@ -1633,13 +1636,15 @@ fn get_structured_preamble(
 }
 
 #[allow(unused_variables)]
-fn get_structured_backlink(wlink: &str, klink: &str) -> Node {
+fn get_structured_backlink(wlink: &str, klink: &str, options: &ArgsOptions) -> Node {
     let mut links = Node::new_array();
 
     links.push(Node::Backlink(BacklinkContent::new(wlink, "Wiktionary")));
 
-    // links.push(Node::Text(" | ".into())); // JMdict does this
-    // links.push(Node::Backlink(BacklinkContent::new(klink, "Kaikki")));
+    if options.experimental {
+        links.push(Node::Text(" | ".into())); // JMdict does this
+        links.push(Node::Backlink(BacklinkContent::new(klink, "Kaikki")));
+    }
 
     wrap(NTag::Div, "backlink", links)
 }
@@ -1950,6 +1955,15 @@ fn write_yomitan(
         // Copy paste styles.css
         zip.start_file("styles.css", zip_options)?;
         zip.write_all(STYLES_CSS)?;
+        if options.experimental {
+            // Do not jump to the next line after tags
+            let extra = br#"
+div[data-sc-content="tags"] {
+    display: inline;
+}
+"#;
+            zip.write_all(extra)?;
+        }
 
         // Copy paste tag_bank.json
         let tag_bank = get_tag_bank_as_tag_info();

@@ -167,6 +167,7 @@ pub struct IpaMergedLangs {
     pub target: Lang,
 }
 
+#[expect(clippy::struct_excessive_bools)]
 #[derive(Parser, Debug, Default)]
 pub struct ArgsOptions {
     // In the main dictionary, the filter file is always writen to disk, regardless of this.
@@ -212,6 +213,10 @@ pub struct ArgsOptions {
     /// Write jsons with whitespace
     #[arg(short, long)]
     pub pretty: bool,
+
+    /// Include experimental features
+    #[arg(short, long)]
+    pub experimental: bool,
 
     /// Change the root directory
     #[arg(long, default_value = "data")]
@@ -453,6 +458,7 @@ pub struct PathManager {
 
     root_dir: PathBuf,
     save_temps: bool,
+    experimental: bool,
 }
 
 impl PathManager {
@@ -465,6 +471,7 @@ impl PathManager {
             target: args.langs().target(),
             root_dir: args.options().root_dir.clone(),
             save_temps: args.options().save_temps,
+            experimental: args.options().experimental,
         }
     }
 
@@ -567,7 +574,7 @@ impl PathManager {
     /// Example: `dictionary_name-el-en`
     /// Example: `dictionary_name-el-en-gloss`
     pub fn dict_name_expanded(&self) -> String {
-        match self.dict_ty {
+        let mut expanded = match self.dict_ty {
             DictionaryType::Main => format!("{}-{}-{}", self.dict_name, self.source, self.target),
             DictionaryType::Glossary => {
                 format!("{}-{}-{}-gloss", self.dict_name, self.source, self.target)
@@ -582,7 +589,13 @@ impl PathManager {
                 format!("{}-{}-{}-ipa", self.dict_name, self.source, self.target)
             }
             DictionaryType::IpaMerged => format!("{}-{}-ipa", self.dict_name, self.target),
+        };
+
+        if self.experimental {
+            expanded.push_str("-exp");
         }
+
+        expanded
     }
 
     /// Depends on the dictionary type (main, glossary etc.)
