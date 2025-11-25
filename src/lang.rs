@@ -10,10 +10,14 @@ pub enum Lang {
     En,
     /// Albanian
     Sq,
-    /// Ancient Greek
-    Grc,
+    /// Gulf Arabic
+    Afb,
     /// Arabic
     Ar,
+    /// North Levantine Arabic
+    Apc,
+    /// South Levantine Arabic
+    Ajp,
     /// Assyrian Neo-Aramaic
     Aii,
     /// Bengali
@@ -40,8 +44,8 @@ pub enum Lang {
     De,
     /// Greek
     El,
-    /// Gulf Arabic
-    Afb,
+    /// Ancient Greek
+    Grc,
     /// Hebrew
     He,
     /// Hindi
@@ -64,24 +68,22 @@ pub enum Lang {
     Kk,
     /// Khmer
     Km,
-    /// Kurdish
-    Ku,
     /// Korean
     Ko,
+    /// Kurdish
+    Ku,
     /// Latin
     La,
     /// Latvian
     Lv,
-    /// North Levantine Arabic
-    Apc,
     /// Malay
     Ms,
+    /// Maltese
+    Mt,
     /// Marathi
     Mr,
     /// Mongolian
     Mn,
-    /// Maltese
-    Mt,
     /// Norwegian Bokmål
     Nb,
     /// Norwegian Nynorsk
@@ -102,8 +104,6 @@ pub enum Lang {
     Scn,
     /// Slovene
     Sl,
-    /// South Levantine Arabic
-    Ajp,
     /// Spanish
     Es,
     /// Swedish
@@ -137,8 +137,8 @@ impl From<EditionLang> for Lang {
             EditionLang::Id => Self::Id,
             EditionLang::It => Self::It,
             EditionLang::Ja => Self::Ja,
-            EditionLang::Ku => Self::Ku,
             EditionLang::Ko => Self::Ko,
+            EditionLang::Ku => Self::Ku,
             EditionLang::Ms => Self::Ms,
             EditionLang::Pl => Self::Pl,
             EditionLang::Pt => Self::Pt,
@@ -153,22 +153,24 @@ impl From<EditionLang> for Lang {
 
 impl Lang {
     pub const fn help_supported_isos() -> &'static str {
-        "Supported isos: sq | grc | ar | aii | bn | zh | cs | da | nl | en | enm | ang | eo | fi | fr | de | el | afb | he | hi | hu | id | ga | sga | it | ja | kn | kk | km | ku | ko | la | lv | apc | ms | mr | mn | mt | nb | nn | fa | pl | pt | ro | ru | sh | scn | sl | ajp | es | sv | tl | te | th | tr | uk | ur | vi"
+        "Supported isos: sq | afb | ar | apc | ajp | aii | bn | zh | cs | da | nl | en | enm | ang | eo | fi | fr | de | el | grc | he | hi | hu | id | ga | sga | it | ja | kn | kk | km | ko | ku | la | lv | ms | mt | mr | mn | nb | nn | fa | pl | pt | ro | ru | sh | scn | sl | es | sv | tl | te | th | tr | uk | ur | vi"
     }
 
     pub const fn help_supported_isos_coloured() -> &'static str {
-        "Supported isos: sq | grc | ar | aii | bn | [32mzh[0m | [32mcs[0m | da | [32mnl[0m | [32men[0m | enm | ang | eo | fi | [32mfr[0m | [32mde[0m | [32mel[0m | afb | he | hi | hu | [32mid[0m | ga | sga | [32mit[0m | [32mja[0m | kn | kk | km | [32mku[0m | [32mko[0m | la | lv | apc | [32mms[0m | mr | mn | mt | nb | nn | fa | [32mpl[0m | [32mpt[0m | ro | [32mru[0m | sh | scn | sl | ajp | [32mes[0m | sv | tl | te | [32mth[0m | [32mtr[0m | uk | ur | [32mvi[0m"
+        "Supported isos: sq | afb | ar | apc | ajp | aii | bn | [32mzh[0m | [32mcs[0m | da | [32mnl[0m | [32men[0m | enm | ang | eo | fi | [32mfr[0m | [32mde[0m | [32mel[0m | grc | he | hi | hu | [32mid[0m | ga | sga | [32mit[0m | [32mja[0m | kn | kk | km | [32mko[0m | [32mku[0m | la | lv | [32mms[0m | mt | mr | mn | nb | nn | fa | [32mpl[0m | [32mpt[0m | ro | [32mru[0m | sh | scn | sl | [32mes[0m | sv | tl | te | [32mth[0m | [32mtr[0m | uk | ur | [32mvi[0m"
     }
 
     pub const fn help_supported_editions() -> &'static str {
-        "Supported editions: zh | cs | nl | en | fr | de | el | id | it | ja | ku | ko | ms | pl | pt | ru | es | th | tr | vi"
+        "Supported editions: zh | cs | nl | en | fr | de | el | id | it | ja | ko | ku | ms | pl | pt | ru | es | th | tr | vi"
     }
 
     pub const fn long(&self) -> &'static str {
         match self {
             Self::Sq => "Albanian",
-            Self::Grc => "Ancient Greek",
+            Self::Afb => "Gulf Arabic",
             Self::Ar => "Arabic",
+            Self::Apc => "North Levantine Arabic",
+            Self::Ajp => "South Levantine Arabic",
             Self::Aii => "Assyrian Neo-Aramaic",
             Self::Bn => "Bengali",
             Self::Zh => "Chinese",
@@ -183,7 +185,7 @@ impl Lang {
             Self::Fr => "French",
             Self::De => "German",
             Self::El => "Greek",
-            Self::Afb => "Gulf Arabic",
+            Self::Grc => "Ancient Greek",
             Self::He => "Hebrew",
             Self::Hi => "Hindi",
             Self::Hu => "Hungarian",
@@ -195,15 +197,14 @@ impl Lang {
             Self::Kn => "Kannada",
             Self::Kk => "Kazakh",
             Self::Km => "Khmer",
-            Self::Ku => "Kurdish",
             Self::Ko => "Korean",
+            Self::Ku => "Kurdish",
             Self::La => "Latin",
             Self::Lv => "Latvian",
-            Self::Apc => "North Levantine Arabic",
             Self::Ms => "Malay",
+            Self::Mt => "Maltese",
             Self::Mr => "Marathi",
             Self::Mn => "Mongolian",
-            Self::Mt => "Maltese",
             Self::Nb => "Norwegian Bokmål",
             Self::Nn => "Norwegian Nynorsk",
             Self::Fa => "Persian",
@@ -214,7 +215,6 @@ impl Lang {
             Self::Sh => "Serbo-Croatian",
             Self::Scn => "Sicilian",
             Self::Sl => "Slovene",
-            Self::Ajp => "South Levantine Arabic",
             Self::Es => "Spanish",
             Self::Sv => "Swedish",
             Self::Tl => "Tagalog",
@@ -234,8 +234,10 @@ impl std::str::FromStr for Lang {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s.to_lowercase().as_str() {
             "sq" => Ok(Self::Sq),
-            "grc" => Ok(Self::Grc),
+            "afb" => Ok(Self::Afb),
             "ar" => Ok(Self::Ar),
+            "apc" => Ok(Self::Apc),
+            "ajp" => Ok(Self::Ajp),
             "aii" => Ok(Self::Aii),
             "bn" => Ok(Self::Bn),
             "zh" => Ok(Self::Zh),
@@ -250,7 +252,7 @@ impl std::str::FromStr for Lang {
             "fr" => Ok(Self::Fr),
             "de" => Ok(Self::De),
             "el" => Ok(Self::El),
-            "afb" => Ok(Self::Afb),
+            "grc" => Ok(Self::Grc),
             "he" => Ok(Self::He),
             "hi" => Ok(Self::Hi),
             "hu" => Ok(Self::Hu),
@@ -262,15 +264,14 @@ impl std::str::FromStr for Lang {
             "kn" => Ok(Self::Kn),
             "kk" => Ok(Self::Kk),
             "km" => Ok(Self::Km),
-            "ku" => Ok(Self::Ku),
             "ko" => Ok(Self::Ko),
+            "ku" => Ok(Self::Ku),
             "la" => Ok(Self::La),
             "lv" => Ok(Self::Lv),
-            "apc" => Ok(Self::Apc),
             "ms" => Ok(Self::Ms),
+            "mt" => Ok(Self::Mt),
             "mr" => Ok(Self::Mr),
             "mn" => Ok(Self::Mn),
-            "mt" => Ok(Self::Mt),
             "nb" => Ok(Self::Nb),
             "nn" => Ok(Self::Nn),
             "fa" => Ok(Self::Fa),
@@ -281,7 +282,6 @@ impl std::str::FromStr for Lang {
             "sh" => Ok(Self::Sh),
             "scn" => Ok(Self::Scn),
             "sl" => Ok(Self::Sl),
-            "ajp" => Ok(Self::Ajp),
             "es" => Ok(Self::Es),
             "sv" => Ok(Self::Sv),
             "tl" => Ok(Self::Tl),
@@ -325,8 +325,8 @@ impl Edition {
                 EditionLang::Id,
                 EditionLang::It,
                 EditionLang::Ja,
-                EditionLang::Ku,
                 EditionLang::Ko,
+                EditionLang::Ku,
                 EditionLang::Ms,
                 EditionLang::Pl,
                 EditionLang::Pt,
@@ -390,10 +390,10 @@ pub enum EditionLang {
     It,
     /// Japanese
     Ja,
-    /// Kurdish
-    Ku,
     /// Korean
     Ko,
+    /// Kurdish
+    Ku,
     /// Malay
     Ms,
     /// Polish
@@ -427,8 +427,8 @@ impl std::convert::TryFrom<Lang> for EditionLang {
             Lang::Id => Ok(Self::Id),
             Lang::It => Ok(Self::It),
             Lang::Ja => Ok(Self::Ja),
-            Lang::Ku => Ok(Self::Ku),
             Lang::Ko => Ok(Self::Ko),
+            Lang::Ku => Ok(Self::Ku),
             Lang::Ms => Ok(Self::Ms),
             Lang::Pl => Ok(Self::Pl),
             Lang::Pt => Ok(Self::Pt),
@@ -468,8 +468,8 @@ impl std::str::FromStr for EditionLang {
             "id" => Ok(Self::Id),
             "it" => Ok(Self::It),
             "ja" => Ok(Self::Ja),
-            "ku" => Ok(Self::Ku),
             "ko" => Ok(Self::Ko),
+            "ku" => Ok(Self::Ku),
             "ms" => Ok(Self::Ms),
             "pl" => Ok(Self::Pl),
             "pt" => Ok(Self::Pt),

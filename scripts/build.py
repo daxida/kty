@@ -5,6 +5,7 @@
 import json
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 
 @dataclass
@@ -278,6 +279,38 @@ def generate_lang_rs(langs: list[Lang], f) -> None:
     w("}\n")
 
 
+def load_lang(item: Any) -> Lang:
+    return Lang(
+        item["iso"],
+        item["language"],
+        item["displayName"],
+        item["flag"],
+        item.get("hasEdition", False),
+    )
+
+
+def sort_languages_json(path: Path) -> None:
+    with path.open() as f:
+        text = f.read()
+
+    lines = text.splitlines()
+    langs = [
+        (load_lang(json.loads(line.strip(","))), idx)
+        for idx, line in enumerate(lines[1:-1])
+    ]
+
+    langs_sorted = sorted(langs, key=lambda pair: pair[0].display_name)
+    if langs == langs_sorted:
+        return
+
+    with path.open("w") as f:
+        f.write("[\n")
+        for _, idx in langs_sorted:
+            f.write(lines[idx + 1])
+            f.write("\n")
+        f.write("]\n\n")
+
+
 def main() -> None:
     src = Path("src")
     path_lang_rs = src / "lang.rs"
@@ -298,18 +331,11 @@ def main() -> None:
             print(f"Path does not exist @ {path}")
             return
 
+    sort_languages_json(path_languages_json)
+
     with path_languages_json.open() as f:
         data = json.load(f)
-    langs = [
-        Lang(
-            row["iso"],
-            row["language"],
-            row["displayName"],
-            row["flag"],
-            row.get("hasEdition", False),
-        )
-        for row in data
-    ]
+        langs = [load_lang(row) for row in data]
 
     tag_order: list[str] = []
     with path_tag_order_json.open() as f:
