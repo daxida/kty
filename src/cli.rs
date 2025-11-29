@@ -6,7 +6,7 @@ use std::path::PathBuf;
 
 use crate::lang::Edition;
 use crate::lang::{EditionLang, Lang};
-use crate::models::WordEntry;
+use crate::models::kaikki::WordEntry;
 
 #[derive(Debug, Parser)]
 #[command(version)]

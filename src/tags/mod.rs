@@ -5,7 +5,7 @@ use serde::Serialize;
 use serde::ser::{SerializeSeq, Serializer};
 use tags_constants::{POSES, TAG_BANK, TAG_ORDER};
 
-use crate::models::Tag;
+use crate::models::kaikki::Tag;
 
 // TODO: a bunch of sorting and handling of tags should go here
 

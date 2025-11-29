@@ -45,13 +45,15 @@ use kty::cli::{
 use kty::download::download_jsonl;
 use kty::lang::{Edition, EditionLang, Lang};
 use kty::locale::get_locale_examples_string;
-use kty::models::{Example, Form, HeadTemplate, Pos, Sense, Tag, WordEntry};
+use kty::models::kaikki::{Example, Form, HeadTemplate, Pos, Sense, Tag, WordEntry};
+use kty::models::yomitan::*;
 use kty::tags::{
     BLACKLISTED_TAGS, IDENTITY_TAGS, REDUNDANT_TAGS, find_pos, find_tag_in_bank,
     get_tag_bank_as_tag_info, merge_person_tags, remove_redundant_tags, sort_tags,
     sort_tags_by_similar,
 };
 use kty::utils::{CHECK_C, SKIP_C, pretty_print_at_path, pretty_println_at_path};
+use kty::{Map, Set};
 
 /// Filter by source language iso and other input-given key-value pairs.
 ///
@@ -164,9 +166,6 @@ fn filter_jsonl(
 }
 
 // Tidy: internal types
-
-type Map<K, V> = IndexMap<K, V>; // Preserve insertion order
-type Set<K> = IndexSet<K>;
 
 type LemmaMap = Map<
     String, // lemma
@@ -331,14 +330,6 @@ struct GlossInfo {
 
     #[serde(skip_serializing_if = "Map::is_empty")]
     children: GlossTree,
-}
-
-#[derive(Debug, Serialize, Deserialize, Clone, Default, PartialEq, Eq, Hash)]
-#[serde(default)]
-struct Ipa {
-    ipa: String,
-    #[serde(skip_serializing_if = "Vec::is_empty")]
-    tags: Vec<Tag>,
 }
 
 /// Intermediate representation: used for snapshots and debugging.
@@ -1235,193 +1226,6 @@ fn get_index(dict_name: &str, source: Lang, target: Lang) -> String {
   "targetLanguage": "{target}"
 }}"#
     )
-}
-
-#[derive(Debug, Serialize, Clone)]
-#[serde(untagged)]
-enum YomitanEntry {
-    TermBank(TermBank),
-    TermBankMeta(TermBankMeta),
-}
-
-// https://github.com/yomidevs/yomitan/blob/f271fc0da3e55a98fa91c9834d75fccc96deae27/ext/data/schemas/dictionary-term-bank-v3-schema.json
-//
-// https://github.com/MarvNC/yomichan-dict-builder/blob/master/src/types/yomitan/termbank.ts
-// @ TermInformation
-#[derive(Debug, Serialize, Clone)]
-pub struct TermBank(
-    pub String,                  // term
-    pub String,                  // reading
-    pub String,                  // definition_tags
-    pub String,                  // rules
-    pub u32,                     // frequency
-    pub Vec<DetailedDefinition>, // definitions
-    pub u32,                     // sequence
-    pub String,                  // term_tags
-);
-
-// https://github.com/yomidevs/yomitan/blob/f271fc0da3e55a98fa91c9834d75fccc96deae27/ext/data/schemas/dictionary-term-meta-bank-v3-schema.json
-//
-// https://github.com/MarvNC/yomichan-dict-builder/blob/master/src/types/yomitan/termbankmeta.ts
-#[derive(Debug, Serialize, Clone)]
-struct TermBankMeta(
-    String,                // term
-    String,                // static: "ipa"
-    PhoneticTranscription, // phonetic transcription
-);
-
-#[derive(Debug, Serialize, Clone, PartialEq, Eq, Hash)]
-struct PhoneticTranscription {
-    reading: String,
-    transcriptions: Vec<Ipa>,
-}
-
-// https://github.com/MarvNC/yomichan-dict-builder/blob/master/src/types/yomitan/termbank.ts
-// @ StructuredContentNode
-#[derive(Debug, Serialize, Clone)]
-#[serde(untagged)]
-pub enum Node {
-    Text(String),              // 32
-    Array(Vec<Node>),          // 32
-    Generic(Box<GenericNode>), // 16
-    Backlink(BacklinkContent), // 40
-}
-
-impl Node {
-    /// Push a new node into the array variant.
-    fn push(&mut self, node: Self) {
-        match self {
-            Self::Array(boxed_vec) => boxed_vec.push(node),
-            _ => panic!("Error: called 'push' with a non Node::Array"),
-        }
-    }
-
-    const fn new_array() -> Self {
-        Self::Array(vec![])
-    }
-
-    #[must_use]
-    fn into_array_node(self) -> Self {
-        Self::Array(vec![self])
-    }
-}
-
-#[derive(Debug, Serialize, Clone)]
-pub struct NodeData(Map<String, String>);
-
-impl<K, V> FromIterator<(K, V)> for NodeData
-where
-    K: Into<String>,
-    V: Into<String>,
-{
-    fn from_iter<I: IntoIterator<Item = (K, V)>>(iter: I) -> Self {
-        let inner = iter
-            .into_iter()
-            .map(|(k, v)| (k.into(), v.into()))
-            .collect();
-        Self(inner)
-    }
-}
-
-#[derive(Debug, Serialize, Clone, Copy)]
-#[serde(rename_all = "lowercase")]
-enum NTag {
-    Span,
-    Div,
-    Ol,
-    Ul,
-    Li,
-    Details,
-    Summary,
-}
-
-// The order follows kty serialization, not yomichan builder order
-#[derive(Debug, Serialize, Clone)]
-pub struct GenericNode {
-    tag: NTag,
-
-    #[serde(skip_serializing_if = "Option::is_none")]
-    title: Option<String>,
-
-    #[serde(skip_serializing_if = "Option::is_none")]
-    data: Option<NodeData>,
-
-    content: Node,
-}
-
-impl GenericNode {
-    fn into_node(self) -> Node {
-        Node::Generic(Box::new(self))
-    }
-}
-
-#[derive(Debug, Clone)]
-pub struct BacklinkContent {
-    href: String,
-    content: &'static str,
-}
-
-impl BacklinkContent {
-    fn new(href: &str, content: &'static str) -> Self {
-        Self {
-            href: href.to_string(),
-            content,
-        }
-    }
-}
-
-// Custom Serialize to not have to store the constant 'a' tag
-impl Serialize for BacklinkContent {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        use serde::ser::SerializeStruct;
-        let mut state = serializer.serialize_struct("BacklinkContent", 3)?;
-        state.serialize_field("tag", "a")?;
-        state.serialize_field("href", &self.href)?;
-        state.serialize_field("content", &self.content)?;
-        state.end()
-    }
-}
-
-// https://github.com/MarvNC/yomichan-dict-builder/blob/master/src/types/yomitan/termbank.ts
-// @ DetailedDefinition
-#[derive(Debug, Serialize, Clone)]
-#[serde(untagged)]
-pub enum DetailedDefinition {
-    Text(String),
-    StructuredContent(StructuredContent),
-    Inflection((String, Vec<String>)),
-}
-
-impl DetailedDefinition {
-    fn structured(content: Node) -> Self {
-        Self::StructuredContent(StructuredContent {
-            ty: "structured-content".to_string(),
-            content,
-        })
-    }
-}
-
-#[derive(Debug, Serialize, Clone)]
-pub struct StructuredContent {
-    #[serde(rename = "type")]
-    ty: String, // should be hardcoded to "structured-content" (but then to serialize it...)
-    content: Node,
-}
-
-fn wrap(tag: NTag, content_ty: &str, content: Node) -> Node {
-    GenericNode {
-        tag,
-        title: None, // hardcoded since most of the wrap calls don't use it
-        data: match content_ty {
-            "" => None,
-            _ => Some(NodeData::from_iter([("content", content_ty)])),
-        },
-        content,
-    }
-    .into_node()
 }
 
 // Do not distinguish between Tag and Pos (String) to make it more ergonomic.
