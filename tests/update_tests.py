@@ -176,7 +176,7 @@ def get_lang_pairs_to_update(target_filter: str) -> LangPairs:
         source_raw = m.group(1)
         target_raw = m.group(2)
 
-        if target_raw != target_filter:
+        if target_filter and target_raw != target_filter:
             continue
 
         source = validate_lang(source_raw)
