@@ -404,6 +404,14 @@
           "noun-from-adj"
         ]
       ]
+    },
+    "樂しい": {
+      "adj": [
+        "extracted",
+        [
+          "alternative kanji kyūjitai"
+        ]
+      ]
     }
   },
   "好き": {
@@ -936,6 +944,32 @@
         "extracted",
         [
           "noun-from-adj"
+        ]
+      ]
+    },
+    "数奇": {
+      "adj": [
+        "extracted",
+        [
+          "rare alternative kanji"
+        ]
+      ]
+    },
+    "数寄": {
+      "adj": [
+        "extracted",
+        [
+          "rare alternative kanji"
+        ]
+      ]
+    }
+  },
+  "狸": {
+    "貍": {
+      "noun": [
+        "extracted",
+        [
+          "alternative kanji"
         ]
       ]
     }
@@ -1830,6 +1864,14 @@
         "extracted",
         [
           "hiragana historical"
+        ]
+      ]
+    },
+    "今日": {
+      "noun": [
+        "extracted",
+        [
+          "alternative kanji"
         ]
       ]
     }

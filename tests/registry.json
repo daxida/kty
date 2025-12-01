@@ -27007,6 +27007,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/楽/楽し/楽しい.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/楽/楽し/楽しい.jsonl",
         "json": {
+          "word": "楽しい",
+          "pos": "adj",
           "senses": [
             {
               "links": [
@@ -27039,7 +27041,9 @@
                 "Japanese links with redundant wikilinks",
                 "Japanese terms derived from Old Japanese",
                 "Japanese terms inherited from Old Japanese",
+                "Japanese terms read with kun'yomi",
                 "Japanese terms spelled with second grade kanji",
+                "Japanese terms spelled with 楽 read as たの",
                 "Japanese terms with 1 kanji",
                 "Japanese terms with IPA pronunciation",
                 "Japanese terms with IPA pronunciation with pitch accent",
@@ -27053,12 +27057,10 @@
               ],
               "wikipedia": [
                 "Jōdai Tokushu Kanazukai",
-                "Kojiki",
-                "Nihon Kokugo Daijiten"
+                "Kojiki"
               ]
             }
           ],
-          "pos": "adj",
           "head_templates": [
             {
               "name": "ja-adj",
@@ -27558,6 +27560,14 @@
                 "noun-from-adj"
               ],
               "source": "inflection"
+            },
+            {
+              "form": "樂しい",
+              "tags": [
+                "alternative",
+                "kanji",
+                "kyūjitai"
+              ]
             }
           ],
           "inflection_templates": [
@@ -27682,7 +27692,6 @@
               "expansion": "unknown"
             }
           ],
-          "word": "楽しい",
           "lang": "Japanese",
           "lang_code": "ja"
         }
@@ -27691,6 +27700,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/好/好き/好き.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/好/好き/好き.jsonl",
         "json": {
+          "word": "好き",
+          "pos": "adj",
           "senses": [
             {
               "examples": [
@@ -27856,7 +27867,6 @@
               ]
             }
           ],
-          "pos": "adj",
           "head_templates": [
             {
               "name": "ja-adj",
@@ -27877,7 +27887,10 @@
             "Japanese non-lemma forms",
             "Japanese nouns",
             "Japanese suffixes",
+            "Japanese terms read with kun'yomi",
             "Japanese terms spelled with fourth grade kanji",
+            "Japanese terms spelled with 好 read as す",
+            "Japanese terms spelled with 好 read as よ",
             "Japanese terms with 1 kanji",
             "Japanese terms with IPA pronunciation",
             "Japanese terms with IPA pronunciation with pitch accent",
@@ -28494,6 +28507,22 @@
                 "noun-from-adj"
               ],
               "source": "inflection"
+            },
+            {
+              "form": "数奇",
+              "tags": [
+                "alternative",
+                "kanji",
+                "rare"
+              ]
+            },
+            {
+              "form": "数寄",
+              "tags": [
+                "alternative",
+                "kanji",
+                "rare"
+              ]
             }
           ],
           "inflection_templates": [
@@ -28536,9 +28565,7 @@
               "ipa": "[sɨ̥kʲi]"
             },
             {
-              "tags": [
-                "Kyoto"
-              ],
+              "note": "Kyōto",
               "other": "[súꜜkì]"
             }
           ],
@@ -28580,7 +28607,6 @@
               "expansion": "連(れん)用(よう)形(けい) (ren'yōkei, “stem or continuative form”) of the verb 好(す)く (suku, “to like, to be fond of, to enjoy, to feel love for”)."
             }
           ],
-          "word": "好き",
           "lang": "Japanese",
           "lang_code": "ja"
         }
@@ -28589,6 +28615,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/狸/狸/狸.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/狸/狸/狸.jsonl",
         "json": {
+          "word": "狸",
+          "pos": "noun",
           "senses": [
             {
               "examples": [
@@ -28895,7 +28923,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "ja-noun",
@@ -28913,8 +28940,11 @@
             "Japanese links with redundant wikilinks",
             "Japanese nouns",
             "Japanese single-kanji terms",
+            "Japanese terms read with irregular kanji readings",
+            "Japanese terms read with kun'yomi",
             "Japanese terms spelled with hyōgai kanji",
             "Japanese terms spelled with 狸",
+            "Japanese terms spelled with 狸 read as たぬき",
             "Japanese terms with 1 kanji",
             "Japanese terms with Atamadaka pitch accent (Tōkyō)",
             "Japanese terms with IPA pronunciation",
@@ -28957,6 +28987,13 @@
               "form": "tanuki",
               "tags": [
                 "romanization"
+              ]
+            },
+            {
+              "form": "貍",
+              "tags": [
+                "alternative",
+                "kanji"
               ]
             }
           ],
@@ -29739,7 +29776,6 @@
               "expansion": "狸"
             }
           ],
-          "word": "狸",
           "lang": "Japanese",
           "lang_code": "ja"
         }
@@ -29748,6 +29784,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/走/走る/走る.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/走/走る/走る.jsonl",
         "json": {
+          "word": "走る",
+          "pos": "verb",
           "senses": [
             {
               "examples": [
@@ -30609,7 +30647,6 @@
               ]
             }
           ],
-          "pos": "verb",
           "head_templates": [
             {
               "name": "ja-verb",
@@ -30631,11 +30668,14 @@
             "Japanese links with manual fragments",
             "Japanese links with redundant alt parameters",
             "Japanese links with redundant wikilinks",
+            "Japanese terms read with kun'yomi",
             "Japanese terms spelled with second grade kanji",
+            "Japanese terms spelled with 走 read as はし",
             "Japanese terms with 1 kanji",
             "Japanese terms with IPA pronunciation",
             "Japanese terms with IPA pronunciation with pitch accent",
             "Japanese terms with Nakadaka pitch accent (Tōkyō)",
+            "Japanese terms with non-redundant non-automated sortkeys",
             "Japanese terms with redundant sortkeys",
             "Japanese verbs",
             "Pages with 1 entry",
@@ -32193,6 +32233,38 @@
                 "error-unrecognized-form"
               ],
               "source": "conjugation"
+            },
+            {
+              "form": "奔る",
+              "tags": [
+                "alternative",
+                "kanji",
+                "obsolete"
+              ]
+            },
+            {
+              "form": "趨る",
+              "tags": [
+                "alternative",
+                "kanji",
+                "obsolete"
+              ]
+            },
+            {
+              "form": "犇る",
+              "tags": [
+                "alternative",
+                "kanji",
+                "obsolete"
+              ]
+            },
+            {
+              "form": "逸る",
+              "tags": [
+                "alternative",
+                "kanji",
+                "obsolete"
+              ]
             }
           ],
           "inflection_templates": [
@@ -32250,7 +32322,6 @@
               "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2a/LL-Q5287_%28jpn%29-Higa4-%E8%B5%B0%E3%82%8B.wav/LL-Q5287_%28jpn%29-Higa4-%E8%B5%B0%E3%82%8B.wav.mp3"
             }
           ],
-          "word": "走る",
           "lang": "Japanese",
           "lang_code": "ja"
         }
@@ -32259,6 +32330,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/五/五色/五色.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/五/五色/五色.jsonl",
         "json": {
+          "word": "五色",
+          "pos": "noun",
           "senses": [
             {
               "head_nr": 2,
@@ -32347,7 +32420,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "ja-noun",
@@ -32373,8 +32445,12 @@
             "Japanese links with redundant alt parameters",
             "Japanese links with redundant wikilinks",
             "Japanese nouns",
+            "Japanese terms read with on'yomi",
             "Japanese terms spelled with first grade kanji",
             "Japanese terms spelled with second grade kanji",
+            "Japanese terms spelled with 五 read as ご",
+            "Japanese terms spelled with 色 read as しき",
+            "Japanese terms spelled with 色 read as しょく",
             "Japanese terms with 2 kanji",
             "Japanese terms with Atamadaka pitch accent (Tōkyō)",
             "Japanese terms with Heiban pitch accent (Tōkyō)",
@@ -32755,7 +32831,6 @@
               "ipa": "[ɡo̞ɕo̞kɯ̟]"
             }
           ],
-          "word": "五色",
           "lang": "Japanese",
           "lang_code": "ja",
           "wikipedia": [
@@ -32767,6 +32842,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/お/お腹/お腹が空いた.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/お/お腹/お腹が空いた.jsonl",
         "json": {
+          "word": "お腹が空いた",
+          "pos": "phrase",
           "senses": [
             {
               "links": [
@@ -32784,19 +32861,22 @@
                 "Japanese links with redundant alt parameters",
                 "Japanese links with redundant wikilinks",
                 "Japanese phrases",
+                "Japanese terms read with kun'yomi",
                 "Japanese terms spelled with first grade kanji",
                 "Japanese terms spelled with sixth grade kanji",
+                "Japanese terms spelled with 空 read as す",
+                "Japanese terms spelled with 腹 read as なか",
                 "Japanese terms with 2 kanji",
                 "Japanese terms with IPA pronunciation",
                 "Japanese terms with IPA pronunciation missing pitch accent",
                 "Japanese terms with multiple readings",
+                "Japanese terms with non-redundant non-automated sortkeys",
                 "Japanese terms with redundant sortkeys",
                 "Pages with 1 entry",
                 "Pages with entries"
               ]
             }
           ],
-          "pos": "phrase",
           "head_templates": [
             {
               "name": "ja-phrase",
@@ -32878,7 +32958,6 @@
             }
           ],
           "etymology_text": "The perfective form of お腹が空く (onaka ga suku, “to become hungry”, literally “one's stomach becomes empty”).",
-          "word": "お腹が空いた",
           "lang": "Japanese",
           "lang_code": "ja"
         }
@@ -32887,6 +32966,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/き/きょ/きょう.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/き/きょ/きょう.jsonl",
         "json": {
+          "word": "きょう",
+          "pos": "noun",
           "senses": [
             {
               "examples": [
@@ -33016,7 +33097,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "ja-noun",
@@ -33072,6 +33152,13 @@
               "tags": [
                 "hiragana",
                 "historical"
+              ]
+            },
+            {
+              "form": "今日",
+              "tags": [
+                "alternative",
+                "kanji"
               ]
             }
           ],
@@ -33489,7 +33576,6 @@
               "expansion": "Proto-Japonic *kepu"
             }
           ],
-          "word": "きょう",
           "lang": "Japanese",
           "lang_code": "ja"
         }

@@ -880,6 +880,23 @@
     ""
   ],
   [
+    "樂しい",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "楽しい",
+        [
+          "alternative kanji kyūjitai"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
     "好きな",
     "",
     "non-lemma",
@@ -2019,6 +2036,57 @@
         "好き",
         [
           "noun-from-adj"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "数奇",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "好き",
+        [
+          "rare alternative kanji"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "数寄",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "好き",
+        [
+          "rare alternative kanji"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "貍",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "狸",
+        [
+          "alternative kanji"
         ]
       ]
     ],
@@ -3937,6 +4005,23 @@
         "きょう",
         [
           "hiragana historical"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "今日",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "きょう",
+        [
+          "alternative kanji"
         ]
       ]
     ],

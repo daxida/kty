@@ -146,6 +146,13 @@ def update_registry_for_pair(source: L, target: L) -> tuple[Reg, Timestamps]:
         scores.sort(reverse=True, key=lambda x: x[1])
         _, _, best_match = scores[0]
 
+        # reorder keys for visibility
+        best_match = {
+            "word": best_match["word"],
+            "pos": best_match["pos"],
+            **{k: v for k, v in best_match.items() if k not in ("word", "pos")},
+        }
+
         registry_value: RegValue = {
             "url": url.replace(".jsonl", ".html"),
             "download_url": url,
@@ -165,7 +172,9 @@ def validate_lang(lang: str) -> L:
 FNAME_RE = re.compile(r"^([a-zA-Z]+)-([a-zA-Z]+)-extract\.jsonl$")
 
 
-def get_lang_pairs_to_update(target_filter: str) -> LangPairs:
+def get_lang_pairs_to_update(
+    source_filter: str | None, target_filter: str | None
+) -> LangPairs:
     lang_pairs: LangPairs = {}
 
     for file in PATH_TESTS_INPUT.iterdir():
@@ -176,6 +185,8 @@ def get_lang_pairs_to_update(target_filter: str) -> LangPairs:
         source_raw = m.group(1)
         target_raw = m.group(2)
 
+        if source_filter and source_raw != source_filter:
+            continue
         if target_filter and target_raw != target_filter:
             continue
 
@@ -253,6 +264,10 @@ def main() -> None:
         description="Update and manage Kaikki tests",
     )
     parser.add_argument(
+        "--source",
+        help="update the registry only with source languages matching this value",
+    )
+    parser.add_argument(
         "--target",
         help="update the registry only with target languages matching this value",
     )
@@ -265,9 +280,9 @@ def main() -> None:
 
     if args.update_registry:
         print(f"Updating registry at {PATH_REGISTRY}")
-        target_filter = args.target or ""  # args.target can be None
-        lang_pairs = get_lang_pairs_to_update(target_filter)
-        load_prev_registry = bool(target_filter)  # Load previous if there are filters
+        lang_pairs = get_lang_pairs_to_update(args.source, args.target)
+        # Load previous if there are filters
+        load_prev_registry = args.source or args.target
         update_registry(lang_pairs, load_prev_registry)
 
     print(f"Updating tests at {PATH_TESTS_INPUT}")
