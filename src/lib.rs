@@ -66,6 +66,8 @@ pub type Set<K> = IndexSet<K, FxBuildHasher>;
 // +--------------------+--------------------------------------------------------------------------------------+
 // ```
 
+const CONSOLE_PRINT_INTERVAL: i32 = 10000;
+
 /// Filter by source language iso and other input-given key-value pairs.
 ///
 /// For the English edition, it is a bit tricky. The downloaded jsonl is already filtered. We
@@ -104,7 +106,6 @@ fn filter_jsonl(
     let mut writer = BufWriter::with_capacity(capacity, writer_file);
     debug!("Filtering: {reader_path:?} > {writer_path:?}",);
 
-    let print_interval = 5000;
     let mut line_count = 1;
     let mut extracted_lines_counter = 0;
     let mut printed_progress = false;
@@ -127,7 +128,7 @@ fn filter_jsonl(
         let word_entry: WordEntry =
             serde_json::from_str(&line).with_context(|| "Error decoding JSON @ filter")?;
 
-        if line_count % print_interval == 0 {
+        if line_count % CONSOLE_PRINT_INTERVAL == 0 {
             printed_progress = true;
             print!("Processed {line_count} lines...\r");
             std::io::stdout().flush()?;
@@ -2117,9 +2118,6 @@ pub fn make_simple_dict<D: SimpleDictionary>(
 
     // rust default is 8 * (1 << 10) := 8KB
     let capacity = 256 * (1 << 10);
-
-    let print_interval = 5000;
-
     let mut line = String::with_capacity(1 << 10);
     let mut entries = Vec::new();
 
@@ -2149,7 +2147,7 @@ pub fn make_simple_dict<D: SimpleDictionary>(
             let word_entry: WordEntry =
                 serde_json::from_str(&line).with_context(|| "Error decoding JSON @ filter")?;
 
-            if line_count % print_interval == 0 {
+            if line_count % CONSOLE_PRINT_INTERVAL == 0 {
                 printed_progress = true;
                 print!("Processed {line_count} lines...\r");
                 std::io::stdout().flush()?;
