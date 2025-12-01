@@ -212,6 +212,9 @@ def update_registry(lang_pairs: LangPairs, load_prev_registry: bool) -> None:
     will still appear in the registry. This never happened, so we opt for a middle
     way solution, of only loading the registry if some filter was passed. Again, this
     is not infallible.
+
+    NOTE: there is no guarantee that the registry/timestamps will be sorted when
+    loading previous data.
     """
     registry: Reg = {}
     timestamps: Timestamps = {}

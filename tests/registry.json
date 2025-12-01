@@ -5,6 +5,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/z/zp/zpráva.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/z/zp/zpráva.jsonl",
         "json": {
+          "word": "zpráva",
+          "pos": "noun",
           "senses": [
             {
               "examples": [
@@ -127,7 +129,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "cs-noun",
@@ -339,7 +340,6 @@
               "expansion": "Deverbal from zpravit"
             }
           ],
-          "word": "zpráva",
           "lang": "Czech",
           "lang_code": "cs"
         }
@@ -348,6 +348,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/p/pr/pro.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/p/pr/pro.jsonl",
         "json": {
+          "word": "pro",
+          "pos": "prep",
           "senses": [
             {
               "examples": [
@@ -384,7 +386,6 @@
               ]
             }
           ],
-          "pos": "prep",
           "info_templates": [
             {
               "args": {
@@ -439,6 +440,15 @@
           "etymology_text": "Inherited from Old Czech pro, from Proto-Slavic *pro.",
           "etymology_templates": [
             {
+              "name": "yesno",
+              "args": {
+                "1": "",
+                "2": "i",
+                "3": "I"
+              },
+              "expansion": "I"
+            },
+            {
               "name": "glossary",
               "args": {
                 "1": "Inherited"
@@ -486,7 +496,6 @@
               "expansion": "Proto-Slavic *pro"
             }
           ],
-          "word": "pro",
           "lang": "Czech",
           "lang_code": "cs"
         }
@@ -495,6 +504,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/p/př/přít.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/p/př/přít.jsonl",
         "json": {
+          "word": "přít",
+          "pos": "verb",
           "senses": [
             {
               "links": [
@@ -538,7 +549,6 @@
               ]
             }
           ],
-          "pos": "verb",
           "head_templates": [
             {
               "name": "cs-verb",
@@ -1264,6 +1274,15 @@
           "etymology_text": "Inherited from Old Czech přieti, from Proto-Slavic *pьrěti.",
           "etymology_templates": [
             {
+              "name": "yesno",
+              "args": {
+                "1": "",
+                "2": "i",
+                "3": "I"
+              },
+              "expansion": "I"
+            },
+            {
               "name": "glossary",
               "args": {
                 "1": "Inherited"
@@ -1311,7 +1330,6 @@
               "expansion": "Proto-Slavic *pьrěti"
             }
           ],
-          "word": "přít",
           "lang": "Czech",
           "lang_code": "cs"
         }
@@ -1320,6 +1338,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/p/př/přela.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/p/př/přela.jsonl",
         "json": {
+          "word": "přela",
+          "pos": "verb",
           "senses": [
             {
               "links": [
@@ -1372,7 +1392,6 @@
               ]
             }
           ],
-          "pos": "verb",
           "head_templates": [
             {
               "name": "head",
@@ -1396,7 +1415,6 @@
               "ipa": "[ˈpr̝̊ɛla]"
             }
           ],
-          "word": "přela",
           "lang": "Czech",
           "lang_code": "cs"
         }
@@ -3408,6 +3426,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/p/pf/pflegen.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/p/pf/pflegen.jsonl",
         "json": {
+          "word": "pflegen",
+          "pos": "verb",
           "senses": [
             {
               "examples": [
@@ -4134,7 +4154,6 @@
               ]
             }
           ],
-          "pos": "verb",
           "head_templates": [
             {
               "name": "de-verb",
@@ -6542,7 +6561,6 @@
               "expansion": "Proto-West Germanic *plehan"
             }
           ],
-          "word": "pflegen",
           "lang": "German",
           "lang_code": "de"
         }
@@ -6551,6 +6569,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/F/Fu/Fuchs.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/F/Fu/Fuchs.jsonl",
         "json": {
+          "word": "Fuchs",
+          "pos": "noun",
           "senses": [
             {
               "examples": [
@@ -6942,7 +6962,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "de-noun",
@@ -7442,7 +7461,6 @@
               "expansion": "Sanskrit पुच्छ (púccha)"
             }
           ],
-          "word": "Fuchs",
           "lang": "German",
           "lang_code": "de"
         }
@@ -7451,6 +7469,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/H/He/Herz.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/H/He/Herz.jsonl",
         "json": {
+          "word": "Herz",
+          "pos": "noun",
           "senses": [
             {
               "links": [
@@ -7519,7 +7539,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "de-noun",
@@ -7932,7 +7951,6 @@
               "expansion": "Gothic 𐌷𐌰𐌹𐍂𐍄𐍉 (hairtō)"
             }
           ],
-          "word": "Herz",
           "lang": "German",
           "lang_code": "de"
         }
@@ -7941,6 +7959,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/F/Fa/Fahrer.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/F/Fa/Fahrer.jsonl",
         "json": {
+          "word": "Fahrer",
+          "pos": "noun",
           "senses": [
             {
               "links": [
@@ -7982,7 +8002,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "de-noun",
@@ -8162,7 +8181,6 @@
               "expansion": "fahren (“to drive”) + -er"
             }
           ],
-          "word": "Fahrer",
           "lang": "German",
           "lang_code": "de"
         }
@@ -8171,6 +8189,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/v/vo/von.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/v/vo/von.jsonl",
         "json": {
+          "word": "von",
+          "pos": "prep",
           "senses": [
             {
               "examples": [
@@ -8436,7 +8456,6 @@
               ]
             }
           ],
-          "pos": "prep",
           "info_templates": [
             {
               "args": {
@@ -8475,7 +8494,7 @@
             "German terms inherited from Old High German",
             "German terms inherited from Proto-Germanic",
             "German terms inherited from Proto-West Germanic",
-            "Pages with 9 entries",
+            "Pages with 10 entries",
             "Pages with entries"
           ],
           "forms": [
@@ -8487,7 +8506,7 @@
               ]
             },
             {
-              "form": "de-pronadv-table",
+              "form": "l-self",
               "source": "inflection",
               "tags": [
                 "inflection-template"
@@ -8496,7 +8515,7 @@
             {
               "form": "von",
               "tags": [
-                "error-unrecognized-form"
+                "prepositional"
               ],
               "source": "inflection"
             },
@@ -8569,27 +8588,53 @@
               "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/ba/De-von.ogg/De-von.ogg.mp3"
             }
           ],
-          "etymology_text": "From Middle High German von (“from”), from Old High German fon, fona (“from”), from Proto-West Germanic *fanā, from Proto-Germanic *afanē, *fanē, *funē (“from”), compound of *afa (from Proto-Indo-European *h₂epó (“from, off”)) + *ana (from Proto-Indo-European *h₂en- (“on”)).\nCognate with Old Saxon fana, fan (“from”), Dutch van (“from; of”), Old Frisian fon (“from”).",
+          "etymology_text": "From Middle High German von(e) (“from”), from Old High German fon(a), alongside rarer northern fan(a). It is uncertain whether the High German o-vocalism continues an original Proto-Germanic *funē, comparable with Sanskrit पुनः- (punaḥ-), or whether it is an atonic alteration of Proto-West Germanic *fanā. In the latter case, possibly from Proto-Germanic *afa + *ana (equivalent to German ab + an). Cognate with Old Dutch fan (modern van), Old Saxon fan(a) (Low German van), Old Frisian fon, fan, all “from”.",
           "etymology_templates": [
+            {
+              "name": "dercat",
+              "args": {
+                "1": "de",
+                "2": "ine-pro"
+              },
+              "expansion": ""
+            },
             {
               "name": "inh",
               "args": {
                 "1": "de",
                 "2": "gmh",
                 "3": "von",
-                "4": "",
-                "5": "from"
+                "4": "von(e)",
+                "t": "from"
               },
-              "expansion": "Middle High German von (“from”)"
+              "expansion": "Middle High German von(e) (“from”)"
             },
             {
               "name": "inh",
               "args": {
                 "1": "de",
                 "2": "goh",
-                "3": "fon"
+                "3": "fona",
+                "4": "fon(a)"
               },
-              "expansion": "Old High German fon"
+              "expansion": "Old High German fon(a)"
+            },
+            {
+              "name": "inh",
+              "args": {
+                "1": "de",
+                "2": "gem-pro",
+                "3": "*funē"
+              },
+              "expansion": "Proto-Germanic *funē"
+            },
+            {
+              "name": "cog",
+              "args": {
+                "1": "sa",
+                "2": "पुनः-"
+              },
+              "expansion": "Sanskrit पुनः- (punaḥ-)"
             },
             {
               "name": "inh",
@@ -8601,66 +8646,57 @@
               "expansion": "Proto-West Germanic *fanā"
             },
             {
-              "name": "inh",
+              "name": "der",
               "args": {
                 "1": "de",
                 "2": "gem-pro",
-                "3": "*afanē"
+                "3": "*ab",
+                "4": "*afa"
               },
-              "expansion": "Proto-Germanic *afanē"
+              "expansion": "Proto-Germanic *afa"
             },
             {
-              "name": "der",
+              "name": "m+",
               "args": {
                 "1": "de",
-                "2": "ine-pro",
-                "3": "*h₂epó",
-                "4": "",
-                "5": "from, off"
+                "2": "ab"
               },
-              "expansion": "Proto-Indo-European *h₂epó (“from, off”)"
+              "expansion": "German ab"
             },
             {
-              "name": "der",
+              "name": "cog",
               "args": {
-                "1": "de",
-                "2": "ine-pro",
-                "3": "*h₂en-",
-                "4": "",
-                "5": "on"
+                "1": "odt",
+                "2": "fan"
               },
-              "expansion": "Proto-Indo-European *h₂en- (“on”)"
+              "expansion": "Old Dutch fan"
             },
             {
               "name": "cog",
               "args": {
                 "1": "osx",
-                "2": "fana"
+                "2": "fana",
+                "3": "fan(a)"
               },
-              "expansion": "Old Saxon fana"
+              "expansion": "Old Saxon fan(a)"
             },
             {
               "name": "cog",
               "args": {
-                "1": "nl",
-                "2": "van",
-                "3": "",
-                "4": "from; of"
+                "1": "nds",
+                "2": "van"
               },
-              "expansion": "Dutch van (“from; of”)"
+              "expansion": "Low German van"
             },
             {
               "name": "cog",
               "args": {
                 "1": "ofs",
-                "2": "fon",
-                "3": "",
-                "4": "from"
+                "2": "fon, fan"
               },
-              "expansion": "Old Frisian fon (“from”)"
+              "expansion": "Old Frisian fon, fan"
             }
           ],
-          "word": "von",
           "lang": "German",
           "lang_code": "de"
         }
@@ -8669,6 +8705,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/B/Ba/Base.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/B/Ba/Base.jsonl",
         "json": {
+          "word": "Base",
+          "pos": "noun",
           "senses": [
             {
               "categories": [
@@ -8743,7 +8781,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "de-noun",
@@ -8878,6 +8915,11 @@
               }
             }
           ],
+          "derived": [
+            {
+              "word": "Klatschbase"
+            }
+          ],
           "sounds": [
             {
               "ipa": "/ˈbaːzə/"
@@ -8950,7 +8992,6 @@
               "expansion": "Dutch baas (“master; boss”)"
             }
           ],
-          "word": "Base",
           "lang": "German",
           "lang_code": "de"
         }
@@ -8959,6 +9000,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/B/Ba/Base.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/B/Ba/Base.jsonl",
         "json": {
+          "word": "Base",
+          "pos": "noun",
           "senses": [
             {
               "topics": [
@@ -8990,7 +9033,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "de-noun",
@@ -9152,7 +9194,6 @@
               "expansion": "Ancient Greek βάσις (básis)"
             }
           ],
-          "word": "Base",
           "lang": "German",
           "lang_code": "de"
         }
@@ -9166,6 +9207,7 @@
         "download_url": "https://kaikki.org/elwiktionary/All%20languages%20combined/meaning/κ/κό/κόρφος.jsonl",
         "json": {
           "word": "κόρφος",
+          "pos": "noun",
           "forms": [
             {
               "form": "el-κλίση-'δρόμος'",
@@ -9283,7 +9325,6 @@
           ],
           "lang_code": "el",
           "lang": "Greek",
-          "pos": "noun",
           "etymology_text": "κόρφος < (κληρονομημένο) μεσαιωνική ελληνική κόρφος < ελληνιστική κοινή *κόλφος (με ανομοίωση [lf > rf]) < αρχαία ελληνική κόλπος (με ανομοίωση διάρκειας [lp > fl])\n: Για το *κόλφος δείτε και το golfo καθώς και την τροπή αδελφός > αδερφός",
           "senses": [
             {
@@ -9364,6 +9405,7 @@
         "download_url": "https://kaikki.org/elwiktionary/All%20languages%20combined/meaning/κ/κό/κόρφο.jsonl",
         "json": {
           "word": "κόρφο",
+          "pos": "noun",
           "forms": [
             {
               "form": "κόρφο",
@@ -9378,7 +9420,6 @@
           ],
           "lang_code": "el",
           "lang": "Greek",
-          "pos": "noun",
           "senses": [
             {
               "glosses": [
@@ -9405,6 +9446,7 @@
         "download_url": "https://kaikki.org/elwiktionary/All%20languages%20combined/meaning/α/αζ/αζωικός.jsonl",
         "json": {
           "word": "αζωικός",
+          "pos": "adj",
           "forms": [
             {
               "form": "el-κλίση-'καλός'",
@@ -9585,11 +9627,13 @@
               "form": "αζωικοί",
               "tags": [
                 "masculine",
+                "singular",
                 "nominative",
                 "plural"
               ],
               "raw_tags": [
                 "αρσενικό",
+                "ενικός",
                 "ονομαστική",
                 "πληθυντικός"
               ],
@@ -9598,11 +9642,13 @@
             {
               "form": "αζωικές",
               "tags": [
+                "singular",
                 "feminine",
                 "nominative",
                 "plural"
               ],
               "raw_tags": [
+                "ενικός",
                 "θηλυκό",
                 "ονομαστική",
                 "πληθυντικός"
@@ -9612,11 +9658,13 @@
             {
               "form": "αζωικά",
               "tags": [
+                "singular",
                 "nominative",
                 "neuter",
                 "plural"
               ],
               "raw_tags": [
+                "ενικός",
                 "ονομαστική",
                 "ουδέτερο",
                 "πληθυντικός"
@@ -9628,11 +9676,13 @@
               "tags": [
                 "masculine",
                 "genitive",
+                "singular",
                 "plural"
               ],
               "raw_tags": [
                 "αρσενικό",
                 "γενική",
+                "ενικός",
                 "πληθυντικός"
               ],
               "source": "declension"
@@ -9641,11 +9691,13 @@
               "form": "αζωικών",
               "tags": [
                 "genitive",
+                "singular",
                 "feminine",
                 "plural"
               ],
               "raw_tags": [
                 "γενική",
+                "ενικός",
                 "θηλυκό",
                 "πληθυντικός"
               ],
@@ -9655,11 +9707,13 @@
               "form": "αζωικών",
               "tags": [
                 "genitive",
+                "singular",
                 "neuter",
                 "plural"
               ],
               "raw_tags": [
                 "γενική",
+                "ενικός",
                 "ουδέτερο",
                 "πληθυντικός"
               ],
@@ -9670,11 +9724,13 @@
               "tags": [
                 "accusative",
                 "masculine",
+                "singular",
                 "plural"
               ],
               "raw_tags": [
                 "αιτιατική",
                 "αρσενικό",
+                "ενικός",
                 "πληθυντικός"
               ],
               "source": "declension"
@@ -9683,11 +9739,13 @@
               "form": "αζωικές",
               "tags": [
                 "accusative",
+                "singular",
                 "feminine",
                 "plural"
               ],
               "raw_tags": [
                 "αιτιατική",
+                "ενικός",
                 "θηλυκό",
                 "πληθυντικός"
               ],
@@ -9697,11 +9755,13 @@
               "form": "αζωικά",
               "tags": [
                 "accusative",
+                "singular",
                 "neuter",
                 "plural"
               ],
               "raw_tags": [
                 "αιτιατική",
+                "ενικός",
                 "ουδέτερο",
                 "πληθυντικός"
               ],
@@ -9711,11 +9771,13 @@
               "form": "αζωικοί",
               "tags": [
                 "masculine",
+                "singular",
                 "vocative",
                 "plural"
               ],
               "raw_tags": [
                 "αρσενικό",
+                "ενικός",
                 "κλητική",
                 "πληθυντικός"
               ],
@@ -9724,11 +9786,13 @@
             {
               "form": "αζωικές",
               "tags": [
+                "singular",
                 "feminine",
                 "vocative",
                 "plural"
               ],
               "raw_tags": [
+                "ενικός",
                 "θηλυκό",
                 "κλητική",
                 "πληθυντικός"
@@ -9738,11 +9802,13 @@
             {
               "form": "αζωικά",
               "tags": [
+                "singular",
                 "vocative",
                 "neuter",
                 "plural"
               ],
               "raw_tags": [
+                "ενικός",
                 "κλητική",
                 "ουδέτερο",
                 "πληθυντικός"
@@ -9779,7 +9845,6 @@
           ],
           "lang_code": "el",
           "lang": "Greek",
-          "pos": "adj",
           "etymology_text": "αζωικός < (λόγιο δάνειο) γαλλική azoïque < αρχαία ελληνική ἀ- + ζωικός < ζῷον",
           "senses": [
             {
@@ -9811,6 +9876,7 @@
         "download_url": "https://kaikki.org/elwiktionary/All%20languages%20combined/meaning/α/αζ/αζωικό.jsonl",
         "json": {
           "word": "αζωικό",
+          "pos": "adj",
           "forms": [
             {
               "form": "αζωικό",
@@ -9819,7 +9885,6 @@
           ],
           "lang_code": "el",
           "lang": "Greek",
-          "pos": "adj",
           "senses": [
             {
               "glosses": [
@@ -9883,6 +9948,7 @@
         "download_url": "https://kaikki.org/elwiktionary/All%20languages%20combined/meaning/γ/γο/γορίλλας.jsonl",
         "json": {
           "word": "γορίλλας",
+          "pos": "noun",
           "forms": [
             {
               "form": "el-κλίση-'αγώνας'",
@@ -10007,7 +10073,6 @@
           ],
           "lang_code": "el",
           "lang": "Greek",
-          "pos": "noun",
           "etymology_text": "γορίλλας < λόγιο ενδογενές δάνειο: νεολατινική gorilla < αρχαία ελληνική Γόριλλαι (φυλή τριχωτών γυναικών)",
           "senses": [
             {
@@ -10104,6 +10169,7 @@
         "download_url": "https://kaikki.org/elwiktionary/All%20languages%20combined/meaning/ψ/ψη/ψηφίσας.jsonl",
         "json": {
           "word": "ψηφίσας",
+          "pos": "verb",
           "forms": [
             {
               "form": "el-κλίση-'λήξας'",
@@ -10340,11 +10406,13 @@
               "form": "ψηφίσαντες",
               "tags": [
                 "masculine",
+                "singular",
                 "nominative",
                 "plural"
               ],
               "raw_tags": [
                 "αρσενικό",
+                "ενικός",
                 "ονομαστική",
                 "πληθυντικός"
               ],
@@ -10353,11 +10421,13 @@
             {
               "form": "ψηφίσασες",
               "tags": [
+                "singular",
                 "feminine",
                 "nominative",
                 "plural"
               ],
               "raw_tags": [
+                "ενικός",
                 "θηλυκό",
                 "ονομαστική",
                 "πληθυντικός"
@@ -10367,11 +10437,13 @@
             {
               "form": "ψηφίσαντα",
               "tags": [
+                "singular",
                 "nominative",
                 "neuter",
                 "plural"
               ],
               "raw_tags": [
+                "ενικός",
                 "ονομαστική",
                 "ουδέτερο",
                 "πληθυντικός"
@@ -10383,11 +10455,13 @@
               "tags": [
                 "masculine",
                 "genitive",
+                "singular",
                 "plural"
               ],
               "raw_tags": [
                 "αρσενικό",
                 "γενική",
+                "ενικός",
                 "πληθυντικός"
               ],
               "source": "declension"
@@ -10396,11 +10470,13 @@
               "form": "ψηφισασών",
               "tags": [
                 "genitive",
+                "singular",
                 "feminine",
                 "plural"
               ],
               "raw_tags": [
                 "γενική",
+                "ενικός",
                 "θηλυκό",
                 "πληθυντικός"
               ],
@@ -10410,11 +10486,13 @@
               "form": "ψηφισάντων",
               "tags": [
                 "genitive",
+                "singular",
                 "neuter",
                 "plural"
               ],
               "raw_tags": [
                 "γενική",
+                "ενικός",
                 "ουδέτερο",
                 "πληθυντικός"
               ],
@@ -10425,11 +10503,13 @@
               "tags": [
                 "accusative",
                 "masculine",
+                "singular",
                 "plural"
               ],
               "raw_tags": [
                 "αιτιατική",
                 "αρσενικό",
+                "ενικός",
                 "πληθυντικός"
               ],
               "source": "declension"
@@ -10438,11 +10518,13 @@
               "form": "ψηφίσασες",
               "tags": [
                 "accusative",
+                "singular",
                 "feminine",
                 "plural"
               ],
               "raw_tags": [
                 "αιτιατική",
+                "ενικός",
                 "θηλυκό",
                 "πληθυντικός"
               ],
@@ -10452,11 +10534,13 @@
               "form": "ψηφίσαντα",
               "tags": [
                 "accusative",
+                "singular",
                 "neuter",
                 "plural"
               ],
               "raw_tags": [
                 "αιτιατική",
+                "ενικός",
                 "ουδέτερο",
                 "πληθυντικός"
               ],
@@ -10466,11 +10550,13 @@
               "form": "ψηφίσαντες",
               "tags": [
                 "masculine",
+                "singular",
                 "vocative",
                 "plural"
               ],
               "raw_tags": [
                 "αρσενικό",
+                "ενικός",
                 "κλητική",
                 "πληθυντικός"
               ],
@@ -10479,11 +10565,13 @@
             {
               "form": "ψηφίσασες",
               "tags": [
+                "singular",
                 "feminine",
                 "vocative",
                 "plural"
               ],
               "raw_tags": [
+                "ενικός",
                 "θηλυκό",
                 "κλητική",
                 "πληθυντικός"
@@ -10493,11 +10581,13 @@
             {
               "form": "ψηφίσαντα",
               "tags": [
+                "singular",
                 "vocative",
                 "neuter",
                 "plural"
               ],
               "raw_tags": [
+                "ενικός",
                 "κλητική",
                 "ουδέτερο",
                 "πληθυντικός"
@@ -10534,7 +10624,6 @@
           ],
           "lang_code": "el",
           "lang": "Greek",
-          "pos": "verb",
           "etymology_text": "ψηφίσας < (διαχρονικό δάνειο) αρχαία ελληνική ψηφίσας",
           "senses": [
             {
@@ -10581,6 +10670,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/έ/έρ/έρχομαι.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/έ/έρ/έρχομαι.jsonl",
         "json": {
+          "word": "έρχομαι",
+          "pos": "verb",
           "senses": [
             {
               "examples": [
@@ -11012,7 +11103,6 @@
               ]
             }
           ],
-          "pos": "verb",
           "head_templates": [
             {
               "name": "head",
@@ -12145,7 +12235,6 @@
               "expansion": "ρθ"
             }
           ],
-          "word": "έρχομαι",
           "lang": "Greek",
           "lang_code": "el"
         }
@@ -12298,6 +12387,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/b/br/bring.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/b/br/bring.jsonl",
         "json": {
+          "word": "bring",
+          "pos": "verb",
           "senses": [
             {
               "examples": [
@@ -12443,6 +12534,16 @@
             },
             {
               "examples": [
+                {
+                  "text": "Let's bring our differences to an issue.",
+                  "bold_text_offsets": [
+                    [
+                      6,
+                      11
+                    ]
+                  ],
+                  "type": "example"
+                },
                 {
                   "text": "The controversial TV broadcast brought a storm of complaints.",
                   "bold_text_offsets": [
@@ -12606,7 +12707,6 @@
               ]
             }
           ],
-          "pos": "verb",
           "head_templates": [
             {
               "name": "en-verb",
@@ -13242,11 +13342,11 @@
             },
             {
               "sense": "Terms derived from \"bring\"",
-              "word": "bringdown"
+              "word": "bring down"
             },
             {
               "sense": "Terms derived from \"bring\"",
-              "word": "bring down"
+              "word": "bringdown"
             },
             {
               "sense": "Terms derived from \"bring\"",
@@ -13383,6 +13483,10 @@
             {
               "sense": "Terms derived from \"bring\"",
               "word": "bring out of oneself"
+            },
+            {
+              "sense": "Terms derived from \"bring\"",
+              "word": "bring out of the woodwork"
             },
             {
               "sense": "Terms derived from \"bring\"",
@@ -16056,7 +16160,6 @@
               "expansion": "Lithuanian branktas (“whiffletree”)"
             }
           ],
-          "word": "bring",
           "lang": "English",
           "lang_code": "en"
         }
@@ -16065,6 +16168,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/w/wa/wain.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/w/wa/wain.jsonl",
         "json": {
+          "word": "wain",
+          "pos": "noun",
           "senses": [
             {
               "examples": [
@@ -16118,7 +16223,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "en-noun",
@@ -16467,7 +16571,6 @@
               "expansion": "Swedish vagn"
             }
           ],
-          "word": "wain",
           "lang": "English",
           "lang_code": "en"
         }
@@ -16476,6 +16579,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/f/fa/falcon.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/f/fa/falcon.jsonl",
         "json": {
+          "word": "falcon",
+          "pos": "noun",
           "senses": [
             {
               "wikidata": [
@@ -16580,7 +16685,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "en-noun",
@@ -16593,7 +16697,6 @@
             "English countable nouns",
             "English entries with incorrect language header",
             "English lemmas",
-            "English links with redundant alt parameters",
             "English nouns",
             "English terms derived from Frankish",
             "English terms derived from Germanic languages",
@@ -18507,7 +18610,6 @@
               "expansion": "Latgalian buolgs (“pale”)"
             }
           ],
-          "word": "falcon",
           "lang": "English",
           "lang_code": "en"
         }
@@ -18647,6 +18749,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/v/vi/vivir.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/v/vi/vivir.jsonl",
         "json": {
+          "word": "vivir",
+          "pos": "verb",
           "senses": [
             {
               "categories": [
@@ -18850,7 +18954,6 @@
               ]
             }
           ],
-          "pos": "verb",
           "head_templates": [
             {
               "name": "es-verb",
@@ -21501,7 +21604,6 @@
               "expansion": "Portuguese viver"
             }
           ],
-          "word": "vivir",
           "lang": "Spanish",
           "lang_code": "es"
         }
@@ -21510,6 +21612,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/r/re/reciba.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/r/re/reciba.jsonl",
         "json": {
+          "word": "reciba",
+          "pos": "verb",
           "senses": [
             {
               "categories": [
@@ -21624,7 +21728,6 @@
               ]
             }
           ],
-          "pos": "verb",
           "head_templates": [
             {
               "name": "head",
@@ -21673,7 +21776,6 @@
               ]
             }
           ],
-          "word": "reciba",
           "lang": "Spanish",
           "lang_code": "es"
         }
@@ -21686,6 +21788,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/م/مل/ملک.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/م/مل/ملک.jsonl",
         "json": {
+          "word": "ملک",
+          "pos": "noun",
           "senses": [
             {
               "examples": [
@@ -21732,7 +21836,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "fa-noun",
@@ -21757,7 +21860,6 @@
             "Persian terms derived from Hindustani languages",
             "Persian terms derived from the Arabic root م ل ك",
             "Persian terms with IPA pronunciation",
-            "Persian terms with redundant head parameter",
             "fa:Heads of state",
             "fa:Monarchy"
           ],
@@ -21824,7 +21926,7 @@
                 "Iran",
                 "formal"
               ],
-              "ipa": "[mæ.lǽkʲ]"
+              "ipa": "[mæ.lǽkʰʲ]"
             },
             {
               "tags": [
@@ -21857,7 +21959,6 @@
               "expansion": "Borrowed from Arabic مَلَك (malak, “angel”)"
             }
           ],
-          "word": "ملک",
           "lang": "Persian",
           "lang_code": "fa"
         }
@@ -21866,6 +21967,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/ف/فا/فارسی.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/ف/فا/فارسی.jsonl",
         "json": {
+          "word": "فارسی",
+          "pos": "noun",
           "senses": [
             {
               "examples": [
@@ -21973,7 +22076,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "fa-noun",
@@ -22164,7 +22266,6 @@
               "expansion": "Arabic فَارِسِيّ (fārisiyy)"
             }
           ],
-          "word": "فارسی",
           "lang": "Persian",
           "lang_code": "fa"
         }
@@ -22177,6 +22278,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/p/pr/prendre.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/p/pr/prendre.jsonl",
         "json": {
+          "word": "prendre",
+          "pos": "verb",
           "senses": [
             {
               "examples": [
@@ -22919,7 +23022,6 @@
               ]
             }
           ],
-          "pos": "verb",
           "head_templates": [
             {
               "name": "fr-verb",
@@ -24146,6 +24248,15 @@
           "etymology_text": "Inherited from Middle French prendre, from Old French prendre, prandre, from Latin prēndere, alternative form of prehendere (“to seize”), from prae- (“before”) + *hendō (“to take, seize”) (not attested without prefix), from Proto-Indo-European *gʰed-.",
           "etymology_templates": [
             {
+              "name": "yesno",
+              "args": {
+                "1": "",
+                "2": "i",
+                "3": "I"
+              },
+              "expansion": "I"
+            },
+            {
               "name": "glossary",
               "args": {
                 "1": "Inherited"
@@ -24211,7 +24322,6 @@
               "expansion": "Proto-Indo-European *gʰed-"
             }
           ],
-          "word": "prendre",
           "lang": "French",
           "lang_code": "fr"
         }
@@ -24220,6 +24330,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/s/se/sembler.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/s/se/sembler.jsonl",
         "json": {
+          "word": "sembler",
+          "pos": "verb",
           "senses": [
             {
               "examples": [
@@ -24289,7 +24401,6 @@
               ]
             }
           ],
-          "pos": "verb",
           "head_templates": [
             {
               "name": "fr-verb",
@@ -25050,6 +25161,15 @@
               "expansion": ""
             },
             {
+              "name": "yesno",
+              "args": {
+                "1": "",
+                "2": "i",
+                "3": "I"
+              },
+              "expansion": "I"
+            },
+            {
               "name": "glossary",
               "args": {
                 "1": "Inherited"
@@ -25125,7 +25245,6 @@
               "expansion": "Doublet of simuler"
             }
           ],
-          "word": "sembler",
           "lang": "French",
           "lang_code": "fr"
         }
@@ -25134,6 +25253,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/d/dé/démarche.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/d/dé/démarche.jsonl",
         "json": {
+          "word": "démarche",
+          "pos": "verb",
           "senses": [
             {
               "links": [
@@ -25185,7 +25306,6 @@
               ]
             }
           ],
-          "pos": "verb",
           "head_templates": [
             {
               "name": "head",
@@ -25255,7 +25375,6 @@
               "expansion": "dé- + marche"
             }
           ],
-          "word": "démarche",
           "lang": "French",
           "lang_code": "fr"
         }
@@ -25264,6 +25383,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/c/ch/chambre.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/c/ch/chambre.jsonl",
         "json": {
+          "word": "chambre",
+          "pos": "noun",
           "senses": [
             {
               "links": [
@@ -25398,7 +25519,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "fr-noun",
@@ -25584,6 +25704,15 @@
           "etymology_text": "Inherited from Old French chambre, cambre, from Latin cambra, Medieval spelling of Latin camera (“room”), from Ancient Greek καμάρα (kamára, “something with an arched cover: a covered wagon, a covered boat, a vaulted chamber”). Doublet of caméra, a borrowing.",
           "etymology_templates": [
             {
+              "name": "yesno",
+              "args": {
+                "1": "",
+                "2": "i",
+                "3": "I"
+              },
+              "expansion": "I"
+            },
+            {
               "name": "glossary",
               "args": {
                 "1": "Inherited"
@@ -25661,7 +25790,6 @@
               "expansion": "Doublet of caméra"
             }
           ],
-          "word": "chambre",
           "lang": "French",
           "lang_code": "fr"
         }
@@ -25670,6 +25798,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/d/d'/d'accord.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/d/d'/d'accord.jsonl",
         "json": {
+          "word": "d'accord",
+          "pos": "adv",
           "senses": [
             {
               "examples": [
@@ -25737,7 +25867,6 @@
               ]
             }
           ],
-          "pos": "adv",
           "head_templates": [
             {
               "name": "fr-adv",
@@ -25835,7 +25964,6 @@
               "expansion": "Portuguese de acordo"
             }
           ],
-          "word": "d'accord",
           "lang": "French",
           "lang_code": "fr"
         }
@@ -25847,9 +25975,9 @@
         "download_url": "https://kaikki.org/frwiktionary/All%20languages%20combined/meaning/a/av/avatar.jsonl",
         "json": {
           "word": "avatar",
+          "pos": "noun",
           "lang_code": "fr",
           "lang": "Français",
-          "pos": "noun",
           "pos_title": "Nom commun 1",
           "etymology_texts": [
             "Du sanskrit अवतार, avatāra."
@@ -26178,6 +26306,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/ἀ/ἀγ/ἀγρός.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/ἀ/ἀγ/ἀγρός.jsonl",
         "json": {
+          "word": "ἀγρός",
+          "pos": "noun",
           "senses": [
             {
               "links": [
@@ -26235,7 +26365,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "grc-noun",
@@ -26994,7 +27123,6 @@
               "expansion": "English acre"
             }
           ],
-          "word": "ἀγρός",
           "lang": "Ancient Greek",
           "lang_code": "grc"
         }
@@ -33587,9 +33715,9 @@
         "download_url": "https://kaikki.org/jawiktionary/All%20languages%20combined/meaning/立/立命/立命.jsonl",
         "json": {
           "word": "立命",
+          "pos": "noun",
           "lang_code": "ja",
           "lang": "日本語",
-          "pos": "noun",
           "pos_title": "名詞",
           "senses": [
             {
@@ -33635,9 +33763,9 @@
         "download_url": "https://kaikki.org/jawiktionary/All%20languages%20combined/meaning/立/立命/立命.jsonl",
         "json": {
           "word": "立命",
+          "pos": "verb",
           "lang_code": "ja",
           "lang": "日本語",
-          "pos": "verb",
           "pos_title": "動詞",
           "senses": [
             {
@@ -33944,9 +34072,9 @@
         "download_url": "https://kaikki.org/jawiktionary/All%20languages%20combined/meaning/全/全然/全然.jsonl",
         "json": {
           "word": "全然",
+          "pos": "adv",
           "lang_code": "ja",
           "lang": "日本語",
-          "pos": "adv",
           "pos_title": "副詞",
           "senses": [
             {
@@ -34227,9 +34355,9 @@
         "download_url": "https://kaikki.org/jawiktionary/All%20languages%20combined/meaning/命/命令/命令.jsonl",
         "json": {
           "word": "命令",
+          "pos": "noun",
           "lang_code": "ja",
           "lang": "日本語",
-          "pos": "noun",
           "pos_title": "名詞",
           "senses": [
             {
@@ -34750,6 +34878,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/독/독일/독일.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/독/독일/독일.jsonl",
         "json": {
+          "word": "독일",
+          "pos": "name",
           "senses": [
             {
               "categories": [
@@ -34834,7 +34964,6 @@
               ]
             }
           ],
-          "pos": "name",
           "head_templates": [
             {
               "name": "ko-pos",
@@ -34916,7 +35045,6 @@
               "expansion": "Dutch Duits (“German”)"
             }
           ],
-          "word": "독일",
           "lang": "Korean",
           "lang_code": "ko"
         }
@@ -34929,6 +35057,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/f/fa/fama.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/f/fa/fama.jsonl",
         "json": {
+          "word": "fama",
+          "pos": "noun",
           "senses": [
             {
               "links": [
@@ -35073,7 +35203,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "la-noun",
@@ -35374,7 +35503,6 @@
               "expansion": "Ancient Greek φήμη (phḗmē, “talk”)"
             }
           ],
-          "word": "fama",
           "lang": "Latin",
           "lang_code": "la"
         }
@@ -35383,6 +35511,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/l/le/lego.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/l/le/lego.jsonl",
         "json": {
+          "word": "lego",
+          "pos": "verb",
           "senses": [
             {
               "links": [
@@ -35735,11 +35865,11 @@
                   "type": "example"
                 },
                 {
-                  "text": "Lingua Graeca est; nōn potest legī.",
+                  "text": "Graecum est; nōn legitur.",
                   "bold_text_offsets": [
                     [
-                      30,
-                      34
+                      17,
+                      24
                     ]
                   ],
                   "translation": "It's Greek; it cannot be read.",
@@ -35836,7 +35966,6 @@
               ]
             }
           ],
-          "pos": "verb",
           "head_templates": [
             {
               "name": "la-verb",
@@ -37680,7 +37809,6 @@
               "expansion": "Albanian mbledh"
             }
           ],
-          "word": "lego",
           "lang": "Latin",
           "lang_code": "la"
         }
@@ -37689,6 +37817,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/l/li/lilium.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/l/li/lilium.jsonl",
         "json": {
+          "word": "lilium",
+          "pos": "noun",
           "senses": [
             {
               "links": [
@@ -37719,7 +37849,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "la-noun",
@@ -38281,7 +38410,6 @@
               "expansion": "Borrowed from Ancient Greek λείριον (leírion)"
             }
           ],
-          "word": "lilium",
           "lang": "Latin",
           "lang_code": "la"
         }
@@ -38290,6 +38418,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/u/us/usque.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/u/us/usque.jsonl",
         "json": {
+          "word": "usque",
+          "pos": "adv",
           "senses": [
             {
               "links": [
@@ -38312,16 +38442,22 @@
             {
               "examples": [
                 {
-                  "text": ", Latin Vulgate translation of Psalm 71:8; Canadian national motto\nĀ marī usque ad mare.",
-                  "english": "From sea unto sea.",
-                  "translation": "From sea unto sea.",
-                  "type": "quotation"
+                  "text": "Eōsdem facile addūcam, ut tē haec quae vastāre iam prīdem studēs relinquentem, usque ad portās prōsequantur.",
+                  "ref": "63 BCE, Cicero, Catiline Orations Oratio in Catilinam Prima in Senatu Habita.21",
+                  "english": "I shall easily persuade the same [men], that as you are leaving these [things] which you have long been eager to destroy, they may escort [you] all the way to the [city] gates.",
+                  "translation": "I shall easily persuade the same [men], that as you are leaving these [things] which you have long been eager to destroy, they may escort [you] all the way to the [city] gates."
                 },
                 {
                   "text": "ab ōvō usque ad māla",
                   "ref": "c. 35 BCE, Horace, Satires (book 1) 1.3",
                   "english": "from the beginning to the end\n(literally, “from the egg to the apples”)",
                   "translation": "from the beginning to the end\n(literally, “from the egg to the apples”)"
+                },
+                {
+                  "text": ", Latin Vulgate translation of Psalm 71:8; Canadian national motto\nĀ marī usque ad mare.",
+                  "english": "From sea unto sea.",
+                  "translation": "From sea unto sea.",
+                  "type": "quotation"
                 }
               ],
               "links": [
@@ -38371,7 +38507,6 @@
               ]
             }
           ],
-          "pos": "adv",
           "head_templates": [
             {
               "name": "la-adv",
@@ -38519,7 +38654,6 @@
               "expansion": "English out"
             }
           ],
-          "word": "usque",
           "lang": "Latin",
           "lang_code": "la"
         }
@@ -38528,6 +38662,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/r/re/rectus.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/r/re/rectus.jsonl",
         "json": {
+          "word": "rectus",
+          "pos": "verb",
           "senses": [
             {
               "examples": [
@@ -38714,7 +38850,6 @@
               ]
             }
           ],
-          "pos": "verb",
           "head_templates": [
             {
               "name": "la-part",
@@ -39149,7 +39284,6 @@
               "expansion": "Proto-Indo-European *h₃reǵ- (“to straighten, direct”)"
             }
           ],
-          "word": "rectus",
           "lang": "Latin",
           "lang_code": "la"
         }
@@ -39158,6 +39292,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/d/do/domus.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/d/do/domus.jsonl",
         "json": {
+          "word": "domus",
+          "pos": "noun",
           "senses": [
             {
               "examples": [
@@ -39657,7 +39793,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "la-noun",
@@ -40258,7 +40393,6 @@
               "expansion": "Latin dominus"
             }
           ],
-          "word": "domus",
           "lang": "Latin",
           "lang_code": "la"
         }
@@ -40271,6 +40405,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/с/сн/снег.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/с/сн/снег.jsonl",
         "json": {
+          "word": "снег",
+          "pos": "noun",
           "senses": [
             {
               "examples": [
@@ -40501,7 +40637,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "ru-noun+",
@@ -40910,6 +41045,15 @@
               "expansion": ""
             },
             {
+              "name": "yesno",
+              "args": {
+                "1": "",
+                "2": "i",
+                "3": "I"
+              },
+              "expansion": "I"
+            },
+            {
               "name": "glossary",
               "args": {
                 "1": "Inherited"
@@ -40966,7 +41110,6 @@
               "expansion": "Proto-Indo-European *snóygʷʰos"
             }
           ],
-          "word": "снег",
           "lang": "Russian",
           "lang_code": "ru"
         }
@@ -40975,6 +41118,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/в/во/возник.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/в/во/возник.jsonl",
         "json": {
+          "word": "возник",
+          "pos": "verb",
           "senses": [
             {
               "links": [
@@ -41012,7 +41157,6 @@
               ]
             }
           ],
-          "pos": "verb",
           "head_templates": [
             {
               "name": "head",
@@ -41043,7 +41187,6 @@
               "ipa": "[vɐzʲˈnʲik]"
             }
           ],
-          "word": "возник",
           "lang": "Russian",
           "lang_code": "ru"
         }
@@ -41052,6 +41195,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/п/пр/простынёй.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/п/пр/простынёй.jsonl",
         "json": {
+          "word": "простынёй",
+          "pos": "noun",
           "senses": [
             {
               "links": [
@@ -41087,7 +41232,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "head_templates": [
             {
               "name": "head",
@@ -41112,7 +41256,6 @@
               "ipa": "[prəstɨˈnʲɵj]"
             }
           ],
-          "word": "простынёй",
           "lang": "Russian",
           "lang_code": "ru"
         }
@@ -41121,6 +41264,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/п/по/побелеть.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/п/по/побелеть.jsonl",
         "json": {
+          "word": "побелеть",
+          "pos": "verb",
           "senses": [
             {
               "links": [
@@ -41234,7 +41379,6 @@
               ]
             }
           ],
-          "pos": "verb",
           "head_templates": [
             {
               "name": "ru-verb",
@@ -41630,7 +41774,6 @@
               "expansion": "по- (po-) + беле́ть (belétʹ)"
             }
           ],
-          "word": "побелеть",
           "lang": "Russian",
           "lang_code": "ru"
         }
@@ -41639,6 +41782,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/з/зи/зимний.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/з/зи/зимний.jsonl",
         "json": {
+          "word": "зимний",
+          "pos": "adj",
           "senses": [
             {
               "links": [
@@ -41664,7 +41809,6 @@
               ]
             }
           ],
-          "pos": "adj",
           "head_templates": [
             {
               "name": "uk-adj",
@@ -42012,7 +42156,6 @@
               "expansion": "зима́ (zymá) + -ний (-nyj)"
             }
           ],
-          "word": "зимний",
           "lang": "Ukrainian",
           "lang_code": "uk"
         }
@@ -46306,6 +46449,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/a/ak/akull.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/a/ak/akull.jsonl",
         "json": {
+          "word": "akull",
+          "pos": "adv",
           "senses": [
             {
               "links": [
@@ -46327,7 +46472,6 @@
               ]
             }
           ],
-          "pos": "adv",
           "head_templates": [
             {
               "name": "head",
@@ -46345,9 +46489,9 @@
             "Albanian lemmas",
             "Albanian masculine nouns",
             "Albanian nouns",
-            "Albanian terms with redundant head parameter",
             "Albanian terms with unknown etymologies",
             "Calabrian Arbëresh Albanian",
+            "Pages using invalid parameters when calling Template:sq-noun",
             "Pages with 1 entry",
             "Pages with entries",
             "Rhymes:Albanian/akuɫ"
@@ -46429,7 +46573,7 @@
           ],
           "etymology_number": 1,
           "wikipedia": [
-            "Vladimir Orel"
+            "Vladimir Oryol"
           ],
           "etymology_text": "Uncertain. Possibly:\n# A derivation from Proto-Indo-European *keHl- whence also Proto-Celtic *kaletos (“hard”), Proto-Slavic *kaliti (“to temper, harden”), Latin callum (“hardened skin”).\n# Borrowed from Germanic, ultimately from Proto-Germanic *jekulaz (“icicle”).\n# Akin Old Armenian ոյծ (oyc, “cold, frost”), suffixed with -ull, though the two terms are phonologically incompatible.",
           "etymology_templates": [
@@ -46513,7 +46657,6 @@
               "expansion": "-ull"
             }
           ],
-          "word": "akull",
           "lang": "Albanian",
           "lang_code": "sq"
         }
@@ -46522,6 +46665,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/i/ik/ik.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/i/ik/ik.jsonl",
         "json": {
+          "word": "ik",
+          "pos": "verb",
           "senses": [
             {
               "links": [
@@ -46553,7 +46698,6 @@
               ]
             }
           ],
-          "pos": "verb",
           "head_templates": [
             {
               "name": "head",
@@ -46564,7 +46708,6 @@
               "expansion": "ik"
             }
           ],
-          "word": "ik",
           "lang": "Albanian",
           "lang_code": "sq"
         }
@@ -46573,6 +46716,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/g/gj/gjuhë.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/g/gj/gjuhë.jsonl",
         "json": {
+          "word": "gjuhë",
+          "pos": "noun",
           "senses": [
             {
               "examples": [
@@ -47073,7 +47218,6 @@
               ]
             }
           ],
-          "pos": "noun",
           "categories": [
             "Albanian entries with incorrect language header",
             "Albanian feminine nouns",
@@ -47361,6 +47505,21 @@
                 "12": "gjuhëve",
                 "13": "gjuhësh"
               }
+            },
+            {
+              "name": "sq-ndecl-table",
+              "args": {
+                "s": "gjuhë",
+                "sa": "gjuha",
+                "p": "gjuhë",
+                "pt": "gjuhët",
+                "sin": "gjuhën",
+                "si": "gjuhe",
+                "sit": "gjuhës",
+                "pve": "gjuhëve",
+                "pvet": "gjuhëve",
+                "psh": "gjuhësh"
+              }
             }
           ],
           "derived": [
@@ -47596,7 +47755,7 @@
             }
           ],
           "wikipedia": [
-            "Vladimir Orel"
+            "Vladimir Oryol"
           ],
           "etymology_text": "Unclear. Akin to Arbëresh Albanian glunzë (“voice”). Possibilities include:\n# Inherited from Proto-Indo-European *gol(H)-s-os, via a byform *gl̥(H)-s-ós, whence also Proto-Slavic *golsъ (“voice”), Lithuanian gal̃sas (“voice”), Proto-Germanic *kalz-ōną (“to call”). However the medial -h- instead of expected **-sh- is left unexplained.\n# From a byform *ǵʰnud-sḱ-eh₂, doubly methasised from Proto-Indo-European *dn̥ǵʰwéh₂s ~ *dn̥ǵʰuh₂és (“tongue”). Compare Tocharian B kantwo, also metathised. The outcome gl- (and later gj-) from original *ǵ(ʰ)n- is also attested in gju (“knee”). The usage of the infixed *-sḱ- does not seem have any parallels.\n# A connection with Ancient Greek γλῶσσα (glôssa), itself of unclear origin, cannot be proven.",
           "etymology_templates": [
@@ -47616,6 +47775,15 @@
                 "t": "voice"
               },
               "expansion": "Arbëresh Albanian glunzë (“voice”)"
+            },
+            {
+              "name": "yesno",
+              "args": {
+                "1": "",
+                "2": "i",
+                "3": "I"
+              },
+              "expansion": "I"
             },
             {
               "name": "glossary",
@@ -47712,7 +47880,6 @@
               "expansion": "Ancient Greek γλῶσσα (glôssa)"
             }
           ],
-          "word": "gjuhë",
           "lang": "Albanian",
           "lang_code": "sq"
         }
@@ -47725,6 +47892,8 @@
         "url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/田/田/田.html",
         "download_url": "https://kaikki.org/dictionary/All%20languages%20combined/meaning/田/田/田.jsonl",
         "json": {
+          "word": "田",
+          "pos": "character",
           "senses": [
             {
               "links": [
@@ -47781,7 +47950,6 @@
               ]
             }
           ],
-          "pos": "character",
           "head_templates": [
             {
               "name": "head",
@@ -48021,6 +48189,17 @@
               ]
             },
             {
+              "zh_pron": "tián",
+              "tags": [
+                "Mandarin",
+                "Xi'an",
+                "Pinyin"
+              ],
+              "raw_tags": [
+                "Guanzhong"
+              ]
+            },
+            {
               "zh_pron": "tién",
               "tags": [
                 "Mandarin",
@@ -48047,6 +48226,16 @@
               ],
               "raw_tags": [
                 "Hong Kong"
+              ]
+            },
+            {
+              "zh_pron": "tin⁴",
+              "tags": [
+                "Cantonese",
+                "Dongguan"
+              ],
+              "raw_tags": [
+                "Jyutping-plusplus"
               ]
             },
             {
@@ -48143,7 +48332,36 @@
               ]
             },
             {
+              "zh_pron": "tieng⁵",
+              "tags": [
+                "Min-Nan",
+                "Leizhou",
+                "Leizhou",
+                "Pinyin"
+              ]
+            },
+            {
+              "zh_pron": "din⁴",
+              "tags": [
+                "Southern-Pinghua",
+                "Nanning"
+              ],
+              "raw_tags": [
+                "Jyutping-plusplus"
+              ]
+            },
+            {
               "zh_pron": "⁶di",
+              "tags": [
+                "Wu",
+                "Northern"
+              ],
+              "raw_tags": [
+                "Wugniu"
+              ]
+            },
+            {
+              "zh_pron": "²di",
               "tags": [
                 "Wu",
                 "Northern"
@@ -48163,11 +48381,59 @@
               ]
             },
             {
+              "zh_pron": "²dien",
+              "tags": [
+                "Wu",
+                "Northern"
+              ],
+              "raw_tags": [
+                "Wugniu"
+              ]
+            },
+            {
+              "zh_pron": "²diaa",
+              "tags": [
+                "Wu",
+                "Jinhua"
+              ],
+              "raw_tags": [
+                "Wugniu"
+              ]
+            },
+            {
+              "zh_pron": "²dian",
+              "tags": [
+                "Wu",
+                "Jinhua"
+              ],
+              "raw_tags": [
+                "Wugniu"
+              ]
+            },
+            {
               "zh_pron": "dienn²",
               "tags": [
                 "Xiang",
                 "Changsha",
                 "Wiktionary-specific"
+              ]
+            },
+            {
+              "zh_pron": "ddinn²",
+              "tags": [
+                "Xiang",
+                "Loudi",
+                "Wiktionary-specific"
+              ]
+            },
+            {
+              "zh_pron": "dien²",
+              "tags": [
+                "Xiang",
+                "Wiktionary-specific"
+              ],
+              "raw_tags": [
+                "Hengyang"
               ]
             },
             {
@@ -48257,6 +48523,25 @@
               "tags": [
                 "Mandarin",
                 "Chengdu",
+                "Sinological-IPA"
+              ]
+            },
+            {
+              "zh_pron": "tián",
+              "tags": [
+                "Mandarin",
+                "Xi'an",
+                "Pinyin"
+              ],
+              "raw_tags": [
+                "Guanzhong"
+              ]
+            },
+            {
+              "ipa": "/tʰiã²⁴/",
+              "tags": [
+                "Mandarin",
+                "Xi'an",
                 "Sinological-IPA"
               ]
             },
@@ -48365,6 +48650,28 @@
               "raw_tags": [
                 "Standard-Cantonese",
                 "Hong Kong"
+              ]
+            },
+            {
+              "zh_pron": "tin⁴",
+              "tags": [
+                "Cantonese",
+                "Dongguan"
+              ],
+              "raw_tags": [
+                "Guancheng",
+                "Jyutping-plusplus"
+              ]
+            },
+            {
+              "ipa": "/tʰin²¹/",
+              "tags": [
+                "Cantonese",
+                "Dongguan",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Guancheng"
               ]
             },
             {
@@ -48631,7 +48938,7 @@
                 "Quanzhou",
                 "Zhangzhou",
                 "Jinjiang",
-                "IPA",
+                "Sinological-IPA",
                 "Kaohsiung"
               ]
             },
@@ -48647,7 +48954,7 @@
                 "Quanzhou",
                 "Zhangzhou",
                 "Jinjiang",
-                "IPA",
+                "Sinological-IPA",
                 "Taipei"
               ]
             },
@@ -48663,7 +48970,7 @@
                 "Quanzhou",
                 "Zhangzhou",
                 "Jinjiang",
-                "IPA"
+                "Sinological-IPA"
               ]
             },
             {
@@ -48715,6 +49022,43 @@
               ]
             },
             {
+              "zh_pron": "tieng⁵",
+              "tags": [
+                "Leizhou",
+                "Leizhou",
+                "Pinyin"
+              ]
+            },
+            {
+              "ipa": "/tʰieŋ²²/",
+              "tags": [
+                "Leizhou",
+                "Sinological-IPA"
+              ]
+            },
+            {
+              "zh_pron": "din⁴",
+              "tags": [
+                "Southern-Pinghua",
+                "Nanning",
+                "Southern-Pinghua",
+                "Tingzi"
+              ],
+              "raw_tags": [
+                "Jyutping-plusplus"
+              ]
+            },
+            {
+              "ipa": "/tin²¹/",
+              "tags": [
+                "Southern-Pinghua",
+                "Nanning",
+                "Southern-Pinghua",
+                "Tingzi",
+                "Sinological-IPA"
+              ]
+            },
+            {
               "zh_pron": "⁶di",
               "tags": [
                 "Wu",
@@ -48756,14 +49100,66 @@
               ]
             },
             {
+              "zh_pron": "²di",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Ningbo"
+              ],
+              "raw_tags": [
+                "Songjiang",
+                "Wugniu"
+              ]
+            },
+            {
+              "zh_pron": "di^平",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Ningbo"
+              ],
+              "raw_tags": [
+                "Songjiang",
+                "MiniDict"
+              ]
+            },
+            {
+              "ipa": "/di³¹/",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Ningbo",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Songjiang",
+                "Songjiang"
+              ]
+            },
+            {
+              "ipa": "/di³¹³/",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Ningbo",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Songjiang"
+              ]
+            },
+            {
               "zh_pron": "²die",
               "tags": [
                 "Wu",
                 "Northern",
+                "Chongming",
                 "Suzhou"
               ],
               "raw_tags": [
+                "Jiading",
                 "Changzhou",
+                "Jiaxing",
                 "Wugniu"
               ]
             },
@@ -48772,11 +49168,45 @@
               "tags": [
                 "Wu",
                 "Northern",
+                "Chongming",
                 "Suzhou"
               ],
               "raw_tags": [
+                "Jiading",
                 "Changzhou",
+                "Jiaxing",
                 "MiniDict"
+              ]
+            },
+            {
+              "ipa": "/dɪ³¹/",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Chongming",
+                "Suzhou",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Jiading",
+                "Changzhou",
+                "Jiaxing",
+                "Jiading"
+              ]
+            },
+            {
+              "ipa": "/die²⁴/",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Chongming",
+                "Suzhou",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Jiading",
+                "Changzhou",
+                "Jiaxing"
               ]
             },
             {
@@ -48784,11 +49214,14 @@
               "tags": [
                 "Wu",
                 "Northern",
+                "Chongming",
                 "Suzhou",
                 "Sinological-IPA"
               ],
               "raw_tags": [
-                "Changzhou"
+                "Jiading",
+                "Changzhou",
+                "Jiaxing"
               ]
             },
             {
@@ -48796,12 +49229,134 @@
               "tags": [
                 "Wu",
                 "Northern",
+                "Chongming",
                 "Suzhou",
                 "Sinological-IPA"
               ],
               "raw_tags": [
+                "Jiading",
                 "Changzhou",
+                "Jiaxing",
                 "Changzhou"
+              ]
+            },
+            {
+              "ipa": "/die³¹/",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Chongming",
+                "Suzhou",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Jiading",
+                "Changzhou",
+                "Jiaxing",
+                "Jiaxing"
+              ]
+            },
+            {
+              "zh_pron": "²dien",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Hangzhou"
+              ],
+              "raw_tags": [
+                "Shaoxing",
+                "Zhoushan",
+                "Wugniu"
+              ]
+            },
+            {
+              "zh_pron": "dien^平",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Hangzhou"
+              ],
+              "raw_tags": [
+                "Shaoxing",
+                "Zhoushan",
+                "MiniDict"
+              ]
+            },
+            {
+              "ipa": "/diẽ̞²³/",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Hangzhou",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Shaoxing",
+                "Zhoushan"
+              ]
+            },
+            {
+              "ipa": "/diẽ²³¹/",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Hangzhou",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Shaoxing",
+                "Zhoushan",
+                "Shaoxing"
+              ]
+            },
+            {
+              "ipa": "/dĩ²²/",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Hangzhou",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Shaoxing",
+                "Zhoushan",
+                "Zhoushan"
+              ]
+            },
+            {
+              "zh_pron": "²diaa",
+              "tags": [
+                "Wu",
+                "Jinhua"
+              ],
+              "raw_tags": [
+                "Wugniu"
+              ]
+            },
+            {
+              "zh_pron": "²dian",
+              "tags": [
+                "Wu",
+                "Jinhua"
+              ],
+              "raw_tags": [
+                "Wugniu"
+              ]
+            },
+            {
+              "ipa": "/dia³¹³/",
+              "tags": [
+                "Wu",
+                "Jinhua",
+                "Sinological-IPA"
+              ]
+            },
+            {
+              "ipa": "/diã³¹³/",
+              "tags": [
+                "Wu",
+                "Jinhua",
+                "Sinological-IPA"
               ]
             },
             {
@@ -48818,6 +49373,42 @@
                 "Xiang",
                 "Changsha",
                 "Sinological-IPA"
+              ]
+            },
+            {
+              "zh_pron": "ddinn²",
+              "tags": [
+                "Xiang",
+                "Loudi",
+                "Wiktionary-specific"
+              ]
+            },
+            {
+              "ipa": "/dĩ¹³/",
+              "tags": [
+                "Xiang",
+                "Loudi",
+                "Sinological-IPA"
+              ]
+            },
+            {
+              "zh_pron": "dien²",
+              "tags": [
+                "Xiang",
+                "Wiktionary-specific"
+              ],
+              "raw_tags": [
+                "Hengyang"
+              ]
+            },
+            {
+              "ipa": "/d̥i̯ɛn¹¹/",
+              "tags": [
+                "Xiang",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Hengyang"
               ]
             },
             {
@@ -48880,6 +49471,15 @@
               ]
             },
             {
+              "zh_pron": "cang⁵",
+              "tags": [
+                "Min-Nan",
+                "Leizhou",
+                "Leizhou",
+                "Pinyin"
+              ]
+            },
+            {
               "zh_pron": "châing",
               "tags": [
                 "Min-Bei",
@@ -48913,52 +49513,82 @@
             },
             {
               "zh_pron": "ceng²",
-              "tags": [
-                "Puxian-Min"
-              ],
               "raw_tags": [
+                "Jiangkou",
+                "Donghai",
                 "Putian",
                 "Pouseng-Ping'ing"
+              ],
+              "tags": [
+                "Puxian-Min"
               ]
             },
             {
               "zh_pron": "chéng",
-              "tags": [
-                "Puxian-Min"
-              ],
               "raw_tags": [
+                "Jiangkou",
+                "Donghai",
                 "Putian",
                 "Hinghwa-Romanized"
+              ],
+              "tags": [
+                "Puxian-Min"
               ]
             },
             {
               "ipa": "/t͡sʰɛŋ¹³/",
+              "raw_tags": [
+                "Jiangkou",
+                "Donghai",
+                "Putian"
+              ],
               "tags": [
                 "Puxian-Min",
                 "Sinological-IPA"
-              ],
-              "raw_tags": [
-                "Putian"
               ]
             },
             {
               "zh_pron": "ceng²",
+              "raw_tags": [
+                "Nanri",
+                "Pouseng-Ping'ing"
+              ],
               "tags": [
                 "Puxian-Min"
-              ],
+              ]
+            },
+            {
+              "ipa": "/t͡sʰe̞ŋ¹³/",
               "raw_tags": [
+                "Nanri"
+              ],
+              "tags": [
+                "Puxian-Min",
+                "Sinological-IPA"
+              ]
+            },
+            {
+              "zh_pron": "ceng²",
+              "raw_tags": [
+                "Youyang",
+                "Fengting",
                 "Xianyou",
                 "Pouseng-Ping'ing"
+              ],
+              "tags": [
+                "Puxian-Min"
               ]
             },
             {
               "ipa": "/t͡sʰɛŋ²⁴/",
+              "raw_tags": [
+                "Youyang",
+                "Fengting",
+                "Xianyou"
+              ],
               "tags": [
                 "Puxian-Min",
                 "Sinological-IPA"
-              ],
-              "raw_tags": [
-                "Xianyou"
               ]
             },
             {
@@ -49026,7 +49656,7 @@
                 "Jinjiang",
                 "Changtai",
                 "Singapore",
-                "IPA",
+                "Sinological-IPA",
                 "Taipei"
               ]
             },
@@ -49044,7 +49674,7 @@
                 "Jinjiang",
                 "Changtai",
                 "Singapore",
-                "IPA"
+                "Sinological-IPA"
               ]
             },
             {
@@ -49061,7 +49691,7 @@
                 "Jinjiang",
                 "Changtai",
                 "Singapore",
-                "IPA",
+                "Sinological-IPA",
                 "Kaohsiung"
               ]
             },
@@ -49086,6 +49716,23 @@
               "tags": [
                 "Min-Nan",
                 "Teochew",
+                "Sinological-IPA"
+              ]
+            },
+            {
+              "zh_pron": "cang⁵",
+              "tags": [
+                "Min-Nan",
+                "Leizhou",
+                "Leizhou",
+                "Pinyin"
+              ]
+            },
+            {
+              "ipa": "/t͡sʰaŋ²²/",
+              "tags": [
+                "Min-Nan",
+                "Leizhou",
                 "Sinological-IPA"
               ]
             },
@@ -49115,6 +49762,17 @@
               ]
             },
             {
+              "zh_pron": "tián",
+              "tags": [
+                "Mandarin",
+                "Xi'an",
+                "Pinyin"
+              ],
+              "raw_tags": [
+                "Guanzhong"
+              ]
+            },
+            {
               "zh_pron": "tién",
               "tags": [
                 "Mandarin",
@@ -49141,6 +49799,16 @@
               ],
               "raw_tags": [
                 "Hong Kong"
+              ]
+            },
+            {
+              "zh_pron": "tin⁴",
+              "tags": [
+                "Cantonese",
+                "Dongguan"
+              ],
+              "raw_tags": [
+                "Jyutping-plusplus"
               ]
             },
             {
@@ -49237,7 +49905,36 @@
               ]
             },
             {
+              "zh_pron": "tieng⁵",
+              "tags": [
+                "Min-Nan",
+                "Leizhou",
+                "Leizhou",
+                "Pinyin"
+              ]
+            },
+            {
+              "zh_pron": "din⁴",
+              "tags": [
+                "Southern-Pinghua",
+                "Nanning"
+              ],
+              "raw_tags": [
+                "Jyutping-plusplus"
+              ]
+            },
+            {
               "zh_pron": "⁶di",
+              "tags": [
+                "Wu",
+                "Northern"
+              ],
+              "raw_tags": [
+                "Wugniu"
+              ]
+            },
+            {
+              "zh_pron": "²di",
               "tags": [
                 "Wu",
                 "Northern"
@@ -49257,11 +49954,59 @@
               ]
             },
             {
+              "zh_pron": "²dien",
+              "tags": [
+                "Wu",
+                "Northern"
+              ],
+              "raw_tags": [
+                "Wugniu"
+              ]
+            },
+            {
+              "zh_pron": "²diaa",
+              "tags": [
+                "Wu",
+                "Jinhua"
+              ],
+              "raw_tags": [
+                "Wugniu"
+              ]
+            },
+            {
+              "zh_pron": "²dian",
+              "tags": [
+                "Wu",
+                "Jinhua"
+              ],
+              "raw_tags": [
+                "Wugniu"
+              ]
+            },
+            {
               "zh_pron": "dienn²",
               "tags": [
                 "Xiang",
                 "Changsha",
                 "Wiktionary-specific"
+              ]
+            },
+            {
+              "zh_pron": "ddinn²",
+              "tags": [
+                "Xiang",
+                "Loudi",
+                "Wiktionary-specific"
+              ]
+            },
+            {
+              "zh_pron": "dien²",
+              "tags": [
+                "Xiang",
+                "Wiktionary-specific"
+              ],
+              "raw_tags": [
+                "Hengyang"
               ]
             },
             {
@@ -49351,6 +50096,25 @@
               "tags": [
                 "Mandarin",
                 "Chengdu",
+                "Sinological-IPA"
+              ]
+            },
+            {
+              "zh_pron": "tián",
+              "tags": [
+                "Mandarin",
+                "Xi'an",
+                "Pinyin"
+              ],
+              "raw_tags": [
+                "Guanzhong"
+              ]
+            },
+            {
+              "ipa": "/tʰiã²⁴/",
+              "tags": [
+                "Mandarin",
+                "Xi'an",
                 "Sinological-IPA"
               ]
             },
@@ -49459,6 +50223,28 @@
               "raw_tags": [
                 "Standard-Cantonese",
                 "Hong Kong"
+              ]
+            },
+            {
+              "zh_pron": "tin⁴",
+              "tags": [
+                "Cantonese",
+                "Dongguan"
+              ],
+              "raw_tags": [
+                "Guancheng",
+                "Jyutping-plusplus"
+              ]
+            },
+            {
+              "ipa": "/tʰin²¹/",
+              "tags": [
+                "Cantonese",
+                "Dongguan",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Guancheng"
               ]
             },
             {
@@ -49725,7 +50511,7 @@
                 "Quanzhou",
                 "Zhangzhou",
                 "Jinjiang",
-                "IPA",
+                "Sinological-IPA",
                 "Kaohsiung"
               ]
             },
@@ -49741,7 +50527,7 @@
                 "Quanzhou",
                 "Zhangzhou",
                 "Jinjiang",
-                "IPA",
+                "Sinological-IPA",
                 "Taipei"
               ]
             },
@@ -49757,7 +50543,7 @@
                 "Quanzhou",
                 "Zhangzhou",
                 "Jinjiang",
-                "IPA"
+                "Sinological-IPA"
               ]
             },
             {
@@ -49809,6 +50595,43 @@
               ]
             },
             {
+              "zh_pron": "tieng⁵",
+              "tags": [
+                "Leizhou",
+                "Leizhou",
+                "Pinyin"
+              ]
+            },
+            {
+              "ipa": "/tʰieŋ²²/",
+              "tags": [
+                "Leizhou",
+                "Sinological-IPA"
+              ]
+            },
+            {
+              "zh_pron": "din⁴",
+              "tags": [
+                "Southern-Pinghua",
+                "Nanning",
+                "Southern-Pinghua",
+                "Tingzi"
+              ],
+              "raw_tags": [
+                "Jyutping-plusplus"
+              ]
+            },
+            {
+              "ipa": "/tin²¹/",
+              "tags": [
+                "Southern-Pinghua",
+                "Nanning",
+                "Southern-Pinghua",
+                "Tingzi",
+                "Sinological-IPA"
+              ]
+            },
+            {
               "zh_pron": "⁶di",
               "tags": [
                 "Wu",
@@ -49850,14 +50673,66 @@
               ]
             },
             {
+              "zh_pron": "²di",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Ningbo"
+              ],
+              "raw_tags": [
+                "Songjiang",
+                "Wugniu"
+              ]
+            },
+            {
+              "zh_pron": "di^平",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Ningbo"
+              ],
+              "raw_tags": [
+                "Songjiang",
+                "MiniDict"
+              ]
+            },
+            {
+              "ipa": "/di³¹/",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Ningbo",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Songjiang",
+                "Songjiang"
+              ]
+            },
+            {
+              "ipa": "/di³¹³/",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Ningbo",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Songjiang"
+              ]
+            },
+            {
               "zh_pron": "²die",
               "tags": [
                 "Wu",
                 "Northern",
+                "Chongming",
                 "Suzhou"
               ],
               "raw_tags": [
+                "Jiading",
                 "Changzhou",
+                "Jiaxing",
                 "Wugniu"
               ]
             },
@@ -49866,11 +50741,45 @@
               "tags": [
                 "Wu",
                 "Northern",
+                "Chongming",
                 "Suzhou"
               ],
               "raw_tags": [
+                "Jiading",
                 "Changzhou",
+                "Jiaxing",
                 "MiniDict"
+              ]
+            },
+            {
+              "ipa": "/dɪ³¹/",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Chongming",
+                "Suzhou",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Jiading",
+                "Changzhou",
+                "Jiaxing",
+                "Jiading"
+              ]
+            },
+            {
+              "ipa": "/die²⁴/",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Chongming",
+                "Suzhou",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Jiading",
+                "Changzhou",
+                "Jiaxing"
               ]
             },
             {
@@ -49878,11 +50787,14 @@
               "tags": [
                 "Wu",
                 "Northern",
+                "Chongming",
                 "Suzhou",
                 "Sinological-IPA"
               ],
               "raw_tags": [
-                "Changzhou"
+                "Jiading",
+                "Changzhou",
+                "Jiaxing"
               ]
             },
             {
@@ -49890,12 +50802,134 @@
               "tags": [
                 "Wu",
                 "Northern",
+                "Chongming",
                 "Suzhou",
                 "Sinological-IPA"
               ],
               "raw_tags": [
+                "Jiading",
                 "Changzhou",
+                "Jiaxing",
                 "Changzhou"
+              ]
+            },
+            {
+              "ipa": "/die³¹/",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Chongming",
+                "Suzhou",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Jiading",
+                "Changzhou",
+                "Jiaxing",
+                "Jiaxing"
+              ]
+            },
+            {
+              "zh_pron": "²dien",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Hangzhou"
+              ],
+              "raw_tags": [
+                "Shaoxing",
+                "Zhoushan",
+                "Wugniu"
+              ]
+            },
+            {
+              "zh_pron": "dien^平",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Hangzhou"
+              ],
+              "raw_tags": [
+                "Shaoxing",
+                "Zhoushan",
+                "MiniDict"
+              ]
+            },
+            {
+              "ipa": "/diẽ̞²³/",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Hangzhou",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Shaoxing",
+                "Zhoushan"
+              ]
+            },
+            {
+              "ipa": "/diẽ²³¹/",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Hangzhou",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Shaoxing",
+                "Zhoushan",
+                "Shaoxing"
+              ]
+            },
+            {
+              "ipa": "/dĩ²²/",
+              "tags": [
+                "Wu",
+                "Northern",
+                "Hangzhou",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Shaoxing",
+                "Zhoushan",
+                "Zhoushan"
+              ]
+            },
+            {
+              "zh_pron": "²diaa",
+              "tags": [
+                "Wu",
+                "Jinhua"
+              ],
+              "raw_tags": [
+                "Wugniu"
+              ]
+            },
+            {
+              "zh_pron": "²dian",
+              "tags": [
+                "Wu",
+                "Jinhua"
+              ],
+              "raw_tags": [
+                "Wugniu"
+              ]
+            },
+            {
+              "ipa": "/dia³¹³/",
+              "tags": [
+                "Wu",
+                "Jinhua",
+                "Sinological-IPA"
+              ]
+            },
+            {
+              "ipa": "/diã³¹³/",
+              "tags": [
+                "Wu",
+                "Jinhua",
+                "Sinological-IPA"
               ]
             },
             {
@@ -49912,6 +50946,42 @@
                 "Xiang",
                 "Changsha",
                 "Sinological-IPA"
+              ]
+            },
+            {
+              "zh_pron": "ddinn²",
+              "tags": [
+                "Xiang",
+                "Loudi",
+                "Wiktionary-specific"
+              ]
+            },
+            {
+              "ipa": "/dĩ¹³/",
+              "tags": [
+                "Xiang",
+                "Loudi",
+                "Sinological-IPA"
+              ]
+            },
+            {
+              "zh_pron": "dien²",
+              "tags": [
+                "Xiang",
+                "Wiktionary-specific"
+              ],
+              "raw_tags": [
+                "Hengyang"
+              ]
+            },
+            {
+              "ipa": "/d̥i̯ɛn¹¹/",
+              "tags": [
+                "Xiang",
+                "Sinological-IPA"
+              ],
+              "raw_tags": [
+                "Hengyang"
               ]
             },
             {
@@ -49995,7 +51065,6 @@
               ]
             }
           ],
-          "word": "田",
           "lang": "Chinese",
           "lang_code": "zh"
         }

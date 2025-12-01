@@ -244,13 +244,13 @@
       [
         "αζωικός",
         [
-          "nominative plural masculine"
+          "nominative singular plural masculine"
         ]
       ],
       [
         "αζωικός",
         [
-          "vocative plural masculine"
+          "vocative singular plural masculine"
         ]
       ]
     ],
@@ -267,19 +267,19 @@
       [
         "αζωικός",
         [
-          "accusative plural feminine"
+          "accusative singular plural feminine"
         ]
       ],
       [
         "αζωικός",
         [
-          "nominative plural feminine"
+          "nominative singular plural feminine"
         ]
       ],
       [
         "αζωικός",
         [
-          "vocative plural feminine"
+          "vocative singular plural feminine"
         ]
       ]
     ],
@@ -296,19 +296,19 @@
       [
         "αζωικός",
         [
-          "accusative plural neuter"
+          "accusative singular plural neuter"
         ]
       ],
       [
         "αζωικός",
         [
-          "nominative plural neuter"
+          "nominative singular plural neuter"
         ]
       ],
       [
         "αζωικός",
         [
-          "vocative plural neuter"
+          "vocative singular plural neuter"
         ]
       ]
     ],
@@ -325,19 +325,19 @@
       [
         "αζωικός",
         [
-          "genitive plural feminine"
+          "genitive singular plural feminine"
         ]
       ],
       [
         "αζωικός",
         [
-          "genitive plural masculine"
+          "genitive singular plural masculine"
         ]
       ],
       [
         "αζωικός",
         [
-          "genitive plural neuter"
+          "genitive singular plural neuter"
         ]
       ]
     ],
@@ -354,7 +354,7 @@
       [
         "αζωικός",
         [
-          "accusative plural masculine"
+          "accusative singular plural masculine"
         ]
       ]
     ],
@@ -595,25 +595,13 @@
       [
         "ψηφίσας",
         [
-          "accusative plural neuter"
-        ]
-      ],
-      [
-        "ψηφίσας",
-        [
-          "nominative plural neuter"
-        ]
-      ],
-      [
-        "ψηφίσας",
-        [
-          "vocative plural neuter"
-        ]
-      ],
-      [
-        "ψηφίσας",
-        [
           "accusative singular masculine"
+        ]
+      ],
+      [
+        "ψηφίσας",
+        [
+          "accusative singular plural neuter"
         ]
       ],
       [
@@ -625,7 +613,19 @@
       [
         "ψηφίσας",
         [
+          "nominative singular plural neuter"
+        ]
+      ],
+      [
+        "ψηφίσας",
+        [
           "vocative singular masculine"
+        ]
+      ],
+      [
+        "ψηφίσας",
+        [
+          "vocative singular plural neuter"
         ]
       ]
     ],
@@ -676,19 +676,19 @@
       [
         "ψηφίσας",
         [
-          "accusative plural masculine"
+          "accusative singular plural masculine"
         ]
       ],
       [
         "ψηφίσας",
         [
-          "nominative plural masculine"
+          "nominative singular plural masculine"
         ]
       ],
       [
         "ψηφίσας",
         [
-          "vocative plural masculine"
+          "vocative singular plural masculine"
         ]
       ]
     ],
@@ -705,19 +705,19 @@
       [
         "ψηφίσας",
         [
-          "accusative plural feminine"
+          "accusative singular plural feminine"
         ]
       ],
       [
         "ψηφίσας",
         [
-          "nominative plural feminine"
+          "nominative singular plural feminine"
         ]
       ],
       [
         "ψηφίσας",
         [
-          "vocative plural feminine"
+          "vocative singular plural feminine"
         ]
       ]
     ],
@@ -734,13 +734,13 @@
       [
         "ψηφίσας",
         [
-          "genitive plural masculine"
+          "genitive singular plural masculine"
         ]
       ],
       [
         "ψηφίσας",
         [
-          "genitive plural neuter"
+          "genitive singular plural neuter"
         ]
       ]
     ],
@@ -757,7 +757,7 @@
       [
         "ψηφίσας",
         [
-          "genitive plural feminine"
+          "genitive singular plural feminine"
         ]
       ]
     ],

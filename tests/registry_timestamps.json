@@ -1,11 +1,85 @@
 {
-  "ja": {
-    "ja": [
-      "Thu, 27 Nov 2025 07:31:03 GMT",
-      "Thu, 27 Nov 2025 07:31:03 GMT",
-      "Thu, 27 Nov 2025 07:29:27 GMT",
-      "Thu, 27 Nov 2025 07:30:50 GMT"
+  "cs": {
+    "en": [
+      "Fri, 28 Nov 2025 02:03:05 GMT",
+      "Fri, 28 Nov 2025 01:26:44 GMT",
+      "Fri, 28 Nov 2025 01:39:03 GMT",
+      "Fri, 28 Nov 2025 01:54:17 GMT"
+    ]
+  },
+  "de": {
+    "de": [
+      "Sun, 30 Nov 2025 08:44:00 GMT",
+      "Sun, 30 Nov 2025 08:34:03 GMT",
+      "Sun, 30 Nov 2025 08:34:03 GMT",
+      "Sun, 30 Nov 2025 08:34:42 GMT"
     ],
+    "en": [
+      "Fri, 28 Nov 2025 00:56:26 GMT",
+      "Fri, 28 Nov 2025 00:44:27 GMT",
+      "Fri, 28 Nov 2025 00:27:03 GMT",
+      "Fri, 28 Nov 2025 00:17:43 GMT",
+      "Fri, 28 Nov 2025 01:06:52 GMT",
+      "Fri, 28 Nov 2025 01:27:02 GMT",
+      "Fri, 28 Nov 2025 01:27:02 GMT"
+    ]
+  },
+  "el": {
+    "el": [
+      "Thu, 27 Nov 2025 16:23:50 GMT",
+      "Thu, 27 Nov 2025 16:29:51 GMT",
+      "Thu, 27 Nov 2025 16:24:56 GMT",
+      "Thu, 27 Nov 2025 16:28:56 GMT",
+      "Thu, 27 Nov 2025 16:24:06 GMT",
+      "Thu, 27 Nov 2025 16:29:27 GMT"
+    ],
+    "en": [
+      "Fri, 28 Nov 2025 02:11:14 GMT"
+    ]
+  },
+  "en": {
+    "de": [
+      "Sun, 30 Nov 2025 08:42:54 GMT"
+    ],
+    "en": [
+      "Fri, 28 Nov 2025 01:22:18 GMT",
+      "Fri, 28 Nov 2025 00:19:18 GMT",
+      "Fri, 28 Nov 2025 01:33:58 GMT"
+    ],
+    "es": [
+      "Sun, 30 Nov 2025 22:30:34 GMT"
+    ]
+  },
+  "es": {
+    "en": [
+      "Fri, 28 Nov 2025 01:14:39 GMT",
+      "Fri, 28 Nov 2025 00:10:24 GMT"
+    ]
+  },
+  "fa": {
+    "en": [
+      "Fri, 28 Nov 2025 00:11:46 GMT",
+      "Fri, 28 Nov 2025 00:37:16 GMT"
+    ]
+  },
+  "fr": {
+    "en": [
+      "Fri, 28 Nov 2025 00:22:39 GMT",
+      "Fri, 28 Nov 2025 01:16:17 GMT",
+      "Fri, 28 Nov 2025 00:34:01 GMT",
+      "Fri, 28 Nov 2025 01:42:56 GMT",
+      "Fri, 28 Nov 2025 01:45:56 GMT"
+    ],
+    "fr": [
+      "Sun, 30 Nov 2025 11:58:39 GMT"
+    ]
+  },
+  "grc": {
+    "en": [
+      "Fri, 28 Nov 2025 02:13:38 GMT"
+    ]
+  },
+  "ja": {
     "en": [
       "Fri, 28 Nov 2025 01:03:52 GMT",
       "Fri, 28 Nov 2025 00:13:25 GMT",
@@ -14,6 +88,52 @@
       "Fri, 28 Nov 2025 00:30:26 GMT",
       "Fri, 28 Nov 2025 02:01:32 GMT",
       "Fri, 28 Nov 2025 00:50:54 GMT"
+    ],
+    "ja": [
+      "Mon, 01 Dec 2025 02:30:51 GMT",
+      "Mon, 01 Dec 2025 02:30:51 GMT",
+      "Mon, 01 Dec 2025 02:30:29 GMT",
+      "Mon, 01 Dec 2025 02:31:51 GMT"
+    ]
+  },
+  "ko": {
+    "en": [
+      "Fri, 28 Nov 2025 00:13:39 GMT"
+    ]
+  },
+  "la": {
+    "en": [
+      "Fri, 28 Nov 2025 00:40:15 GMT",
+      "Fri, 28 Nov 2025 01:02:25 GMT",
+      "Fri, 28 Nov 2025 02:07:34 GMT",
+      "Fri, 28 Nov 2025 00:29:41 GMT",
+      "Fri, 28 Nov 2025 00:15:19 GMT",
+      "Fri, 28 Nov 2025 00:34:29 GMT"
+    ]
+  },
+  "ru": {
+    "en": [
+      "Fri, 28 Nov 2025 01:39:15 GMT",
+      "Fri, 28 Nov 2025 00:34:59 GMT",
+      "Fri, 28 Nov 2025 00:12:07 GMT",
+      "Fri, 28 Nov 2025 02:00:19 GMT",
+      "Fri, 28 Nov 2025 01:22:24 GMT"
+    ],
+    "ru": [
+      "Mon, 01 Dec 2025 00:15:23 GMT",
+      "Mon, 01 Dec 2025 00:16:49 GMT"
+    ]
+  },
+  "sq": {
+    "en": [
+      "Fri, 28 Nov 2025 00:36:07 GMT",
+      "Fri, 28 Nov 2025 01:41:52 GMT",
+      "Fri, 28 Nov 2025 00:20:25 GMT"
+    ]
+  },
+  "zh": {
+    "en": [
+      "Fri, 28 Nov 2025 01:45:20 GMT"
     ]
   }
 }

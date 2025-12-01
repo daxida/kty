@@ -22,6 +22,14 @@
           ]
         },
         {
+          "ipa": "/tʰiã²⁴/",
+          "tags": [
+            "Mandarin",
+            "Xi'an",
+            "Sinological-IPA"
+          ]
+        },
+        {
           "ipa": "/tʰiẽ²⁴/",
           "tags": [
             "Mandarin",
@@ -42,6 +50,14 @@
           "tags": [
             "Cantonese",
             "Guangzhou",
+            "Sinological-IPA"
+          ]
+        },
+        {
+          "ipa": "/tʰin²¹/",
+          "tags": [
+            "Cantonese",
+            "Dongguan",
             "Sinological-IPA"
           ]
         },
@@ -137,7 +153,7 @@
             "Quanzhou",
             "Zhangzhou",
             "Jinjiang",
-            "IPA",
+            "Sinological-IPA",
             "Kaohsiung"
           ]
         },
@@ -150,7 +166,7 @@
             "Quanzhou",
             "Zhangzhou",
             "Jinjiang",
-            "IPA",
+            "Sinological-IPA",
             "Taipei"
           ]
         },
@@ -163,7 +179,7 @@
             "Quanzhou",
             "Zhangzhou",
             "Jinjiang",
-            "IPA"
+            "Sinological-IPA"
           ]
         },
         {
@@ -183,6 +199,23 @@
           ]
         },
         {
+          "ipa": "/tʰieŋ²²/",
+          "tags": [
+            "Leizhou",
+            "Sinological-IPA"
+          ]
+        },
+        {
+          "ipa": "/tin²¹/",
+          "tags": [
+            "Southern-Pinghua",
+            "Nanning",
+            "Southern-Pinghua",
+            "Tingzi",
+            "Sinological-IPA"
+          ]
+        },
+        {
           "ipa": "/di²³/",
           "tags": [
             "Wu",
@@ -192,10 +225,49 @@
           ]
         },
         {
+          "ipa": "/di³¹/",
+          "tags": [
+            "Wu",
+            "Northern",
+            "Ningbo",
+            "Sinological-IPA"
+          ]
+        },
+        {
+          "ipa": "/di³¹³/",
+          "tags": [
+            "Wu",
+            "Northern",
+            "Ningbo",
+            "Sinological-IPA"
+          ]
+        },
+        {
+          "ipa": "/dɪ³¹/",
+          "tags": [
+            "Wu",
+            "Northern",
+            "Chongming",
+            "Suzhou",
+            "Sinological-IPA"
+          ]
+        },
+        {
+          "ipa": "/die²⁴/",
+          "tags": [
+            "Wu",
+            "Northern",
+            "Chongming",
+            "Suzhou",
+            "Sinological-IPA"
+          ]
+        },
+        {
           "ipa": "/dɪ²²³/",
           "tags": [
             "Wu",
             "Northern",
+            "Chongming",
             "Suzhou",
             "Sinological-IPA"
           ]
@@ -205,7 +277,61 @@
           "tags": [
             "Wu",
             "Northern",
+            "Chongming",
             "Suzhou",
+            "Sinological-IPA"
+          ]
+        },
+        {
+          "ipa": "/die³¹/",
+          "tags": [
+            "Wu",
+            "Northern",
+            "Chongming",
+            "Suzhou",
+            "Sinological-IPA"
+          ]
+        },
+        {
+          "ipa": "/diẽ̞²³/",
+          "tags": [
+            "Wu",
+            "Northern",
+            "Hangzhou",
+            "Sinological-IPA"
+          ]
+        },
+        {
+          "ipa": "/diẽ²³¹/",
+          "tags": [
+            "Wu",
+            "Northern",
+            "Hangzhou",
+            "Sinological-IPA"
+          ]
+        },
+        {
+          "ipa": "/dĩ²²/",
+          "tags": [
+            "Wu",
+            "Northern",
+            "Hangzhou",
+            "Sinological-IPA"
+          ]
+        },
+        {
+          "ipa": "/dia³¹³/",
+          "tags": [
+            "Wu",
+            "Jinhua",
+            "Sinological-IPA"
+          ]
+        },
+        {
+          "ipa": "/diã³¹³/",
+          "tags": [
+            "Wu",
+            "Jinhua",
             "Sinological-IPA"
           ]
         },
@@ -214,6 +340,21 @@
           "tags": [
             "Xiang",
             "Changsha",
+            "Sinological-IPA"
+          ]
+        },
+        {
+          "ipa": "/dĩ¹³/",
+          "tags": [
+            "Xiang",
+            "Loudi",
+            "Sinological-IPA"
+          ]
+        },
+        {
+          "ipa": "/d̥i̯ɛn¹¹/",
+          "tags": [
+            "Xiang",
             "Sinological-IPA"
           ]
         },
@@ -241,6 +382,13 @@
           ]
         },
         {
+          "ipa": "/t͡sʰe̞ŋ¹³/",
+          "tags": [
+            "Puxian-Min",
+            "Sinological-IPA"
+          ]
+        },
+        {
           "ipa": "/t͡sʰɛŋ²⁴/",
           "tags": [
             "Puxian-Min",
@@ -258,7 +406,7 @@
             "Jinjiang",
             "Changtai",
             "Singapore",
-            "IPA",
+            "Sinological-IPA",
             "Taipei"
           ]
         },
@@ -273,7 +421,7 @@
             "Jinjiang",
             "Changtai",
             "Singapore",
-            "IPA"
+            "Sinological-IPA"
           ]
         },
         {
@@ -287,7 +435,7 @@
             "Jinjiang",
             "Changtai",
             "Singapore",
-            "IPA",
+            "Sinological-IPA",
             "Kaohsiung"
           ]
         },
@@ -296,6 +444,14 @@
           "tags": [
             "Min-Nan",
             "Teochew",
+            "Sinological-IPA"
+          ]
+        },
+        {
+          "ipa": "/t͡sʰaŋ²²/",
+          "tags": [
+            "Min-Nan",
+            "Leizhou",
             "Sinological-IPA"
           ]
         }

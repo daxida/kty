@@ -253,7 +253,28 @@
                             "data": {
                               "content": "summary-entry"
                             },
-                            "content": "2 examples"
+                            "content": "3 examples"
+                          },
+                          {
+                            "tag": "div",
+                            "data": {
+                              "content": "extra-info"
+                            },
+                            "content": {
+                              "tag": "div",
+                              "data": {
+                                "content": "example-sentence"
+                              },
+                              "content": [
+                                {
+                                  "tag": "div",
+                                  "data": {
+                                    "content": "example-sentence-a"
+                                  },
+                                  "content": "Let's bring our differences to an issue."
+                                }
+                              ]
+                            }
                           },
                           {
                             "tag": "div",

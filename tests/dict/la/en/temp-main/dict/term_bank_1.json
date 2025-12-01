@@ -613,7 +613,7 @@
                                   "data": {
                                     "content": "example-sentence-a"
                                   },
-                                  "content": "Lingua Graeca est; nōn potest legī."
+                                  "content": "Graecum est; nōn legitur."
                                 },
                                 {
                                   "tag": "div",
@@ -881,7 +881,7 @@
                             "data": {
                               "content": "summary-entry"
                             },
-                            "content": "2 examples"
+                            "content": "3 examples"
                           },
                           {
                             "tag": "div",
@@ -899,14 +899,14 @@
                                   "data": {
                                     "content": "example-sentence-a"
                                   },
-                                  "content": ", Latin Vulgate translation of Psalm 71:8; Canadian national motto\nĀ marī usque ad mare."
+                                  "content": "Eōsdem facile addūcam, ut tē haec quae vastāre iam prīdem studēs relinquentem, usque ad portās prōsequantur."
                                 },
                                 {
                                   "tag": "div",
                                   "data": {
                                     "content": "example-sentence-b"
                                   },
-                                  "content": "From sea unto sea."
+                                  "content": "I shall easily persuade the same [men], that as you are leaving these [things] which you have long been eager to destroy, they may escort [you] all the way to the [city] gates."
                                 }
                               ]
                             }
@@ -935,6 +935,34 @@
                                     "content": "example-sentence-b"
                                   },
                                   "content": "from the beginning to the end\n(literally, “from the egg to the apples”)"
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "tag": "div",
+                            "data": {
+                              "content": "extra-info"
+                            },
+                            "content": {
+                              "tag": "div",
+                              "data": {
+                                "content": "example-sentence"
+                              },
+                              "content": [
+                                {
+                                  "tag": "div",
+                                  "data": {
+                                    "content": "example-sentence-a"
+                                  },
+                                  "content": ", Latin Vulgate translation of Psalm 71:8; Canadian national motto\nĀ marī usque ad mare."
+                                },
+                                {
+                                  "tag": "div",
+                                  "data": {
+                                    "content": "example-sentence-b"
+                                  },
+                                  "content": "From sea unto sea."
                                 }
                               ]
                             }
