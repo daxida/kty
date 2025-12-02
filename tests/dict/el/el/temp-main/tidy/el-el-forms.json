@@ -308,5 +308,110 @@
         ]
       ]
     }
+  },
+  "εκφρασμένος": {
+    "εκφρασμένη": {
+      "verb": [
+        "extracted",
+        [
+          "accusative singular feminine",
+          "nominative singular feminine",
+          "vocative singular feminine"
+        ]
+      ]
+    },
+    "εκφρασμένο": {
+      "verb": [
+        "extracted",
+        [
+          "accusative singular masculine",
+          "accusative singular neuter",
+          "nominative singular neuter",
+          "vocative singular neuter"
+        ]
+      ]
+    },
+    "εκφρασμένου": {
+      "verb": [
+        "extracted",
+        [
+          "genitive singular masculine",
+          "genitive singular neuter"
+        ]
+      ]
+    },
+    "εκφρασμένης": {
+      "verb": [
+        "extracted",
+        [
+          "genitive singular feminine"
+        ]
+      ]
+    },
+    "εκφρασμένε": {
+      "verb": [
+        "extracted",
+        [
+          "vocative singular masculine"
+        ]
+      ]
+    },
+    "εκφρασμένοι": {
+      "verb": [
+        "extracted",
+        [
+          "nominative plural masculine",
+          "vocative plural masculine"
+        ]
+      ]
+    },
+    "εκφρασμένες": {
+      "verb": [
+        "extracted",
+        [
+          "accusative plural feminine",
+          "nominative plural feminine",
+          "vocative plural feminine"
+        ]
+      ]
+    },
+    "εκφρασμένα": {
+      "verb": [
+        "extracted",
+        [
+          "accusative plural neuter",
+          "nominative plural neuter",
+          "vocative plural neuter"
+        ]
+      ]
+    },
+    "εκφρασμένων": {
+      "verb": [
+        "extracted",
+        [
+          "genitive plural feminine",
+          "genitive plural masculine",
+          "genitive plural neuter"
+        ]
+      ]
+    },
+    "εκφρασμένους": {
+      "verb": [
+        "extracted",
+        [
+          "accusative plural masculine"
+        ]
+      ]
+    }
+  },
+  "εκφράζω": {
+    "εκφρασμένος": {
+      "verb": [
+        "inflection",
+        [
+          "redirected from εκφρασμένος"
+        ]
+      ]
+    }
   }
 }

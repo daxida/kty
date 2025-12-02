@@ -279,7 +279,7 @@ fn lemma_map_len(lemma_map: &LemmaMap) -> usize {
         .values()
         .flat_map(|reading_map| reading_map.values())
         .flat_map(|pos_map| pos_map.values())
-        .map(|ety_map| ety_map.len())
+        .map(Map::len)
         .sum()
 }
 
@@ -479,8 +479,9 @@ fn tidy_run(langs: &MainLangs, options: &ArgsOptions, reader_path: &Path) -> Res
 
         process_alt_forms(&word_entry, &mut ret);
 
-        // dont push lemma if inflection
-        if word_entry.senses.is_empty() {
+        // Don't push a lemma if the word_entry has no glosses (f.e. if it is an inflection etc.)
+        if contains_no_gloss(&word_entry) {
+            process_no_gloss(target, &word_entry, &mut ret);
             continue;
         }
 
@@ -548,7 +549,7 @@ fn preprocess_word_entry(
         ];
 
         if let Some(cform) = get_canonical_form(word_entry) {
-            let cform_tags: Vec<_> = cform.tags.iter().map(|tag| tag.clone()).collect();
+            let cform_tags: Vec<_> = cform.tags.clone();
             for sense in &mut word_entry.senses {
                 for tag in &cform_tags {
                     if tag_matches.contains(&tag.as_str()) && !sense.tags.contains(tag) {
@@ -693,7 +694,7 @@ fn process_forms(word_entry: &WordEntry, ret: &mut Tidy) {
     }
 }
 
-/// Add AltOf forms. That is, alternative forms.
+/// Add `AltOf` forms. That is, alternative forms.
 fn process_alt_forms(word_entry: &WordEntry, ret: &mut Tidy) {
     let base_tags = vec!["alt-of".to_string()];
 
@@ -720,6 +721,45 @@ fn process_alt_forms(word_entry: &WordEntry, ret: &mut Tidy) {
                 sense_tags.clone(),
             );
         }
+    }
+}
+
+/// Check if a `word_entry` contains no glosses.
+///
+/// Happens if there are no senses, or if there is a single sense with the "no-gloss" tag.
+fn contains_no_gloss(word_entry: &WordEntry) -> bool {
+    match word_entry.senses.as_slice() {
+        [] => true,
+        [sense] => sense.tags.iter().any(|tag| tag == "no-gloss"),
+        _ => false,
+    }
+}
+
+/// Process "no-gloss" word entries for alternative ways of adding lemmas/forms.
+fn process_no_gloss(target: EditionLang, word_entry: &WordEntry, ret: &mut Tidy) {
+    match target {
+        // Unfortunately we are in the same A from B, B from C situation discussed in
+        // preprocess_word_entry. There is no easy solution for adding the lemma back because at
+        // this point the gloss has been deleted. Maybe reconsider the original approach of
+        // deleting glosses, and mark them somehow as "inflection-only".
+        //
+        // At any rate, this will still add useful redirections.
+        EditionLang::El => {
+            // This is how Kaikki stores participles (μετοχές). Cf. preprocess_word_entry
+            if word_entry.pos == "verb"
+                && word_entry.tags.iter().any(|t| t == "participle")
+                && let Some(form_of) = word_entry.form_of.first()
+            {
+                ret.insert_form(
+                    &form_of.word,
+                    &word_entry.word,
+                    &word_entry.pos,
+                    FormSource::Inflection,
+                    vec![format!("redirected from {}", word_entry.word)],
+                );
+            }
+        }
+        _ => (),
     }
 }
 
@@ -2598,6 +2638,7 @@ mod tests {
         ArgsOptions {
             save_temps: true,
             pretty: true,
+            experimental: false,
             root_dir: fixture_dir.to_path_buf(),
             ..Default::default()
         }

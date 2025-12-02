@@ -763,5 +763,270 @@
     ],
     0,
     ""
+  ],
+  [
+    "εκφρασμένη",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "εκφρασμένος",
+        [
+          "accusative singular feminine"
+        ]
+      ],
+      [
+        "εκφρασμένος",
+        [
+          "nominative singular feminine"
+        ]
+      ],
+      [
+        "εκφρασμένος",
+        [
+          "vocative singular feminine"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "εκφρασμένο",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "εκφρασμένος",
+        [
+          "accusative singular masculine"
+        ]
+      ],
+      [
+        "εκφρασμένος",
+        [
+          "accusative singular neuter"
+        ]
+      ],
+      [
+        "εκφρασμένος",
+        [
+          "nominative singular neuter"
+        ]
+      ],
+      [
+        "εκφρασμένος",
+        [
+          "vocative singular neuter"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "εκφρασμένου",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "εκφρασμένος",
+        [
+          "genitive singular masculine"
+        ]
+      ],
+      [
+        "εκφρασμένος",
+        [
+          "genitive singular neuter"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "εκφρασμένης",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "εκφρασμένος",
+        [
+          "genitive singular feminine"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "εκφρασμένε",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "εκφρασμένος",
+        [
+          "vocative singular masculine"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "εκφρασμένοι",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "εκφρασμένος",
+        [
+          "nominative plural masculine"
+        ]
+      ],
+      [
+        "εκφρασμένος",
+        [
+          "vocative plural masculine"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "εκφρασμένες",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "εκφρασμένος",
+        [
+          "accusative plural feminine"
+        ]
+      ],
+      [
+        "εκφρασμένος",
+        [
+          "nominative plural feminine"
+        ]
+      ],
+      [
+        "εκφρασμένος",
+        [
+          "vocative plural feminine"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "εκφρασμένα",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "εκφρασμένος",
+        [
+          "accusative plural neuter"
+        ]
+      ],
+      [
+        "εκφρασμένος",
+        [
+          "nominative plural neuter"
+        ]
+      ],
+      [
+        "εκφρασμένος",
+        [
+          "vocative plural neuter"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "εκφρασμένων",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "εκφρασμένος",
+        [
+          "genitive plural feminine"
+        ]
+      ],
+      [
+        "εκφρασμένος",
+        [
+          "genitive plural masculine"
+        ]
+      ],
+      [
+        "εκφρασμένος",
+        [
+          "genitive plural neuter"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "εκφρασμένους",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "εκφρασμένος",
+        [
+          "accusative plural masculine"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "εκφρασμένος",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "εκφράζω",
+        [
+          "redirected from εκφρασμένος"
+        ]
+      ]
+    ],
+    0,
+    ""
   ]
 ]
