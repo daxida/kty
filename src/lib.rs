@@ -523,28 +523,25 @@ fn preprocess_word_entry(
     // WARN: mutates word_entry::senses::sense::tags
     //
     // [en]
-    // not entirely sure why this hack was needed... (can't we just look at forms?)
-    // it does indeed add some tags from head_templates in the grc/en testsuite
+    // the original fetched them from head_templates but it is better not to touch that
+    // and we can do the same by looking at the tags of the canonical form.
     if matches!(target, EditionLang::En) {
         let tag_matches = [
-            ["pf", "perfective"],
-            ["impf", "imperfective"],
-            ["m", "masculine"],
-            ["f", "feminine"],
-            ["n", "neuter"],
-            ["inan", "inanimate"],
-            ["anim", "animate"],
+            "perfective",
+            "imperfective",
+            "masculine",
+            "feminine",
+            "neuter",
+            "inanimate",
+            "animate",
         ];
-        for head_template in &word_entry.head_templates {
-            let cleaned = PARENS_RE.replace_all(&head_template.expansion, "");
-            let words: Vec<_> = cleaned.split_whitespace().collect();
 
+        if let Some(cform) = get_canonical_form(word_entry) {
+            let cform_tags: Vec<_> = cform.tags.iter().map(|tag| tag.clone()).collect();
             for sense in &mut word_entry.senses {
-                for tag_match in tag_matches {
-                    let short_tag = tag_match[0];
-                    let long_tag = tag_match[1].to_string();
-                    if words.contains(&short_tag) && !sense.tags.contains(&long_tag) {
-                        sense.tags.push(long_tag);
+                for tag in &cform_tags {
+                    if tag_matches.contains(&tag.as_str()) && !sense.tags.contains(tag) {
+                        sense.tags.push(tag.into());
                     }
                 }
             }
@@ -899,7 +896,6 @@ fn get_ipas(word_entry: &WordEntry) -> Vec<Ipa> {
 }
 
 // rg: getheadinfo
-// if there is no head_templates we compile the regex pointlessly but it should return None
 fn get_head_info(head_templates: &[HeadTemplate]) -> Option<String> {
     // WARN: cant do lookbehinds in rust!
     for head_template in head_templates {
