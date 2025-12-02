@@ -2772,10 +2772,10 @@ mod tests {
                 &pm.dir_temp_dict().to_string_lossy(),
             ])
             .output()?;
-        // if !output.stdout.is_empty() {
-        //     eprintln!("{}", String::from_utf8_lossy(&output.stdout));
-        //     bail!("changes!")
-        // }
+        if !output.stdout.is_empty() {
+            eprintln!("{}", String::from_utf8_lossy(&output.stdout));
+            bail!("changes!")
+        }
 
         Ok(())
     }

@@ -2,8 +2,12 @@
   "rejected": {},
   "accepted": {
     "noun": [
-      3,
+      4,
       "Rock"
+    ],
+    "verb": [
+      1,
+      "ausmachen"
     ]
   }
 }

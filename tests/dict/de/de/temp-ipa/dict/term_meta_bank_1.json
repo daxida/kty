@@ -67,5 +67,29 @@
         }
       ]
     }
+  ],
+  [
+    "ausmachen",
+    "ipa",
+    {
+      "reading": "ausmachen",
+      "transcriptions": [
+        {
+          "ipa": "[ˈaʊ̯sˌmaxn̩]"
+        }
+      ]
+    }
+  ],
+  [
+    "Peter",
+    "ipa",
+    {
+      "reading": "Peter",
+      "transcriptions": [
+        {
+          "ipa": "[ˈpeːtɐ]"
+        }
+      ]
+    }
   ]
 ]

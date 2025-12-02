@@ -104,5 +104,141 @@
         }
       }
     }
+  },
+  "ausmachen": {
+    "ausmachen": {
+      "verb": {
+        "0": {
+          "glossTree": {
+            "ein Gerät (Lampe, Heizung, Elektrogerät etc.) abschalten, ein Feuer löschen": {
+              "examples": [
+                {
+                  "text": "Er macht den Fernseher aus.",
+                  "translation": ""
+                },
+                {
+                  "text": "Hast du die Heizung ausgemacht?",
+                  "translation": ""
+                },
+                {
+                  "text": "Ich mache die Kerze aus.",
+                  "translation": ""
+                }
+              ]
+            },
+            "eine Vereinbarung treffen; einen Termin festsetzen": {
+              "examples": [
+                {
+                  "text": "Es war ausgemacht, im Anzug zu erscheinen.",
+                  "translation": ""
+                },
+                {
+                  "text": "„Sie war Trudis Vorschlag gefolgt und hatte einen Termin beim Friseur Riss ausgemacht.“",
+                  "translation": ""
+                }
+              ]
+            },
+            "ein Spiel mit finalen Zug oder eine Angelegenheit beenden": {
+              "examples": [
+                {
+                  "text": "Wenn man mit einem Buben ausmacht, sagt man Maumau.",
+                  "translation": ""
+                },
+                {
+                  "text": "Sie machten den Streit schließlich doch vor Gericht aus.",
+                  "translation": ""
+                }
+              ]
+            },
+            "das Wesentliche an etwas sein": {
+              "examples": [
+                {
+                  "text": "Was unsere Freundschaft ausmachte? Dass wir immer für einander da waren!",
+                  "translation": ""
+                }
+              ]
+            },
+            "eine bestimmte Menge darstellen": {
+              "examples": [
+                {
+                  "text": "Kinder machen nur einen geringen Anteil der deutschen Bevölkerung aus.",
+                  "translation": ""
+                }
+              ]
+            },
+            "mit Dativ-Objekt: durch etwas gestört werden, jemandem etwas bedeuten": {
+              "examples": [
+                {
+                  "text": "Es macht mir überhaupt nichts aus, dass es heute regnet.",
+                  "translation": ""
+                }
+              ]
+            },
+            "etwas entfernt liegendes erkennen": {
+              "examples": [
+                {
+                  "text": "Am anderen Ufer konnte der Forscher eine Gruppe Krokodile ausmachen.",
+                  "translation": ""
+                }
+              ]
+            },
+            "veraltet, ostmitteldeutsch: etwas herausnehmen, meist aus der Erde": {
+              "examples": [
+                {
+                  "text": "Die Bauern machten nun wie jedes Jahr die Kartoffeln aus.",
+                  "translation": ""
+                },
+                {
+                  "text": "„Beim nächsten Haus war ein Gemüsegarten. Ein junges Mädchen machte Unkraut aus, …“",
+                  "translation": ""
+                }
+              ]
+            },
+            "etwas austragen, abmachen": {
+              "examples": [
+                {
+                  "text": "Das muss er mit seinem Gewissen ausmachen.",
+                  "translation": ""
+                }
+              ]
+            }
+          },
+          "wlink": "https://de.wiktionary.org/wiki/ausmachen#German",
+          "klink": "https://kaikki.org/dewiktionary/All%20languages%20combined/meaning/a/au/ausmachen.html"
+        }
+      }
+    }
+  },
+  "Peter": {
+    "Peter": {
+      "noun": {
+        "0": {
+          "glossTree": {
+            "männlicher Vorname": {
+              "examples": [
+                {
+                  "text": "Anna und Peter haben sieben Kinder.",
+                  "translation": ""
+                },
+                {
+                  "text": "Peter spielt gern.",
+                  "translation": ""
+                },
+                {
+                  "text": "Peter Müller wollte uns kein Interview geben.",
+                  "translation": ""
+                },
+                {
+                  "text": "Kennen sie den Vornamen Peter?",
+                  "translation": ""
+                }
+              ]
+            }
+          },
+          "wlink": "https://de.wiktionary.org/wiki/Peter#German",
+          "klink": "https://kaikki.org/dewiktionary/All%20languages%20combined/meaning/P/Pe/Peter.html"
+        }
+      }
+    }
   }
 }
