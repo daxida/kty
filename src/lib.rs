@@ -1778,7 +1778,8 @@ fn make_yomitan(
     )
 }
 
-const STYLES_CSS: &[u8] = include_bytes!("../assets/styles.css"); // = ../args.path_styles()
+const STYLES_CSS: &[u8] = include_bytes!("../assets/styles.css");
+const STYLES_CSS_EXPERIMENTAL: &[u8] = include_bytes!("../assets/styles_experimental.css");
 
 /// Write lemma / form / whatever banks to either disk or zip.
 ///
@@ -1821,15 +1822,11 @@ fn write_yomitan(
 
         // Copy paste styles.css
         zip.start_file("styles.css", zip_options)?;
-        zip.write_all(STYLES_CSS)?;
+
         if options.experimental {
-            // Do not jump to the next line after tags
-            let extra = br#"
-div[data-sc-content="tags"] {
-    display: inline;
-}
-"#;
-            zip.write_all(extra)?;
+            zip.write_all(STYLES_CSS_EXPERIMENTAL)?;
+        } else {
+            zip.write_all(STYLES_CSS)?;
         }
 
         // Copy paste tag_bank.json
