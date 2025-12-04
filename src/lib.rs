@@ -30,15 +30,14 @@ use crate::cli::{ArgsOptions, MainArgs, MainLangs, PathManager};
 use crate::download::html::download_jsonl;
 use crate::lang::{EditionLang, Lang};
 use crate::locale::get_locale_examples_string;
-use crate::models::kaikki::{Example, Form, HeadTemplate, Pos, Sense, Tag, WordEntry};
+use crate::models::kaikki::{Example, HeadTemplate, Pos, Sense, Tag, WordEntry};
 use crate::models::yomitan::{
     BacklinkContent, DetailedDefinition, GenericNode, Ipa, NTag, Node, NodeData,
     PhoneticTranscription, TermBank, TermBankMeta, TermPhoneticTranscription, YomitanEntry, wrap,
 };
 use crate::tags::{
-    BLACKLISTED_TAGS, IDENTITY_TAGS, REDUNDANT_TAGS, find_pos, find_tag_in_bank,
-    get_tag_bank_as_tag_info, merge_person_tags, remove_redundant_tags, sort_tags,
-    sort_tags_by_similar,
+    REDUNDANT_FORM_TAGS, find_pos, find_tag_in_bank, get_tag_bank_as_tag_info, merge_person_tags,
+    remove_redundant_tags, sort_tags, sort_tags_by_similar,
 };
 use crate::utils::{CHECK_C, SKIP_C, pretty_print_at_path, pretty_println_at_path};
 
@@ -481,7 +480,7 @@ fn tidy_run(langs: &MainLangs, options: &ArgsOptions, reader_path: &Path) -> Res
         process_alt_forms(&word_entry, &mut ret);
 
         // Don't push a lemma if the word_entry has no glosses (f.e. if it is an inflection etc.)
-        if contains_no_gloss(&word_entry) {
+        if word_entry.contains_no_gloss() {
             process_no_gloss(target, &word_entry, &mut ret);
             continue;
         }
@@ -549,7 +548,7 @@ fn preprocess_word_entry(
             "animate",
         ];
 
-        if let Some(cform) = get_canonical_form(word_entry) {
+        if let Some(cform) = word_entry.canonical_form() {
             let cform_tags: Vec<_> = cform.tags.clone();
             for sense in &mut word_entry.senses {
                 for tag in &cform_tags {
@@ -621,7 +620,7 @@ fn preprocess_word_entry(
     let mut senses_without_inflections = Vec::new();
     for sense in old_senses {
         if is_inflection_gloss(target, word_entry, &sense)
-            && (!options.experimental || get_non_trivial_forms(word_entry).next().is_none())
+            && (!options.experimental || word_entry.non_trivial_forms().next().is_none())
         {
             handle_inflection_gloss(source, target, word_entry, &sense, ret);
         } else {
@@ -631,53 +630,14 @@ fn preprocess_word_entry(
     word_entry.senses = senses_without_inflections;
 }
 
-fn get_non_trivial_forms(word_entry: &WordEntry) -> impl Iterator<Item = &Form> {
-    word_entry.forms.iter().filter(move |form| {
-        if form.form == word_entry.word {
-            return false;
-        }
-
-        // blacklisted forms (happens at least in English)
-        // Usually it has the meaning of "empty cell" in an inflection table
-        if form.form == "-" {
-            return false;
-        }
-
-        // https://github.com/tatuylonen/wiktextract/issues/1494
-        // this should fix it, but it is hacky
-        // * wait until the editor's answer: https://en.wiktionary.org/wiki/User_talk:Saltmarsh
-        //   in case they fix the template and this is not needed.
-        // if matches!(args.source, Lang::El) {
-        //     if form.form == "ο" || form.form == "η" {
-        //         return false;
-        //     }
-        // }
-
-        // blacklisted tags (happens at least in Russian: romanization)
-        let is_blacklisted = form
-            .tags
-            .iter()
-            .any(|tag| BLACKLISTED_TAGS.contains(&tag.as_str()));
-        let is_identity = form
-            .tags
-            .iter()
-            .all(|tag| IDENTITY_TAGS.contains(&tag.as_str()));
-        if is_blacklisted || is_identity {
-            return false;
-        }
-
-        true
-    })
-}
-
 /// Add Extracted forms. That is, forms from `word_entry.forms`.
 fn process_forms(word_entry: &WordEntry, ret: &mut Tidy) {
-    for form in get_non_trivial_forms(word_entry) {
+    for form in word_entry.non_trivial_forms() {
         let mut filtered_tags: Vec<Tag> = form
             .tags
             .clone()
             .into_iter()
-            .filter(|tag| !REDUNDANT_TAGS.contains(&tag.as_str()))
+            .filter(|tag| !REDUNDANT_FORM_TAGS.contains(&tag.as_str()))
             .collect();
         if filtered_tags.is_empty() {
             continue;
@@ -725,17 +685,6 @@ fn process_alt_forms(word_entry: &WordEntry, ret: &mut Tidy) {
     }
 }
 
-/// Check if a `word_entry` contains no glosses.
-///
-/// Happens if there are no senses, or if there is a single sense with the "no-gloss" tag.
-fn contains_no_gloss(word_entry: &WordEntry) -> bool {
-    match word_entry.senses.as_slice() {
-        [] => true,
-        [sense] => sense.tags.iter().any(|tag| tag == "no-gloss"),
-        _ => false,
-    }
-}
-
 /// Process "no-gloss" word entries for alternative ways of adding lemmas/forms.
 fn process_no_gloss(target: EditionLang, word_entry: &WordEntry, ret: &mut Tidy) {
     match target {
@@ -767,12 +716,12 @@ fn process_no_gloss(target: EditionLang, word_entry: &WordEntry, ret: &mut Tidy)
 // There are potentially more than one, but I haven't seen that happen
 fn get_reading(edition: EditionLang, source: Lang, word_entry: &WordEntry) -> String {
     match (edition, source) {
-        (EditionLang::Ja, _) => match get_transliteration_form(word_entry) {
+        (EditionLang::Ja, _) => match word_entry.transliteration_form() {
             Some(form) => form.form.clone(),
             None => word_entry.word.clone(),
         },
         (EditionLang::En, Lang::Ja) => get_japanese_reading(word_entry),
-        (EditionLang::En, Lang::Fa) => match get_romanization_form(word_entry) {
+        (EditionLang::En, Lang::Fa) => match word_entry.romanization_form() {
             Some(form) => form.form.clone(),
             None => word_entry.word.clone(),
         },
@@ -787,37 +736,12 @@ fn get_reading(edition: EditionLang, source: Lang, word_entry: &WordEntry) -> St
 /// this will return fāma).
 fn get_canonical_word(source: Lang, word_entry: &WordEntry) -> &str {
     match source {
-        Lang::La | Lang::Ru | Lang::Grc => match get_canonical_form(word_entry) {
+        Lang::La | Lang::Ru | Lang::Grc => match word_entry.canonical_form() {
             Some(cform) => &cform.form,
             None => &word_entry.word,
         },
         _ => &word_entry.word,
     }
-}
-
-/// Return all non-empty forms that contain all given tags.
-fn get_tagged_forms<'a>(
-    word_entry: &'a WordEntry,
-    tags: &[&str],
-) -> impl Iterator<Item = &'a Form> {
-    word_entry.forms.iter().filter(|form| {
-        !form.form.is_empty() && tags.iter().all(|tag| form.tags.iter().any(|t| t == tag))
-    })
-}
-
-/// Return the first non-empty form with the `canonical` tag.
-fn get_canonical_form(word_entry: &WordEntry) -> Option<&Form> {
-    get_tagged_forms(word_entry, &["canonical"]).next()
-}
-
-/// Return the first non-empty form with the `romanization` tag.
-fn get_romanization_form(word_entry: &WordEntry) -> Option<&Form> {
-    get_tagged_forms(word_entry, &["romanization"]).next()
-}
-
-/// Return the first non-empty form with the `transliteration` tag.
-fn get_transliteration_form(word_entry: &WordEntry) -> Option<&Form> {
-    get_tagged_forms(word_entry, &["transliteration"]).next()
 }
 
 // Does not support multiple readings
@@ -839,7 +763,7 @@ fn get_japanese_reading(word_entry: &WordEntry) -> String {
     // }
 
     // I really don't want to touch templates so instead, replace the ruby
-    if let Some(cform) = get_canonical_form(word_entry)
+    if let Some(cform) = word_entry.canonical_form()
         && !cform.ruby.is_empty()
     {
         // https://github.com/tatuylonen/wiktextract/issues/1484

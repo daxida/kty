@@ -1,16 +1,15 @@
 pub mod tags_constants;
 
 use indexmap::IndexMap;
-use serde::Serialize;
-use serde::ser::{SerializeSeq, Serializer};
 use tags_constants::{POSES, TAG_BANK, TAG_ORDER};
 
 use crate::models::kaikki::Tag;
+use crate::models::yomitan::TagInformation;
 
 // TODO: a bunch of sorting and handling of tags should go here
 
-/// Blacklisted tags when expanding forms @ tidy
-pub const BLACKLISTED_TAGS: [&str; 14] = [
+/// Tags that are blacklisted if they happen at *some* expanded form @ tidy
+pub const BLACKLISTED_FORM_TAGS: [&str; 14] = [
     "inflection-template",
     "table-tags",
     "canonical",
@@ -35,52 +34,10 @@ pub const BLACKLISTED_TAGS: [&str; 14] = [
     // This was considered ok. To revisit if it is more intrusive in other languages.
     "multiword-construction",
 ];
-/// Tags that are blacklisted if they happen at every expanded form @ tidy
-pub const IDENTITY_TAGS: [&str; 3] = ["nominative", "singular", "infinitive"];
-/// Tags that we just remove from forms
-pub const REDUNDANT_TAGS: [&str; 1] = ["combined-form"];
-
-// Internal legacy types that are just for documentation since we ended up loading
-// tag_bank_term.json as a raw list of tuples in tags_constants
-//
-// #[derive(Deserialize, Default)]
-// struct WhitelistedTags(Vec<WhitelistedTag>);
-//
-// // Internal type
-// #[derive(Deserialize, Default)]
-// struct WhitelistedTag {
-//     short_tag: String,
-//     category: String,
-//     sort_order: i32,
-//     aliases: Vec<String>, // only this changes
-//     popularity_score: i32,
-// }
-
-// The actual type that we pass to yomitan (cf. tagbank.ts (yomichan-dict-builder))
-#[derive(Debug)]
-pub struct TagInformation {
-    pub short_tag: String,
-    pub category: String,
-    sort_order: i32,
-    pub long_tag: String, // only this changes
-    popularity_score: i32,
-}
-
-impl Serialize for TagInformation {
-    // serialize as array
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: Serializer,
-    {
-        let mut seq = serializer.serialize_seq(Some(5))?;
-        seq.serialize_element(&self.short_tag)?;
-        seq.serialize_element(&self.category)?;
-        seq.serialize_element(&self.sort_order)?;
-        seq.serialize_element(&self.long_tag)?;
-        seq.serialize_element(&self.popularity_score)?;
-        seq.end()
-    }
-}
+/// Tags that are blacklisted if they happen at *every* expanded form @ tidy
+pub const IDENTITY_FORM_TAGS: [&str; 3] = ["nominative", "singular", "infinitive"];
+/// Tags that we just remove from forms @ tidy
+pub const REDUNDANT_FORM_TAGS: [&str; 1] = ["combined-form"];
 
 // ignore target_iso !== en since tags should always be in English anyway
 /// Sort tags by their position in the tag bank.
@@ -160,16 +117,7 @@ fn tags_are_subset(a: &str, b: &str) -> bool {
 
 /// Return a Vec<TagInformation> from `tag_bank_terms` that fits the yomitan tag schema.
 pub fn get_tag_bank_as_tag_info() -> Vec<TagInformation> {
-    TAG_BANK
-        .iter()
-        .map(|entry| TagInformation {
-            short_tag: entry.0.into(),
-            category: entry.1.into(),
-            sort_order: entry.2,
-            long_tag: entry.3[0].into(), // normalized
-            popularity_score: entry.4,
-        })
-        .collect()
+    TAG_BANK.iter().map(TagInformation::new).collect()
 }
 
 // the bank should be shared across all languages anyway
@@ -180,13 +128,7 @@ pub fn get_tag_bank_as_tag_info() -> Vec<TagInformation> {
 pub fn find_tag_in_bank(tag: &str) -> Option<TagInformation> {
     TAG_BANK.iter().find_map(|entry| {
         if entry.3.contains(&tag) {
-            Some(TagInformation {
-                short_tag: entry.0.into(),
-                category: entry.1.into(),
-                sort_order: entry.2,
-                long_tag: entry.3[0].into(), // normalized
-                popularity_score: entry.4,
-            })
+            Some(TagInformation::new(entry))
         } else {
             None
         }

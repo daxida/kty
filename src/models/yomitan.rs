@@ -1,4 +1,5 @@
 use crate::{Map, models::kaikki::Tag};
+use serde::ser::{SerializeSeq, Serializer};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Clone)]
@@ -201,4 +202,61 @@ pub fn wrap(tag: NTag, content_ty: &str, content: Node) -> Node {
         content,
     }
     .into_node()
+}
+
+// Internal legacy types that are just for documentation since we ended up loading
+// tag_bank_term.json as a raw list of tuples in tags::mod.rs
+//
+// #[derive(Deserialize, Default)]
+// struct WhitelistedTags(Vec<WhitelistedTag>);
+//
+// // Internal type
+// #[derive(Deserialize, Default)]
+// struct WhitelistedTag {
+//     short_tag: String,
+//     category: String,
+//     sort_order: i32,
+//     aliases: Vec<String>, // only this changes
+//     popularity_score: i32,
+// }
+
+// The actual yomitan type.
+//
+// https://github.com/MarvNC/yomichan-dict-builder/blob/master/src/types/yomitan/tagbank.ts
+#[derive(Debug)]
+pub struct TagInformation {
+    pub short_tag: String, // tagName
+    pub category: String,
+    sort_order: i32,      // sortingOrder
+    pub long_tag: String, // notes (only this changes)
+    popularity_score: i32,
+}
+
+impl TagInformation {
+    // The entry plays the role of the WhitelistedTag struct
+    pub fn new(entry: &(&str, &str, i32, &[&str], i32)) -> Self {
+        Self {
+            short_tag: entry.0.into(),
+            category: entry.1.into(),
+            sort_order: entry.2,
+            long_tag: entry.3[0].into(), // normalized
+            popularity_score: entry.4,
+        }
+    }
+}
+
+impl Serialize for TagInformation {
+    // serialize as array
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        let mut seq = serializer.serialize_seq(Some(5))?;
+        seq.serialize_element(&self.short_tag)?;
+        seq.serialize_element(&self.category)?;
+        seq.serialize_element(&self.sort_order)?;
+        seq.serialize_element(&self.long_tag)?;
+        seq.serialize_element(&self.popularity_score)?;
+        seq.end()
+    }
 }

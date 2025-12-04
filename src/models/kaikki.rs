@@ -12,6 +12,8 @@
 
 use serde::{Deserialize, Serialize};
 
+use crate::tags::{BLACKLISTED_FORM_TAGS, IDENTITY_FORM_TAGS};
+
 // In case we ever decide to narrow them
 pub type Tag = String;
 pub type Pos = String;
@@ -96,4 +98,82 @@ pub struct Translation {
     pub lang_code: String,
     pub word: String,
     pub sense: String,
+}
+
+// WordEntry impls
+//
+// These should cover general functions usable for any dictionary and even for external users of
+// the WordEntry type.
+impl WordEntry {
+    /// Return all non-empty forms that contain all given tags.
+    fn tagged_forms<'a>(&'a self, tags: &[&str]) -> impl Iterator<Item = &'a Form> {
+        self.forms.iter().filter(|form| {
+            !form.form.is_empty() && tags.iter().all(|tag| form.tags.iter().any(|t| t == tag))
+        })
+    }
+
+    /// Return the first non-empty form with the `canonical` tag.
+    pub fn canonical_form(&self) -> Option<&Form> {
+        self.tagged_forms(&["canonical"]).next()
+    }
+
+    /// Return the first non-empty form with the `romanization` tag.
+    pub fn romanization_form(&self) -> Option<&Form> {
+        self.tagged_forms(&["romanization"]).next()
+    }
+
+    /// Return the first non-empty form with the `transliteration` tag.
+    pub fn transliteration_form(&self) -> Option<&Form> {
+        self.tagged_forms(&["transliteration"]).next()
+    }
+
+    /// Check if a `word_entry` contains no glosses.
+    ///
+    /// Happens if there are no senses, or if there is a single sense with the "no-gloss" tag.
+    pub fn contains_no_gloss(&self) -> bool {
+        match self.senses.as_slice() {
+            [] => true,
+            [sense] => sense.tags.iter().any(|tag| tag == "no-gloss"),
+            _ => false,
+        }
+    }
+
+    pub fn non_trivial_forms(&self) -> impl Iterator<Item = &Form> {
+        self.forms.iter().filter(move |form| {
+            if form.form == self.word {
+                return false;
+            }
+
+            // blacklisted forms (happens at least in English)
+            // Usually it has the meaning of "empty cell" in an inflection table
+            if form.form == "-" {
+                return false;
+            }
+
+            // https://github.com/tatuylonen/wiktextract/issues/1494
+            // this should fix it, but it is hacky
+            // * wait until the editor's answer: https://en.wiktionary.org/wiki/User_talk:Saltmarsh
+            //   in case they fix the template and this is not needed.
+            // if matches!(args.source, Lang::El) {
+            //     if form.form == "ο" || form.form == "η" {
+            //         return false;
+            //     }
+            // }
+
+            // blacklisted tags (happens at least in Russian: romanization)
+            let is_blacklisted = form
+                .tags
+                .iter()
+                .any(|tag| BLACKLISTED_FORM_TAGS.contains(&tag.as_str()));
+            let is_identity = form
+                .tags
+                .iter()
+                .all(|tag| IDENTITY_FORM_TAGS.contains(&tag.as_str()));
+            if is_blacklisted || is_identity {
+                return false;
+            }
+
+            true
+        })
+    }
 }
