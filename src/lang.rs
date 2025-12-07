@@ -22,6 +22,8 @@ pub enum Lang {
     Aii,
     /// Bengali
     Bn,
+    /// Bulgarian
+    Bg,
     /// Chinese
     Zh,
     /// Czech
@@ -155,11 +157,11 @@ impl From<EditionLang> for Lang {
 
 impl Lang {
     pub const fn help_supported_isos() -> &'static str {
-        "Supported isos: sq | afb | ar | apc | ajp | aii | bn | zh | cs | da | nl | en | enm | ang | eo | fi | fr | ka | de | el | grc | he | hi | hu | id | ga | sga | it | ja | kn | kk | km | ko | ku | la | lv | ms | mt | mr | mn | nb | nn | fa | pl | pt | ro | ru | sh | scn | sl | es | sv | tl | te | th | tr | uk | ur | vi"
+        "Supported isos: sq | afb | ar | apc | ajp | aii | bn | bg | zh | cs | da | nl | en | enm | ang | eo | fi | fr | ka | de | el | grc | he | hi | hu | id | ga | sga | it | ja | kn | kk | km | ko | ku | la | lv | ms | mt | mr | mn | nb | nn | fa | pl | pt | ro | ru | sh | scn | sl | es | sv | tl | te | th | tr | uk | ur | vi"
     }
 
     pub const fn help_supported_isos_coloured() -> &'static str {
-        "Supported isos: sq | afb | ar | apc | ajp | aii | bn | [32mzh[0m | [32mcs[0m | da | [32mnl[0m | [32men[0m | enm | ang | eo | fi | [32mfr[0m | ka | [32mde[0m | [32mel[0m | grc | he | hi | hu | [32mid[0m | ga | sga | [32mit[0m | [32mja[0m | kn | kk | km | [32mko[0m | [32mku[0m | la | lv | [32mms[0m | mt | mr | mn | nb | nn | fa | [32mpl[0m | [32mpt[0m | ro | [32mru[0m | sh | scn | sl | [32mes[0m | sv | tl | te | [32mth[0m | [32mtr[0m | uk | ur | [32mvi[0m"
+        "Supported isos: sq | afb | ar | apc | ajp | aii | bn | bg | [32mzh[0m | [32mcs[0m | da | [32mnl[0m | [32men[0m | enm | ang | eo | fi | [32mfr[0m | ka | [32mde[0m | [32mel[0m | grc | he | hi | hu | [32mid[0m | ga | sga | [32mit[0m | [32mja[0m | kn | kk | km | [32mko[0m | [32mku[0m | la | lv | [32mms[0m | mt | mr | mn | nb | nn | fa | [32mpl[0m | [32mpt[0m | ro | [32mru[0m | sh | scn | sl | [32mes[0m | sv | tl | te | [32mth[0m | [32mtr[0m | uk | ur | [32mvi[0m"
     }
 
     pub const fn help_supported_editions() -> &'static str {
@@ -175,6 +177,7 @@ impl Lang {
             Self::Ajp => "South Levantine Arabic",
             Self::Aii => "Assyrian Neo-Aramaic",
             Self::Bn => "Bengali",
+            Self::Bg => "Bulgarian",
             Self::Zh => "Chinese",
             Self::Cs => "Czech",
             Self::Da => "Danish",
@@ -243,6 +246,7 @@ impl std::str::FromStr for Lang {
             "ajp" => Ok(Self::Ajp),
             "aii" => Ok(Self::Aii),
             "bn" => Ok(Self::Bn),
+            "bg" => Ok(Self::Bg),
             "zh" => Ok(Self::Zh),
             "cs" => Ok(Self::Cs),
             "da" => Ok(Self::Da),
