@@ -316,6 +316,17 @@
               "word": "poselství"
             }
           ],
+          "etymology_text": "Deverbal from zpravit.",
+          "etymology_templates": [
+            {
+              "name": "deverbal",
+              "args": {
+                "1": "cs",
+                "2": "zpravit"
+              },
+              "expansion": "Deverbal from zpravit"
+            }
+          ],
           "sounds": [
             {
               "ipa": "[ˈspraːva]"
@@ -327,17 +338,6 @@
             },
             {
               "homophone": "správa"
-            }
-          ],
-          "etymology_text": "Deverbal from zpravit.",
-          "etymology_templates": [
-            {
-              "name": "deverbal",
-              "args": {
-                "1": "cs",
-                "2": "zpravit"
-              },
-              "expansion": "Deverbal from zpravit"
             }
           ],
           "lang": "Czech",
@@ -426,16 +426,6 @@
             "Pages with 24 entries",
             "Pages with entries"
           ],
-          "sounds": [
-            {
-              "ipa": "[ˈpro]"
-            },
-            {
-              "audio": "Cs-pro.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Cs-pro.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/f/f5/Cs-pro.ogg/Cs-pro.ogg.mp3"
-            }
-          ],
           "etymology_number": 1,
           "etymology_text": "Inherited from Old Czech pro, from Proto-Slavic *pro.",
           "etymology_templates": [
@@ -497,7 +487,17 @@
             }
           ],
           "lang": "Czech",
-          "lang_code": "cs"
+          "lang_code": "cs",
+          "sounds": [
+            {
+              "ipa": "[ˈpro]"
+            },
+            {
+              "audio": "Cs-pro.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Cs-pro.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/f/f5/Cs-pro.ogg/Cs-pro.ogg.mp3"
+            }
+          ]
         }
       },
       {
@@ -1251,26 +1251,6 @@
               "word": "nesouhlasit"
             }
           ],
-          "sounds": [
-            {
-              "ipa": "[ˈpr̝̊iːt]"
-            },
-            {
-              "audio": "Cs-přít.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/d/de/Cs-p%C5%99%C3%ADt.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/de/Cs-p%C5%99%C3%ADt.ogg/Cs-p%C5%99%C3%ADt.ogg.mp3"
-            },
-            {
-              "rhymes": "-iːt"
-            }
-          ],
-          "hyphenations": [
-            {
-              "parts": [
-                "přít"
-              ]
-            }
-          ],
           "etymology_text": "Inherited from Old Czech přieti, from Proto-Slavic *pьrěti.",
           "etymology_templates": [
             {
@@ -1328,6 +1308,26 @@
                 "3": "*pьrěti"
               },
               "expansion": "Proto-Slavic *pьrěti"
+            }
+          ],
+          "sounds": [
+            {
+              "ipa": "[ˈpr̝̊iːt]"
+            },
+            {
+              "audio": "Cs-přít.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/d/de/Cs-p%C5%99%C3%ADt.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/de/Cs-p%C5%99%C3%ADt.ogg/Cs-p%C5%99%C3%ADt.ogg.mp3"
+            },
+            {
+              "rhymes": "-iːt"
+            }
+          ],
+          "hyphenations": [
+            {
+              "parts": [
+                "přít"
+              ]
             }
           ],
           "lang": "Czech",
@@ -1410,13 +1410,13 @@
             "Pages with 1 entry",
             "Pages with entries"
           ],
+          "lang": "Czech",
+          "lang_code": "cs",
           "sounds": [
             {
               "ipa": "[ˈpr̝̊ɛla]"
             }
-          ],
-          "lang": "Czech",
-          "lang_code": "cs"
+          ]
         }
       }
     ]
@@ -11931,34 +11931,6 @@
               "word": "Gepflogenheit"
             }
           ],
-          "sounds": [
-            {
-              "ipa": "/ˈpfleːɡən/"
-            },
-            {
-              "ipa": "[ˈpfleːɡən]"
-            },
-            {
-              "tags": [
-                "standard"
-              ],
-              "ipa": "[ˈpfleːɡŋ̩]"
-            },
-            {
-              "note": "most speakers in northern and central Germany",
-              "ipa": "/ˈfleːɡən/"
-            },
-            {
-              "audio": "De-pflegen.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/De-pflegen.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9a/De-pflegen.ogg/De-pflegen.ogg.mp3"
-            },
-            {
-              "audio": "De-pflegen2.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/3/35/De-pflegen2.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/35/De-pflegen2.ogg/De-pflegen2.ogg.mp3"
-            }
-          ],
           "etymology_text": "From Middle High German phlëgen, from Old High German plëgan, from Proto-West Germanic *plehan.",
           "etymology_templates": [
             {
@@ -11987,6 +11959,34 @@
                 "3": "*plehan"
               },
               "expansion": "Proto-West Germanic *plehan"
+            }
+          ],
+          "sounds": [
+            {
+              "ipa": "/ˈpfleːɡən/"
+            },
+            {
+              "ipa": "[ˈpfleːɡən]"
+            },
+            {
+              "tags": [
+                "standard"
+              ],
+              "ipa": "[ˈpfleːɡŋ̩]"
+            },
+            {
+              "note": "most speakers in northern and central Germany",
+              "ipa": "/ˈfleːɡən/"
+            },
+            {
+              "audio": "De-pflegen.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/De-pflegen.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9a/De-pflegen.ogg/De-pflegen.ogg.mp3"
+            },
+            {
+              "audio": "De-pflegen2.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/3/35/De-pflegen2.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/35/De-pflegen2.ogg/De-pflegen2.ogg.mp3"
             }
           ],
           "lang": "German",
@@ -12803,24 +12803,6 @@
               "word": "Kleiner Fuchs"
             }
           ],
-          "sounds": [
-            {
-              "ipa": "/fʊks/"
-            },
-            {
-              "audio": "De-Fuchs.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/1/11/De-Fuchs.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/11/De-Fuchs.ogg/De-Fuchs.ogg.mp3"
-            },
-            {
-              "audio": "De-Fuchs2.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/De-Fuchs2.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e0/De-Fuchs2.ogg/De-Fuchs2.ogg.mp3"
-            },
-            {
-              "rhymes": "-ʊks"
-            }
-          ],
           "etymology_number": 1,
           "etymology_text": "From Middle High German vuhs, from Old High German fuhs, from Proto-West Germanic *fuhs, from Proto-Germanic *fuhsaz, from Proto-Indo-European *púḱsos (“the tailed one”), from *puḱ- (“tail”). Cognate with English fox, Sanskrit पुच्छ (púccha).",
           "etymology_templates": [
@@ -12890,7 +12872,25 @@
             }
           ],
           "lang": "German",
-          "lang_code": "de"
+          "lang_code": "de",
+          "sounds": [
+            {
+              "ipa": "/fʊks/"
+            },
+            {
+              "audio": "De-Fuchs.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/1/11/De-Fuchs.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/11/De-Fuchs.ogg/De-Fuchs.ogg.mp3"
+            },
+            {
+              "audio": "De-Fuchs2.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/De-Fuchs2.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e0/De-Fuchs2.ogg/De-Fuchs2.ogg.mp3"
+            },
+            {
+              "rhymes": "-ʊks"
+            }
+          ]
         }
       },
       {
@@ -13266,35 +13266,6 @@
               "word": "Kardia"
             }
           ],
-          "sounds": [
-            {
-              "ipa": "/hɛrts/"
-            },
-            {
-              "ipa": "[hɛʁt͡s]"
-            },
-            {
-              "ipa": "[hɛɐ̯t͡s]"
-            },
-            {
-              "audio": "De-Herz.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/De-Herz.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/56/De-Herz.ogg/De-Herz.ogg.mp3"
-            },
-            {
-              "audio": "De-at-Herz.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/De-at-Herz.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ae/De-at-Herz.ogg/De-at-Herz.ogg.mp3"
-            },
-            {
-              "audio": "De-Herz2.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/c/c3/De-Herz2.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c3/De-Herz2.ogg/De-Herz2.ogg.mp3"
-            },
-            {
-              "homophone": "Hertz"
-            }
-          ],
           "etymology_text": "From Middle High German hërze, from Old High German hërza, from Proto-West Germanic *hertā, from Proto-Germanic *hertô (“heart”), from Proto-Indo-European *ḱḗr (“heart”).\nCognate with Dutch hart, English heart, Danish hjerte, Gothic 𐌷𐌰𐌹𐍂𐍄𐍉 (hairtō).",
           "etymology_templates": [
             {
@@ -13377,6 +13348,35 @@
                 "2": "𐌷𐌰𐌹𐍂𐍄𐍉"
               },
               "expansion": "Gothic 𐌷𐌰𐌹𐍂𐍄𐍉 (hairtō)"
+            }
+          ],
+          "sounds": [
+            {
+              "ipa": "/hɛrts/"
+            },
+            {
+              "ipa": "[hɛʁt͡s]"
+            },
+            {
+              "ipa": "[hɛɐ̯t͡s]"
+            },
+            {
+              "audio": "De-Herz.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/De-Herz.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/56/De-Herz.ogg/De-Herz.ogg.mp3"
+            },
+            {
+              "audio": "De-at-Herz.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/De-at-Herz.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ae/De-at-Herz.ogg/De-at-Herz.ogg.mp3"
+            },
+            {
+              "audio": "De-Herz2.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/c/c3/De-Herz2.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c3/De-Herz2.ogg/De-Herz2.ogg.mp3"
+            },
+            {
+              "homophone": "Hertz"
             }
           ],
           "lang": "German",
@@ -13578,6 +13578,19 @@
               "word": "fahren"
             }
           ],
+          "etymology_text": "fahren (“to drive”) + -er",
+          "etymology_templates": [
+            {
+              "name": "suffix",
+              "args": {
+                "1": "de",
+                "2": "fahren",
+                "3": "er",
+                "gloss1": "to drive"
+              },
+              "expansion": "fahren (“to drive”) + -er"
+            }
+          ],
           "sounds": [
             {
               "ipa": "/ˈfaːʁɐ/"
@@ -13594,19 +13607,6 @@
             },
             {
               "rhymes": "-aːʁɐ"
-            }
-          ],
-          "etymology_text": "fahren (“to drive”) + -er",
-          "etymology_templates": [
-            {
-              "name": "suffix",
-              "args": {
-                "1": "de",
-                "2": "fahren",
-                "3": "er",
-                "gloss1": "to drive"
-              },
-              "expansion": "fahren (“to drive”) + -er"
             }
           ],
           "lang": "German",
@@ -13998,24 +13998,6 @@
               "word": "-s"
             }
           ],
-          "sounds": [
-            {
-              "ipa": "/fɔn/"
-            },
-            {
-              "ipa": "[fɔn]"
-            },
-            {
-              "audio": "De-von2.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/De-von2.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7f/De-von2.ogg/De-von2.ogg.mp3"
-            },
-            {
-              "audio": "De-von.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/De-von.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/ba/De-von.ogg/De-von.ogg.mp3"
-            }
-          ],
           "etymology_text": "From Middle High German von(e) (“from”), from Old High German fon(a), alongside rarer northern fan(a). It is uncertain whether the High German o-vocalism continues an original Proto-Germanic *funē, comparable with Sanskrit पुनः- (punaḥ-), or whether it is an atonic alteration of Proto-West Germanic *fanā. In the latter case, possibly from Proto-Germanic *afa + *ana (equivalent to German ab + an). Cognate with Old Dutch fan (modern van), Old Saxon fan(a) (Low German van), Old Frisian fon, fan, all “from”.",
           "etymology_templates": [
             {
@@ -14123,6 +14105,24 @@
                 "2": "fon, fan"
               },
               "expansion": "Old Frisian fon, fan"
+            }
+          ],
+          "sounds": [
+            {
+              "ipa": "/fɔn/"
+            },
+            {
+              "ipa": "[fɔn]"
+            },
+            {
+              "audio": "De-von2.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/De-von2.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7f/De-von2.ogg/De-von2.ogg.mp3"
+            },
+            {
+              "audio": "De-von.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/De-von.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/ba/De-von.ogg/De-von.ogg.mp3"
             }
           ],
           "lang": "German",
@@ -14348,19 +14348,6 @@
               "word": "Klatschbase"
             }
           ],
-          "sounds": [
-            {
-              "ipa": "/ˈbaːzə/"
-            },
-            {
-              "audio": "De-Base.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/De-Base.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2b/De-Base.ogg/De-Base.ogg.mp3"
-            },
-            {
-              "rhymes": "-aːzə"
-            }
-          ],
           "etymology_number": 1,
           "etymology_text": "From Middle High German base, from Old High German basa, from Proto-West Germanic *baswā, from Proto-Germanic *baswǭ (“father's sister; paternal aunt”). Compare Saterland Frisian Bääsje (“grandmother”), Dutch baas (“master; boss”). More at boss.",
           "etymology_templates": [
@@ -14421,7 +14408,20 @@
             }
           ],
           "lang": "German",
-          "lang_code": "de"
+          "lang_code": "de",
+          "sounds": [
+            {
+              "ipa": "/ˈbaːzə/"
+            },
+            {
+              "audio": "De-Base.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/De-Base.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2b/De-Base.ogg/De-Base.ogg.mp3"
+            },
+            {
+              "rhymes": "-aːzə"
+            }
+          ]
         }
       },
       {
@@ -14587,19 +14587,6 @@
               }
             }
           ],
-          "sounds": [
-            {
-              "ipa": "/ˈbaːzə/"
-            },
-            {
-              "audio": "De-Base.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/De-Base.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2b/De-Base.ogg/De-Base.ogg.mp3"
-            },
-            {
-              "rhymes": "-aːzə"
-            }
-          ],
           "etymology_number": 2,
           "etymology_text": "19th c., backformation from Basen, plural of Basis, from Latin basis, from Ancient Greek βάσις (básis).",
           "etymology_templates": [
@@ -14623,7 +14610,20 @@
             }
           ],
           "lang": "German",
-          "lang_code": "de"
+          "lang_code": "de",
+          "sounds": [
+            {
+              "ipa": "/ˈbaːzə/"
+            },
+            {
+              "audio": "De-Base.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/De-Base.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2b/De-Base.ogg/De-Base.ogg.mp3"
+            },
+            {
+              "rhymes": "-aːzə"
+            }
+          ]
         }
       }
     ]
@@ -17668,7 +17668,7 @@
               "source": "conjugation"
             },
             {
-              "form": "η",
+              "form": "‑η",
               "tags": [
                 "participle",
                 "passive",
@@ -17677,7 +17677,7 @@
               "source": "conjugation"
             },
             {
-              "form": "ο",
+              "form": "‑ο",
               "tags": [
                 "participle",
                 "passive",
@@ -17959,20 +17959,6 @@
               "word": "υπεισέρχομαι"
             }
           ],
-          "sounds": [
-            {
-              "ipa": "/ˈeɾxome/"
-            }
-          ],
-          "hyphenations": [
-            {
-              "parts": [
-                "έρ",
-                "χο",
-                "μαι"
-              ]
-            }
-          ],
           "etymology_text": "From Ancient Greek ἔρχομαι (érkhomai, “I go”), from Proto-Indo-European *h₁ergʰ- (“to move, go”). The meaning shift and the perfective forms are from the suppletive aorist ἦλθον (êlthon, “I came”) (with regular shift λθ > ρθ). Compare also the Albanian form erdha (“I came”).",
           "etymology_templates": [
             {
@@ -18017,6 +18003,20 @@
                 "2": "ρθ"
               },
               "expansion": "ρθ"
+            }
+          ],
+          "sounds": [
+            {
+              "ipa": "/ˈeɾxome/"
+            }
+          ],
+          "hyphenations": [
+            {
+              "parts": [
+                "έρ",
+                "χο",
+                "μαι"
+              ]
             }
           ],
           "lang": "Greek",
@@ -21787,24 +21787,6 @@
               "word": "syöttää"
             }
           ],
-          "sounds": [
-            {
-              "ipa": "/ˈbɹɪŋ/"
-            },
-            {
-              "audio": "en-us-bring.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/a/ad/En-us-bring.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ad/En-us-bring.ogg/En-us-bring.ogg.mp3"
-            },
-            {
-              "audio": "En-uk-to bring.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/En-uk-to_bring.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/5e/En-uk-to_bring.ogg/En-uk-to_bring.ogg.mp3"
-            },
-            {
-              "rhymes": "-ɪŋ"
-            }
-          ],
           "etymology_number": 1,
           "etymology_text": "From Middle English bryngen, from Old English bringan, from Proto-West Germanic *bringan, from Proto-Germanic *bringaną (“to bring”), from Proto-Indo-European *bʰrenk-, possibly based on *bʰer-.\nCompare Scots bring, West Frisian bringe, Low German brengen, Dutch brengen, Afrikaans bring, German bringen; also Welsh hebrwng (“to bring, lead”), Tocharian B pränk- (“to take away; restrain oneself, hold back”), Latvian brankti (“lying close”), Lithuanian branktas (“whiffletree”).",
           "etymology_templates": [
@@ -21945,7 +21927,25 @@
             }
           ],
           "lang": "English",
-          "lang_code": "en"
+          "lang_code": "en",
+          "sounds": [
+            {
+              "ipa": "/ˈbɹɪŋ/"
+            },
+            {
+              "audio": "en-us-bring.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/a/ad/En-us-bring.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ad/En-us-bring.ogg/En-us-bring.ogg.mp3"
+            },
+            {
+              "audio": "En-uk-to bring.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/En-uk-to_bring.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/5e/En-uk-to_bring.ogg/En-uk-to_bring.ogg.mp3"
+            },
+            {
+              "rhymes": "-ɪŋ"
+            }
+          ]
         }
       },
       {
@@ -22218,20 +22218,6 @@
               "word": "men"
             }
           ],
-          "sounds": [
-            {
-              "ipa": "/weɪn/"
-            },
-            {
-              "rhymes": "-eɪn"
-            },
-            {
-              "homophone": "Wayne"
-            },
-            {
-              "homophone": "wane"
-            }
-          ],
           "etymology_number": 1,
           "etymology_text": "From Middle English wayn, from Old English wæġn, from Proto-West Germanic *wagn, from Proto-Germanic *wagnaz, from Proto-Indo-European *woǵʰnos, from *weǵʰ- (“to bring, transport”). Doublet of wagon, borrowed from Middle Dutch.\nCognates\nCognate with West Frisian wein, Dutch wagen, German Wagen, Danish vogn, Norwegian vogn, Swedish vagn.",
           "etymology_templates": [
@@ -22353,6 +22339,20 @@
                 "2": "vagn"
               },
               "expansion": "Swedish vagn"
+            }
+          ],
+          "sounds": [
+            {
+              "ipa": "/weɪn/"
+            },
+            {
+              "rhymes": "-eɪn"
+            },
+            {
+              "homophone": "Wayne"
+            },
+            {
+              "homophone": "wane"
             }
           ],
           "lang": "English",
@@ -24107,76 +24107,6 @@
               "word": "baz (diq)"
             }
           ],
-          "sounds": [
-            {
-              "tags": [
-                "Received-Pronunciation"
-              ],
-              "enpr": "fôlʹkən"
-            },
-            {
-              "tags": [
-                "Received-Pronunciation"
-              ],
-              "enpr": "fôʹkən"
-            },
-            {
-              "ipa": "/ˈfɔː(l)kən/",
-              "tags": [
-                "Received-Pronunciation"
-              ]
-            },
-            {
-              "ipa": "/ˈfɒlkən/",
-              "tags": [
-                "Received-Pronunciation"
-              ]
-            },
-            {
-              "tags": [
-                "US"
-              ],
-              "enpr": "fălʹkən"
-            },
-            {
-              "ipa": "/ˈfælkən/",
-              "tags": [
-                "US"
-              ]
-            },
-            {
-              "ipa": "/ˈfɑːlkən/",
-              "tags": [
-                "US"
-              ]
-            },
-            {
-              "audio": "en-us-falcon.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/3/3f/En-us-falcon.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3f/En-us-falcon.ogg/En-us-falcon.ogg.mp3"
-            },
-            {
-              "tags": [
-                "General-Australian"
-              ],
-              "ipa": "/ˈfælkən/"
-            },
-            {
-              "ipa": "/ˈfoːlkən/"
-            },
-            {
-              "tags": [
-                "New-Zealand"
-              ],
-              "ipa": "/ˈfɛlkən/"
-            },
-            {
-              "rhymes": "-ɔːkən"
-            },
-            {
-              "rhymes": "-ɔːlkən"
-            }
-          ],
           "etymology_text": "From Middle English faucoun, falcon, faulcon, from Old French falcun, from Late Latin falcō (“falcon”), of Germanic origin, probably via Frankish *falkō (“falcon, hawk”), from Proto-Germanic *falkô (“falcon”), from Proto-Indo-European *pol̑- (“pale”), from *pel- (“fallow”).\nCognates\nCognate with Old English *fealca, fealcen (“falcon”), Dutch valk (“falcon, hawk”), German Falke (“falcon, hawk”), Norwegian and Swedish falk (“falcon”), Icelandic fálki (“falcon”), French faucon (“falcon”), Italian falco (“falcon”), Spanish halcón (“falcon”), Portuguese falcão (“falcon”), Latin falco (“falcon”), Lithuanian pálšas (“pale”), Latvian bāls (“pale”), Latgalian buolgs (“pale”). More at fallow.",
           "etymology_templates": [
             {
@@ -24392,6 +24322,76 @@
                 "4": "pale"
               },
               "expansion": "Latgalian buolgs (“pale”)"
+            }
+          ],
+          "sounds": [
+            {
+              "tags": [
+                "Received-Pronunciation"
+              ],
+              "enpr": "fôlʹkən"
+            },
+            {
+              "tags": [
+                "Received-Pronunciation"
+              ],
+              "enpr": "fôʹkən"
+            },
+            {
+              "ipa": "/ˈfɔː(l)kən/",
+              "tags": [
+                "Received-Pronunciation"
+              ]
+            },
+            {
+              "ipa": "/ˈfɒlkən/",
+              "tags": [
+                "Received-Pronunciation"
+              ]
+            },
+            {
+              "tags": [
+                "US"
+              ],
+              "enpr": "fălʹkən"
+            },
+            {
+              "ipa": "/ˈfælkən/",
+              "tags": [
+                "US"
+              ]
+            },
+            {
+              "ipa": "/ˈfɑːlkən/",
+              "tags": [
+                "US"
+              ]
+            },
+            {
+              "audio": "en-us-falcon.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/3/3f/En-us-falcon.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3f/En-us-falcon.ogg/En-us-falcon.ogg.mp3"
+            },
+            {
+              "tags": [
+                "General-Australian"
+              ],
+              "ipa": "/ˈfælkən/"
+            },
+            {
+              "ipa": "/ˈfoːlkən/"
+            },
+            {
+              "tags": [
+                "New-Zealand"
+              ],
+              "ipa": "/ˈfɛlkən/"
+            },
+            {
+              "rhymes": "-ɔːkən"
+            },
+            {
+              "rhymes": "-ɔːlkən"
             }
           ],
           "lang": "English",
@@ -27312,27 +27312,6 @@
               "word": "vivo"
             }
           ],
-          "sounds": [
-            {
-              "ipa": "/biˈbiɾ/"
-            },
-            {
-              "ipa": "[biˈβ̞iɾ]"
-            },
-            {
-              "rhymes": "-iɾ"
-            }
-          ],
-          "hyphenation": [
-            "vi‧vir"
-          ],
-          "hyphenations": [
-            {
-              "parts": [
-                "vi‧vir"
-              ]
-            }
-          ],
           "etymology_text": "From Old Spanish bevir, bivir, vevir, viver, inherited from Latin vīvere. Compare Ladino bivir, Portuguese viver.",
           "etymology_templates": [
             {
@@ -27386,6 +27365,27 @@
                 "2": "viver"
               },
               "expansion": "Portuguese viver"
+            }
+          ],
+          "sounds": [
+            {
+              "ipa": "/biˈbiɾ/"
+            },
+            {
+              "ipa": "[biˈβ̞iɾ]"
+            },
+            {
+              "rhymes": "-iɾ"
+            }
+          ],
+          "hyphenation": [
+            "vi‧vir"
+          ],
+          "hyphenations": [
+            {
+              "parts": [
+                "vi‧vir"
+              ]
             }
           ],
           "lang": "Spanish",
@@ -27533,6 +27533,8 @@
             "Spanish terms with IPA pronunciation",
             "Spanish verb forms"
           ],
+          "lang": "Spanish",
+          "lang_code": "es",
           "sounds": [
             {
               "ipa": "/reˈθiba/"
@@ -27559,9 +27561,7 @@
                 "re‧ci‧ba"
               ]
             }
-          ],
-          "lang": "Spanish",
-          "lang_code": "es"
+          ]
         }
       }
     ]
@@ -27674,6 +27674,29 @@
               "word": "ملکالموت"
             }
           ],
+          "etymology_number": 1,
+          "etymology_text": "Borrowed from Arabic مَلَك (malak, “angel”).",
+          "etymology_templates": [
+            {
+              "name": "root",
+              "args": {
+                "1": "fa",
+                "2": "ar",
+                "3": "م ل ك"
+              },
+              "expansion": ""
+            },
+            {
+              "name": "bor+",
+              "args": {
+                "1": "fa",
+                "2": "ar",
+                "3": "مَلَك",
+                "t": "angel"
+              },
+              "expansion": "Borrowed from Arabic مَلَك (malak, “angel”)"
+            }
+          ],
           "sounds": [
             {
               "tags": [
@@ -27718,29 +27741,6 @@
                 "formal"
               ],
               "ipa": "[mä.lák]"
-            }
-          ],
-          "etymology_number": 1,
-          "etymology_text": "Borrowed from Arabic مَلَك (malak, “angel”).",
-          "etymology_templates": [
-            {
-              "name": "root",
-              "args": {
-                "1": "fa",
-                "2": "ar",
-                "3": "م ل ك"
-              },
-              "expansion": ""
-            },
-            {
-              "name": "bor+",
-              "args": {
-                "1": "fa",
-                "2": "ar",
-                "3": "مَلَك",
-                "t": "angel"
-              },
-              "expansion": "Borrowed from Arabic مَلَك (malak, “angel”)"
             }
           ],
           "lang": "Persian",
@@ -27987,6 +27987,18 @@
               "word": "دَری"
             }
           ],
+          "etymology_text": "From Arabic فَارِسِيّ (fārisiyy), from Early New Persian پَارْسِی (pārsī, “Persian, Persic”).",
+          "etymology_templates": [
+            {
+              "name": "der",
+              "args": {
+                "1": "fa",
+                "2": "ar",
+                "3": "فَارِسِيّ"
+              },
+              "expansion": "Arabic فَارِسِيّ (fārisiyy)"
+            }
+          ],
           "sounds": [
             {
               "tags": [
@@ -28036,18 +28048,6 @@
               "audio": "LL-Q9168 (fas)-Darafsh-فارسی.wav",
               "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/24/LL-Q9168_%28fas%29-Darafsh-%D9%81%D8%A7%D8%B1%D8%B3%DB%8C.wav/LL-Q9168_%28fas%29-Darafsh-%D9%81%D8%A7%D8%B1%D8%B3%DB%8C.wav.ogg",
               "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/24/LL-Q9168_%28fas%29-Darafsh-%D9%81%D8%A7%D8%B1%D8%B3%DB%8C.wav/LL-Q9168_%28fas%29-Darafsh-%D9%81%D8%A7%D8%B1%D8%B3%DB%8C.wav.mp3"
-            }
-          ],
-          "etymology_text": "From Arabic فَارِسِيّ (fārisiyy), from Early New Persian پَارْسِی (pārsī, “Persian, Persic”).",
-          "etymology_templates": [
-            {
-              "name": "der",
-              "args": {
-                "1": "fa",
-                "2": "ar",
-                "3": "فَارِسِيّ"
-              },
-              "expansion": "Arabic فَارِسِيّ (fārisiyy)"
             }
           ],
           "lang": "Persian",
@@ -29972,63 +29972,6 @@
               "word": "reprendre"
             }
           ],
-          "sounds": [
-            {
-              "ipa": "/pʁɑ̃.dʁə/"
-            },
-            {
-              "audio": "Fr-prendre.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Fr-prendre.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3a/Fr-prendre.ogg/Fr-prendre.ogg.mp3"
-            },
-            {
-              "audio": "LL-Q150 (fra)-DSwissK-prendre.wav",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ec/LL-Q150_%28fra%29-DSwissK-prendre.wav/LL-Q150_%28fra%29-DSwissK-prendre.wav.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ec/LL-Q150_%28fra%29-DSwissK-prendre.wav/LL-Q150_%28fra%29-DSwissK-prendre.wav.mp3"
-            },
-            {
-              "audio": "LL-Q150 (fra)-GrandCelinien-prendre.wav",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/16/LL-Q150_%28fra%29-GrandCelinien-prendre.wav/LL-Q150_%28fra%29-GrandCelinien-prendre.wav.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/16/LL-Q150_%28fra%29-GrandCelinien-prendre.wav/LL-Q150_%28fra%29-GrandCelinien-prendre.wav.mp3"
-            },
-            {
-              "audio": "LL-Q150 (fra)-Lepticed7-prendre.wav",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/83/LL-Q150_%28fra%29-Lepticed7-prendre.wav/LL-Q150_%28fra%29-Lepticed7-prendre.wav.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/83/LL-Q150_%28fra%29-Lepticed7-prendre.wav/LL-Q150_%28fra%29-Lepticed7-prendre.wav.mp3"
-            },
-            {
-              "audio": "LL-Q150 (fra)-LoquaxFR-prendre.wav",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ad/LL-Q150_%28fra%29-LoquaxFR-prendre.wav/LL-Q150_%28fra%29-LoquaxFR-prendre.wav.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ad/LL-Q150_%28fra%29-LoquaxFR-prendre.wav/LL-Q150_%28fra%29-LoquaxFR-prendre.wav.mp3"
-            },
-            {
-              "audio": "LL-Q150 (fra)-Pamputt-prendre.wav",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/39/LL-Q150_%28fra%29-Pamputt-prendre.wav/LL-Q150_%28fra%29-Pamputt-prendre.wav.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/39/LL-Q150_%28fra%29-Pamputt-prendre.wav/LL-Q150_%28fra%29-Pamputt-prendre.wav.mp3"
-            },
-            {
-              "audio": "LL-Q150 (fra)-Poslovitch-prendre.wav",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/92/LL-Q150_%28fra%29-Poslovitch-prendre.wav/LL-Q150_%28fra%29-Poslovitch-prendre.wav.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/92/LL-Q150_%28fra%29-Poslovitch-prendre.wav/LL-Q150_%28fra%29-Poslovitch-prendre.wav.mp3"
-            },
-            {
-              "audio": "LL-Q150 (fra)-WikiLucas00-prendre.wav",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3f/LL-Q150_%28fra%29-WikiLucas00-prendre.wav/LL-Q150_%28fra%29-WikiLucas00-prendre.wav.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3f/LL-Q150_%28fra%29-WikiLucas00-prendre.wav/LL-Q150_%28fra%29-WikiLucas00-prendre.wav.mp3"
-            },
-            {
-              "audio": "LL-Q150 (fra)-Jérémy-Günther-Heinz Jähnick-prendre.wav",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/12/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-prendre.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-prendre.wav.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/12/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-prendre.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-prendre.wav.mp3"
-            }
-          ],
-          "hyphenations": [
-            {
-              "parts": [
-                "prendre"
-              ]
-            }
-          ],
           "etymology_text": "Inherited from Middle French prendre, from Old French prendre, prandre, from Latin prēndere, alternative form of prehendere (“to seize”), from prae- (“before”) + *hendō (“to take, seize”) (not attested without prefix), from Proto-Indo-European *gʰed-.",
           "etymology_templates": [
             {
@@ -30104,6 +30047,63 @@
                 "3": "*gʰed-"
               },
               "expansion": "Proto-Indo-European *gʰed-"
+            }
+          ],
+          "sounds": [
+            {
+              "ipa": "/pʁɑ̃.dʁə/"
+            },
+            {
+              "audio": "Fr-prendre.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Fr-prendre.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3a/Fr-prendre.ogg/Fr-prendre.ogg.mp3"
+            },
+            {
+              "audio": "LL-Q150 (fra)-DSwissK-prendre.wav",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ec/LL-Q150_%28fra%29-DSwissK-prendre.wav/LL-Q150_%28fra%29-DSwissK-prendre.wav.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ec/LL-Q150_%28fra%29-DSwissK-prendre.wav/LL-Q150_%28fra%29-DSwissK-prendre.wav.mp3"
+            },
+            {
+              "audio": "LL-Q150 (fra)-GrandCelinien-prendre.wav",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/16/LL-Q150_%28fra%29-GrandCelinien-prendre.wav/LL-Q150_%28fra%29-GrandCelinien-prendre.wav.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/16/LL-Q150_%28fra%29-GrandCelinien-prendre.wav/LL-Q150_%28fra%29-GrandCelinien-prendre.wav.mp3"
+            },
+            {
+              "audio": "LL-Q150 (fra)-Lepticed7-prendre.wav",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/83/LL-Q150_%28fra%29-Lepticed7-prendre.wav/LL-Q150_%28fra%29-Lepticed7-prendre.wav.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/83/LL-Q150_%28fra%29-Lepticed7-prendre.wav/LL-Q150_%28fra%29-Lepticed7-prendre.wav.mp3"
+            },
+            {
+              "audio": "LL-Q150 (fra)-LoquaxFR-prendre.wav",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ad/LL-Q150_%28fra%29-LoquaxFR-prendre.wav/LL-Q150_%28fra%29-LoquaxFR-prendre.wav.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/ad/LL-Q150_%28fra%29-LoquaxFR-prendre.wav/LL-Q150_%28fra%29-LoquaxFR-prendre.wav.mp3"
+            },
+            {
+              "audio": "LL-Q150 (fra)-Pamputt-prendre.wav",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/39/LL-Q150_%28fra%29-Pamputt-prendre.wav/LL-Q150_%28fra%29-Pamputt-prendre.wav.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/39/LL-Q150_%28fra%29-Pamputt-prendre.wav/LL-Q150_%28fra%29-Pamputt-prendre.wav.mp3"
+            },
+            {
+              "audio": "LL-Q150 (fra)-Poslovitch-prendre.wav",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/92/LL-Q150_%28fra%29-Poslovitch-prendre.wav/LL-Q150_%28fra%29-Poslovitch-prendre.wav.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/92/LL-Q150_%28fra%29-Poslovitch-prendre.wav/LL-Q150_%28fra%29-Poslovitch-prendre.wav.mp3"
+            },
+            {
+              "audio": "LL-Q150 (fra)-WikiLucas00-prendre.wav",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3f/LL-Q150_%28fra%29-WikiLucas00-prendre.wav/LL-Q150_%28fra%29-WikiLucas00-prendre.wav.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3f/LL-Q150_%28fra%29-WikiLucas00-prendre.wav/LL-Q150_%28fra%29-WikiLucas00-prendre.wav.mp3"
+            },
+            {
+              "audio": "LL-Q150 (fra)-Jérémy-Günther-Heinz Jähnick-prendre.wav",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/12/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-prendre.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-prendre.wav.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/12/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-prendre.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-prendre.wav.mp3"
+            }
+          ],
+          "hyphenations": [
+            {
+              "parts": [
+                "prendre"
+              ]
             }
           ],
           "lang": "French",
@@ -30903,36 +30903,6 @@
               "word": "semble"
             }
           ],
-          "sounds": [
-            {
-              "ipa": "/sɑ̃.ble/"
-            },
-            {
-              "audio": "Fr-sembler.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Fr-sembler.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/0b/Fr-sembler.ogg/Fr-sembler.ogg.mp3"
-            },
-            {
-              "audio": "LL-Q150 (fra)-Pamputt-sembler.wav",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/cf/LL-Q150_%28fra%29-Pamputt-sembler.wav/LL-Q150_%28fra%29-Pamputt-sembler.wav.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/cf/LL-Q150_%28fra%29-Pamputt-sembler.wav/LL-Q150_%28fra%29-Pamputt-sembler.wav.mp3"
-            },
-            {
-              "audio": "LL-Q150 (fra)-Poslovitch-sembler.wav",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c9/LL-Q150_%28fra%29-Poslovitch-sembler.wav/LL-Q150_%28fra%29-Poslovitch-sembler.wav.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c9/LL-Q150_%28fra%29-Poslovitch-sembler.wav/LL-Q150_%28fra%29-Poslovitch-sembler.wav.mp3"
-            },
-            {
-              "audio": "LL-Q150 (fra)-WikiLucas00-sembler.wav",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/0a/LL-Q150_%28fra%29-WikiLucas00-sembler.wav/LL-Q150_%28fra%29-WikiLucas00-sembler.wav.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/0a/LL-Q150_%28fra%29-WikiLucas00-sembler.wav/LL-Q150_%28fra%29-WikiLucas00-sembler.wav.mp3"
-            },
-            {
-              "audio": "LL-Q150 (fra)-Jérémy-Günther-Heinz Jähnick-sembler.wav",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/29/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-sembler.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-sembler.wav.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/29/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-sembler.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-sembler.wav.mp3"
-            }
-          ],
           "etymology_text": "Inherited from Middle French sembler, from Old French sembler, from Late Latin similāre, a verb based on Latin similis (“similar”). Doublet of simuler.",
           "etymology_templates": [
             {
@@ -31029,6 +30999,36 @@
               "expansion": "Doublet of simuler"
             }
           ],
+          "sounds": [
+            {
+              "ipa": "/sɑ̃.ble/"
+            },
+            {
+              "audio": "Fr-sembler.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Fr-sembler.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/0b/Fr-sembler.ogg/Fr-sembler.ogg.mp3"
+            },
+            {
+              "audio": "LL-Q150 (fra)-Pamputt-sembler.wav",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/cf/LL-Q150_%28fra%29-Pamputt-sembler.wav/LL-Q150_%28fra%29-Pamputt-sembler.wav.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/cf/LL-Q150_%28fra%29-Pamputt-sembler.wav/LL-Q150_%28fra%29-Pamputt-sembler.wav.mp3"
+            },
+            {
+              "audio": "LL-Q150 (fra)-Poslovitch-sembler.wav",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c9/LL-Q150_%28fra%29-Poslovitch-sembler.wav/LL-Q150_%28fra%29-Poslovitch-sembler.wav.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c9/LL-Q150_%28fra%29-Poslovitch-sembler.wav/LL-Q150_%28fra%29-Poslovitch-sembler.wav.mp3"
+            },
+            {
+              "audio": "LL-Q150 (fra)-WikiLucas00-sembler.wav",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/0a/LL-Q150_%28fra%29-WikiLucas00-sembler.wav/LL-Q150_%28fra%29-WikiLucas00-sembler.wav.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/0a/LL-Q150_%28fra%29-WikiLucas00-sembler.wav/LL-Q150_%28fra%29-WikiLucas00-sembler.wav.mp3"
+            },
+            {
+              "audio": "LL-Q150 (fra)-Jérémy-Günther-Heinz Jähnick-sembler.wav",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/29/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-sembler.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-sembler.wav.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/29/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-sembler.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-sembler.wav.mp3"
+            }
+          ],
           "lang": "French",
           "lang_code": "fr"
         }
@@ -31116,6 +31116,18 @@
             "Pages with entries",
             "fr:Gaits"
           ],
+          "etymology_text": "From dé- + marche.",
+          "etymology_templates": [
+            {
+              "name": "af",
+              "args": {
+                "1": "fr",
+                "2": "dé-",
+                "3": "marche"
+              },
+              "expansion": "dé- + marche"
+            }
+          ],
           "sounds": [
             {
               "ipa": "/de.maʁʃ/"
@@ -31145,18 +31157,6 @@
             },
             {
               "homophone": "démarches"
-            }
-          ],
-          "etymology_text": "From dé- + marche.",
-          "etymology_templates": [
-            {
-              "name": "af",
-              "args": {
-                "1": "fr",
-                "2": "dé-",
-                "3": "marche"
-              },
-              "expansion": "dé- + marche"
             }
           ],
           "lang": "French",
@@ -31460,31 +31460,6 @@
               ]
             }
           ],
-          "sounds": [
-            {
-              "ipa": "/ʃɑ̃bʁ/"
-            },
-            {
-              "audio": "Fr-chambre.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Fr-chambre.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a3/Fr-chambre.ogg/Fr-chambre.ogg.mp3"
-            },
-            {
-              "audio": "LL-Q150 (fra)-LoquaxFR-chambre.wav",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/32/LL-Q150_%28fra%29-LoquaxFR-chambre.wav/LL-Q150_%28fra%29-LoquaxFR-chambre.wav.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/32/LL-Q150_%28fra%29-LoquaxFR-chambre.wav/LL-Q150_%28fra%29-LoquaxFR-chambre.wav.mp3"
-            },
-            {
-              "audio": "LL-Q150 (fra)-Poslovitch-chambre.wav",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2c/LL-Q150_%28fra%29-Poslovitch-chambre.wav/LL-Q150_%28fra%29-Poslovitch-chambre.wav.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2c/LL-Q150_%28fra%29-Poslovitch-chambre.wav/LL-Q150_%28fra%29-Poslovitch-chambre.wav.mp3"
-            },
-            {
-              "audio": "LL-Q150 (fra)-Jérémy-Günther-Heinz Jähnick-chambre.wav",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/f/fd/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-chambre.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-chambre.wav.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/f/fd/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-chambre.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-chambre.wav.mp3"
-            }
-          ],
           "etymology_text": "Inherited from Old French chambre, cambre, from Latin cambra, Medieval spelling of Latin camera (“room”), from Ancient Greek καμάρα (kamára, “something with an arched cover: a covered wagon, a covered boat, a vaulted chamber”). Doublet of caméra, a borrowing.",
           "etymology_templates": [
             {
@@ -31572,6 +31547,31 @@
                 "2": "caméra"
               },
               "expansion": "Doublet of caméra"
+            }
+          ],
+          "sounds": [
+            {
+              "ipa": "/ʃɑ̃bʁ/"
+            },
+            {
+              "audio": "Fr-chambre.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Fr-chambre.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a3/Fr-chambre.ogg/Fr-chambre.ogg.mp3"
+            },
+            {
+              "audio": "LL-Q150 (fra)-LoquaxFR-chambre.wav",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/32/LL-Q150_%28fra%29-LoquaxFR-chambre.wav/LL-Q150_%28fra%29-LoquaxFR-chambre.wav.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/32/LL-Q150_%28fra%29-LoquaxFR-chambre.wav/LL-Q150_%28fra%29-LoquaxFR-chambre.wav.mp3"
+            },
+            {
+              "audio": "LL-Q150 (fra)-Poslovitch-chambre.wav",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2c/LL-Q150_%28fra%29-Poslovitch-chambre.wav/LL-Q150_%28fra%29-Poslovitch-chambre.wav.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2c/LL-Q150_%28fra%29-Poslovitch-chambre.wav/LL-Q150_%28fra%29-Poslovitch-chambre.wav.mp3"
+            },
+            {
+              "audio": "LL-Q150 (fra)-Jérémy-Günther-Heinz Jähnick-chambre.wav",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/f/fd/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-chambre.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-chambre.wav.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/f/fd/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-chambre.wav/LL-Q150_%28fra%29-J%C3%A9r%C3%A9my-G%C3%BCnther-Heinz_J%C3%A4hnick-chambre.wav.mp3"
             }
           ],
           "lang": "French",
@@ -31709,6 +31709,17 @@
               ]
             }
           ],
+          "etymology_text": "Compare Portuguese de acordo.",
+          "etymology_templates": [
+            {
+              "name": "noncog",
+              "args": {
+                "1": "pt",
+                "2": "de acordo"
+              },
+              "expansion": "Portuguese de acordo"
+            }
+          ],
           "sounds": [
             {
               "ipa": "/d‿a.kɔʁ/"
@@ -31735,17 +31746,6 @@
                 "d'a",
                 "ccord"
               ]
-            }
-          ],
-          "etymology_text": "Compare Portuguese de acordo.",
-          "etymology_templates": [
-            {
-              "name": "noncog",
-              "args": {
-                "1": "pt",
-                "2": "de acordo"
-              },
-              "expansion": "Portuguese de acordo"
             }
           ],
           "lang": "French",
@@ -32795,37 +32795,6 @@
               ]
             }
           ],
-          "sounds": [
-            {
-              "ipa": "/a.ɡrós/"
-            },
-            {
-              "ipa": "/aˈɣros/"
-            },
-            {
-              "ipa": "/aˈɣros/"
-            },
-            {
-              "note": "5ᵗʰ BCE Attic",
-              "ipa": "/a.ɡrós/"
-            },
-            {
-              "note": "1ˢᵗ CE Egyptian",
-              "ipa": "/aˈɡros/"
-            },
-            {
-              "note": "4ᵗʰ CE Koine",
-              "ipa": "/aˈɣros/"
-            },
-            {
-              "note": "10ᵗʰ CE Byzantine",
-              "ipa": "/aˈɣros/"
-            },
-            {
-              "note": "15ᵗʰ CE Constantinopolitan",
-              "ipa": "/aˈɣros/"
-            }
-          ],
           "etymology_text": "From Proto-Hellenic *agrós, from Proto-Indo-European *h₂éǵros. Cognates include Mycenaean Greek 𐀀𐀒𐀫 (a-ko-ro), Latin ager, Sanskrit अज्र (ájra) and Old English æcer (English acre).",
           "etymology_templates": [
             {
@@ -32905,6 +32874,37 @@
                 "2": "acre"
               },
               "expansion": "English acre"
+            }
+          ],
+          "sounds": [
+            {
+              "ipa": "/a.ɡrós/"
+            },
+            {
+              "ipa": "/aˈɣros/"
+            },
+            {
+              "ipa": "/aˈɣros/"
+            },
+            {
+              "note": "5ᵗʰ BCE Attic",
+              "ipa": "/a.ɡrós/"
+            },
+            {
+              "note": "1ˢᵗ CE Egyptian",
+              "ipa": "/aˈɡros/"
+            },
+            {
+              "note": "4ᵗʰ CE Koine",
+              "ipa": "/aˈɣros/"
+            },
+            {
+              "note": "10ᵗʰ CE Byzantine",
+              "ipa": "/aˈɣros/"
+            },
+            {
+              "note": "15ᵗʰ CE Constantinopolitan",
+              "ipa": "/aˈɣros/"
             }
           ],
           "lang": "Ancient Greek",
@@ -33556,14 +33556,6 @@
               "word": "楽しむ"
             }
           ],
-          "sounds": [
-            {
-              "other": "たのしい"
-            },
-            {
-              "ipa": "[ta̠no̞ɕiː]"
-            }
-          ],
           "etymology_text": "⟨tano₁siki₁⟩ → */tanʷosikʲi/ → /tanoshii/\nFrom Old Japanese. First attested in the Kojiki of 712 CE. No Ryukyuan cognates exist; as a result, further derivation unknown. Theories include:\n* A compound of 手 (ta, “hand”, combining form) + 伸す (nosu, “to extend”)\n*: This is problematic, as nosu has first been attested starting from the early 900s, with no A/B distinction (see Jōdai Tokushu Kanazukai for details).\n* From 田神 (tano, literally “rice paddy god”)\n*: No reading of 神 (*no, “god”) exists.\n* A borrowing from an unknown language\n*: No words resemble *tanV meaning \"fun\" or \"to enjoy\".",
           "etymology_templates": [
             {
@@ -33602,6 +33594,14 @@
                 "nocap": "1"
               },
               "expansion": "unknown"
+            }
+          ],
+          "sounds": [
+            {
+              "other": "たのしい"
+            },
+            {
+              "ipa": "[ta̠no̞ɕiː]"
             }
           ],
           "lang": "Japanese",
@@ -34469,21 +34469,8 @@
               }
             }
           ],
-          "sounds": [
-            {
-              "other": "すき"
-            },
-            {
-              "ipa": "[sɨ̥kʲi]"
-            },
-            {
-              "note": "Kyōto",
-              "other": "[súꜜkì]"
-            }
-          ],
           "etymology_number": 1,
           "wikipedia": [
-            "Nihon Kokugo Daijiten",
             "Utsubo Monogatari",
             "ja:宇津保物語"
           ],
@@ -34517,6 +34504,18 @@
                 "3": "to like, to be fond of, to enjoy, to feel love for"
               },
               "expansion": "連(れん)用(よう)形(けい) (ren'yōkei, “stem or continuative form”) of the verb 好(す)く (suku, “to like, to be fond of, to enjoy, to feel love for”)."
+            }
+          ],
+          "sounds": [
+            {
+              "other": "すき"
+            },
+            {
+              "ipa": "[sɨ̥kʲi]"
+            },
+            {
+              "note": "Kyōto",
+              "other": "[súꜜkì]"
             }
           ],
           "lang": "Japanese",
@@ -35668,14 +35667,6 @@
               ]
             }
           ],
-          "sounds": [
-            {
-              "other": "たぬき"
-            },
-            {
-              "ipa": "[ta̠nɯ̟kʲi]"
-            }
-          ],
           "etymology_number": 1,
           "etymology_text": "According to one theory, derived from 手貫 (tanuki, “arm glove, gauntlet”), which raccoon dog hide was sometimes used for.",
           "etymology_templates": [
@@ -35686,6 +35677,14 @@
                 "2": "狸"
               },
               "expansion": "狸"
+            }
+          ],
+          "sounds": [
+            {
+              "other": "たぬき"
+            },
+            {
+              "ipa": "[ta̠nɯ̟kʲi]"
             }
           ],
           "lang": "Japanese",
@@ -38221,6 +38220,8 @@
               "word": "突っ走る"
             }
           ],
+          "lang": "Japanese",
+          "lang_code": "ja",
           "sounds": [
             {
               "other": "はしる"
@@ -38233,9 +38234,7 @@
               "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2a/LL-Q5287_%28jpn%29-Higa4-%E8%B5%B0%E3%82%8B.wav/LL-Q5287_%28jpn%29-Higa4-%E8%B5%B0%E3%82%8B.wav.ogg",
               "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/2a/LL-Q5287_%28jpn%29-Higa4-%E8%B5%B0%E3%82%8B.wav/LL-Q5287_%28jpn%29-Higa4-%E8%B5%B0%E3%82%8B.wav.mp3"
             }
-          ],
-          "lang": "Japanese",
-          "lang_code": "ja"
+          ]
         }
       },
       {
@@ -38723,6 +38722,11 @@
               "word": "五色鶸"
             }
           ],
+          "lang": "Japanese",
+          "lang_code": "ja",
+          "wikipedia": [
+            "ja:"
+          ],
           "sounds": [
             {
               "other": "ごしき"
@@ -38742,11 +38746,6 @@
             {
               "ipa": "[ɡo̞ɕo̞kɯ̟]"
             }
-          ],
-          "lang": "Japanese",
-          "lang_code": "ja",
-          "wikipedia": [
-            "ja:"
           ]
         }
       },
@@ -38864,12 +38863,12 @@
               "word": "お腹がへった"
             }
           ],
+          "etymology_text": "The perfective form of お腹が空く (onaka ga suku, “to become hungry”, literally “one's stomach becomes empty”).",
           "sounds": [
             {
               "ipa": "[o̞na̠ka̠ ɡa̠ sɨita̠]"
             }
           ],
-          "etymology_text": "The perfective form of お腹が空く (onaka ga suku, “to become hungry”, literally “one's stomach becomes empty”).",
           "lang": "Japanese",
           "lang_code": "ja"
         }
@@ -39448,14 +39447,6 @@
               "word": "昨日の花は今日の夢"
             }
           ],
-          "sounds": [
-            {
-              "other": "きょー"
-            },
-            {
-              "ipa": "[kʲo̞ː]"
-            }
-          ],
           "etymology_number": 1,
           "etymology_text": "⟨ke₁ pu⟩ → */kʲepu/ → /keɸu/ → */kewu/ → /keu/ → /kjoː/\nFrom Old Japanese けふ (ke₁pu), from Proto-Japonic *kepu.\nOriginally a compound of 此 (ke, apophonic form of ko, \"this\") + 日 (fu, apophonic form of hi, “day”). The final /eu/ → /joː/ sound shift is a separate but regular phonological change.",
           "etymology_templates": [
@@ -39486,6 +39477,14 @@
                 "3": "*kepu"
               },
               "expansion": "Proto-Japonic *kepu"
+            }
+          ],
+          "sounds": [
+            {
+              "other": "きょー"
+            },
+            {
+              "ipa": "[kʲo̞ː]"
             }
           ],
           "lang": "Japanese",
@@ -40772,21 +40771,6 @@
               ]
             }
           ],
-          "sounds": [
-            {
-              "tags": [
-                "SK-Standard",
-                "Seoul"
-              ],
-              "ipa": "[to̞ɡiɭ]"
-            },
-            {
-              "hangeul": "도길"
-            },
-            {
-              "other": "[도길]"
-            }
-          ],
           "etymology_text": "Sino-Korean word from 獨逸, an orthographic borrowing from Japanese 獨逸 (Doitsu, “Germany”), from Dutch Duits (“German”).",
           "etymology_templates": [
             {
@@ -40827,6 +40811,21 @@
                 "5": "German"
               },
               "expansion": "Dutch Duits (“German”)"
+            }
+          ],
+          "sounds": [
+            {
+              "tags": [
+                "SK-Standard",
+                "Seoul"
+              ],
+              "ipa": "[to̞ɡiɭ]"
+            },
+            {
+              "hangeul": "도길"
+            },
+            {
+              "other": "[도길]"
             }
           ],
           "lang": "Korean",
@@ -41235,18 +41234,6 @@
               "word": "fama"
             }
           ],
-          "sounds": [
-            {
-              "tags": [
-                "Classical-Latin"
-              ],
-              "ipa": "[ˈfaː.ma]"
-            },
-            {
-              "note": "modern Italianate Ecclesiastical",
-              "ipa": "[ˈfaː.ma]"
-            }
-          ],
           "etymology_text": "From Proto-Italic *fāmā, from Proto-Indo-European *bʰéh₂meh₂, from *bʰeh₂- (“to speak”). Cognate to Ancient Greek φήμη (phḗmē, “talk”).",
           "etymology_templates": [
             {
@@ -41285,6 +41272,18 @@
                 "t": "talk"
               },
               "expansion": "Ancient Greek φήμη (phḗmē, “talk”)"
+            }
+          ],
+          "sounds": [
+            {
+              "tags": [
+                "Classical-Latin"
+              ],
+              "ipa": "[ˈfaː.ma]"
+            },
+            {
+              "note": "modern Italianate Ecclesiastical",
+              "ipa": "[ˈfaː.ma]"
             }
           ],
           "lang": "Latin",
@@ -43531,18 +43530,6 @@
               "word": "sublegō"
             }
           ],
-          "sounds": [
-            {
-              "tags": [
-                "Classical-Latin"
-              ],
-              "ipa": "[ˈɫɛ.ɡoː]"
-            },
-            {
-              "note": "modern Italianate Ecclesiastical",
-              "ipa": "[ˈlɛː.ɡo]"
-            }
-          ],
           "etymology_number": 1,
           "etymology_text": "Etymology tree\nProto-Indo-European *leǵ-der.\nProto-Italic *legōder.\nLatin lego\nFrom Proto-Italic *legō, from Proto-Indo-European *léǵeti, from *leǵ-. Cognates include Ancient Greek λέγω (légō, “I speak, I choose, I mean”) and Albanian mbledh. May be related to lēx.",
           "etymology_templates": [
@@ -43591,6 +43578,18 @@
                 "2": "mbledh"
               },
               "expansion": "Albanian mbledh"
+            }
+          ],
+          "sounds": [
+            {
+              "tags": [
+                "Classical-Latin"
+              ],
+              "ipa": "[ˈɫɛ.ɡoː]"
+            },
+            {
+              "note": "modern Italianate Ecclesiastical",
+              "ipa": "[ˈlɛː.ɡo]"
             }
           ],
           "lang": "Latin",
@@ -44161,6 +44160,18 @@
               ]
             }
           ],
+          "etymology_text": "Borrowed from Ancient Greek λείριον (leírion). See there for more.",
+          "etymology_templates": [
+            {
+              "name": "bor+",
+              "args": {
+                "1": "la",
+                "2": "grc",
+                "3": "λείριον"
+              },
+              "expansion": "Borrowed from Ancient Greek λείριον (leírion)"
+            }
+          ],
           "sounds": [
             {
               "tags": [
@@ -44180,18 +44191,6 @@
                 "li",
                 "um"
               ]
-            }
-          ],
-          "etymology_text": "Borrowed from Ancient Greek λείριον (leírion). See there for more.",
-          "etymology_templates": [
-            {
-              "name": "bor+",
-              "args": {
-                "1": "la",
-                "2": "grc",
-                "3": "λείριον"
-              },
-              "expansion": "Borrowed from Ancient Greek λείριον (leírion)"
             }
           ],
           "lang": "Latin",
@@ -44336,18 +44335,6 @@
               "word": "usquequāque"
             }
           ],
-          "sounds": [
-            {
-              "tags": [
-                "Classical-Latin"
-              ],
-              "ipa": "[ˈʊs.kʷɛ]"
-            },
-            {
-              "note": "modern Italianate Ecclesiastical",
-              "ipa": "[ˈus.kʷe]"
-            }
-          ],
           "etymology_text": "From Proto-Italic *ū̆skʷe, from Proto-Indo-European *úds-kʷe, from *úd-s (“out, outward”, genitive) + *-kʷe (“and”). Cognate with Sanskrit उच्चा (uccā́), Younger Avestan 𐬎𐬯𐬗𐬀 (usca, “up, out”), Russian вы- (vy-, “out from”), Proto-Germanic *ūt, English out.\nHowever, cf. Lewis & Short, which says: usquĕ, adv. [us- for ubs-, from ubi with locative s; and que for qued, old abl. of quis; v. Corss. Ausspr. 2, 471; 838; cf.: quisque, usquam].",
           "etymology_templates": [
             {
@@ -44436,6 +44423,18 @@
                 "2": "out"
               },
               "expansion": "English out"
+            }
+          ],
+          "sounds": [
+            {
+              "tags": [
+                "Classical-Latin"
+              ],
+              "ipa": "[ˈʊs.kʷɛ]"
+            },
+            {
+              "note": "modern Italianate Ecclesiastical",
+              "ipa": "[ˈus.kʷe]"
             }
           ],
           "lang": "Latin",
@@ -45013,18 +45012,6 @@
               }
             }
           ],
-          "sounds": [
-            {
-              "tags": [
-                "Classical-Latin"
-              ],
-              "ipa": "[ˈreːk.tʊs]"
-            },
-            {
-              "note": "modern Italianate Ecclesiastical",
-              "ipa": "[ˈrɛk.t̪us]"
-            }
-          ],
           "etymology_text": "Perfect passive participle of regō (“to keep or lead straight, to guide”). Inherited from Proto-Italic *rektos, corresponding to Proto-Indo-European *h₃reǵtós (“having moved in a straight line”), from Proto-Indo-European *h₃reǵ- (“to straighten, direct”).",
           "etymology_templates": [
             {
@@ -45066,6 +45053,18 @@
                 "5": "to straighten, direct"
               },
               "expansion": "Proto-Indo-European *h₃reǵ- (“to straighten, direct”)"
+            }
+          ],
+          "sounds": [
+            {
+              "tags": [
+                "Classical-Latin"
+              ],
+              "ipa": "[ˈreːk.tʊs]"
+            },
+            {
+              "note": "modern Italianate Ecclesiastical",
+              "ipa": "[ˈrɛk.tus]"
             }
           ],
           "lang": "Latin",
@@ -46075,18 +46074,6 @@
               ]
             }
           ],
-          "sounds": [
-            {
-              "tags": [
-                "Classical-Latin"
-              ],
-              "ipa": "[ˈdɔ.mʊs]"
-            },
-            {
-              "note": "modern Italianate Ecclesiastical",
-              "ipa": "[ˈd̪ɔː.mus]"
-            }
-          ],
           "etymology_text": "For Proto-Italic *domos, from Proto-Indo-European *dṓm (“house, home”), from root *dem- (“to build”). Cognates include Ancient Greek δόμος (dómos), Albanian dhomë (“a chamber, a room”), Avestan 𐬛𐬀𐬨- (dam-) Sanskrit दम (dáma), Proto-Slavic *domъ and further to English timber. At least indirectly cognate to Latin dominus.\nThe feminine gender is probably due to the original root noun; attempts to transfer it to the 4th declension are due to 2nd declension feminines being unusual outside of tree names. Some manuscripts of Plautus show forms in dem-; De Vaan (2008) doubts their authenticity.",
           "etymology_templates": [
             {
@@ -46175,6 +46162,18 @@
                 "2": "dominus"
               },
               "expansion": "Latin dominus"
+            }
+          ],
+          "sounds": [
+            {
+              "tags": [
+                "Classical-Latin"
+              ],
+              "ipa": "[ˈdɔ.mʊs]"
+            },
+            {
+              "note": "modern Italianate Ecclesiastical",
+              "ipa": "[ˈdɔː.mus]"
             }
           ],
           "lang": "Latin",
@@ -46802,21 +46801,6 @@
               "word": "снеги́рь"
             }
           ],
-          "sounds": [
-            {
-              "ipa": "[sʲnʲek]"
-            },
-            {
-              "audio": "Ru-снег.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/0/01/Ru-%D1%81%D0%BD%D0%B5%D0%B3.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/01/Ru-%D1%81%D0%BD%D0%B5%D0%B3.ogg/Ru-%D1%81%D0%BD%D0%B5%D0%B3.ogg.mp3"
-            },
-            {
-              "audio": "LL-Q7737 (rus)-Tatiana Kerbush-снег.wav",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d8/LL-Q7737_%28rus%29-Tatiana_Kerbush-%D1%81%D0%BD%D0%B5%D0%B3.wav/LL-Q7737_%28rus%29-Tatiana_Kerbush-%D1%81%D0%BD%D0%B5%D0%B3.wav.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d8/LL-Q7737_%28rus%29-Tatiana_Kerbush-%D1%81%D0%BD%D0%B5%D0%B3.wav/LL-Q7737_%28rus%29-Tatiana_Kerbush-%D1%81%D0%BD%D0%B5%D0%B3.wav.mp3"
-            }
-          ],
           "etymology_text": "Inherited from Proto-Slavic *sněgъ, from Proto-Balto-Slavic *snáigas, from Proto-Indo-European *snóygʷʰos.",
           "etymology_templates": [
             {
@@ -46894,6 +46878,21 @@
               "expansion": "Proto-Indo-European *snóygʷʰos"
             }
           ],
+          "sounds": [
+            {
+              "ipa": "[sʲnʲek]"
+            },
+            {
+              "audio": "Ru-снег.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/0/01/Ru-%D1%81%D0%BD%D0%B5%D0%B3.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/01/Ru-%D1%81%D0%BD%D0%B5%D0%B3.ogg/Ru-%D1%81%D0%BD%D0%B5%D0%B3.ogg.mp3"
+            },
+            {
+              "audio": "LL-Q7737 (rus)-Tatiana Kerbush-снег.wav",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d8/LL-Q7737_%28rus%29-Tatiana_Kerbush-%D1%81%D0%BD%D0%B5%D0%B3.wav/LL-Q7737_%28rus%29-Tatiana_Kerbush-%D1%81%D0%BD%D0%B5%D0%B3.wav.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d8/LL-Q7737_%28rus%29-Tatiana_Kerbush-%D1%81%D0%BD%D0%B5%D0%B3.wav/LL-Q7737_%28rus%29-Tatiana_Kerbush-%D1%81%D0%BD%D0%B5%D0%B3.wav.mp3"
+            }
+          ],
           "lang": "Russian",
           "lang_code": "ru"
         }
@@ -46966,13 +46965,13 @@
               ]
             }
           ],
+          "lang": "Russian",
+          "lang_code": "ru",
           "sounds": [
             {
               "ipa": "[vɐzʲˈnʲik]"
             }
-          ],
-          "lang": "Russian",
-          "lang_code": "ru"
+          ]
         }
       },
       {
@@ -47035,13 +47034,13 @@
               ]
             }
           ],
+          "lang": "Russian",
+          "lang_code": "ru",
           "sounds": [
             {
               "ipa": "[prəstɨˈnʲɵj]"
             }
-          ],
-          "lang": "Russian",
-          "lang_code": "ru"
+          ]
         }
       },
       {
@@ -47536,16 +47535,6 @@
               "word": "бе́лый"
             }
           ],
-          "sounds": [
-            {
-              "ipa": "[pəbʲɪˈlʲetʲ]"
-            },
-            {
-              "audio": "LL-Q7737 (rus)-Tatiana Kerbush-побелеть.wav",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/24/LL-Q7737_%28rus%29-Tatiana_Kerbush-%D0%BF%D0%BE%D0%B1%D0%B5%D0%BB%D0%B5%D1%82%D1%8C.wav/LL-Q7737_%28rus%29-Tatiana_Kerbush-%D0%BF%D0%BE%D0%B1%D0%B5%D0%BB%D0%B5%D1%82%D1%8C.wav.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/24/LL-Q7737_%28rus%29-Tatiana_Kerbush-%D0%BF%D0%BE%D0%B1%D0%B5%D0%BB%D0%B5%D1%82%D1%8C.wav/LL-Q7737_%28rus%29-Tatiana_Kerbush-%D0%BF%D0%BE%D0%B1%D0%B5%D0%BB%D0%B5%D1%82%D1%8C.wav.mp3"
-            }
-          ],
           "etymology_text": "по- (po-) + беле́ть (belétʹ)",
           "etymology_templates": [
             {
@@ -47556,6 +47545,16 @@
                 "3": "беле́ть"
               },
               "expansion": "по- (po-) + беле́ть (belétʹ)"
+            }
+          ],
+          "sounds": [
+            {
+              "ipa": "[pəbʲɪˈlʲetʲ]"
+            },
+            {
+              "audio": "LL-Q7737 (rus)-Tatiana Kerbush-побелеть.wav",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/24/LL-Q7737_%28rus%29-Tatiana_Kerbush-%D0%BF%D0%BE%D0%B1%D0%B5%D0%BB%D0%B5%D1%82%D1%8C.wav/LL-Q7737_%28rus%29-Tatiana_Kerbush-%D0%BF%D0%BE%D0%B1%D0%B5%D0%BB%D0%B5%D1%82%D1%8C.wav.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/24/LL-Q7737_%28rus%29-Tatiana_Kerbush-%D0%BF%D0%BE%D0%B1%D0%B5%D0%BB%D0%B5%D1%82%D1%8C.wav/LL-Q7737_%28rus%29-Tatiana_Kerbush-%D0%BF%D0%BE%D0%B1%D0%B5%D0%BB%D0%B5%D1%82%D1%8C.wav.mp3"
             }
           ],
           "lang": "Russian",
@@ -47909,16 +47908,6 @@
               }
             }
           ],
-          "sounds": [
-            {
-              "ipa": "[ˈzɪmnei̯]"
-            },
-            {
-              "audio": "Uk-зимний.ogg",
-              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Uk-%D0%B7%D0%B8%D0%BC%D0%BD%D0%B8%D0%B9.ogg",
-              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1c/Uk-%D0%B7%D0%B8%D0%BC%D0%BD%D0%B8%D0%B9.ogg/Uk-%D0%B7%D0%B8%D0%BC%D0%BD%D0%B8%D0%B9.ogg.mp3"
-            }
-          ],
           "etymology_text": "From Proto-Slavic *zimьnъ. Morphologically, from зима́ (zymá) + -ний (-nyj).\nRelated to зи́мній (zýmnij).",
           "etymology_templates": [
             {
@@ -47938,6 +47927,16 @@
                 "3": "-ний"
               },
               "expansion": "зима́ (zymá) + -ний (-nyj)"
+            }
+          ],
+          "sounds": [
+            {
+              "ipa": "[ˈzɪmnei̯]"
+            },
+            {
+              "audio": "Uk-зимний.ogg",
+              "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Uk-%D0%B7%D0%B8%D0%BC%D0%BD%D0%B8%D0%B9.ogg",
+              "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/1c/Uk-%D0%B7%D0%B8%D0%BC%D0%BD%D0%B8%D0%B9.ogg/Uk-%D0%B7%D0%B8%D0%BC%D0%BD%D0%B8%D0%B9.ogg.mp3"
             }
           ],
           "lang": "Ukrainian",
@@ -50859,7 +50858,7 @@
               "sense_index": 2
             }
           ],
-          "etymology_text": "Происходит от праслав. *sněgъ, от которого в числе прочего произошли: др.-русск., ст.-слав. снѣгъ (др.-греч. χιών, χειμών), русск., белор. снег, укр. сніг, болг. сняг, сербохорв. сни̏jег, местн. ед. сниjѐгу, словенск. snẹ̑g (род. п. snẹgȃ), чешск. sníh, словацк. sneh, польск. śnieg, в.-луж. sněh, н.-луж. sněg, полабск. snẹg. Родственно др.-прусск. snaygis «снег», лит. sniẽgas — то же, snaĩgala «снежинка», латышск. snìegs «снег», готск. snaiws — то же, греч. νείφει «идет снег», лат. nīvit, др.-в.-нем. sni^wit, лит. sniẽga, авест. snaēžaiti — то же, наряду с лит. snìgti, sniñgа «идет снег», латышск. snigt, лат. ninguit «идет снег», niх (род. п. nivis) «снег», греч. νίφα (вин. ед.) «снег», νιφάδες «хлопья снега», др.-ирл. snigid «идет дождь, снег», др.-инд. sníhyati «мокнет, становится клейким, прилипает, ощущает склонность», прич. snigdhás, кауз. snēháyati.Использованы данные словаря М. Фасмера. См. Список литературы.\nОт праиндоевр. корня *sniegwh-/*snoigwho- также произошли:\n* протогерм. *snaiwaz (англ. snow, нем. Schnee, нид. sneeuw, дат. sne и т. п.)\n* лат. nix (исп. nieve, итал./порт. neve, фр. neige)\n* греч. nipha\n* лит. sniegas\n* староирл. snechta\n* санскр. snihyati",
+          "etymology_text": "Происходит от праслав. *sněgъ, от которого в числе прочего произошли: др.-русск., ст.-слав. снѣгъ (др.-греч. χιών, χειμών), русск., белор. снег, укр. сніг, болг. сняг, сербохорв. сни̏jег, местн. ед. сниjѐгу, словенск. snẹ̑g (род. п. snẹgȃ), чешск. sníh, словацк. sneh, польск. śnieg, в.-луж. sněh, н.-луж. sněg, полабск. snẹg. Родственно др.-прусск. snaygis «снег», лит. sniẽgas — то же, snaĩgala «снежинка», латышск. snìegs «снег», готск. snaiws — то же, греч. νείφει «идет снег», лат. nīvit, др.-в.-нем. sni^wit, лит. sniẽga, авест. snaēžaiti — то же, наряду с лит. snìgti, sniñgа «идет снег», латышск. snigt, лат. ninguit «идет снег», niх (род. п. nivis) «снег», греч. νίφα (вин. ед.) «снег», νιφάδες «хлопья снега», др.-ирл. snigid «идет дождь, снег», др.-инд. sníhyati «мокнет, становится клейким, прилипает, ощущает склонность», прич. snigdhás, кауз. snēháyati. Использованы данные словаря М. Фасмера. См. Список литературы.\nОт праиндоевр. корня *sniegwh-/*snoigwho- также произошли:\n* протогерм. *snaiwaz (англ. snow, нем. Schnee, нид. sneeuw, дат. sne и т. п.)\n* лат. nix (исп. nieve, итал./порт. neve, фр. neige)\n* греч. nipha\n* лит. sniegas\n* староирл. snechta\n* санскр. snihyati",
           "related": [
             {
               "word": "снежок",
@@ -51047,6 +51046,12 @@
             },
             {
               "word": "снеги",
+              "raw_tags": [
+                "существительные"
+              ]
+            },
+            {
+              "word": "снегирёнок",
               "raw_tags": [
                 "существительные"
               ]
@@ -52347,14 +52352,6 @@
               "word": "akullthyes"
             }
           ],
-          "sounds": [
-            {
-              "ipa": "/ˈakuɫ/"
-            },
-            {
-              "rhymes": "-akuɫ"
-            }
-          ],
           "etymology_number": 1,
           "wikipedia": [
             "Vladimir Oryol"
@@ -52439,6 +52436,14 @@
                 "2": "-ull"
               },
               "expansion": "-ull"
+            }
+          ],
+          "sounds": [
+            {
+              "ipa": "/ˈakuɫ/"
+            },
+            {
+              "rhymes": "-akuɫ"
             }
           ],
           "lang": "Albanian",
@@ -53493,51 +53498,6 @@
               "word": "gjuhustër"
             }
           ],
-          "sounds": [
-            {
-              "note": "northern Tosk, Lab",
-              "ipa": "/ˈɟuhə/"
-            },
-            {
-              "note": "southern Gheg, central Gheg",
-              "ipa": "[ˈɟuh]"
-            },
-            {
-              "tags": [
-                "Gheg",
-                "Northern"
-              ],
-              "ipa": "[ˈɡjuː(h)]"
-            },
-            {
-              "tags": [
-                "Gheg",
-                "Northern"
-              ],
-              "ipa": "[ˈɡuː(h)]"
-            },
-            {
-              "tags": [
-                "Kosovo"
-              ],
-              "ipa": "[ˈɡũː]"
-            },
-            {
-              "tags": [
-                "Arbëresh",
-                "Arvanitika",
-                "Cham"
-              ],
-              "ipa": "[ˈɡʎuhə]"
-            },
-            {
-              "note": "Calabria",
-              "ipa": "[ˈɡʎuɣə]"
-            },
-            {
-              "rhymes": "-uhə"
-            }
-          ],
           "wikipedia": [
             "Vladimir Oryol"
           ],
@@ -53662,6 +53622,51 @@
                 "2": "γλῶσσα"
               },
               "expansion": "Ancient Greek γλῶσσα (glôssa)"
+            }
+          ],
+          "sounds": [
+            {
+              "note": "northern Tosk, Lab",
+              "ipa": "/ˈɟuhə/"
+            },
+            {
+              "note": "southern Gheg, central Gheg",
+              "ipa": "[ˈɟuh]"
+            },
+            {
+              "tags": [
+                "Gheg",
+                "Northern"
+              ],
+              "ipa": "[ˈɡjuː(h)]"
+            },
+            {
+              "tags": [
+                "Gheg",
+                "Northern"
+              ],
+              "ipa": "[ˈɡuː(h)]"
+            },
+            {
+              "tags": [
+                "Kosovo"
+              ],
+              "ipa": "[ˈɡũː]"
+            },
+            {
+              "tags": [
+                "Arbëresh",
+                "Arvanitika",
+                "Cham"
+              ],
+              "ipa": "[ˈɡʎuhə]"
+            },
+            {
+              "note": "Calabria",
+              "ipa": "[ˈɡʎuɣə]"
+            },
+            {
+              "rhymes": "-uhə"
             }
           ],
           "lang": "Albanian",
