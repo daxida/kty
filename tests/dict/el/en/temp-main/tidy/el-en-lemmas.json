@@ -1,8 +1,8 @@
 {
   "έρχομαι": {
     "έρχομαι": {
-      "verb": {
-        "0": {
+      "verb": [
+        {
           "gloss_tree": {
             "to come": {
               "examples": [
@@ -83,7 +83,7 @@
           "wlink": "https://en.wiktionary.org/wiki/έρχομαι#Greek",
           "klink": "https://kaikki.org/dictionary/Greek/meaning/έ/έρ/έρχομαι.html"
         }
-      }
+      ]
     }
   }
 }

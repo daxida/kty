@@ -1,8 +1,8 @@
 {
   "vivir": {
     "vivir": {
-      "verb": {
-        "0": {
+      "verb": [
+        {
           "gloss_tree": {
             "to live; to be alive": {
               "tags": [
@@ -46,7 +46,7 @@
           "wlink": "https://en.wiktionary.org/wiki/vivir#Spanish",
           "klink": "https://kaikki.org/dictionary/Spanish/meaning/v/vi/vivir.html"
         }
-      }
+      ]
     }
   }
 }

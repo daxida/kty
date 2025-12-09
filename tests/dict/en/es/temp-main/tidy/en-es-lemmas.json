@@ -1,8 +1,8 @@
 {
   "fast": {
     "fast": {
-      "adj": {
-        "0": {
+      "adj": [
+        {
           "gloss_tree": {
             "Rápido, veloz.": {},
             "Adelantado.": {
@@ -20,7 +20,7 @@
           "wlink": "https://es.wiktionary.org/wiki/fast#English",
           "klink": "https://kaikki.org/eswiktionary/All%20languages%20combined/meaning/f/fa/fast.html"
         }
-      }
+      ]
     }
   }
 }

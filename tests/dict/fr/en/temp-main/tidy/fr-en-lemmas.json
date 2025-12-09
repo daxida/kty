@@ -1,8 +1,8 @@
 {
   "prendre": {
     "prendre": {
-      "verb": {
-        "0": {
+      "verb": [
+        {
           "gloss_tree": {
             "to take": {
               "tags": [
@@ -260,13 +260,13 @@
           "wlink": "https://en.wiktionary.org/wiki/prendre#French",
           "klink": "https://kaikki.org/dictionary/French/meaning/p/pr/prendre.html"
         }
-      }
+      ]
     }
   },
   "sembler": {
     "sembler": {
-      "verb": {
-        "0": {
+      "verb": [
+        {
           "gloss_tree": {
             "to seem, to resemble": {
               "tags": [
@@ -290,13 +290,13 @@
           "wlink": "https://en.wiktionary.org/wiki/sembler#French",
           "klink": "https://kaikki.org/dictionary/French/meaning/s/se/sembler.html"
         }
-      }
+      ]
     }
   },
   "chambre": {
     "chambre": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "a chamber in its various senses, including:": {
               "tags": [
@@ -331,13 +331,13 @@
           "wlink": "https://en.wiktionary.org/wiki/chambre#French",
           "klink": "https://kaikki.org/dictionary/French/meaning/c/ch/chambre.html"
         }
-      }
+      ]
     }
   },
   "d'accord": {
     "d'accord": {
-      "adv": {
-        "0": {
+      "adv": [
+        {
           "gloss_tree": {
             "in agreement": {
               "examples": [
@@ -356,7 +356,7 @@
           "wlink": "https://en.wiktionary.org/wiki/d'accord#French",
           "klink": "https://kaikki.org/dictionary/French/meaning/d/d'/d'accord.html"
         }
-      }
+      ]
     }
   }
 }

@@ -1,21 +1,21 @@
 {
   "立命": {
     "りつめい": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "天寿を全うし、人為によって損なわないこと。": {}
           },
           "wlink": "https://ja.wiktionary.org/wiki/立命#Japanese",
           "klink": "https://kaikki.org/jawiktionary/All%20languages%20combined/meaning/立/立命/立命.html"
         }
-      }
+      ]
     }
   },
   "全然": {
     "ぜんぜん": {
-      "adv": {
-        "0": {
+      "adv": [
+        {
           "gloss_tree": {
             "全く、すべて、まるっきり。": {
               "tags": [
@@ -110,13 +110,13 @@
           "wlink": "https://ja.wiktionary.org/wiki/全然#Japanese",
           "klink": "https://kaikki.org/jawiktionary/All%20languages%20combined/meaning/全/全然/全然.html"
         }
-      }
+      ]
     }
   },
   "命令": {
     "めいれい": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "上位者が相手に対してあることをするよう強く言うこと。またその発言や伝達。": {},
             "国などの行政機関が法律を実施するため、命じることやその内容。": {},
@@ -125,7 +125,7 @@
           "wlink": "https://ja.wiktionary.org/wiki/命令#Japanese",
           "klink": "https://kaikki.org/jawiktionary/All%20languages%20combined/meaning/命/命令/命令.html"
         }
-      }
+      ]
     }
   }
 }

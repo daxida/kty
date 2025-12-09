@@ -53,8 +53,8 @@ type LemmaMap = Map<
         String, // reading
         Map<
             Pos, // pos
-            Map<
-                String,        // etymology number
+            Vec<
+                // list of, one per etymology
                 RawSenseEntry, // ipa, gloss_tree etc.
             >,
         >,
@@ -152,7 +152,7 @@ fn lemma_map_len(lemma_map: &LemmaMap) -> usize {
         .values()
         .flat_map(|reading_map| reading_map.values())
         .flat_map(|pos_map| pos_map.values())
-        .map(Map::len)
+        .map(Vec::len)
         .sum()
 }
 
@@ -237,9 +237,7 @@ impl Tidy {
             .entry(pos.to_string())
             .or_default();
 
-        let next_etymology_number = etym_map.len().to_string();
-
-        etym_map.insert(next_etymology_number, entry);
+        etym_map.push(entry);
     }
 
     fn insert_form(
@@ -1122,7 +1120,7 @@ fn make_yomitan_lemmas(
     for (lemma, readings) in lemma_map {
         for (reading, pos_word) in readings {
             for (pos, etyms) in pos_word {
-                for (_etym_number, info) in etyms {
+                for info in etyms {
                     let yomitan_entry = make_yomitan_lemma(
                         edition,
                         options,

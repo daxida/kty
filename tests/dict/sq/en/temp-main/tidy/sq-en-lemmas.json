@@ -1,8 +1,8 @@
 {
   "akull": {
     "akull": {
-      "adv": {
-        "0": {
+      "adv": [
+        {
           "gloss_tree": {
             "very": {}
           },
@@ -10,13 +10,13 @@
           "wlink": "https://en.wiktionary.org/wiki/akull#Albanian",
           "klink": "https://kaikki.org/dictionary/Albanian/meaning/a/ak/akull.html"
         }
-      }
+      ]
     }
   },
   "gjuhë": {
     "gjuhë": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "tongue (organ)": {
               "tags": [
@@ -125,7 +125,7 @@
           "wlink": "https://en.wiktionary.org/wiki/gjuhë#Albanian",
           "klink": "https://kaikki.org/dictionary/Albanian/meaning/g/gj/gjuhë.html"
         }
-      }
+      ]
     }
   }
 }

@@ -1,15 +1,15 @@
 {
   "choose": {
     "choose": {
-      "verb": {
-        "0": {
+      "verb": [
+        {
           "gloss_tree": {
             "aussuchen, auswählen, vorziehen, wählen": {}
           },
           "wlink": "https://de.wiktionary.org/wiki/choose#English",
           "klink": "https://kaikki.org/dewiktionary/All%20languages%20combined/meaning/c/ch/choose.html"
         }
-      }
+      ]
     }
   }
 }

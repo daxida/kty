@@ -1,8 +1,8 @@
 {
   "ἀγρός": {
     "ᾰ̓γρός": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "field, land, countryside": {
               "tags": [
@@ -21,7 +21,7 @@
           "wlink": "https://en.wiktionary.org/wiki/ἀγρός#Ancient Greek",
           "klink": "https://kaikki.org/dictionary/Ancient%20Greek/meaning/ἀ/ἀγ/ἀγρός.html"
         }
-      }
+      ]
     }
   }
 }

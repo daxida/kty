@@ -1,8 +1,8 @@
 {
   "ملک": {
     "malak": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "angel": {
               "examples": [
@@ -18,13 +18,13 @@
           "wlink": "https://en.wiktionary.org/wiki/ملک#Persian",
           "klink": "https://kaikki.org/dictionary/Persian/meaning/م/مل/ملک.html"
         }
-      }
+      ]
     }
   },
   "فارسی": {
     "fârsi": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "Persian (the language of modern Iran, Afghanistan and Tajikistan, and widely spoken in Uzbekistan).": {
               "examples": [
@@ -49,7 +49,7 @@
           "wlink": "https://en.wiktionary.org/wiki/فارسی#Persian",
           "klink": "https://kaikki.org/dictionary/Persian/meaning/ف/فا/فارسی.html"
         }
-      }
+      ]
     }
   }
 }

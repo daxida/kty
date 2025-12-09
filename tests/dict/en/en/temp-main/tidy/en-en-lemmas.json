@@ -1,8 +1,8 @@
 {
   "bring": {
     "bring": {
-      "verb": {
-        "0": {
+      "verb": [
+        {
           "gloss_tree": {
             "To transport toward somebody/somewhere.": {
               "tags": [
@@ -90,13 +90,13 @@
           "wlink": "https://en.wiktionary.org/wiki/bring#English",
           "klink": "https://kaikki.org/dictionary/English/meaning/b/br/bring.html"
         }
-      }
+      ]
     }
   },
   "wain": {
     "wain": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "A wagon; a four-wheeled cart for hauling loads, usually pulled by horses or oxen.": {
               "tags": [
@@ -116,13 +116,13 @@
           "wlink": "https://en.wiktionary.org/wiki/wain#English",
           "klink": "https://kaikki.org/dictionary/English/meaning/w/wa/wain.html"
         }
-      }
+      ]
     }
   },
   "falcon": {
     "falcon": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "Any bird of the genus Falco, all of which are birds of prey.": {},
             "Any bird of prey of the subfamilies Falconinae and Herpetotherinae.": {},
@@ -145,7 +145,7 @@
           "wlink": "https://en.wiktionary.org/wiki/falcon#English",
           "klink": "https://kaikki.org/dictionary/English/meaning/f/fa/falcon.html"
         }
-      }
+      ]
     }
   }
 }

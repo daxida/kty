@@ -1,8 +1,8 @@
 {
   "田": {
     "田": {
-      "character": {
-        "0": {
+      "character": [
+        {
           "gloss_tree": {
             "paddy field; wet field (Classifier: 坵 mn)": {
               "tags": [
@@ -20,7 +20,7 @@
           "wlink": "https://en.wiktionary.org/wiki/田#Chinese",
           "klink": "https://kaikki.org/dictionary/Chinese/meaning/田/田/田.html"
         }
-      }
+      ]
     }
   }
 }

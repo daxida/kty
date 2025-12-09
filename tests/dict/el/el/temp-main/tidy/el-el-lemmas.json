@@ -1,8 +1,8 @@
 {
   "κόρφος": {
     "κόρφος": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "η αγκαλιά, ο κόλπος, το μέρος του σώματος ανάμεσα στους βραχίονες και το στήθος": {
               "tags": [
@@ -39,13 +39,13 @@
           "wlink": "https://el.wiktionary.org/wiki/κόρφος#Greek",
           "klink": "https://kaikki.org/elwiktionary/Greek/meaning/κ/κό/κόρφος.html"
         }
-      }
+      ]
     }
   },
   "αζωικός": {
     "αζωικός": {
-      "adj": {
-        "0": {
+      "adj": [
+        {
           "gloss_tree": {
             "που δεν εμφανίζει ίχνη ζωής": {
               "tags": [
@@ -57,13 +57,13 @@
           "wlink": "https://el.wiktionary.org/wiki/αζωικός#Greek",
           "klink": "https://kaikki.org/elwiktionary/Greek/meaning/α/αζ/αζωικός.html"
         }
-      }
+      ]
     }
   },
   "γορίλλας": {
     "γορίλλας": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "το μεγαλύτερο εν ζωή είδος πιθήκου. Ανήκει στα πρωτεύοντα θηλαστικά. Είναι φυτοφάγος και ενδημεί στα δάση της Αφρικής.": {
               "tags": [
@@ -90,7 +90,7 @@
           "wlink": "https://el.wiktionary.org/wiki/γορίλλας#Greek",
           "klink": "https://kaikki.org/elwiktionary/Greek/meaning/γ/γο/γορίλλας.html"
         }
-      }
+      ]
     }
   }
 }

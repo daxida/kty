@@ -1,8 +1,8 @@
 {
   "снег": {
     "снег": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "метеорол. неисч. вид атмосферных осадков в виде небольших хлопьев застывшей воды (снежинок) в форме шестиугольных пластинок и шестилучевых звёздочек; выпадает из облаков при температуре воздуха ниже 0 °C": {
               "tags": [
@@ -87,13 +87,13 @@
           "wlink": "https://ru.wiktionary.org/wiki/снег#Russian",
           "klink": "https://kaikki.org/ruwiktionary/All%20languages%20combined/meaning/с/сн/снег.html"
         }
-      }
+      ]
     }
   },
   "продолжать": {
     "продолжать": {
-      "verb": {
-        "0": {
+      "verb": [
+        {
           "gloss_tree": {
             "делать начатое раньше в течение более длительного времени, не прекращая": {
               "tags": [
@@ -112,7 +112,7 @@
           "wlink": "https://ru.wiktionary.org/wiki/продолжать#Russian",
           "klink": "https://kaikki.org/ruwiktionary/All%20languages%20combined/meaning/п/пр/продолжать.html"
         }
-      }
+      ]
     }
   }
 }

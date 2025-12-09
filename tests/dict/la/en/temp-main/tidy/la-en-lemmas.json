@@ -1,8 +1,8 @@
 {
   "fama": {
     "fāma": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "fame": {
               "tags": [
@@ -58,13 +58,13 @@
           "wlink": "https://en.wiktionary.org/wiki/fama#Latin",
           "klink": "https://kaikki.org/dictionary/Latin/meaning/f/fa/fama.html"
         }
-      }
+      ]
     }
   },
   "lego": {
     "legō": {
-      "verb": {
-        "0": {
+      "verb": [
+        {
           "gloss_tree": {
             "to choose, select": {
               "tags": [
@@ -139,13 +139,13 @@
           "wlink": "https://en.wiktionary.org/wiki/lego#Latin",
           "klink": "https://kaikki.org/dictionary/Latin/meaning/l/le/lego.html"
         }
-      }
+      ]
     }
   },
   "lilium": {
     "līlium": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "a lily": {
               "tags": [
@@ -159,13 +159,13 @@
           "wlink": "https://en.wiktionary.org/wiki/lilium#Latin",
           "klink": "https://kaikki.org/dictionary/Latin/meaning/l/li/lilium.html"
         }
-      }
+      ]
     }
   },
   "usque": {
     "usque": {
-      "adv": {
-        "0": {
+      "adv": [
+        {
           "gloss_tree": {
             "constantly, continuously": {
               "tags": [
@@ -197,13 +197,13 @@
           "wlink": "https://en.wiktionary.org/wiki/usque#Latin",
           "klink": "https://kaikki.org/dictionary/Latin/meaning/u/us/usque.html"
         }
-      }
+      ]
     }
   },
   "rectus": {
     "rēctus": {
-      "verb": {
-        "0": {
+      "verb": [
+        {
           "gloss_tree": {
             "led straight along, drawn in a straight line, straight, upright.": {
               "tags": [
@@ -254,13 +254,13 @@
           "wlink": "https://en.wiktionary.org/wiki/rectus#Latin",
           "klink": "https://kaikki.org/dictionary/Latin/meaning/r/re/rectus.html"
         }
-      }
+      ]
     }
   },
   "domus": {
     "domus": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "house, home (the building where a person lives)": {
               "tags": [
@@ -393,7 +393,7 @@
           "wlink": "https://en.wiktionary.org/wiki/domus#Latin",
           "klink": "https://kaikki.org/dictionary/Latin/meaning/d/do/domus.html"
         }
-      }
+      ]
     }
   }
 }

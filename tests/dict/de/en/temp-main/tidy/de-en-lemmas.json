@@ -1,8 +1,8 @@
 {
   "pflegen": {
     "pflegen": {
-      "verb": {
-        "0": {
+      "verb": [
+        {
           "gloss_tree": {
             "providing care or service for someone/something": {
               "tags": [
@@ -189,13 +189,13 @@
           "wlink": "https://en.wiktionary.org/wiki/pflegen#German",
           "klink": "https://kaikki.org/dictionary/German/meaning/p/pf/pflegen.html"
         }
-      }
+      ]
     }
   },
   "Fuchs": {
     "Fuchs": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "fox (animal)": {
               "tags": [
@@ -319,13 +319,13 @@
           "wlink": "https://en.wiktionary.org/wiki/Fuchs#German",
           "klink": "https://kaikki.org/dictionary/German/meaning/F/Fu/Fuchs.html"
         }
-      }
+      ]
     }
   },
   "Herz": {
     "Herz": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "heart": {
               "tags": [
@@ -358,13 +358,13 @@
           "wlink": "https://en.wiktionary.org/wiki/Herz#German",
           "klink": "https://kaikki.org/dictionary/German/meaning/H/He/Herz.html"
         }
-      }
+      ]
     }
   },
   "Fahrer": {
     "Fahrer": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "agent noun of fahren; driver (person)": {
               "tags": [
@@ -380,13 +380,13 @@
           "wlink": "https://en.wiktionary.org/wiki/Fahrer#German",
           "klink": "https://kaikki.org/dictionary/German/meaning/F/Fa/Fahrer.html"
         }
-      }
+      ]
     }
   },
   "von": {
     "von": {
-      "prep": {
-        "0": {
+      "prep": [
+        {
           "gloss_tree": {
             "from": {
               "examples": [
@@ -449,13 +449,13 @@
           "wlink": "https://en.wiktionary.org/wiki/von#German",
           "klink": "https://kaikki.org/dictionary/German/meaning/v/vo/von.html"
         }
-      }
+      ]
     }
   },
   "Base": {
     "Base": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "A female cousin.": {
               "tags": [
@@ -475,7 +475,7 @@
           "wlink": "https://en.wiktionary.org/wiki/Base#German",
           "klink": "https://kaikki.org/dictionary/German/meaning/B/Ba/Base.html"
         },
-        "1": {
+        {
           "gloss_tree": {
             "base (compound that will neutralize an acid)": {
               "tags": [
@@ -493,7 +493,7 @@
           "wlink": "https://en.wiktionary.org/wiki/Base#German",
           "klink": "https://kaikki.org/dictionary/German/meaning/B/Ba/Base.html"
         }
-      }
+      ]
     }
   }
 }

@@ -1,8 +1,8 @@
 {
   "снег": {
     "снег": {
-      "noun": {
-        "0": {
+      "noun": [
+        {
           "gloss_tree": {
             "snow": {
               "tags": [
@@ -64,13 +64,13 @@
           "wlink": "https://en.wiktionary.org/wiki/снег#Russian",
           "klink": "https://kaikki.org/dictionary/Russian/meaning/с/сн/снег.html"
         }
-      }
+      ]
     }
   },
   "побелеть": {
     "побеле́ть": {
-      "verb": {
-        "0": {
+      "verb": [
+        {
           "gloss_tree": {
             "to turn white, (intransitive) to whiten": {
               "tags": [
@@ -102,13 +102,13 @@
           "wlink": "https://en.wiktionary.org/wiki/побелеть#Russian",
           "klink": "https://kaikki.org/dictionary/Russian/meaning/п/по/побелеть.html"
         }
-      }
+      ]
     }
   },
   "зимний": {
     "зи́мний": {
-      "adj": {
-        "0": {
+      "adj": [
+        {
           "gloss_tree": {
             "cold": {}
           },
@@ -117,7 +117,7 @@
           "wlink": "https://en.wiktionary.org/wiki/зимний#Russian",
           "klink": "https://kaikki.org/dictionary/Russian/meaning/з/зи/зимний.html"
         }
-      }
+      ]
     }
   }
 }
