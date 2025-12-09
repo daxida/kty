@@ -29,8 +29,8 @@
       "noun": [
         "extracted",
         [
-          "masculine",
-          "accusative singular"
+          "accusative singular",
+          "masculine"
         ]
       ]
     },
@@ -247,10 +247,10 @@
         "extracted",
         [
           "accusative plural neuter",
-          "nominative plural neuter",
-          "vocative plural neuter",
           "accusative singular masculine",
           "genitive singular masculine",
+          "nominative plural neuter",
+          "vocative plural neuter",
           "vocative singular masculine"
         ]
       ]

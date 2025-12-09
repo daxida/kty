@@ -20,10 +20,10 @@
       "verb": [
         "extracted",
         [
-          "past participle",
-          "plural past",
           "first/second/third-person singular past",
-          "past subjunctive"
+          "past participle",
+          "past subjunctive",
+          "plural past"
         ]
       ]
     },
@@ -39,9 +39,9 @@
       "verb": [
         "extracted",
         [
-          "plural past dialectal",
           "first/second/third-person singular past dialectal",
-          "past subjunctive dialectal"
+          "past subjunctive dialectal",
+          "plural past dialectal"
         ]
       ]
     },
@@ -49,10 +49,10 @@
       "verb": [
         "extracted",
         [
-          "past participle dialectal",
-          "plural past nonstandard",
           "first/second/third-person singular past nonstandard",
-          "past subjunctive nonstandard"
+          "past participle dialectal",
+          "past subjunctive nonstandard",
+          "plural past nonstandard"
         ]
       ]
     },
@@ -60,10 +60,10 @@
       "verb": [
         "extracted",
         [
-          "past participle nonstandard",
-          "plural past nonstandard",
           "first/second/third-person singular past nonstandard",
-          "past subjunctive nonstandard"
+          "past participle nonstandard",
+          "past subjunctive nonstandard",
+          "plural past nonstandard"
         ]
       ]
     }

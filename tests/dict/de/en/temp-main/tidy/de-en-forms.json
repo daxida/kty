@@ -14,9 +14,9 @@
       "verb": [
         "extracted",
         [
-          "past",
+          "first/third-person singular indicative preterite",
           "formal first/third-person singular subjunctive rare subjunctive-ii",
-          "first/third-person singular indicative preterite"
+          "past"
         ]
       ]
     },
@@ -32,8 +32,8 @@
       "verb": [
         "extracted",
         [
-          "past",
-          "first/third-person singular indicative preterite"
+          "first/third-person singular indicative preterite",
+          "past"
         ]
       ]
     },
@@ -100,8 +100,8 @@
       "verb": [
         "extracted",
         [
-          "formal first/third-person plural subjunctive rare subjunctive-ii",
-          "first/third-person plural indicative preterite"
+          "first/third-person plural indicative preterite",
+          "formal first/third-person plural subjunctive rare subjunctive-ii"
         ]
       ]
     },
@@ -118,8 +118,8 @@
       "verb": [
         "extracted",
         [
-          "second-person plural indicative preterite",
-          "formal second-person plural subjunctive rare subjunctive-ii"
+          "formal second-person plural subjunctive rare subjunctive-ii",
+          "second-person plural indicative preterite"
         ]
       ]
     },
@@ -271,9 +271,9 @@
         [
           "accusative plural definite",
           "dative plural definite",
+          "dative singular",
           "genitive plural definite",
-          "nominative plural definite",
-          "dative singular"
+          "nominative plural definite"
         ]
       ]
     },

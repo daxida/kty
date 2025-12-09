@@ -9,7 +9,9 @@
         "dative",
         "accusative",
         "vocative",
+        "ablative",
         "locative",
+        "partitive",
         "instrumental",
         "prepositional"
     ],

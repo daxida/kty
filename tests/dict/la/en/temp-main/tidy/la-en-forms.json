@@ -4,10 +4,10 @@
       "noun": [
         "extracted",
         [
-          "nominative plural",
-          "vocative plural",
           "dative singular",
-          "genitive singular"
+          "genitive singular",
+          "nominative plural",
+          "vocative plural"
         ]
       ]
     },
@@ -23,7 +23,7 @@
       "noun": [
         "extracted",
         [
-          "plural ablative",
+          "ablative plural",
           "dative plural"
         ]
       ]
@@ -48,7 +48,7 @@
       "noun": [
         "extracted",
         [
-          "singular ablative"
+          "ablative singular"
         ]
       ]
     },
@@ -1017,8 +1017,8 @@
       "verb": [
         "extracted",
         [
-          "dative gerund noun-from-verb",
-          "gerund noun-from-verb ablative"
+          "ablative gerund noun-from-verb",
+          "dative gerund noun-from-verb"
         ]
       ]
     },
@@ -1034,7 +1034,7 @@
       "verb": [
         "extracted",
         [
-          "noun-from-verb ablative supine"
+          "ablative noun-from-verb supine"
         ]
       ]
     }
@@ -1078,7 +1078,7 @@
       "noun": [
         "extracted",
         [
-          "singular ablative",
+          "ablative singular",
           "dative singular"
         ]
       ]
@@ -1087,7 +1087,7 @@
       "noun": [
         "extracted",
         [
-          "plural ablative",
+          "ablative plural",
           "dative plural"
         ]
       ]
@@ -1109,8 +1109,8 @@
         [
           "accusative plural neuter",
           "nominative plural neuter",
-          "vocative plural neuter",
           "nominative singular feminine",
+          "vocative plural neuter",
           "vocative singular feminine"
         ]
       ]
@@ -1162,10 +1162,10 @@
       "verb": [
         "extracted",
         [
-          "nominative plural masculine",
-          "vocative plural masculine",
           "genitive singular masculine",
-          "genitive singular neuter"
+          "genitive singular neuter",
+          "nominative plural masculine",
+          "vocative plural masculine"
         ]
       ]
     },
@@ -1173,10 +1173,10 @@
       "verb": [
         "extracted",
         [
-          "nominative plural feminine",
-          "vocative plural feminine",
           "dative singular feminine",
-          "genitive singular feminine"
+          "genitive singular feminine",
+          "nominative plural feminine",
+          "vocative plural feminine"
         ]
       ]
     },
@@ -1201,8 +1201,8 @@
       "verb": [
         "extracted",
         [
-          "singular masculine ablative",
-          "singular neuter ablative",
+          "ablative singular masculine",
+          "ablative singular neuter",
           "dative singular masculine",
           "dative singular neuter"
         ]
@@ -1212,7 +1212,7 @@
       "verb": [
         "extracted",
         [
-          "plural masculine feminine neuter ablative",
+          "ablative plural masculine feminine neuter",
           "dative plural masculine feminine neuter"
         ]
       ]
@@ -1245,7 +1245,7 @@
       "verb": [
         "extracted",
         [
-          "singular feminine ablative"
+          "ablative singular feminine"
         ]
       ]
     },
@@ -1264,9 +1264,9 @@
         "extracted",
         [
           "accusative plural",
+          "genitive singular",
           "nominative plural",
-          "vocative plural",
-          "genitive singular"
+          "vocative plural"
         ]
       ]
     },
@@ -1307,7 +1307,7 @@
       "noun": [
         "extracted",
         [
-          "singular ablative",
+          "ablative singular",
           "dative singular"
         ]
       ]
@@ -1316,7 +1316,7 @@
       "noun": [
         "extracted",
         [
-          "singular ablative",
+          "ablative singular",
           "dative singular"
         ]
       ]
@@ -1325,7 +1325,7 @@
       "noun": [
         "extracted",
         [
-          "plural ablative",
+          "ablative plural",
           "dative plural"
         ]
       ]

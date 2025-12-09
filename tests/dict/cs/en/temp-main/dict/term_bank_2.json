@@ -32,6 +32,12 @@
       [
         "zpráva",
         [
+          "genitive singular"
+        ]
+      ],
+      [
+        "zpráva",
+        [
           "nominative plural"
         ]
       ],
@@ -39,12 +45,6 @@
         "zpráva",
         [
           "vocative plural"
-        ]
-      ],
-      [
-        "zpráva",
-        [
-          "genitive singular"
         ]
       ]
     ],
@@ -425,13 +425,13 @@
       [
         "přít",
         [
-          "neuter plural past active participle"
+          "plural neuter past active participle"
         ]
       ],
       [
         "přít",
         [
-          "feminine singular past active participle"
+          "singular feminine past active participle"
         ]
       ]
     ],

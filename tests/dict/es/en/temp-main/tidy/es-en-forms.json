@@ -12,8 +12,8 @@
       "verb": [
         "extracted",
         [
-          "informal second-person singular imperative vos-form",
-          "first-person singular indicative preterite"
+          "first-person singular indicative preterite",
+          "informal second-person singular imperative vos-form"
         ]
       ]
     },
@@ -69,8 +69,8 @@
       "verb": [
         "extracted",
         [
-          "second-person plural present indicative",
-          "informal second-person singular present indicative vos-form"
+          "informal second-person singular present indicative vos-form",
+          "second-person plural present indicative"
         ]
       ]
     },
@@ -308,8 +308,8 @@
       "verb": [
         "extracted",
         [
-          "third-person plural present subjunctive",
-          "formal third-person second-person-semantically plural imperative negative"
+          "formal third-person second-person-semantically plural imperative negative",
+          "third-person plural present subjunctive"
         ]
       ]
     },

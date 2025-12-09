@@ -249,6 +249,7 @@ impl Tidy {
         tags: Vec<Tag>,
     ) {
         debug_assert_ne!(uninflected, inflected);
+        debug_assert!(!tags.is_empty());
         let entry = self
             .form_map
             .entry(uninflected.to_string())
@@ -264,15 +265,20 @@ impl Tidy {
 
 fn postprocess_forms(form_map: &mut FormMap) {
     for (_, _, _, _, tags) in flat_iter_forms_mut(form_map) {
-        // Keep only unique tags
-        let mut seen = IndexSet::new();
-        seen.extend(tags.drain(..));
-        *tags = seen.into_iter().collect();
-
-        // Merge person tags and sort
-        *tags = merge_person_tags(tags);
-        sort_tags_by_similar(tags);
+        // Keep only unique tags and remove tags subsets
         remove_redundant_tags(tags);
+
+        // Merge person tags
+        merge_person_tags(tags);
+
+        // Sort inner words
+        for tag in tags.iter_mut() {
+            let mut words: Vec<&str> = tag.split(' ').collect();
+            sort_tags(&mut words);
+            *tag = words.join(" ");
+        }
+
+        sort_tags_by_similar(tags);
     }
 }
 
@@ -1806,6 +1812,7 @@ impl SimpleDictionary for DIpaMerged {
     }
 
     fn postprocess(&self, irs: &mut Self::I) {
+        // TODO: use dedup
         // Keep only unique entries
         let mut seen = IndexSet::new();
         seen.extend(irs.drain(..));
@@ -2715,17 +2722,10 @@ mod tests {
         eprintln!("------ Starting test @ {fixture_path:?}");
 
         delete_previous_output(pm)?;
-
-        pm.setup_dirs().unwrap(); // this makes some noise but ok
-
-        // tidy(langs, options, pm, &fixture_path)?;
-        // let mut diagnostics = Diagnostics::new();
-        // make_yomitan(langs, options, pm, &mut diagnostics, None)?;
-        // write_diagnostics(pm, &diagnostics)?;
-
         make_dict_simple(DMain, options, pm)?;
+        check_git_diff(pm)?;
 
-        check_git_diff(pm)
+        Ok(())
     }
 
     // check git --diff for charges in the generated json

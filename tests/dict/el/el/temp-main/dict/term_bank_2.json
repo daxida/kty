@@ -66,13 +66,13 @@
       [
         "κόρφος",
         [
-          "masculine"
+          "accusative singular"
         ]
       ],
       [
         "κόρφος",
         [
-          "accusative singular"
+          "masculine"
         ]
       ]
     ],
@@ -601,18 +601,6 @@
       [
         "ψηφίσας",
         [
-          "nominative plural neuter"
-        ]
-      ],
-      [
-        "ψηφίσας",
-        [
-          "vocative plural neuter"
-        ]
-      ],
-      [
-        "ψηφίσας",
-        [
           "accusative singular masculine"
         ]
       ],
@@ -620,6 +608,18 @@
         "ψηφίσας",
         [
           "genitive singular masculine"
+        ]
+      ],
+      [
+        "ψηφίσας",
+        [
+          "nominative plural neuter"
+        ]
+      ],
+      [
+        "ψηφίσας",
+        [
+          "vocative plural neuter"
         ]
       ],
       [

@@ -38,7 +38,7 @@
       [
         "pflegen",
         [
-          "past"
+          "first/third-person singular indicative preterite"
         ]
       ],
       [
@@ -50,7 +50,7 @@
       [
         "pflegen",
         [
-          "first/third-person singular indicative preterite"
+          "past"
         ]
       ]
     ],
@@ -84,13 +84,13 @@
       [
         "pflegen",
         [
-          "past"
+          "first/third-person singular indicative preterite"
         ]
       ],
       [
         "pflegen",
         [
-          "first/third-person singular indicative preterite"
+          "past"
         ]
       ]
     ],
@@ -244,13 +244,13 @@
       [
         "pflegen",
         [
-          "formal first/third-person plural subjunctive rare subjunctive-ii"
+          "first/third-person plural indicative preterite"
         ]
       ],
       [
         "pflegen",
         [
-          "first/third-person plural indicative preterite"
+          "formal first/third-person plural subjunctive rare subjunctive-ii"
         ]
       ]
     ],
@@ -290,13 +290,13 @@
       [
         "pflegen",
         [
-          "second-person plural indicative preterite"
+          "formal second-person plural subjunctive rare subjunctive-ii"
         ]
       ],
       [
         "pflegen",
         [
-          "formal second-person plural subjunctive rare subjunctive-ii"
+          "second-person plural indicative preterite"
         ]
       ]
     ],
@@ -626,6 +626,12 @@
       [
         "Herz",
         [
+          "dative singular"
+        ]
+      ],
+      [
+        "Herz",
+        [
           "genitive plural definite"
         ]
       ],
@@ -633,12 +639,6 @@
         "Herz",
         [
           "nominative plural definite"
-        ]
-      ],
-      [
-        "Herz",
-        [
-          "dative singular"
         ]
       ]
     ],

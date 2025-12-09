@@ -13,9 +13,9 @@
         "extracted",
         [
           "accusative plural",
+          "genitive singular",
           "nominative plural",
-          "vocative plural",
-          "genitive singular"
+          "vocative plural"
         ]
       ]
     },
@@ -189,8 +189,8 @@
       "verb": [
         "inflection",
         [
-          "neuter plural past active participle",
-          "feminine singular past active participle"
+          "plural neuter past active participle",
+          "singular feminine past active participle"
         ]
       ]
     }

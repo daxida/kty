@@ -53,8 +53,8 @@
       "noun": [
         "extracted",
         [
-          "singular partitive",
-          "dative singular"
+          "dative singular",
+          "partitive singular"
         ]
       ]
     },
@@ -128,7 +128,7 @@
       "verb": [
         "inflection",
         [
-          "short masculine singular past indicative perfective"
+          "singular masculine past perfective indicative short"
         ]
       ]
     }

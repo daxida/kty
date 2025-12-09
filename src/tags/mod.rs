@@ -1,5 +1,7 @@
 pub mod tags_constants;
 
+use std::cmp::Ordering;
+
 use indexmap::IndexMap;
 use tags_constants::{POSES, TAG_BANK, TAG_ORDER};
 
@@ -39,56 +41,67 @@ pub const IDENTITY_FORM_TAGS: [&str; 3] = ["nominative", "singular", "infinitive
 /// Tags that we just remove from forms @ tidy
 pub const REDUNDANT_FORM_TAGS: [&str; 1] = ["combined-form"];
 
-// ignore target_iso !== en since tags should always be in English anyway
 /// Sort tags by their position in the tag bank.
-pub fn sort_tags(tags: &mut [Tag]) {
+///
+/// Expects (but does not check) tags WITHOUT spaces.
+pub fn sort_tags<T: AsRef<str>>(tags: &mut [T]) {
+    // debug_assert!(tags.iter().all(|tag| !tag.contains(' ')));
+
     tags.sort_by(|a, b| {
-        let index_a = TAG_ORDER.iter().position(|&x| x == a);
-        let index_b = TAG_ORDER.iter().position(|&x| x == b);
+        let index_a = TAG_ORDER.iter().position(|&x| x == a.as_ref());
+        let index_b = TAG_ORDER.iter().position(|&x| x == b.as_ref());
 
         match (index_a, index_b) {
-            (Some(i), Some(j)) => i.cmp(&j), // both found → compare positions
+            (Some(i), Some(j)) => i.cmp(&j),   // both found → compare positions
+            (Some(_), None) => Ordering::Less, // found beats not-found
+            (None, Some(_)) => Ordering::Greater,
             // This seems better but it's different from the original
             // (None, None) => a.cmp(b),        // neither found → alphabetical fallback
-            (None, None) => std::cmp::Ordering::Equal, // neither found → do nothing
-            (Some(_), None) => std::cmp::Ordering::Less, // found beats not-found
-            (None, Some(_)) => std::cmp::Ordering::Greater,
+            (None, None) => Ordering::Equal, // neither found → do nothing
         }
     });
 }
 
-// Sort forms tags
+/// Sort tags by word-by-word lexicographical similarity, grouping tags that
+/// share the same leading words (shorter prefix-only tags sort first).
+///
+/// Expects (but does not check) tags WITH spaces.
 pub fn sort_tags_by_similar(tags: &mut [Tag]) {
     tags.sort_by(|a, b| {
-        let a_words: Vec<&str> = a.split(' ').collect();
-        let b_words: Vec<&str> = b.split(' ').collect();
+        let mut a_iter = a.split(' ');
+        let mut b_iter = b.split(' ');
 
-        // Compare the second word (index #1) if present
-        let a_second = a_words.get(1).unwrap_or(&"");
-        let b_second = b_words.get(1).unwrap_or(&"");
-
-        let main_comparison = a_second.cmp(b_second);
-        if main_comparison != std::cmp::Ordering::Equal {
-            return main_comparison;
-        }
-
-        // Compare word-by-word
-        let len = a_words.len().min(b_words.len());
-        for i in 0..len {
-            if a_words[i] != b_words[i] {
-                return a_words[i].cmp(b_words[i]);
+        loop {
+            match (a_iter.next(), b_iter.next()) {
+                (Some(a_word), Some(b_word)) => match a_word.cmp(b_word) {
+                    Ordering::Equal => continue,
+                    non_eq => return non_eq,
+                },
+                (Some(_), None) => return Ordering::Greater,
+                (None, Some(_)) => return Ordering::Less,
+                (None, None) => return Ordering::Equal,
             }
         }
-
-        // Fallback: shorter is "less"
-        a_words.len().cmp(&b_words.len())
     });
 }
 
-/// Remove tag1 if there is a tag2 such that tag1 <= tag2
+/// First, remove duplicates.
 ///
-/// Takes space-separated tags.
+/// Then, remove tag1 if there is a tag2 such that tag1 <= tag2
+///
+/// Expects (but does not check) tags WITH spaces.
 pub fn remove_redundant_tags(tags: &mut Vec<Tag>) {
+    tags.sort();
+    // We can't just call dedup, because the inner words may not be sorted
+    // cf. tags = ["a b", "b a"]
+    tags.dedup_by(|a, b| {
+        let mut a_words: Vec<_> = a.split(' ').collect();
+        let mut b_words: Vec<_> = b.split(' ').collect();
+        a_words.sort_unstable();
+        b_words.sort_unstable();
+        a_words == b_words
+    });
+
     let mut keep = vec![true; tags.len()];
 
     for i in 0..tags.len() {
@@ -109,10 +122,69 @@ pub fn remove_redundant_tags(tags: &mut Vec<Tag>) {
     });
 }
 
+/// Check if all words in string `a` are present in string `b`.
+///
+/// F.e. "foo bar" is subset of "bar foo baz"
 fn tags_are_subset(a: &str, b: &str) -> bool {
-    let a_words: Vec<&str> = a.split(' ').collect();
-    let b_words: Vec<&str> = b.split(' ').collect();
-    a_words.iter().all(|p| b_words.contains(p))
+    a.split(' ')
+        .all(|a_word| b.split(' ').any(|b_word| b_word == a_word))
+}
+
+const PERSON_TAGS: [&str; 3] = ["first-person", "second-person", "third-person"];
+
+fn person_sort(tags: &mut [&str]) {
+    tags.sort_by_key(|x| PERSON_TAGS.iter().position(|p| p == x).unwrap_or(999));
+}
+
+/// Merge similar tags if the only difference is the person-tags.
+///
+/// F.e.
+/// in:  ['first-person singular', 'third-person singular']
+/// out: ['singular first/third-person ']
+///
+/// Note that this does not preserve logical tag order, and should be called before sort_tag.
+pub fn merge_person_tags(tags: &mut Vec<Tag>) {
+    let contains_person = tags
+        .iter()
+        .any(|tag| PERSON_TAGS.iter().any(|p| tag.contains(p)));
+
+    if !contains_person {
+        return;
+    }
+
+    let unmerged_tags = std::mem::take(tags);
+    let mut grouped: IndexMap<Vec<&str>, Vec<&str>> = IndexMap::new();
+
+    for tag in &unmerged_tags {
+        let (person_tags, other_tags): (Vec<_>, Vec<_>) =
+            tag.split(' ').partition(|t| PERSON_TAGS.contains(t));
+
+        match person_tags.as_slice() {
+            [person] => grouped.entry(other_tags).or_default().push(person),
+            _ => tags.push(tag.to_string()),
+        }
+    }
+
+    for (other_tags, mut person_matches) in grouped {
+        let mut tags_cur: Vec<_> = other_tags.iter().map(|s| s.to_string()).collect();
+
+        person_sort(&mut person_matches);
+
+        // [first-person, third-person] > first/third-person
+        let merged_tag = format!(
+            "{}-person",
+            person_matches
+                .iter()
+                // SAFETY: PERSON_TAGS contains pmatch so it always ends in -person
+                .map(|pmatch| pmatch.strip_suffix("-person").unwrap())
+                .collect::<Vec<_>>() // unlucky collect because we can't join a map
+                .join("/")
+        );
+
+        tags_cur.push(merged_tag);
+        // sort_tags(&mut tags_cur);
+        tags.push(tags_cur.join(" "));
+    }
 }
 
 /// Return a Vec<TagInformation> from `tag_bank_terms` that fits the yomitan tag schema.
@@ -148,68 +220,6 @@ pub fn find_pos(pos: &str) -> Option<&'static str> {
     })
 }
 
-const PERSON_TAGS: [&str; 3] = ["first-person", "second-person", "third-person"];
-
-fn person_sort(tags: &mut [String]) {
-    tags.sort_by_key(|x| PERSON_TAGS.iter().position(|p| p == x).unwrap_or(999));
-}
-
-// merge similar tags if the only difference is the persons
-// input: ['first-person singular present', 'third-person singular present']
-// output: ['first/third-person singular present']
-pub fn merge_person_tags(tags: &[Tag]) -> Vec<Tag> {
-    let contains_person = tags
-        .iter()
-        .any(|tag| PERSON_TAGS.iter().any(|p| tag.contains(p)));
-
-    if tags.is_empty() || !contains_person {
-        return tags.into();
-    }
-
-    let mut result = Vec::new();
-    let mut merge_obj: IndexMap<Tag, Vec<Tag>> = IndexMap::new();
-
-    for tag in tags {
-        let all_tags: Vec<_> = tag.split(' ').collect();
-        let person_tags: Vec<_> = all_tags
-            .iter()
-            .copied()
-            .filter(|t| PERSON_TAGS.contains(t))
-            .collect();
-
-        if person_tags.len() == 1 {
-            let person = person_tags[0].to_string();
-            let other_tags: Vec<_> = all_tags
-                .iter()
-                .copied()
-                .filter(|t| !PERSON_TAGS.contains(t))
-                .map(str::to_string)
-                .collect();
-
-            let tag_key = other_tags.join("_");
-            merge_obj.entry(tag_key).or_default().push(person);
-        } else {
-            result.push(tag.clone());
-        }
-    }
-
-    for (tag_key, mut person_matches) in merge_obj {
-        let mut tags: Vec<_> = if tag_key.is_empty() {
-            Vec::new()
-        } else {
-            tag_key.split('_').map(str::to_string).collect()
-        };
-
-        person_sort(&mut person_matches);
-        let merged_tag = format!("{}-person", person_matches.join("/").replace("-person", ""));
-        tags.push(merged_tag);
-        sort_tags(&mut tags);
-        result.push(tags.join(" "));
-    }
-
-    result
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -218,12 +228,16 @@ mod tests {
         str_vec.iter().map(|s| (*s).to_string()).collect()
     }
 
+    fn to_str_vec<'a>(str_vec: &[&'a str]) -> Vec<&'a str> {
+        str_vec.iter().copied().collect()
+    }
+
     // This imitates the original. Can be removed if sort_tags logic changes.
     #[test]
     fn sort_tags_base() {
         let tag_not_found = "__sentinel";
         assert!(!TAG_ORDER.contains(&tag_not_found));
-        let mut received = to_string_vec(&[tag_not_found, "Gheg"]);
+        let mut received = to_str_vec(&[tag_not_found, "Gheg"]);
         let expected = to_string_vec(&[tag_not_found, "Gheg"]);
         sort_tags(&mut received);
         assert_eq!(received, expected);
@@ -258,10 +272,10 @@ mod tests {
     }
 
     fn make_test_merge_person_tags(received: &[&str], expected: &[&str]) {
-        let vreceived: Vec<String> = to_string_vec(received);
-        let received = merge_person_tags(&vreceived);
+        let mut vreceived: Vec<String> = to_string_vec(received);
         let vexpected: Vec<String> = to_string_vec(expected);
-        assert_eq!(received, vexpected);
+        merge_person_tags(&mut vreceived);
+        assert_eq!(vreceived, vexpected);
     }
 
     #[test]
@@ -271,7 +285,7 @@ mod tests {
                 "first-person singular present",
                 "third-person singular present",
             ],
-            &["first/third-person singular present"],
+            &["singular present first/third-person"],
         );
     }
 
@@ -286,7 +300,7 @@ mod tests {
                 "second-person singular past",
                 "third-person singular past",
             ],
-            &["first/second/third-person singular past"],
+            &["singular past first/second/third-person"],
         );
     }
 
@@ -307,5 +321,35 @@ mod tests {
         let expected = to_string_vec(&["first-person singular indicative preterite"]);
         remove_redundant_tags(&mut received);
         assert_eq!(received, expected);
+    }
+
+    #[test]
+    fn remove_redundant_tags_duplicates1() {
+        let mut received = to_string_vec(&["a b", "a b"]);
+        let expected = to_string_vec(&["a b"]);
+        remove_redundant_tags(&mut received);
+        assert_eq!(received, expected);
+    }
+
+    #[test]
+    fn remove_redundant_tags_duplicates2() {
+        let mut received = to_string_vec(&["a b", "b a"]);
+        let expected = to_string_vec(&["a b"]);
+        remove_redundant_tags(&mut received);
+        assert_eq!(received, expected);
+    }
+
+    #[test]
+    fn remove_redundant_tags_duplicates3() {
+        let mut received = to_string_vec(&["a b", "c a b", "b a", "b a c", "c b a"]);
+        let expected = to_string_vec(&["b a c"]);
+        remove_redundant_tags(&mut received);
+        assert_eq!(received, expected);
+    }
+
+    #[test]
+    fn tags_subsets() {
+        assert!(tags_are_subset("foo bar", "bar foo baz"));
+        assert!(!tags_are_subset("foo qux", "foo bar baz"));
     }
 }

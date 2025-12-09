@@ -1,3 +1,6 @@
+build:
+  python3 scripts/build.py
+
 # Add a word to the testsuite
 add fr to word:
   @cargo run --release -- download {{fr}} {{to}}
