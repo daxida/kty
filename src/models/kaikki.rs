@@ -59,6 +59,7 @@ pub struct Sound {
     pub ipa: String,
     pub tags: Vec<Tag>,
     pub note: String,
+    pub zh_pron: String,
     // pub other: String, // [ja]
 }
 
@@ -130,6 +131,17 @@ impl WordEntry {
     /// Return the first non-empty form with the `transliteration` tag.
     pub fn transliteration_form(&self) -> Option<&Form> {
         self.tagged_forms(&["transliteration"]).next()
+    }
+
+    /// Return the first sound.zh_pron with the `Pinyin` tag.
+    pub fn pinyin<'a>(&'a self) -> Option<&'a str> {
+        self.sounds.iter().find_map(|sound| {
+            if sound.tags.iter().any(|t| t == "Pinyin") {
+                Some(sound.zh_pron.as_ref())
+            } else {
+                None
+            }
+        })
     }
 
     /// Check if a `word_entry` contains no glosses.

@@ -527,13 +527,17 @@ fn process_no_gloss(target: EditionLang, word_entry: &WordEntry, ret: &mut Tidy)
 // There are potentially more than one, but I haven't seen that happen
 fn get_reading(edition: EditionLang, source: Lang, word_entry: &WordEntry) -> String {
     match (edition, source) {
+        (EditionLang::En, Lang::Ja) => get_japanese_reading(word_entry),
+        (EditionLang::En, Lang::Fa) => match word_entry.romanization_form() {
+            Some(form) => form.form.clone(),
+            None => word_entry.word.clone(),
+        },
         (EditionLang::Ja, _) => match word_entry.transliteration_form() {
             Some(form) => form.form.clone(),
             None => word_entry.word.clone(),
         },
-        (EditionLang::En, Lang::Ja) => get_japanese_reading(word_entry),
-        (EditionLang::En, Lang::Fa) => match word_entry.romanization_form() {
-            Some(form) => form.form.clone(),
+        (EditionLang::En | EditionLang::Zh, Lang::Zh) => match word_entry.pinyin() {
+            Some(pron) => pron.to_string(),
             None => word_entry.word.clone(),
         },
         _ => get_canonical_word(source, word_entry).to_string(),
