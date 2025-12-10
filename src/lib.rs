@@ -2203,7 +2203,10 @@ pub fn make_dict_simple<D: SimpleDictionary>(
         let mut diagnostics = Diagnostics::new();
 
         let labelled_entries = dict.to_yomitan(
-            edition_pm.try_into().unwrap(), // FIX: will fail for GlossaryExtended!
+            // This unwrap_or is only for GlossaryExtended and works as a filler
+            // because the edition is not used in the implementation of to_yomitan for that dict.
+            // It is basically here to not crash the code. Happy face.
+            edition_pm.try_into().unwrap_or(EditionLang::En),
             source_pm,
             target_pm,
             options,
