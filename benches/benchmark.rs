@@ -41,7 +41,7 @@ fn bench_monolingual(c: &mut Criterion, edition: EditionLang, label: &str) {
     let pm = PathManager::new(DictionaryType::Main, &args);
 
     c.bench_function(label, |b| {
-        b.iter(|| make_dict_simple(DMain, &args.options, &pm))
+        b.iter(|| make_dict_simple(DMain, &args.options, &pm));
     });
 
     std::fs::remove_dir_all(pm.dir_dicts()).unwrap();

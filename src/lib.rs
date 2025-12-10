@@ -1755,7 +1755,7 @@ impl SimpleDictionary for DIpa {
         entry: &WordEntry,
         irs: &mut Self::I,
     ) {
-        make_ir_ipa(edition, source, entry, irs)
+        make_ir_ipa(edition, source, entry, irs);
     }
 
     fn to_yomitan(
@@ -1835,15 +1835,15 @@ pub struct DIpaMerged;
 
 /// Trait for Intermediate representation. Used for postprocessing (merge, etc.) and debugging via snapshots.
 ///
-/// The simplest form is a Vec<YomitanEntry> if we don't want to do anything fancy, cf. DGlossary
+/// The simplest form is a Vec<YomitanEntry> if we don't want to do anything fancy, cf. `DGlossary`
 pub trait Intermediate: Default {
     fn len(&self) -> usize;
     fn is_empty(&self) -> bool {
         self.len() == 0
     }
 
-    /// How to write Self::I to disk. This is only called if options.save_temps is set and
-    /// SimpleDictionary::write_ir returns true
+    /// How to write `Self::I` to disk. This is only called if `options.save_temps` is set and
+    /// `SimpleDictionary::write_ir` returns true
     ///
     /// The default blank implementation does nothing.
     #[allow(unused_variables)]
@@ -1857,7 +1857,7 @@ where
     T: Serialize,
 {
     fn len(&self) -> usize {
-        Vec::len(self)
+        Self::len(self)
     }
 
     fn write(&self, pm: &PathManager, options: &ArgsOptions) -> Result<()> {
@@ -1999,7 +1999,7 @@ pub trait SimpleDictionary {
     //
     /// How to preprocess a `WordEntry`.
     ///
-    /// Inspired by the Main dictionary, everything that mutates word_entry should go here.
+    /// Inspired by the Main dictionary, everything that mutates `word_entry` should go here.
     ///
     /// The default blank implementation does nothing.
     #[allow(unused_variables)]
@@ -2033,11 +2033,11 @@ pub trait SimpleDictionary {
         println!("Found {} entries", irs.len());
     }
 
-    /// Whether to write or not Self::I to disk
+    /// Whether to write or not `Self::I` to disk
     ///
-    /// Compare to save_temp, that rules if Self::I AND the term_banks are written to disk.
+    /// Compare to `save_temp`, that rules if `Self::I` AND the `term_banks` are written to disk.
     ///
-    /// This is mainly a debug function, in order to allow not writing the ir Self::I to disk for
+    /// This is mainly a debug function, in order to allow not writing the ir `Self::I` to disk for
     /// minor dictionaries in the testsuite. It is only set to true in the main dictionary.
     fn write_ir(&self) -> bool {
         false
@@ -2166,8 +2166,7 @@ pub fn make_dict_simple<D: SimpleDictionary>(
 
         if !options.quiet {
             println!(
-                "Processed {} lines. Accepted {} lines.",
-                line_count, accepted_count
+                "Processed {line_count} lines. Accepted {accepted_count} lines."
             );
         }
 
@@ -2369,7 +2368,7 @@ fn make_ir_glossary_extended(
         }
     }
 
-    irs.extend(translations_product)
+    irs.extend(translations_product);
 }
 
 fn make_yomitan_glossary_extended(irs: Vec<IGlossaryExtended>) -> Vec<YomitanEntry> {

@@ -142,7 +142,7 @@ fn person_sort(tags: &mut [&str]) {
 /// in:  ['first-person singular', 'third-person singular']
 /// out: ['singular first/third-person ']
 ///
-/// Note that this does not preserve logical tag order, and should be called before sort_tag.
+/// Note that this does not preserve logical tag order, and should be called before `sort_tag`.
 pub fn merge_person_tags(tags: &mut Vec<Tag>) {
     let contains_person = tags
         .iter()
@@ -166,7 +166,7 @@ pub fn merge_person_tags(tags: &mut Vec<Tag>) {
     }
 
     for (other_tags, mut person_matches) in grouped {
-        let mut tags_cur: Vec<_> = other_tags.iter().map(|s| s.to_string()).collect();
+        let mut tags_cur: Vec<_> = other_tags.iter().map(|s| (*s).to_string()).collect();
 
         person_sort(&mut person_matches);
 
@@ -222,7 +222,7 @@ mod tests {
     }
 
     fn to_str_vec<'a>(str_vec: &[&'a str]) -> Vec<&'a str> {
-        str_vec.iter().copied().collect()
+        str_vec.to_vec()
     }
 
     // This imitates the original. Can be removed if sort_tags logic changes.

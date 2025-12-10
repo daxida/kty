@@ -26,7 +26,7 @@ pub fn url_raw_jsonl_gz(edition: EditionLang, source: Lang) -> String {
 
 #[cfg(feature = "html")]
 pub mod html {
-    use super::*;
+    use super::{EditionLang, Lang, url_raw_jsonl_gz};
 
     use anyhow::Result;
     use flate2::read::GzDecoder;

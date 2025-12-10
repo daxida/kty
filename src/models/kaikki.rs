@@ -152,7 +152,7 @@ impl WordEntry {
             // * forms starting with hyphens are more likely than not garbage from inflections
             //   suffixes.
             // We deal with both at the same time.
-            if form.form.starts_with(&['-', '‑']) {
+            if form.form.starts_with(['-', '‑']) {
                 return false;
             }
 
