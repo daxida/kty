@@ -286,7 +286,6 @@ fn tidy_process(edition: EditionLang, source: Lang, word_entry: &WordEntry, ret:
     // rg searchword
     // debug (with only relevant, as in, deserialized, information)
     // if matches!(edition, EditionLang::Ja) && word_entry.word == "立命" {
-    //     warn!("{:?}", langs);
     //     warn!("{}", get_link_kaikki(edition, source, &word_entry.word));
     //     warn!("{}", serde_json::to_string_pretty(&word_entry)?);
     // }
@@ -653,6 +652,10 @@ fn get_link_wiktionary(edition: EditionLang, source: Lang, word: &str) -> String
 }
 
 // Same debug but for kaikki
+//
+// 楽しい >> 楽/楽し/楽しい
+// 伸す >> 伸/伸す/伸す (when word.chars().count() < 2)
+// up >> u/up/up (word.len() is irrelevant, only char count matters)
 fn get_link_kaikki(edition: EditionLang, source: Lang, word: &str) -> String {
     let chars: Vec<_> = word.chars().collect();
     let first = chars[0]; // word can't be empty
@@ -661,22 +664,20 @@ fn get_link_kaikki(edition: EditionLang, source: Lang, word: &str) -> String {
     } else {
         chars[0..2].iter().collect::<String>()
     };
-    // 楽しい >> 楽/楽し/楽しい
-    // 伸す >> 伸/伸す/伸す (when word.chars().count() < 2)
-    // up >> u/up/up (word.len() is irrelevant, only char count matters)
-    let search_query = format!("{first}/{first_two}/{word}");
+
     let dictionary = match edition {
-        EditionLang::En => "dictionary".to_string(),
-        other => format!("{other}wiktionary"),
+        EditionLang::En => "dictionary",
+        other => &format!("{other}wiktionary"),
     };
     let localized_source = match edition {
-        EditionLang::En | EditionLang::El => source.long(),
+        EditionLang::En | EditionLang::El => &source.long().replace(' ', "%20"),
         // https://github.com/tatuylonen/wiktextract/issues/1497
         _ => "All%20languages%20combined",
     };
-    let unescaped_url =
-        format!("https://kaikki.org/{dictionary}/{localized_source}/meaning/{search_query}.html");
-    unescaped_url.replace(' ', "%20")
+
+    format!(
+        "https://kaikki.org/{dictionary}/{localized_source}/meaning/{first}/{first_two}/{word}.html"
+    )
 }
 
 // default version getphonetictranscription

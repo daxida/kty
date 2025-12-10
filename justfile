@@ -17,6 +17,12 @@ add fr to word:
     >> "tests/kaikki/{{fr}}-{{to}}-extract.jsonl"; \
   fi'
 
+flamegraph:
+  cargo flamegraph -r -- main el el -vq --skip-yomitan
+
+stat *args:
+  perf stat -d cargo run -r -- {{args}}
+
 # Bench and log. To bench run 'cargo bench'
 bench-log:
   @rm -rf target/criterion # remove cache comparisons when logging
