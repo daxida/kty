@@ -1,0 +1,65 @@
+{
+  "iso": {
+    "iso": {
+      "adj": [
+        {
+          "gloss_tree": {
+            "big, large, great (of a great size)": {
+              "examples": [
+                {
+                  "text": "isoympyrä",
+                  "translation": "great circle"
+                }
+              ]
+            },
+            "big, grown-up": {
+              "examples": [
+                {
+                  "text": "olet jo iso poika",
+                  "translation": "you're a big boy already"
+                }
+              ]
+            },
+            "great (powerful; important; influential)": {
+              "examples": [
+                {
+                  "text": "Iso-Britannia",
+                  "translation": "Great Britain"
+                }
+              ]
+            },
+            "grand (standing in the second or more remote degree of parentage)": {
+              "examples": [
+                {
+                  "text": "isoisä",
+                  "translation": "grandfather"
+                },
+                {
+                  "text": "isoäiti",
+                  "translation": "grandmother"
+                }
+              ]
+            },
+            "capital, uppercase, majuscule": {
+              "topics": [
+                "media",
+                "publishing",
+                "typography"
+              ],
+              "examples": [
+                {
+                  "text": "iso kirjain",
+                  "translation": "capital letter"
+                }
+              ]
+            }
+          },
+          "etymology_text": "From isä (“father”) + -o.",
+          "head_info_text": "iso (comparative isompi, superlative isoin)",
+          "wlink": "https://en.wiktionary.org/wiki/iso#Finnish",
+          "klink": "https://kaikki.org/dictionary/Finnish/meaning/i/is/iso.html"
+        }
+      ]
+    }
+  }
+}
