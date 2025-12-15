@@ -83,7 +83,7 @@
     ""
   ],
   [
-    "des Rock",
+    "Rocks",
     "",
     "non-lemma",
     "",
@@ -93,57 +93,6 @@
         "Rock",
         [
           "genitive singular"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "des Rocks",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "Rock",
-        [
-          "genitive singular"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "dem Rock",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "Rock",
-        [
-          "dative singular"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "den Rock",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "Rock",
-        [
-          "accusative singular"
         ]
       ]
     ],
@@ -202,7 +151,7 @@
     ""
   ],
   [
-    "die Garagen",
+    "Garagen",
     "",
     "non-lemma",
     "",
@@ -217,81 +166,19 @@
       [
         "Garage",
         [
-          "nominative plural"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "der Garage",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "Garage",
-        [
-          "dative singular"
+          "dative plural"
         ]
       ],
       [
         "Garage",
         [
-          "genitive singular"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "der Garagen",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "Garage",
-        [
           "genitive plural"
         ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "den Garagen",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
+      ],
       [
         "Garage",
         [
-          "dative plural"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "die Garage",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "Garage",
-        [
-          "accusative singular"
+          "nominative plural"
         ]
       ]
     ],
@@ -3490,86 +3377,6 @@
     ""
   ],
   [
-    "die Peter",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "Peter",
-        [
-          "accusative plural"
-        ]
-      ],
-      [
-        "Peter",
-        [
-          "nominative plural"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "die Peters",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "Peter",
-        [
-          "accusative plural"
-        ]
-      ],
-      [
-        "Peter",
-        [
-          "nominative plural"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "des Peter",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "Peter",
-        [
-          "genitive singular"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "des Peters",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "Peter",
-        [
-          "genitive singular"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
     "Peters",
     "",
     "non-lemma",
@@ -3579,24 +3386,31 @@
       [
         "Peter",
         [
+          "accusative plural"
+        ]
+      ],
+      [
+        "Peter",
+        [
+          "dative plural"
+        ]
+      ],
+      [
+        "Peter",
+        [
+          "genitive plural"
+        ]
+      ],
+      [
+        "Peter",
+        [
           "genitive singular"
         ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "der Peter",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
+      ],
       [
         "Peter",
         [
-          "genitive plural"
+          "nominative plural"
         ]
       ]
     ],
@@ -3604,41 +3418,7 @@
     ""
   ],
   [
-    "der Peters",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "Peter",
-        [
-          "genitive plural"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "(dem) Peter",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "Peter",
-        [
-          "dative singular"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "den Petern",
+    "Petern",
     "",
     "non-lemma",
     "",
@@ -3648,40 +3428,6 @@
         "Peter",
         [
           "dative plural"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "den Peters",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "Peter",
-        [
-          "dative plural"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "(den) Peter",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "Peter",
-        [
-          "accusative singular"
         ]
       ]
     ],

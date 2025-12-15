@@ -51,7 +51,7 @@
     ""
   ],
   [
-    "し",
+    "立命し",
     "",
     "non-lemma",
     "",
@@ -60,13 +60,13 @@
       [
         "立命",
         [
-          "continuative"
+          "imperfective sa-row irregular"
         ]
       ],
       [
         "立命",
         [
-          "imperfective"
+          "sa-row irregular continuative"
         ]
       ]
     ],
@@ -74,7 +74,7 @@
     ""
   ],
   [
-    "せ",
+    "立命せ",
     "",
     "non-lemma",
     "",
@@ -83,7 +83,7 @@
       [
         "立命",
         [
-          "imperfective"
+          "imperfective sa-row irregular"
         ]
       ]
     ],
@@ -91,7 +91,7 @@
     ""
   ],
   [
-    "さ",
+    "立命さ",
     "",
     "non-lemma",
     "",
@@ -100,217 +100,7 @@
       [
         "立命",
         [
-          "imperfective"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "する",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "立命",
-        [
-          "attributive"
-        ]
-      ],
-      [
-        "立命",
-        [
-          "terminal"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "すれ",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "立命",
-        [
-          "hypothetical"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "しろ",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "立命",
-        [
-          "imperative"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "せよ",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "立命",
-        [
-          "imperative"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "立命しない",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "立命",
-        [
-          "negative"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "未然形 + ない",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "立命",
-        [
-          "negative"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "立命される",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "立命",
-        [
-          "active passive possibly honorific"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "未然形 + れる",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "立命",
-        [
-          "active passive possibly honorific"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "立命します",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "立命",
-        [
-          "polite"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "連用形 + ます",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "立命",
-        [
-          "polite"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "立命した",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "立命",
-        [
-          "past completive"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "連用形 + た",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "立命",
-        [
-          "past completive"
+          "imperfective sa-row irregular"
         ]
       ]
     ],
@@ -327,7 +117,19 @@
       [
         "立命",
         [
-          "definitive"
+          "definitive terminal"
+        ]
+      ],
+      [
+        "立命",
+        [
+          "sa-row irregular attributive"
+        ]
+      ],
+      [
+        "立命",
+        [
+          "sa-row irregular terminal"
         ]
       ]
     ],
@@ -335,7 +137,7 @@
     ""
   ],
   [
-    "終止形のみ",
+    "立命すれ",
     "",
     "non-lemma",
     "",
@@ -344,41 +146,7 @@
       [
         "立命",
         [
-          "definitive"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "立命すること",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "立命",
-        [
-          "noun-from-verb"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "連体形 + こと",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "立命",
-        [
-          "noun-from-verb"
+          "sa-row irregular hypothetical"
         ]
       ]
     ],
@@ -395,7 +163,7 @@
       [
         "立命",
         [
-          "imperative"
+          "imperative sa-row irregular"
         ]
       ]
     ],
@@ -412,7 +180,7 @@
       [
         "立命",
         [
-          "imperative"
+          "imperative sa-row irregular"
         ]
       ]
     ],
@@ -420,7 +188,7 @@
     ""
   ],
   [
-    "命令形のみ",
+    "立命しない",
     "",
     "non-lemma",
     "",
@@ -429,7 +197,92 @@
       [
         "立命",
         [
-          "imperative"
+          "imperfective negative"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "立命される",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "立命",
+        [
+          "imperfective active passive possibly honorific"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "立命します",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "立命",
+        [
+          "polite continuative"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "立命した",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "立命",
+        [
+          "past completive continuative"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "立命すること",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "立命",
+        [
+          "noun-from-verb attributive"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "立命すれば",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "立命",
+        [
+          "conditional hypothetical"
         ]
       ]
     ],
@@ -471,7 +324,7 @@
     ""
   ],
   [
-    "し",
+    "命令し",
     "",
     "non-lemma",
     "",
@@ -480,13 +333,13 @@
       [
         "命令",
         [
-          "continuative"
+          "imperfective sa-row irregular"
         ]
       ],
       [
         "命令",
         [
-          "imperfective"
+          "sa-row irregular continuative"
         ]
       ]
     ],
@@ -494,7 +347,7 @@
     ""
   ],
   [
-    "せ",
+    "命令せ",
     "",
     "non-lemma",
     "",
@@ -503,7 +356,7 @@
       [
         "命令",
         [
-          "imperfective"
+          "imperfective sa-row irregular"
         ]
       ]
     ],
@@ -511,7 +364,7 @@
     ""
   ],
   [
-    "さ",
+    "命令さ",
     "",
     "non-lemma",
     "",
@@ -520,217 +373,7 @@
       [
         "命令",
         [
-          "imperfective"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "する",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "命令",
-        [
-          "attributive"
-        ]
-      ],
-      [
-        "命令",
-        [
-          "terminal"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "すれ",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "命令",
-        [
-          "hypothetical"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "しろ",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "命令",
-        [
-          "imperative"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "せよ",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "命令",
-        [
-          "imperative"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "命令しない",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "命令",
-        [
-          "negative"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "未然形 + ない",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "命令",
-        [
-          "negative"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "命令される",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "命令",
-        [
-          "active passive possibly honorific"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "未然形 + れる",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "命令",
-        [
-          "active passive possibly honorific"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "命令します",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "命令",
-        [
-          "polite"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "連用形 + ます",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "命令",
-        [
-          "polite"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "命令した",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "命令",
-        [
-          "past completive"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "連用形 + た",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "命令",
-        [
-          "past completive"
+          "imperfective sa-row irregular"
         ]
       ]
     ],
@@ -747,7 +390,19 @@
       [
         "命令",
         [
-          "definitive"
+          "definitive terminal"
+        ]
+      ],
+      [
+        "命令",
+        [
+          "sa-row irregular attributive"
+        ]
+      ],
+      [
+        "命令",
+        [
+          "sa-row irregular terminal"
         ]
       ]
     ],
@@ -755,7 +410,7 @@
     ""
   ],
   [
-    "終止形のみ",
+    "命令すれ",
     "",
     "non-lemma",
     "",
@@ -764,41 +419,7 @@
       [
         "命令",
         [
-          "definitive"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "命令すること",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "命令",
-        [
-          "noun-from-verb"
-        ]
-      ]
-    ],
-    0,
-    ""
-  ],
-  [
-    "連体形 + こと",
-    "",
-    "non-lemma",
-    "",
-    0,
-    [
-      [
-        "命令",
-        [
-          "noun-from-verb"
+          "sa-row irregular hypothetical"
         ]
       ]
     ],
@@ -815,7 +436,7 @@
       [
         "命令",
         [
-          "imperative"
+          "imperative sa-row irregular"
         ]
       ]
     ],
@@ -832,7 +453,7 @@
       [
         "命令",
         [
-          "imperative"
+          "imperative sa-row irregular"
         ]
       ]
     ],
@@ -840,7 +461,7 @@
     ""
   ],
   [
-    "命令形のみ",
+    "命令しない",
     "",
     "non-lemma",
     "",
@@ -849,7 +470,92 @@
       [
         "命令",
         [
-          "imperative"
+          "imperfective negative"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "命令される",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "命令",
+        [
+          "imperfective active passive possibly honorific"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "命令します",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "命令",
+        [
+          "polite continuative"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "命令した",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "命令",
+        [
+          "past completive continuative"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "命令すること",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "命令",
+        [
+          "noun-from-verb attributive"
+        ]
+      ]
+    ],
+    0,
+    ""
+  ],
+  [
+    "命令すれば",
+    "",
+    "non-lemma",
+    "",
+    0,
+    [
+      [
+        "命令",
+        [
+          "conditional hypothetical"
         ]
       ]
     ],

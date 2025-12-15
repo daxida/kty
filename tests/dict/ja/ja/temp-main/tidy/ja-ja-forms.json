@@ -24,125 +24,28 @@
         ]
       ]
     },
-    "し": {
+    "立命し": {
       "verb": [
         "extracted",
         [
-          "continuative",
-          "imperfective"
+          "imperfective sa-row irregular",
+          "sa-row irregular continuative"
         ]
       ]
     },
-    "せ": {
+    "立命せ": {
       "verb": [
         "extracted",
         [
-          "imperfective"
+          "imperfective sa-row irregular"
         ]
       ]
     },
-    "さ": {
+    "立命さ": {
       "verb": [
         "extracted",
         [
-          "imperfective"
-        ]
-      ]
-    },
-    "する": {
-      "verb": [
-        "extracted",
-        [
-          "attributive",
-          "terminal"
-        ]
-      ]
-    },
-    "すれ": {
-      "verb": [
-        "extracted",
-        [
-          "hypothetical"
-        ]
-      ]
-    },
-    "しろ": {
-      "verb": [
-        "extracted",
-        [
-          "imperative"
-        ]
-      ]
-    },
-    "せよ": {
-      "verb": [
-        "extracted",
-        [
-          "imperative"
-        ]
-      ]
-    },
-    "立命しない": {
-      "verb": [
-        "extracted",
-        [
-          "negative"
-        ]
-      ]
-    },
-    "未然形 + ない": {
-      "verb": [
-        "extracted",
-        [
-          "negative"
-        ]
-      ]
-    },
-    "立命される": {
-      "verb": [
-        "extracted",
-        [
-          "active passive possibly honorific"
-        ]
-      ]
-    },
-    "未然形 + れる": {
-      "verb": [
-        "extracted",
-        [
-          "active passive possibly honorific"
-        ]
-      ]
-    },
-    "立命します": {
-      "verb": [
-        "extracted",
-        [
-          "polite"
-        ]
-      ]
-    },
-    "連用形 + ます": {
-      "verb": [
-        "extracted",
-        [
-          "polite"
-        ]
-      ]
-    },
-    "立命した": {
-      "verb": [
-        "extracted",
-        [
-          "past completive"
-        ]
-      ]
-    },
-    "連用形 + た": {
-      "verb": [
-        "extracted",
-        [
-          "past completive"
+          "imperfective sa-row irregular"
         ]
       ]
     },
@@ -150,31 +53,17 @@
       "verb": [
         "extracted",
         [
-          "definitive"
+          "definitive terminal",
+          "sa-row irregular attributive",
+          "sa-row irregular terminal"
         ]
       ]
     },
-    "終止形のみ": {
+    "立命すれ": {
       "verb": [
         "extracted",
         [
-          "definitive"
-        ]
-      ]
-    },
-    "立命すること": {
-      "verb": [
-        "extracted",
-        [
-          "noun-from-verb"
-        ]
-      ]
-    },
-    "連体形 + こと": {
-      "verb": [
-        "extracted",
-        [
-          "noun-from-verb"
+          "sa-row irregular hypothetical"
         ]
       ]
     },
@@ -182,7 +71,7 @@
       "verb": [
         "extracted",
         [
-          "imperative"
+          "imperative sa-row irregular"
         ]
       ]
     },
@@ -190,15 +79,55 @@
       "verb": [
         "extracted",
         [
-          "imperative"
+          "imperative sa-row irregular"
         ]
       ]
     },
-    "命令形のみ": {
+    "立命しない": {
       "verb": [
         "extracted",
         [
-          "imperative"
+          "imperfective negative"
+        ]
+      ]
+    },
+    "立命される": {
+      "verb": [
+        "extracted",
+        [
+          "imperfective active passive possibly honorific"
+        ]
+      ]
+    },
+    "立命します": {
+      "verb": [
+        "extracted",
+        [
+          "polite continuative"
+        ]
+      ]
+    },
+    "立命した": {
+      "verb": [
+        "extracted",
+        [
+          "past completive continuative"
+        ]
+      ]
+    },
+    "立命すること": {
+      "verb": [
+        "extracted",
+        [
+          "noun-from-verb attributive"
+        ]
+      ]
+    },
+    "立命すれば": {
+      "verb": [
+        "extracted",
+        [
+          "conditional hypothetical"
         ]
       ]
     }
@@ -222,125 +151,28 @@
         ]
       ]
     },
-    "し": {
+    "命令し": {
       "noun": [
         "extracted",
         [
-          "continuative",
-          "imperfective"
+          "imperfective sa-row irregular",
+          "sa-row irregular continuative"
         ]
       ]
     },
-    "せ": {
+    "命令せ": {
       "noun": [
         "extracted",
         [
-          "imperfective"
+          "imperfective sa-row irregular"
         ]
       ]
     },
-    "さ": {
+    "命令さ": {
       "noun": [
         "extracted",
         [
-          "imperfective"
-        ]
-      ]
-    },
-    "する": {
-      "noun": [
-        "extracted",
-        [
-          "attributive",
-          "terminal"
-        ]
-      ]
-    },
-    "すれ": {
-      "noun": [
-        "extracted",
-        [
-          "hypothetical"
-        ]
-      ]
-    },
-    "しろ": {
-      "noun": [
-        "extracted",
-        [
-          "imperative"
-        ]
-      ]
-    },
-    "せよ": {
-      "noun": [
-        "extracted",
-        [
-          "imperative"
-        ]
-      ]
-    },
-    "命令しない": {
-      "noun": [
-        "extracted",
-        [
-          "negative"
-        ]
-      ]
-    },
-    "未然形 + ない": {
-      "noun": [
-        "extracted",
-        [
-          "negative"
-        ]
-      ]
-    },
-    "命令される": {
-      "noun": [
-        "extracted",
-        [
-          "active passive possibly honorific"
-        ]
-      ]
-    },
-    "未然形 + れる": {
-      "noun": [
-        "extracted",
-        [
-          "active passive possibly honorific"
-        ]
-      ]
-    },
-    "命令します": {
-      "noun": [
-        "extracted",
-        [
-          "polite"
-        ]
-      ]
-    },
-    "連用形 + ます": {
-      "noun": [
-        "extracted",
-        [
-          "polite"
-        ]
-      ]
-    },
-    "命令した": {
-      "noun": [
-        "extracted",
-        [
-          "past completive"
-        ]
-      ]
-    },
-    "連用形 + た": {
-      "noun": [
-        "extracted",
-        [
-          "past completive"
+          "imperfective sa-row irregular"
         ]
       ]
     },
@@ -348,31 +180,17 @@
       "noun": [
         "extracted",
         [
-          "definitive"
+          "definitive terminal",
+          "sa-row irregular attributive",
+          "sa-row irregular terminal"
         ]
       ]
     },
-    "終止形のみ": {
+    "命令すれ": {
       "noun": [
         "extracted",
         [
-          "definitive"
-        ]
-      ]
-    },
-    "命令すること": {
-      "noun": [
-        "extracted",
-        [
-          "noun-from-verb"
-        ]
-      ]
-    },
-    "連体形 + こと": {
-      "noun": [
-        "extracted",
-        [
-          "noun-from-verb"
+          "sa-row irregular hypothetical"
         ]
       ]
     },
@@ -380,7 +198,7 @@
       "noun": [
         "extracted",
         [
-          "imperative"
+          "imperative sa-row irregular"
         ]
       ]
     },
@@ -388,15 +206,55 @@
       "noun": [
         "extracted",
         [
-          "imperative"
+          "imperative sa-row irregular"
         ]
       ]
     },
-    "命令形のみ": {
+    "命令しない": {
       "noun": [
         "extracted",
         [
-          "imperative"
+          "imperfective negative"
+        ]
+      ]
+    },
+    "命令される": {
+      "noun": [
+        "extracted",
+        [
+          "imperfective active passive possibly honorific"
+        ]
+      ]
+    },
+    "命令します": {
+      "noun": [
+        "extracted",
+        [
+          "polite continuative"
+        ]
+      ]
+    },
+    "命令した": {
+      "noun": [
+        "extracted",
+        [
+          "past completive continuative"
+        ]
+      ]
+    },
+    "命令すること": {
+      "noun": [
+        "extracted",
+        [
+          "noun-from-verb attributive"
+        ]
+      ]
+    },
+    "命令すれば": {
+      "noun": [
+        "extracted",
+        [
+          "conditional hypothetical"
         ]
       ]
     }

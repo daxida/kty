@@ -21,35 +21,11 @@
     }
   },
   "Rock": {
-    "des Rock": {
+    "Rocks": {
       "noun": [
         "extracted",
         [
           "genitive singular"
-        ]
-      ]
-    },
-    "des Rocks": {
-      "noun": [
-        "extracted",
-        [
-          "genitive singular"
-        ]
-      ]
-    },
-    "dem Rock": {
-      "noun": [
-        "extracted",
-        [
-          "dative singular"
-        ]
-      ]
-    },
-    "den Rock": {
-      "noun": [
-        "extracted",
-        [
-          "accusative singular"
         ]
       ]
     },
@@ -79,45 +55,14 @@
     }
   },
   "Garage": {
-    "die Garagen": {
+    "Garagen": {
       "noun": [
         "extracted",
         [
           "accusative plural",
+          "dative plural",
+          "genitive plural",
           "nominative plural"
-        ]
-      ]
-    },
-    "der Garage": {
-      "noun": [
-        "extracted",
-        [
-          "dative singular",
-          "genitive singular"
-        ]
-      ]
-    },
-    "der Garagen": {
-      "noun": [
-        "extracted",
-        [
-          "genitive plural"
-        ]
-      ]
-    },
-    "den Garagen": {
-      "noun": [
-        "extracted",
-        [
-          "dative plural"
-        ]
-      ]
-    },
-    "die Garage": {
-      "noun": [
-        "extracted",
-        [
-          "accusative singular"
         ]
       ]
     }
@@ -1561,93 +1506,23 @@
         ]
       ]
     },
-    "die Peter": {
-      "name": [
-        "extracted",
-        [
-          "accusative plural",
-          "nominative plural"
-        ]
-      ]
-    },
-    "die Peters": {
-      "name": [
-        "extracted",
-        [
-          "accusative plural",
-          "nominative plural"
-        ]
-      ]
-    },
-    "des Peter": {
-      "name": [
-        "extracted",
-        [
-          "genitive singular"
-        ]
-      ]
-    },
-    "des Peters": {
-      "name": [
-        "extracted",
-        [
-          "genitive singular"
-        ]
-      ]
-    },
     "Peters": {
       "name": [
         "extracted",
         [
-          "genitive singular"
+          "accusative plural",
+          "dative plural",
+          "genitive plural",
+          "genitive singular",
+          "nominative plural"
         ]
       ]
     },
-    "der Peter": {
-      "name": [
-        "extracted",
-        [
-          "genitive plural"
-        ]
-      ]
-    },
-    "der Peters": {
-      "name": [
-        "extracted",
-        [
-          "genitive plural"
-        ]
-      ]
-    },
-    "(dem) Peter": {
-      "name": [
-        "extracted",
-        [
-          "dative singular"
-        ]
-      ]
-    },
-    "den Petern": {
+    "Petern": {
       "name": [
         "extracted",
         [
           "dative plural"
-        ]
-      ]
-    },
-    "den Peters": {
-      "name": [
-        "extracted",
-        [
-          "dative plural"
-        ]
-      ]
-    },
-    "(den) Peter": {
-      "name": [
-        "extracted",
-        [
-          "accusative singular"
         ]
       ]
     }
