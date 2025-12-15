@@ -2112,39 +2112,12 @@
           ],
           "forms": [
             {
-              "form": "der Rock",
-              "tags": [
-                "nominative",
-                "singular"
-              ]
-            },
-            {
-              "form": "des Rock",
+              "form": "Rocks",
               "tags": [
                 "genitive",
                 "singular"
-              ]
-            },
-            {
-              "form": "des Rocks",
-              "tags": [
-                "genitive",
-                "singular"
-              ]
-            },
-            {
-              "form": "dem Rock",
-              "tags": [
-                "dative",
-                "singular"
-              ]
-            },
-            {
-              "form": "den Rock",
-              "tags": [
-                "accusative",
-                "singular"
-              ]
+              ],
+              "article": "des"
             }
           ],
           "hyphenations": [
@@ -2264,39 +2237,12 @@
               ]
             },
             {
-              "form": "der Rock",
-              "tags": [
-                "nominative",
-                "singular"
-              ]
-            },
-            {
-              "form": "des Rock",
+              "form": "Rocks",
               "tags": [
                 "genitive",
                 "singular"
-              ]
-            },
-            {
-              "form": "des Rocks",
-              "tags": [
-                "genitive",
-                "singular"
-              ]
-            },
-            {
-              "form": "dem Rock",
-              "tags": [
-                "dative",
-                "singular"
-              ]
-            },
-            {
-              "form": "den Rock",
-              "tags": [
-                "accusative",
-                "singular"
-              ]
+              ],
+              "article": "des"
             }
           ],
           "hyphenations": [
@@ -3276,60 +3222,36 @@
           ],
           "forms": [
             {
-              "form": "die Garage",
-              "tags": [
-                "nominative",
-                "singular"
-              ]
-            },
-            {
-              "form": "die Garagen",
+              "form": "Garagen",
               "tags": [
                 "nominative",
                 "plural"
-              ]
+              ],
+              "article": "die"
             },
             {
-              "form": "der Garage",
-              "tags": [
-                "genitive",
-                "singular"
-              ]
-            },
-            {
-              "form": "der Garagen",
+              "form": "Garagen",
               "tags": [
                 "genitive",
                 "plural"
-              ]
+              ],
+              "article": "der"
             },
             {
-              "form": "der Garage",
-              "tags": [
-                "dative",
-                "singular"
-              ]
-            },
-            {
-              "form": "den Garagen",
+              "form": "Garagen",
               "tags": [
                 "dative",
                 "plural"
-              ]
+              ],
+              "article": "den"
             },
             {
-              "form": "die Garage",
-              "tags": [
-                "accusative",
-                "singular"
-              ]
-            },
-            {
-              "form": "die Garagen",
+              "form": "Garagen",
               "tags": [
                 "accusative",
                 "plural"
-              ]
+              ],
+              "article": "die"
             }
           ],
           "hyphenations": [
@@ -8650,39 +8572,20 @@
               "sense_index": "1"
             },
             {
-              "form": "(der) Peter",
-              "tags": [
-                "nominative",
-                "singular"
-              ]
-            },
-            {
-              "form": "die Peter",
+              "form": "Peters",
               "tags": [
                 "nominative",
                 "plural"
-              ]
+              ],
+              "article": "die"
             },
             {
-              "form": "die Peters",
-              "tags": [
-                "nominative",
-                "plural"
-              ]
-            },
-            {
-              "form": "des Peter",
+              "form": "Peters",
               "tags": [
                 "genitive",
                 "singular"
-              ]
-            },
-            {
-              "form": "des Peters",
-              "tags": [
-                "genitive",
-                "singular"
-              ]
+              ],
+              "article": "des"
             },
             {
               "form": "Peters",
@@ -8692,60 +8595,36 @@
               ]
             },
             {
-              "form": "der Peter",
+              "form": "Peters",
               "tags": [
                 "genitive",
                 "plural"
-              ]
+              ],
+              "article": "der"
             },
             {
-              "form": "der Peters",
-              "tags": [
-                "genitive",
-                "plural"
-              ]
-            },
-            {
-              "form": "(dem) Peter",
-              "tags": [
-                "dative",
-                "singular"
-              ]
-            },
-            {
-              "form": "den Petern",
+              "form": "Petern",
               "tags": [
                 "dative",
                 "plural"
-              ]
+              ],
+              "article": "den"
             },
             {
-              "form": "den Peters",
+              "form": "Peters",
               "tags": [
                 "dative",
                 "plural"
-              ]
+              ],
+              "article": "den"
             },
             {
-              "form": "(den) Peter",
-              "tags": [
-                "accusative",
-                "singular"
-              ]
-            },
-            {
-              "form": "die Peter",
+              "form": "Peters",
               "tags": [
                 "accusative",
                 "plural"
-              ]
-            },
-            {
-              "form": "die Peters",
-              "tags": [
-                "accusative",
-                "plural"
-              ]
+              ],
+              "article": "die"
             }
           ],
           "hyphenations": [
@@ -39474,135 +39353,131 @@
             "日本語 動詞",
             "日本語 動詞 サ変"
           ],
+          "tags": [
+            "irregular",
+            "sa-row"
+          ],
           "forms": [
             {
-              "form": "立命",
-              "raw_tags": [
-                "サ行変格活用",
-                "語幹"
-              ]
-            },
-            {
-              "form": "し",
+              "form": "立命し",
               "tags": [
+                "sa-row",
+                "irregular",
                 "imperfective"
               ],
               "raw_tags": [
-                "サ行変格活用"
+                "立命-する 動詞活用表（日本語の活用）"
               ]
             },
             {
-              "form": "せ",
+              "form": "立命せ",
               "tags": [
+                "sa-row",
+                "irregular",
                 "imperfective"
               ],
               "raw_tags": [
-                "サ行変格活用"
+                "立命-する 動詞活用表（日本語の活用）"
               ]
             },
             {
-              "form": "さ",
+              "form": "立命さ",
               "tags": [
+                "sa-row",
+                "irregular",
                 "imperfective"
               ],
               "raw_tags": [
-                "サ行変格活用"
+                "立命-する 動詞活用表（日本語の活用）"
               ]
             },
             {
-              "form": "し",
+              "form": "立命し",
               "tags": [
+                "sa-row",
+                "irregular",
                 "continuative"
               ],
               "raw_tags": [
-                "サ行変格活用"
+                "立命-する 動詞活用表（日本語の活用）"
               ]
             },
             {
-              "form": "する",
+              "form": "立命する",
               "tags": [
+                "sa-row",
+                "irregular",
                 "terminal"
               ],
               "raw_tags": [
-                "サ行変格活用"
+                "立命-する 動詞活用表（日本語の活用）"
               ]
             },
             {
-              "form": "する",
+              "form": "立命する",
               "tags": [
+                "sa-row",
+                "irregular",
                 "attributive"
               ],
               "raw_tags": [
-                "サ行変格活用"
+                "立命-する 動詞活用表（日本語の活用）"
               ]
             },
             {
-              "form": "すれ",
+              "form": "立命すれ",
               "tags": [
+                "sa-row",
+                "irregular",
                 "hypothetical"
               ],
               "raw_tags": [
-                "サ行変格活用"
+                "立命-する 動詞活用表（日本語の活用）"
               ]
             },
             {
-              "form": "しろ",
+              "form": "立命しろ",
               "tags": [
+                "sa-row",
+                "irregular",
                 "imperative"
               ],
               "raw_tags": [
-                "サ行変格活用"
+                "立命-する 動詞活用表（日本語の活用）"
               ]
             },
             {
-              "form": "せよ",
+              "form": "立命せよ",
               "tags": [
+                "sa-row",
+                "irregular",
                 "imperative"
               ],
               "raw_tags": [
-                "サ行変格活用"
+                "立命-する 動詞活用表（日本語の活用）"
               ]
             },
             {
               "form": "立命しない",
               "tags": [
-                "negative"
+                "negative",
+                "imperfective"
               ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形"
-              ]
-            },
-            {
-              "form": "未然形 + ない",
-              "tags": [
-                "negative"
-              ],
-              "raw_tags": [
-                "各活用形の基礎的な結合例",
-                "結合"
+                "未然形 + ない"
               ]
             },
             {
               "form": "立命せず",
               "tags": [
                 "negative",
-                "archaic"
+                "archaic",
+                "imperfective"
               ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形"
-              ]
-            },
-            {
-              "form": "未然形 + ず",
-              "tags": [
-                "negative",
-                "archaic"
-              ],
-              "raw_tags": [
-                "各活用形の基礎的な結合例",
-                "結合"
+                "未然形 + ず"
               ]
             },
             {
@@ -39611,122 +39486,68 @@
                 "active",
                 "passive",
                 "possibly",
-                "honorific"
+                "honorific",
+                "imperfective"
               ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形"
-              ]
-            },
-            {
-              "form": "未然形 + れる",
-              "tags": [
-                "active",
-                "passive",
-                "possibly",
-                "honorific"
-              ],
-              "raw_tags": [
-                "各活用形の基礎的な結合例",
-                "結合"
+                "未然形 + れる"
               ]
             },
             {
               "form": "立命します",
               "tags": [
-                "polite"
+                "polite",
+                "continuative"
               ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形"
-              ]
-            },
-            {
-              "form": "連用形 + ます",
-              "tags": [
-                "polite"
-              ],
-              "raw_tags": [
-                "各活用形の基礎的な結合例",
-                "結合"
+                "連用形 + ます"
               ]
             },
             {
               "form": "立命した",
               "tags": [
                 "past",
-                "completive"
+                "completive",
+                "continuative"
               ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形"
-              ]
-            },
-            {
-              "form": "連用形 + た",
-              "tags": [
-                "past",
-                "completive"
-              ],
-              "raw_tags": [
-                "各活用形の基礎的な結合例",
-                "結合"
+                "連用形 + た"
               ]
             },
             {
               "form": "立命する",
               "tags": [
-                "definitive"
+                "definitive",
+                "terminal"
               ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形"
-              ]
-            },
-            {
-              "form": "終止形のみ",
-              "tags": [
-                "definitive"
-              ],
-              "raw_tags": [
-                "各活用形の基礎的な結合例",
-                "結合"
+                "終止形のみ"
               ]
             },
             {
               "form": "立命すること",
               "tags": [
-                "noun-from-verb"
+                "noun-from-verb",
+                "attributive"
               ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形"
-              ]
-            },
-            {
-              "form": "連体形 + こと",
-              "tags": [
-                "noun-from-verb"
-              ],
-              "raw_tags": [
-                "各活用形の基礎的な結合例",
-                "結合"
+                "連体形 + こと"
               ]
             },
             {
               "form": "立命すれば",
+              "tags": [
+                "conditional",
+                "hypothetical"
+              ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形",
-                "仮定条件"
-              ]
-            },
-            {
-              "form": "仮定形 + ば",
-              "raw_tags": [
-                "各活用形の基礎的な結合例",
-                "結合",
-                "仮定条件"
+                "仮定形 + ば"
               ]
             },
             {
@@ -39736,7 +39557,7 @@
               ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形"
+                "命令形のみ"
               ]
             },
             {
@@ -39746,17 +39567,7 @@
               ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形"
-              ]
-            },
-            {
-              "form": "命令形のみ",
-              "tags": [
-                "imperative"
-              ],
-              "raw_tags": [
-                "各活用形の基礎的な結合例",
-                "結合"
+                "命令形のみ"
               ]
             }
           ]
@@ -40079,6 +39890,10 @@
             "日本語 名詞 サ変動詞",
             "日本語 国際音声記号あり"
           ],
+          "tags": [
+            "irregular",
+            "sa-row"
+          ],
           "forms": [
             {
               "form": "めいれい",
@@ -40087,133 +39902,125 @@
               ]
             },
             {
-              "form": "命令",
-              "raw_tags": [
-                "サ行変格活用",
-                "語幹"
-              ]
-            },
-            {
-              "form": "し",
+              "form": "命令し",
               "tags": [
+                "sa-row",
+                "irregular",
                 "imperfective"
               ],
               "raw_tags": [
-                "サ行変格活用"
+                "命令-する 動詞活用表（日本語の活用）"
               ]
             },
             {
-              "form": "せ",
+              "form": "命令せ",
               "tags": [
+                "sa-row",
+                "irregular",
                 "imperfective"
               ],
               "raw_tags": [
-                "サ行変格活用"
+                "命令-する 動詞活用表（日本語の活用）"
               ]
             },
             {
-              "form": "さ",
+              "form": "命令さ",
               "tags": [
+                "sa-row",
+                "irregular",
                 "imperfective"
               ],
               "raw_tags": [
-                "サ行変格活用"
+                "命令-する 動詞活用表（日本語の活用）"
               ]
             },
             {
-              "form": "し",
+              "form": "命令し",
               "tags": [
+                "sa-row",
+                "irregular",
                 "continuative"
               ],
               "raw_tags": [
-                "サ行変格活用"
+                "命令-する 動詞活用表（日本語の活用）"
               ]
             },
             {
-              "form": "する",
+              "form": "命令する",
               "tags": [
+                "sa-row",
+                "irregular",
                 "terminal"
               ],
               "raw_tags": [
-                "サ行変格活用"
+                "命令-する 動詞活用表（日本語の活用）"
               ]
             },
             {
-              "form": "する",
+              "form": "命令する",
               "tags": [
+                "sa-row",
+                "irregular",
                 "attributive"
               ],
               "raw_tags": [
-                "サ行変格活用"
+                "命令-する 動詞活用表（日本語の活用）"
               ]
             },
             {
-              "form": "すれ",
+              "form": "命令すれ",
               "tags": [
+                "sa-row",
+                "irregular",
                 "hypothetical"
               ],
               "raw_tags": [
-                "サ行変格活用"
+                "命令-する 動詞活用表（日本語の活用）"
               ]
             },
             {
-              "form": "しろ",
+              "form": "命令しろ",
               "tags": [
+                "sa-row",
+                "irregular",
                 "imperative"
               ],
               "raw_tags": [
-                "サ行変格活用"
+                "命令-する 動詞活用表（日本語の活用）"
               ]
             },
             {
-              "form": "せよ",
+              "form": "命令せよ",
               "tags": [
+                "sa-row",
+                "irregular",
                 "imperative"
               ],
               "raw_tags": [
-                "サ行変格活用"
+                "命令-する 動詞活用表（日本語の活用）"
               ]
             },
             {
               "form": "命令しない",
               "tags": [
-                "negative"
+                "negative",
+                "imperfective"
               ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形"
-              ]
-            },
-            {
-              "form": "未然形 + ない",
-              "tags": [
-                "negative"
-              ],
-              "raw_tags": [
-                "各活用形の基礎的な結合例",
-                "結合"
+                "未然形 + ない"
               ]
             },
             {
               "form": "命令せず",
               "tags": [
                 "negative",
-                "archaic"
+                "archaic",
+                "imperfective"
               ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形"
-              ]
-            },
-            {
-              "form": "未然形 + ず",
-              "tags": [
-                "negative",
-                "archaic"
-              ],
-              "raw_tags": [
-                "各活用形の基礎的な結合例",
-                "結合"
+                "未然形 + ず"
               ]
             },
             {
@@ -40222,122 +40029,68 @@
                 "active",
                 "passive",
                 "possibly",
-                "honorific"
+                "honorific",
+                "imperfective"
               ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形"
-              ]
-            },
-            {
-              "form": "未然形 + れる",
-              "tags": [
-                "active",
-                "passive",
-                "possibly",
-                "honorific"
-              ],
-              "raw_tags": [
-                "各活用形の基礎的な結合例",
-                "結合"
+                "未然形 + れる"
               ]
             },
             {
               "form": "命令します",
               "tags": [
-                "polite"
+                "polite",
+                "continuative"
               ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形"
-              ]
-            },
-            {
-              "form": "連用形 + ます",
-              "tags": [
-                "polite"
-              ],
-              "raw_tags": [
-                "各活用形の基礎的な結合例",
-                "結合"
+                "連用形 + ます"
               ]
             },
             {
               "form": "命令した",
               "tags": [
                 "past",
-                "completive"
+                "completive",
+                "continuative"
               ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形"
-              ]
-            },
-            {
-              "form": "連用形 + た",
-              "tags": [
-                "past",
-                "completive"
-              ],
-              "raw_tags": [
-                "各活用形の基礎的な結合例",
-                "結合"
+                "連用形 + た"
               ]
             },
             {
               "form": "命令する",
               "tags": [
-                "definitive"
+                "definitive",
+                "terminal"
               ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形"
-              ]
-            },
-            {
-              "form": "終止形のみ",
-              "tags": [
-                "definitive"
-              ],
-              "raw_tags": [
-                "各活用形の基礎的な結合例",
-                "結合"
+                "終止形のみ"
               ]
             },
             {
               "form": "命令すること",
               "tags": [
-                "noun-from-verb"
+                "noun-from-verb",
+                "attributive"
               ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形"
-              ]
-            },
-            {
-              "form": "連体形 + こと",
-              "tags": [
-                "noun-from-verb"
-              ],
-              "raw_tags": [
-                "各活用形の基礎的な結合例",
-                "結合"
+                "連体形 + こと"
               ]
             },
             {
               "form": "命令すれば",
+              "tags": [
+                "conditional",
+                "hypothetical"
+              ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形",
-                "仮定条件"
-              ]
-            },
-            {
-              "form": "仮定形 + ば",
-              "raw_tags": [
-                "各活用形の基礎的な結合例",
-                "結合",
-                "仮定条件"
+                "仮定形 + ば"
               ]
             },
             {
@@ -40347,7 +40100,7 @@
               ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形"
+                "命令形のみ"
               ]
             },
             {
@@ -40357,17 +40110,7 @@
               ],
               "raw_tags": [
                 "各活用形の基礎的な結合例",
-                "語形"
-              ]
-            },
-            {
-              "form": "命令形のみ",
-              "tags": [
-                "imperative"
-              ],
-              "raw_tags": [
-                "各活用形の基礎的な結合例",
-                "結合"
+                "命令形のみ"
               ]
             }
           ],
@@ -50722,7 +50465,15 @@
               "sense_index": 2
             }
           ],
-          "etymology_text": "Происходит от праслав. *sněgъ, от которого в числе прочего произошли: др.-русск., ст.-слав. снѣгъ (др.-греч. χιών, χειμών), русск., белор. снег, укр. сніг, болг. сняг, сербохорв. сни̏jег, местн. ед. сниjѐгу, словенск. snẹ̑g (род. п. snẹgȃ), чешск. sníh, словацк. sneh, польск. śnieg, в.-луж. sněh, н.-луж. sněg, полабск. snẹg. Родственно др.-прусск. snaygis «снег», лит. sniẽgas — то же, snaĩgala «снежинка», латышск. snìegs «снег», готск. snaiws — то же, греч. νείφει «идет снег», лат. nīvit, др.-в.-нем. sni^wit, лит. sniẽga, авест. snaēžaiti — то же, наряду с лит. snìgti, sniñgа «идет снег», латышск. snigt, лат. ninguit «идет снег», niх (род. п. nivis) «снег», греч. νίφα (вин. ед.) «снег», νιφάδες «хлопья снега», др.-ирл. snigid «идет дождь, снег», др.-инд. sníhyati «мокнет, становится клейким, прилипает, ощущает склонность», прич. snigdhás, кауз. snēháyati. Использованы данные словаря М. Фасмера. См. Список литературы.\nОт праиндоевр. корня *sniegwh-/*snoigwho- также произошли:\n* протогерм. *snaiwaz (англ. snow, нем. Schnee, нид. sneeuw, дат. sne и т. п.)\n* лат. nix (исп. nieve, итал./порт. neve, фр. neige)\n* греч. nipha\n* лит. sniegas\n* староирл. snechta\n* санскр. snihyati",
+          "etymology_texts": [
+            "протогерм. *snaiwaz (англ. snow, нем. Schnee, нид. sneeuw, дат. sne и т. п.)",
+            "лат. nix (исп. nieve, итал./порт. neve, фр. neige)",
+            "греч. nipha",
+            "лит. sniegas",
+            "староирл. snechta",
+            "санскр. snihyati",
+            "Происходит от праслав. *sněgъ, от которого в числе прочего произошли: др.-русск., ст.-слав. снѣгъ (др.-греч. χιών, χειμών), русск., белор. снег, укр. сніг, болг. сняг, сербохорв. сни̏jег, местн. ед. сниjѐгу, словенск. snẹ̑g (род. п. snẹgȃ), чешск. sníh, словацк. sneh, польск. śnieg, в.-луж. sněh, н.-луж. sněg, полабск. snẹg. Родственно др.-прусск. snaygis «снег», лит. sniẽgas — то же, snaĩgala «снежинка», латышск. snìegs «снег», готск. snaiws — то же, греч. νείφει «идет снег», лат. nīvit, др.-в.-нем. sni^wit, лит. sniẽga, авест. snaēžaiti — то же, наряду с лит. snìgti, sniñgа «идет снег», латышск. snigt, лат. ninguit «идет снег», niх (род. п. nivis) «снег», греч. νίφα (вин. ед.) «снег», νιφάδες «хлопья снега», др.-ирл. snigid «идет дождь, снег», др.-инд. sníhyati «мокнет, становится клейким, прилипает, ощущает склонность», прич. snigdhás, кауз. snēháyati. Использованы данные словаря М. Фасмера. См. Список литературы.\nОт праиндоевр. корня *sniegwh-/*snoigwho- также произошли:"
+          ],
           "related": [
             {
               "word": "снежок",
@@ -52019,7 +51770,9 @@
               "sense_index": 1
             }
           ],
-          "etymology_text": "Образовано из про- + долгий, далее от от праслав. *dьlgъ, от которого в числе прочего произошли: ст.-слав. длъгъ (др.-греч. μακρός). русск. долгий, укр. до́вгий, белор. до́ўгi, болг. дъ́лI(ъ)г\\, сербохорв. ду̏г, словенск. dȏłg, ж. dółga, чешск. dlouhý, словацк. dlhý, польск. długi, в.-луж. dołhi, н.-луж. диал. długi «длинный, долгий»; восходит к праиндоевр. *dolǝgh-/*delegh- «длинный». Родственно лит. ìlgas, латышск. il̃gs «длинный, долгий», др.-инд. dīrghás, авест. darǝɣa-, др.-перс. darga-, греч. δολιχός, лат. indulgēre «быть снисходительным, иметь склонность», хеттск. daluga- «длинный», др.-инд., сравн. степ. drā́ghīyān, превосх. drā́ghiṣṭas, авест. drāǰyō «далее», drāǰištǝm «длиннее, дольше всего». Далее, сюда же относят лат. longus, готск. laggs «длинный» из *dlongos. Отсюда до́лгий «леший» — табуистическое название, потому что, по поверью, он длинный, как деревья. В балт. языках наиболее близка слав. слову, вероятно, ятвяжская форма, следы которой обнаруживаются в гидронимах Литвы Dùlgas, Dulgẽlė. Использованы данные словаря М. Фасмера с комментариями О. Н. Трубачёва. См. Список литературы.",
+          "etymology_texts": [
+            "Образовано из про- + долгий, далее от от праслав. *dьlgъ, от которого в числе прочего произошли: ст.-слав. длъгъ (др.-греч. μακρός). русск. долгий, укр. до́вгий, белор. до́ўгi, болг. дъ́лI(ъ)г\\, сербохорв. ду̏г, словенск. dȏłg, ж. dółga, чешск. dlouhý, словацк. dlhý, польск. długi, в.-луж. dołhi, н.-луж. диал. długi «длинный, долгий»; восходит к праиндоевр. *dolǝgh-/*delegh- «длинный». Родственно лит. ìlgas, латышск. il̃gs «длинный, долгий», др.-инд. dīrghás, авест. darǝɣa-, др.-перс. darga-, греч. δολιχός, лат. indulgēre «быть снисходительным, иметь склонность», хеттск. daluga- «длинный», др.-инд., сравн. степ. drā́ghīyān, превосх. drā́ghiṣṭas, авест. drāǰyō «далее», drāǰištǝm «длиннее, дольше всего». Далее, сюда же относят лат. longus, готск. laggs «длинный» из *dlongos. Отсюда до́лгий «леший» — табуистическое название, потому что, по поверью, он длинный, как деревья. В балт. языках наиболее близка слав. слову, вероятно, ятвяжская форма, следы которой обнаруживаются в гидронимах Литвы Dùlgas, Dulgẽlė. Использованы данные словаря М. Фасмера с комментариями О. Н. Трубачёва. См. Список литературы."
+          ],
           "related": [
             {
               "word": "продолжатель",
