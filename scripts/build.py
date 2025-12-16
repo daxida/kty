@@ -296,6 +296,12 @@ def load_lang(item: Any) -> Lang:
     )
 
 
+def load_langs(path: Path) -> list[Lang]:
+    with path.open() as f:
+        data = json.load(f)
+    return [load_lang(item) for item in data]
+
+
 def sort_languages_json(path: Path) -> None:
     with path.open() as f:
         text = f.read()
@@ -415,9 +421,7 @@ def main() -> None:
 
     sort_languages_json(path_languages_json)
 
-    with path_languages_json.open() as f:
-        data = json.load(f)
-        langs = [load_lang(row) for row in data]
+    langs = load_langs(path_languages_json)
 
     if check_yomitan:
         check_yomitan_langs(langs)

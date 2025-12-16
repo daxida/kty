@@ -11,6 +11,14 @@ release *args:
 scan:
   python3 scripts/scan.py data/release/dict
 
+docs-serve:
+  python3 scripts/generate_docs.py
+  mkdocs serve
+
+docs-publish:
+  python3 scripts/generate_docs.py
+  mkdocs gh-deploy
+
 # Add a word to the testsuite
 add fr to word:
   @cargo run --release -- download {{fr}} {{to}}
