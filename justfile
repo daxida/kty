@@ -7,6 +7,10 @@ update *args:
 release *args:
   python3 scripts/release.py {{args}}
 
+# Scan the release dictionaries for size information
+scan:
+  python3 scripts/scan.py data/release/dict
+
 # Add a word to the testsuite
 add fr to word:
   @cargo run --release -- download {{fr}} {{to}}
