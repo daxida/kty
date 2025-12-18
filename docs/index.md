@@ -1,6 +1,6 @@
 # Overview
 
-Placeholder. Work in progress.
+Work in progress...
 
 How to [get started](https://yomitan.wiki/getting-started/) with Yomitan.
 
@@ -11,3 +11,8 @@ How to [get started](https://yomitan.wiki/getting-started/) with Yomitan.
 3. Go to "Dictionaries" → "Import"
 4. Select the downloaded .zip file
 
+Or simply:
+
+1. Open Yomitan settings
+2. Go to "Dictionaries" → "Import"
+3. Paste the url in the box under the "Import dictionaries from URLs"
