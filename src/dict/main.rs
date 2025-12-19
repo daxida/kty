@@ -188,21 +188,31 @@ impl Serialize for FormMap {
 
 impl FormMap {
     /// Iterates over: uninflected, inflected, pos, source, tags
-    fn flat_iter(
-        &self,
-    ) -> impl Iterator<Item = (&String, &String, &Pos, &FormSource, &Vec<String>)> {
-        self.0
-            .iter()
-            .map(|(key, (source, tags))| (&key.uninflected, &key.inflected, &key.pos, source, tags))
+    fn flat_iter(&self) -> impl Iterator<Item = (&str, &str, &str, &FormSource, &Vec<String>)> {
+        self.0.iter().map(|(key, (source, tags))| {
+            (
+                key.uninflected.as_str(),
+                key.inflected.as_str(),
+                key.pos.as_str(),
+                source,
+                tags,
+            )
+        })
     }
 
     /// Iterates over: uninflected, inflected, pos, source, tags
     fn flat_iter_mut(
         &mut self,
-    ) -> impl Iterator<Item = (&String, &String, &Pos, &mut FormSource, &mut Vec<String>)> {
-        self.0
-            .iter_mut()
-            .map(|(key, (source, tags))| (&key.uninflected, &key.inflected, &key.pos, source, tags))
+    ) -> impl Iterator<Item = (&str, &str, &str, &mut FormSource, &mut Vec<String>)> {
+        self.0.iter_mut().map(|(key, (source, tags))| {
+            (
+                key.uninflected.as_str(),
+                key.inflected.as_str(),
+                key.pos.as_str(),
+                source,
+                tags,
+            )
+        })
     }
 
     fn len(&self) -> usize {
@@ -291,11 +301,13 @@ impl Tidy {
     }
 
     // This is usually called at the end, so it could just move the arguments...
-    fn insert_lemma_entry(&mut self, lemma: &str, reading: &str, pos: &str, entry: LemmaInfo) {
+    fn insert_lemma(&mut self, lemma: &str, reading: &str, pos: &str, entry: LemmaInfo) {
+        debug_assert!(!entry.gloss_tree.is_empty());
+
         let key = LemmaKey {
-            lemma: lemma.to_string(),
-            reading: reading.to_string(),
-            pos: pos.to_string(),
+            lemma: lemma.into(),
+            reading: reading.into(),
+            pos: pos.into(),
         };
 
         self.lemma_map.0.entry(key).or_default().push(entry);
@@ -311,10 +323,11 @@ impl Tidy {
     ) {
         debug_assert_ne!(uninflected, inflected);
         debug_assert!(!tags.is_empty());
+
         let key = FormKey {
-            uninflected: uninflected.to_string(),
-            inflected: inflected.to_string(),
-            pos: pos.to_string(),
+            uninflected: uninflected.into(),
+            inflected: inflected.into(),
+            pos: pos.into(),
         };
 
         let entry = self
@@ -367,8 +380,7 @@ fn tidy_process(edition: EditionLang, source: Lang, word_entry: &WordEntry, ret:
     let reading =
         get_reading(edition, source, word_entry).unwrap_or_else(|| word_entry.word.clone());
     if let Some(raw_sense_entry) = process_word_entry(edition, source, word_entry) {
-        debug_assert!(!raw_sense_entry.gloss_tree.is_empty());
-        ret.insert_lemma_entry(&word_entry.word, &reading, &word_entry.pos, raw_sense_entry);
+        ret.insert_lemma(&word_entry.word, &reading, &word_entry.pos, raw_sense_entry);
     }
 }
 
