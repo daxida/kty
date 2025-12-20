@@ -2,7 +2,7 @@ Converts wiktionary data from [kaikki](https://kaikki.org/) ([wiktextract](https
 
 This is a port of [kaikki-to-yomitan](https://github.com/yomidevs/kaikki-to-yomitan).
 
-Converted dictionaries can be found on the [downloads](https://daxida.github.io/kty/) page.
+Converted dictionaries can be found on the [downloads](https://daxida.github.io/kty/download) page.
 
 ## Usage
 
