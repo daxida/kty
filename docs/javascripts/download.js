@@ -4,16 +4,16 @@ function buildUrl(type, target, source) {
     const BASE_URL = "https://huggingface.co/datasets/daxida/test-dataset/resolve/main/dict";
     switch (type) {
         case "main":
-            return `${BASE_URL}/${target}/${source}/kty-${target}-${source}.zip`;
+            return `${BASE_URL}/${source}/${target}/kty-${source}-${target}.zip`;
 
         case "ipa":
-            return `${BASE_URL}/${target}/${source}/kty-${target}-${source}-ipa.zip`;
+            return `${BASE_URL}/${source}/${target}/kty-${source}-${target}-ipa.zip`;
 
         case "ipa-merged":
             return `${BASE_URL}/${target}/all/kty-${target}-ipa.zip`;
 
         case "glossary":
-            return `${BASE_URL}/${target}/${source}/kty-${target}-${source}-gloss.zip`;
+            return `${BASE_URL}/${source}/${target}/kty-${source}-${target}-gloss.zip`;
 
         default:
             return null;
@@ -22,14 +22,14 @@ function buildUrl(type, target, source) {
 
 function setupRow(row) {
     const type = row.dataset.type;
-    const targetSel = row.querySelector(".dl-target");
     const sourceSel = row.querySelector(".dl-source");
+    const targetSel = row.querySelector(".dl-target");
     const btn = row.querySelector(".dl-btn");
     const info = row.querySelector(".dl-info");
 
     function update() {
-        const target = targetSel?.value;
         const source = sourceSel?.value;
+        const target = targetSel?.value;
 
         // Dummies
         if (target === "" || source === "") {

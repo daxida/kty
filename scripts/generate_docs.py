@@ -59,13 +59,13 @@ def render_line(
     return f"""
 <tr data-type="{dtype}" class="{line_class}">
   <th>{label}</th>
+  <td>{source_html}</td>
   <td>
     <select class="dl-target">
       <option value="" selected disabled>Select a target...</option>
         {target_options}
     </select>
   </td>
-  <td>{source_html}</td>
   <td>
     <button class="dl-btn">📥</button>
   </td>
