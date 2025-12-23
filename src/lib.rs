@@ -3,7 +3,6 @@ pub mod diagnostic;
 pub mod dict;
 pub mod download;
 pub mod lang;
-pub mod locale;
 pub mod models;
 pub mod path;
 pub mod tags;

@@ -8,8 +8,8 @@ use unicode_normalization::UnicodeNormalization;
 use crate::{
     Diagnostics, Dictionary, Intermediate, LabelledYomitanEntry, Map, Set,
     cli::ArgsOptions,
+    dict::locale::get_locale_examples_string,
     lang::{EditionLang, Lang},
-    locale::get_locale_examples_string,
     models::{
         kaikki::{Example, HeadTemplate, Pos, Sense, Tag, WordEntry},
         yomitan::{
