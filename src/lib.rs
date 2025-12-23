@@ -265,8 +265,6 @@ where
 pub trait Dictionary {
     type I: Intermediate;
 
-    // TODO: support filter (cache)
-
     // NOTE:Maybe in the future we can get rid of this. It requires cleaning up the legacy mutable
     // behaviour of the main dictionary.
     //
@@ -370,6 +368,17 @@ fn find_or_download_jsonl(
     }
 }
 
+fn rejected(entry: &WordEntry, options: &ArgsOptions) -> bool {
+    options
+        .reject
+        .iter()
+        .any(|(k, v)| k.field_value(entry) == v)
+        || !options
+            .filter
+            .iter()
+            .all(|(k, v)| k.field_value(entry) == v)
+}
+
 const CONSOLE_PRINT_INTERVAL: i32 = 10000;
 
 pub fn make_dict<D: Dictionary>(dict: D, options: &ArgsOptions, pm: &PathManager) -> Result<()> {
@@ -390,7 +399,6 @@ pub fn make_dict<D: Dictionary>(dict: D, options: &ArgsOptions, pm: &PathManager
         let reader_file = File::open(reader_path)?;
         let mut reader = BufReader::with_capacity(capacity, reader_file);
 
-        let mut cached_lines = Vec::new();
         let mut line_count = 0;
         let mut accepted_count = 0;
 
@@ -410,24 +418,8 @@ pub fn make_dict<D: Dictionary>(dict: D, options: &ArgsOptions, pm: &PathManager
                 std::io::stdout().flush()?;
             }
 
-            if options
-                .reject
-                .iter()
-                .any(|(k, v)| k.field_value(&word_entry) == v)
-            {
+            if rejected(&word_entry, options) {
                 continue;
-            }
-
-            if !options
-                .filter
-                .iter()
-                .all(|(k, v)| k.field_value(&word_entry) == v)
-            {
-                continue;
-            }
-
-            if options.cache_filter {
-                cached_lines.extend(line.clone());
             }
 
             accepted_count += 1;
@@ -450,14 +442,6 @@ pub fn make_dict<D: Dictionary>(dict: D, options: &ArgsOptions, pm: &PathManager
         if !options.quiet {
             println!("Processed {line_count} lines. Accepted {accepted_count} lines.");
         }
-
-        if options.cache_filter {
-            let mut writer_file = std::fs::OpenOptions::new()
-                .write(true)
-                .truncate(true)
-                .open(reader_path)?;
-            writer_file.write_all(&cached_lines)?;
-        }
     }
 
     if !options.quiet {
@@ -469,7 +453,6 @@ pub fn make_dict<D: Dictionary>(dict: D, options: &ArgsOptions, pm: &PathManager
     }
 
     dict.postprocess(&mut entries);
-    // println!("Postprocessed down to {} entries", entries.len());
 
     if options.save_temps && dict.write_ir() {
         entries.write(pm, options)?;

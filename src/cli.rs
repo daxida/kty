@@ -214,10 +214,6 @@ pub struct ArgsOptions {
     #[arg(long, value_parser = parse_tuple)]
     pub reject: Vec<(FilterKey, String)>,
 
-    /// Replace the jsonl with the filtered lines
-    #[arg(long)]
-    pub cache_filter: bool,
-
     /// Do not print anything to the console
     #[arg(long, short)]
     pub quiet: bool,
