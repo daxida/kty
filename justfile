@@ -2,7 +2,7 @@ build:
   python3 scripts/build.py
 
 update *args:
-  python3 tests/update_tests.py {{args}}
+  python3 scripts/update_tests.py {{args}}
 
 release *args:
   python3 scripts/release.py {{args}}
