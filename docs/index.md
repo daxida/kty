@@ -19,4 +19,6 @@ Or simply:
 
 ## Similar projects
 
+- A frequency dictionary creator: [leipzig-to-yomitan](https://github.com/StefanVukovic99/leipzig-to-yomitan)
 - For ebooks there is [ebook_dictionary_creator](https://github.com/Vuizur/ebook_dictionary_creator) that uses [pyglossary](https://github.com/ilius/pyglossary)
+- [Rust engine](https://github.com/aecsocket/wordbase) that supports Yomitan.
