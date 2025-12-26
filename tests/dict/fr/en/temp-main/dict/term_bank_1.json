@@ -1720,6 +1720,13 @@
                                     "content": "example-sentence-b"
                                   },
                                   "content": "And if I feel like leaving, lock me up and throw away the key."
+                                },
+                                {
+                                  "tag": "div",
+                                  "data": {
+                                    "content": "example-sentence-c"
+                                  },
+                                  "content": "2015, Zaz, Si jamais j'oublie"
                                 }
                               ]
                             }

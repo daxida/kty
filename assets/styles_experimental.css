@@ -39,6 +39,10 @@ div[data-sc-content="example-sentence-a"] {
 div[data-sc-content="example-sentence-b"] {
     font-size: 0.8em;
 }
+div[data-sc-content="example-sentence-c"] {
+    font-size: 0.75em;
+    text-align: right;
+}
 details[data-sc-content^="details-entry"] {
     padding-left: 0;
 }

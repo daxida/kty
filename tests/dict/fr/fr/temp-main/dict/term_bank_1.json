@@ -221,6 +221,13 @@
                                     "content": "example-sentence-a"
                                   },
                                   "content": "Le service social du travail – Avatars d’une fonction, vicissitudes d’un métier"
+                                },
+                                {
+                                  "tag": "div",
+                                  "data": {
+                                    "content": "example-sentence-c"
+                                  },
+                                  "content": "titre d’un livre de François Aballéa et Charlotte Simon, 2004"
                                 }
                               ]
                             }

@@ -686,11 +686,8 @@ fn process_word_entry(
     let gloss_tree = get_gloss_tree(word_entry);
 
     if gloss_tree.is_empty() {
-        // Rare, happens if word_entry has no glosses (likely a wiktionary issue)
-        tracing::warn!(
-            "Empty gloss tree for {}",
-            link_wiktionary(edition, source, &word_entry.word)
-        );
+        // Happens if word_entry has no glosses. Common if the edition supports notices for page
+        // stubs, orthography variants etc., cf. https://de.wiktionary.org/wiki/caritativ
         return None;
     }
 
@@ -743,14 +740,13 @@ static PARENS_RE: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\(.+?\)").unwr
 
 // rg: getheadinfo
 fn get_head_info(head_templates: &[HeadTemplate]) -> Option<&str> {
-    // WARN: cant do lookbehinds in rust!
-    for head_template in head_templates {
-        let expansion = &head_template.expansion;
-        if !expansion.is_empty() && PARENS_RE.is_match(expansion) {
-            return Some(expansion);
+    head_templates.iter().find_map(|head_template| {
+        if PARENS_RE.is_match(&head_template.expansion) {
+            Some(head_template.expansion.as_str())
+        } else {
+            None
         }
-    }
-    None
+    })
 }
 
 fn get_gloss_tree(entry: &WordEntry) -> GlossTree {
@@ -1131,7 +1127,7 @@ fn make_yomitan_lemma(
 
     let structured_glosses = get_structured_glosses(
         edition.into(),
-        &info.gloss_tree,
+        info.gloss_tree,
         &common_short_tags_recognized,
     );
     detailed_definition_content.push(structured_glosses);
@@ -1234,21 +1230,32 @@ fn get_structured_backlink(wlink: &str, klink: &str, options: &Options) -> Node 
     wrap(NTag::Div, "backlink", links)
 }
 
-// should return Node for consistency
 fn get_structured_glosses(
     target: Lang,
-    gloss_tree: &GlossTree,
+    gloss_tree: GlossTree,
     common_short_tags_recognized: &[Tag],
 ) -> Node {
-    let mut sense_content = Vec::new();
-    for (gloss, gloss_info) in gloss_tree {
-        let synthetic_branch = GlossTree::from_iter([(gloss.clone(), gloss_info.clone())]);
-        let nested_gloss =
-            get_structured_glosses_go(target, &synthetic_branch, common_short_tags_recognized, 0);
-        let structured_gloss = wrap(NTag::Li, "", Node::Array(nested_gloss));
-        sense_content.push(structured_gloss);
-    }
-    wrap(NTag::Ol, "glosses", Node::Array(sense_content))
+    wrap(
+        NTag::Ol,
+        "glosses",
+        Node::Array(
+            gloss_tree
+                .into_iter()
+                .map(|gloss_pair| {
+                    wrap(
+                        NTag::Li,
+                        "",
+                        Node::Array(get_structured_glosses_go(
+                            target,
+                            &GlossTree::from_iter([gloss_pair]),
+                            common_short_tags_recognized,
+                            0,
+                        )),
+                    )
+                })
+                .collect(),
+        ),
+    )
 }
 
 // Recursive helper
@@ -1284,8 +1291,8 @@ fn get_structured_glosses_go(
         let gloss_content = Node::Text(gloss.into());
         level_content.push(gloss_content);
 
-        if let Some(structured_examples) = get_structured_examples(target, &gloss_info.examples) {
-            level_content.push(structured_examples);
+        if !gloss_info.examples.is_empty() {
+            level_content.push(get_structured_examples(target, &gloss_info.examples));
         }
 
         let level_structured = wrap(html_tag, "", level_content);
@@ -1352,10 +1359,8 @@ fn get_structured_tags(tags: &[Tag], common_short_tags_recognized: &[Tag]) -> Op
     }
 }
 
-fn get_structured_examples(target: Lang, examples: &[Example]) -> Option<Node> {
-    if examples.is_empty() {
-        return None;
-    }
+fn get_structured_examples(target: Lang, examples: &[Example]) -> Node {
+    debug_assert!(!examples.is_empty());
 
     let mut structured_examples_content = wrap(
         NTag::Summary,
@@ -1379,19 +1384,28 @@ fn get_structured_examples(target: Lang, examples: &[Example]) -> Option<Node> {
             );
             structured_example_content.push(structured_translation_content);
         }
-        let structured_example_content_wrap = wrap(
+        if !example.reference.is_empty() {
+            let reference = example
+                .reference
+                .strip_suffix(':')
+                .unwrap_or(&example.reference)
+                .to_string();
+            let structured_reference_content =
+                wrap(NTag::Div, "example-sentence-c", Node::Text(reference));
+            structured_example_content.push(structured_reference_content);
+        }
+        structured_examples_content.push(wrap(
             NTag::Div,
             "extra-info",
             wrap(NTag::Div, "example-sentence", structured_example_content),
-        );
-        structured_examples_content.push(structured_example_content_wrap);
+        ));
     }
 
-    Some(wrap(
+    wrap(
         NTag::Details,
         "details-entry-examples",
         structured_examples_content,
-    ))
+    )
 }
 
 #[tracing::instrument(skip_all)]

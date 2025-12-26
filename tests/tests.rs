@@ -192,14 +192,6 @@ fn delete_previous_output(pm: &PathManager) -> Result<()> {
     Ok(())
 }
 
-/// Read the expected result in the snapshot first, then git diff
-fn shapshot_main(options: &Options, pm: &PathManager) -> Result<()> {
-    delete_previous_output(pm)?;
-    make_dict(DMain, options, pm)?;
-    check_git_diff(pm)?;
-    Ok(())
-}
-
 /// Run git --diff for charges in the generated json
 fn check_git_diff(pm: &PathManager) -> Result<()> {
     let output = std::process::Command::new("git")
@@ -217,5 +209,13 @@ fn check_git_diff(pm: &PathManager) -> Result<()> {
         anyhow::bail!("changes!")
     }
 
+    Ok(())
+}
+
+/// Read the expected result in the snapshot first, then git diff
+fn shapshot_main(options: &Options, pm: &PathManager) -> Result<()> {
+    delete_previous_output(pm)?;
+    make_dict(DMain, options, pm)?;
+    check_git_diff(pm)?;
     Ok(())
 }

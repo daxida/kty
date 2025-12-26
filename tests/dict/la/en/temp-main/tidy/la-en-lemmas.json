@@ -18,11 +18,13 @@
               "examples": [
                 {
                   "text": "hascine propter rēs maledicās fāmās ferunt.",
-                  "translation": "Is it on account of these things that they spread slanderous reports?"
+                  "translation": "Is it on account of these things that they spread slanderous reports?",
+                  "ref": "c. 195 BCE, Plautus, Trinummus 1.2.149"
                 },
                 {
                   "text": "“Oenōtrī coluēre virī; nunc fāma minōrēs",
-                  "translation": "“Oenotrian men tilled [the land]; now rumor [has it that their] descendants call the nation ‘Italy’ after the name of its leader, [Italus].”"
+                  "translation": "“Oenotrian men tilled [the land]; now rumor [has it that their] descendants call the nation ‘Italy’ after the name of its leader, [Italus].”",
+                  "ref": "29 BCE – 19 BCE, Virgil, Aeneid 1.532–533"
                 }
               ]
             },
@@ -38,11 +40,13 @@
                 },
                 {
                   "text": "Fāma tamen clāra est; et adhūc sine crīmine vīxī.",
-                  "translation": "My good name is nevertheless unstained; and so far I have lived without blame."
+                  "translation": "My good name is nevertheless unstained; and so far I have lived without blame.",
+                  "ref": "43 BCE – c. 17 CE, Ovid, The Heroines 17.17, (translation Benham's Book of Quotations 1948)"
                 },
                 {
                   "text": "Multī fāmam, conscientiam paucī verentur.",
-                  "translation": "Many fear their reputation, few their conscience."
+                  "translation": "Many fear their reputation, few their conscience.",
+                  "ref": "61 CE – c. 112 CE, Pliny the Younger, Epistulae 3.20.9"
                 }
               ]
             },
@@ -78,7 +82,8 @@
               "examples": [
                 {
                   "text": "[…] dum ne quem militem legeret ex eo numero quibus senatus missionem reditumque in patriam negasset ante belli finem.",
-                  "translation": "[…] provided he did not choose any soldier from those to whom the Senate had refused discharge and a return home before the end of the war"
+                  "translation": "[…] provided he did not choose any soldier from those to whom the Senate had refused discharge and a return home before the end of the war",
+                  "ref": "27 BCE – 25 BCE, Titus Livius, Ab Urbe Condita 26.1"
                 }
               ]
             },
@@ -89,7 +94,8 @@
               "examples": [
                 {
                   "text": "“… Date volnera lymphīs / abluam, et, extrēmus sī quis super hālitus errat, / ōre legam.” …",
-                  "translation": "“Grant that I may wash her wounds with water, and, if any last breath wanders over her, I will gather it with my lips.”"
+                  "translation": "“Grant that I may wash her wounds with water, and, if any last breath wanders over her, I will gather it with my lips.”",
+                  "ref": "29 BCE – 19 BCE, Virgil, Aeneid 4.683-685"
                 }
               ]
             },
@@ -179,11 +185,13 @@
               "examples": [
                 {
                   "text": "Eōsdem facile addūcam, ut tē haec quae vastāre iam prīdem studēs relinquentem, usque ad portās prōsequantur.",
-                  "translation": "I shall easily persuade the same [men], that as you are leaving these [things] which you have long been eager to destroy, they may escort [you] all the way to the [city] gates."
+                  "translation": "I shall easily persuade the same [men], that as you are leaving these [things] which you have long been eager to destroy, they may escort [you] all the way to the [city] gates.",
+                  "ref": "63 BCE, Cicero, Catiline Orations Oratio in Catilinam Prima in Senatu Habita.21"
                 },
                 {
                   "text": "ab ōvō usque ad māla",
-                  "translation": "from the beginning to the end\n(literally, “from the egg to the apples”)"
+                  "translation": "from the beginning to the end\n(literally, “from the egg to the apples”)",
+                  "ref": "c. 35 BCE, Horace, Satires (book 1) 1.3"
                 },
                 {
                   "text": ", Latin Vulgate translation of Psalm 71:8; Canadian national motto\nĀ marī usque ad mare.",
@@ -217,7 +225,8 @@
               "examples": [
                 {
                   "text": "Quae rectis lineis suos ordines servant",
-                  "translation": "Which preserve their order in straight lines"
+                  "translation": "Which preserve their order in straight lines",
+                  "ref": "c. 52 BCE, Julius Caesar, Commentarii de Bello Gallico VII.23"
                 }
               ]
             },
@@ -244,7 +253,8 @@
               "examples": [
                 {
                   "text": "Via stultī rēcta in oculīs eius; quī autem sapiēns est audit cōnsilia.",
-                  "translation": "The way of a fool is right in his own eyes: but he that is wise hearkeneth unto counsels. (Douay-Rheims trans., Challoner rev.: 1752 CE)"
+                  "translation": "The way of a fool is right in his own eyes: but he that is wise hearkeneth unto counsels. (Douay-Rheims trans., Challoner rev.: 1752 CE)",
+                  "ref": "405 CE, Jerome, Vulgate Proverbs.12.15"
                 }
               ]
             }
@@ -280,7 +290,8 @@
                 },
                 {
                   "text": "nox erat et tōta lūmina nūlla domō",
-                  "translation": "It was night, and [there were] no lights in the whole house."
+                  "translation": "It was night, and [there were] no lights in the whole house.",
+                  "ref": "8 CE, Ovid, Fasti 2.792"
                 }
               ],
               "children": {
@@ -364,7 +375,8 @@
                 },
                 {
                   "text": "id nunc experior domō",
-                  "translation": "Now I'm learning this first-hand."
+                  "translation": "Now I'm learning this first-hand.",
+                  "ref": "c. 190 BCE – 185 BCE, Plautus, Amphitryon 637"
                 }
               ]
             },
@@ -383,7 +395,8 @@
                 },
                 {
                   "text": "ut non quietior populus domi esset quam militiae",
-                  "translation": "so that the people should not become lazier in the time of peace than that of war"
+                  "translation": "so that the people should not become lazier in the time of peace than that of war",
+                  "ref": "27 BCE – 25 BCE, Titus Livius, Ab Urbe Condita 1.38"
                 }
               ]
             }

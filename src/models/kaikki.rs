@@ -83,6 +83,9 @@ pub struct Example {
     pub text: String,
     #[serde(skip_serializing_if = "String::is_empty")]
     pub translation: String,
+    #[serde(skip_serializing_if = "String::is_empty")]
+    #[serde(rename = "ref")]
+    pub reference: String, // Reference of a quotation example
 }
 
 #[derive(Debug, Deserialize, Serialize, Default)]

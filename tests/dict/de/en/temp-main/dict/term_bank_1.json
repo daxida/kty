@@ -1987,6 +1987,13 @@
                                     "content": "example-sentence-b"
                                   },
                                   "content": "About the substantive noun, or the [alternative term]. (headline)"
+                                },
+                                {
+                                  "tag": "div",
+                                  "data": {
+                                    "content": "example-sentence-c"
+                                  },
+                                  "content": "1796, Abraham Sahlstedt, Schwedische Grammatik nach dem Sprachgebrauch unserer Zeiten, Lübeck & Leipzig, page 259"
                                 }
                               ]
                             }
