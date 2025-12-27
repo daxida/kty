@@ -171,11 +171,8 @@ pub struct BacklinkContent {
 }
 
 impl BacklinkContent {
-    pub fn new(href: &str, content: &'static str) -> Self {
-        Self {
-            href: href.to_string(),
-            content,
-        }
+    pub fn new(href: String, content: &'static str) -> Self {
+        Self { href, content }
     }
 }
 

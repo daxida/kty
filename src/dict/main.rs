@@ -10,7 +10,7 @@ use crate::{
     cli::Options,
     dict::{
         Diagnostics, Dictionary, Intermediate, LabelledYomitanEntry,
-        locale::get_locale_examples_string,
+        locale::localize_examples_string,
     },
     lang::{EditionLang, Lang},
     models::{
@@ -37,7 +37,7 @@ impl Intermediate for Tidy {
     }
 
     fn write(&self, pm: &PathManager, options: &Options) -> Result<()> {
-        write_tidy(options, pm, self)
+        self.write(options, pm)
     }
 }
 
@@ -48,23 +48,23 @@ impl Dictionary for DMain {
         &self,
         edition: EditionLang,
         source: Lang,
-        _target: Lang,
+        _: Lang,
         word_entry: &mut WordEntry,
         options: &Options,
         irs: &mut Self::I,
     ) {
-        tidy_preprocess(edition, source, options, word_entry, irs);
+        preprocess_main(edition, source, options, word_entry, irs);
     }
 
     fn process(
         &self,
         edition: EditionLang,
         source: Lang,
-        _target: Lang,
+        _: Lang,
         word_entry: &WordEntry,
         irs: &mut Self::I,
     ) {
-        tidy_process(edition, source, word_entry, irs);
+        process_main(edition, source, word_entry, irs);
     }
 
     fn postprocess(&self, irs: &mut Self::I) {
@@ -98,23 +98,24 @@ impl Dictionary for DMain {
         &self,
         edition: EditionLang,
         source: Lang,
-        _target: Lang,
+        _: Lang,
         options: &Options,
         diagnostics: &mut Diagnostics,
         irs: Self::I,
     ) -> Vec<LabelledYomitanEntry> {
-        let yomitan_entries = make_yomitan_lemmas(edition, options, irs.lemma_map, diagnostics);
-        let yomitan_forms = make_yomitan_forms(source, irs.form_map);
-        let labelled_entries = vec![("lemma", yomitan_entries), ("form", yomitan_forms)];
-        labelled_entries
+        vec![
+            (
+                "lemma",
+                to_yomitan_lemmas(edition, options, irs.lemma_map, diagnostics),
+            ),
+            ("form", to_yomitan_forms(source, irs.form_map)),
+        ]
     }
 
     fn write_diagnostics(&self, pm: &PathManager, diagnostics: &Diagnostics) -> Result<()> {
         diagnostics.write(pm)
     }
 }
-
-// Tidy: internal types
 
 #[derive(Debug, Clone, Hash, PartialEq, Eq)]
 struct LemmaKey {
@@ -333,12 +334,44 @@ impl Tidy {
             pos: pos.into(),
         };
 
-        let entry = self
-            .form_map
+        self.form_map
             .0
             .entry(key)
-            .or_insert_with(|| (source, Vec::new()));
-        entry.1.extend(tags);
+            .or_insert_with(|| (source, Vec::new()))
+            .1
+            .extend(tags);
+    }
+
+    // NOTE: we write stuff even if irs.attribute is empty
+    #[tracing::instrument(skip_all)]
+    fn write(&self, options: &Options, pm: &PathManager) -> Result<()> {
+        let opath = pm.path_lemmas();
+        let file = File::create(&opath)?;
+        let writer = BufWriter::new(file);
+
+        if options.pretty {
+            serde_json::to_writer_pretty(writer, &self.lemma_map)?;
+        } else {
+            serde_json::to_writer(writer, &self.lemma_map)?;
+        }
+        if !options.quiet {
+            pretty_println_at_path("Wrote tidy lemmas", &opath);
+        }
+
+        let opath = pm.path_forms();
+        let file = File::create(&opath)?;
+        let writer = BufWriter::new(file);
+
+        if options.pretty {
+            serde_json::to_writer_pretty(writer, &self.form_map)?;
+        } else {
+            serde_json::to_writer(writer, &self.form_map)?;
+        }
+        if !options.quiet {
+            pretty_println_at_path("Wrote tidy forms", &opath);
+        }
+
+        Ok(())
     }
 }
 
@@ -361,42 +394,33 @@ fn postprocess_forms(form_map: &mut FormMap) {
     }
 }
 
-fn tidy_process(edition: EditionLang, source: Lang, word_entry: &WordEntry, ret: &mut Tidy) {
-    // rg searchword
-    // debug (with only relevant, as in, deserialized, information)
-    // if matches!(edition, EditionLang::Ja) && word_entry.word == "立命" {
-    //     warn!("{}", get_link_kaikki(edition, source, &word_entry.word));
-    //     warn!("{}", serde_json::to_string_pretty(&word_entry)?);
-    // }
+fn process_main(edition: EditionLang, source: Lang, word_entry: &WordEntry, irs: &mut Tidy) {
+    process_forms(edition, source, word_entry, irs);
 
-    process_forms(edition, source, word_entry, ret);
-
-    process_alt_forms(word_entry, ret);
+    process_alt_forms(word_entry, irs);
 
     // Don't push a lemma if the word_entry has no glosses (f.e. if it is an inflection etc.)
     if word_entry.contains_no_gloss() {
-        process_no_gloss(edition, word_entry, ret);
+        process_no_gloss(edition, word_entry, irs);
         return;
     }
 
-    // rg insertlemma handleline
-    let reading =
-        get_reading(edition, source, word_entry).unwrap_or_else(|| word_entry.word.clone());
     if let Some(raw_sense_entry) = process_word_entry(edition, source, word_entry) {
-        ret.insert_lemma(&word_entry.word, &reading, &word_entry.pos, raw_sense_entry);
+        let reading =
+            get_reading(edition, source, word_entry).unwrap_or_else(|| word_entry.word.clone());
+        irs.insert_lemma(&word_entry.word, &reading, &word_entry.pos, raw_sense_entry);
     }
 }
 
 // Everything that mutates word_entry
-fn tidy_preprocess(
+fn preprocess_main(
     edition: EditionLang,
     source: Lang,
     options: &Options,
     word_entry: &mut WordEntry,
-    ret: &mut Tidy,
+    irs: &mut Tidy,
 ) {
     // WARN: mutates word_entry::senses::sense::tags
-    //
     match edition {
         EditionLang::En => {
             // The original fetched them from head_templates but it is better not to touch that
@@ -469,7 +493,7 @@ fn tidy_preprocess(
         if is_inflection_sense(edition, &sense)
             && (!options.experimental || word_entry.non_trivial_forms().next().is_none())
         {
-            handle_inflection_sense(source, edition, word_entry, &sense, ret);
+            handle_inflection_sense(edition, source, word_entry, &sense, irs);
         } else {
             senses_without_inflections.push(sense);
         }
@@ -495,7 +519,7 @@ fn tidy_preprocess(
 }
 
 /// Add Extracted forms. That is, forms from `word_entry.forms`.
-fn process_forms(edition: EditionLang, source: Lang, word_entry: &WordEntry, ret: &mut Tidy) {
+fn process_forms(edition: EditionLang, source: Lang, word_entry: &WordEntry, irs: &mut Tidy) {
     for form in word_entry.non_trivial_forms() {
         let filtered_tags: Vec<_> = form
             .tags
@@ -511,7 +535,7 @@ fn process_forms(edition: EditionLang, source: Lang, word_entry: &WordEntry, ret
             break;
         }
 
-        ret.insert_form(
+        irs.insert_form(
             &word_entry.word,
             &form.form,
             &word_entry.pos,
@@ -543,11 +567,11 @@ fn should_break_at_finish_forms(edition: EditionLang, source: Lang, form: &Form)
 }
 
 /// Add `AltOf` forms. That is, alternative forms.
-fn process_alt_forms(word_entry: &WordEntry, ret: &mut Tidy) {
+fn process_alt_forms(word_entry: &WordEntry, irs: &mut Tidy) {
     let base_tags = vec!["alt-of".to_string()];
 
     for alt_form in &word_entry.alt_of {
-        ret.insert_form(
+        irs.insert_form(
             &word_entry.word,
             &alt_form.word,
             &word_entry.pos,
@@ -561,7 +585,7 @@ fn process_alt_forms(word_entry: &WordEntry, ret: &mut Tidy) {
         sense_tags.extend(base_tags.clone());
 
         for alt_form in &sense.alt_of {
-            ret.insert_form(
+            irs.insert_form(
                 &word_entry.word,
                 &alt_form.word,
                 &word_entry.pos,
@@ -573,8 +597,8 @@ fn process_alt_forms(word_entry: &WordEntry, ret: &mut Tidy) {
 }
 
 /// Process "no-gloss" word entries for alternative ways of adding lemmas/forms.
-fn process_no_gloss(target: EditionLang, word_entry: &WordEntry, ret: &mut Tidy) {
-    match target {
+fn process_no_gloss(edition: EditionLang, word_entry: &WordEntry, irs: &mut Tidy) {
+    match edition {
         // Unfortunately we are in the same A from B, B from C situation discussed in
         // preprocess_word_entry. There is no easy solution for adding the lemma back because at
         // this point the gloss has been deleted. Maybe reconsider the original approach of
@@ -585,7 +609,7 @@ fn process_no_gloss(target: EditionLang, word_entry: &WordEntry, ret: &mut Tidy)
             if word_entry.is_participle()
                 && let Some(form_of) = word_entry.form_of.first()
             {
-                ret.insert_form(
+                irs.insert_form(
                     &form_of.word,
                     &word_entry.word,
                     &word_entry.pos,
@@ -651,15 +675,15 @@ fn get_japanese_reading(word_entry: &WordEntry) -> Option<String> {
         //     warn!(
         //         "Canonical form: '{cform_lemma}' != word: '{}'\n{}\n{}\n\n",
         //         word_entry.word,
-        //         get_link_wiktionary(args, &word_entry.word),
-        //         get_link_kaikki(args, &word_entry.word),
+        //         link_wiktionary(args, &word_entry.word),
+        //         link_kaikki(args, &word_entry.word),
         //     );
         // } else {
         //     warn!(
         //         "Equal for word: '{}'\n{}\n{}\n\n",
         //         word_entry.word,
-        //         get_link_wiktionary(args, &word_entry.word),
-        //         get_link_kaikki(args, &word_entry.word),
+        //         link_wiktionary(args, &word_entry.word),
+        //         link_kaikki(args, &word_entry.word),
         //     );
         // }
 
@@ -832,8 +856,8 @@ static DE_INFLECTION_RE: LazyLock<Regex> = LazyLock::new(|| {
 });
 
 // rg: isinflectiongloss
-fn is_inflection_sense(target: EditionLang, sense: &Sense) -> bool {
-    match target {
+fn is_inflection_sense(edition: EditionLang, sense: &Sense) -> bool {
+    match edition {
         EditionLang::De => sense
             .glosses
             .iter()
@@ -858,9 +882,9 @@ fn is_inflection_sense(target: EditionLang, sense: &Sense) -> bool {
                     // ... perfective of возни́кнуть (vozníknutʹ)
                     // But no
                     // ... agent noun of fahren; driver (person)
-                    let target = format!("of {}", form.word);
-                    if gloss.ends_with(&target)
-                        || (gloss.contains(&format!("{target} (")) && gloss.ends_with(')'))
+                    let subs = format!("of {}", form.word);
+                    if gloss.ends_with(&subs)
+                        || (gloss.contains(&format!("{subs} (")) && gloss.ends_with(')'))
                     {
                         return true;
                     }
@@ -893,15 +917,15 @@ const TAGS_RETAINED_EL: [&str; 9] = [
 ];
 
 fn handle_inflection_sense(
+    edition: EditionLang,
     source: Lang,
-    target: EditionLang,
     word_entry: &WordEntry,
     sense: &Sense,
-    ret: &mut Tidy,
+    irs: &mut Tidy,
 ) {
     debug_assert!(!sense.glosses.is_empty()); // we checked @ is_inflection_sense
 
-    match target {
+    match edition {
         EditionLang::De => {
             if let Some(caps) = DE_INFLECTION_RE.captures(&sense.glosses[0])
                 && let (Some(inflection_tags), Some(uninflected)) = (caps.get(1), caps.get(2))
@@ -909,7 +933,7 @@ fn handle_inflection_sense(
                 let inflection_tags = inflection_tags.as_str().trim();
 
                 if !inflection_tags.is_empty() {
-                    ret.insert_form(
+                    irs.insert_form(
                         uninflected.as_str(),
                         &word_entry.word,
                         &word_entry.pos,
@@ -933,7 +957,7 @@ fn handle_inflection_sense(
                 allowed_tags
             };
             for form in &sense.form_of {
-                ret.insert_form(
+                irs.insert_form(
                     &form.word,
                     &word_entry.word,
                     &word_entry.pos,
@@ -943,7 +967,7 @@ fn handle_inflection_sense(
                 );
             }
         }
-        EditionLang::En => handle_inflection_sense_en(source, word_entry, sense, ret),
+        EditionLang::En => handle_inflection_sense_en(source, word_entry, sense, irs),
         EditionLang::Fr => {
             let allowed_tags: Vec<_> = sense
                 .tags
@@ -957,7 +981,7 @@ fn handle_inflection_sense(
                 allowed_tags
             };
             for form in &sense.form_of {
-                ret.insert_form(
+                irs.insert_form(
                     &form.word,
                     &word_entry.word,
                     &word_entry.pos,
@@ -977,7 +1001,7 @@ static EN_INSIDE_PARENS_RE: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\s*\
 // this is awful
 //
 // tested in the es-en suite
-fn handle_inflection_sense_en(source: Lang, word_entry: &WordEntry, sense: &Sense, ret: &mut Tidy) {
+fn handle_inflection_sense_en(source: Lang, word_entry: &WordEntry, sense: &Sense, irs: &mut Tidy) {
     // Split glosses by ##
     let gloss_pieces: Vec<String> = sense
         .glosses
@@ -1034,7 +1058,7 @@ fn handle_inflection_sense_en(source: Lang, word_entry: &WordEntry, sense: &Sens
     }
 
     for inflection in inflections {
-        ret.insert_form(
+        irs.insert_form(
             uninflected,
             &inflected,
             &word_entry.pos,
@@ -1044,45 +1068,6 @@ fn handle_inflection_sense_en(source: Lang, word_entry: &WordEntry, sense: &Sens
     }
 }
 
-// NOTE: we write stuff even if ret.attribute is empty
-//
-/// Write a Tidy struct to disk.
-///
-/// This is effectively a snapshot of our tidy intermediate representation.
-#[tracing::instrument(skip_all)]
-fn write_tidy(options: &Options, pm: &PathManager, ret: &Tidy) -> Result<()> {
-    let opath = pm.path_lemmas();
-    let file = File::create(&opath)?;
-    let writer = BufWriter::new(file);
-
-    if options.pretty {
-        serde_json::to_writer_pretty(writer, &ret.lemma_map)?;
-    } else {
-        serde_json::to_writer(writer, &ret.lemma_map)?;
-    }
-    if !options.quiet {
-        pretty_println_at_path("Wrote tidy lemmas", &opath);
-    }
-
-    // Forms are written by chunks in the original (cf. mapChunks). Not sure if needed.
-    // If I even change that, do NOT hardcode the forms number (i.e. the 0 in ...forms-0.json)
-    let opath = pm.path_forms();
-    let file = File::create(&opath)?;
-    let writer = BufWriter::new(file);
-
-    if options.pretty {
-        serde_json::to_writer_pretty(writer, &ret.form_map)?;
-    } else {
-        serde_json::to_writer(writer, &ret.form_map)?;
-    }
-    if !options.quiet {
-        pretty_println_at_path("Wrote tidy forms", &opath);
-    }
-
-    Ok(())
-}
-
-// For el/en/fr this is trivial ~ Needs lang script for the rest
 fn normalize_orthography(source: Lang, word: &str) -> String {
     match source {
         Lang::Grc | Lang::La | Lang::Ru => {
@@ -1095,12 +1080,8 @@ fn normalize_orthography(source: Lang, word: &str) -> String {
     }
 }
 
-// NOTE: do NOT use the json! macro as it does not preserve insertion order
-//       > it needs the indexmap feature..
-
-// rg: yomitango yomitan_go
 #[tracing::instrument(skip_all)]
-fn make_yomitan_lemmas(
+fn to_yomitan_lemmas(
     edition: EditionLang,
     options: &Options,
     lemma_map: LemmaMap,
@@ -1108,25 +1089,23 @@ fn make_yomitan_lemmas(
 ) -> Vec<YomitanEntry> {
     let mut yomitan_entries = Vec::new();
 
-    for (key, etyms) in lemma_map.0 {
+    for (key, infos) in lemma_map.0 {
         let LemmaKey {
             lemma,
             reading,
             pos,
         } = key;
 
-        for info in etyms {
-            let entry =
-                make_yomitan_lemma(edition, options, &lemma, &reading, &pos, info, diagnostics);
-            yomitan_entries.push(entry);
-        }
+        yomitan_entries.extend(infos.into_iter().map(|info| {
+            to_yomitan_lemma(edition, options, &lemma, &reading, &pos, info, diagnostics)
+        }));
     }
 
     yomitan_entries
 }
 
 // TODO: consume info
-fn make_yomitan_lemma(
+fn to_yomitan_lemma(
     edition: EditionLang,
     options: &Options,
     lemma: &str,
@@ -1144,33 +1123,28 @@ fn make_yomitan_lemma(
 
     let common_short_tags_found =
         get_found_tags(options, lemma, pos, &info.gloss_tree, diagnostics);
-    let definition_tags = common_short_tags_found.join(" ");
 
     let mut detailed_definition_content = Node::new_array();
 
-    // rg: etymologytext / head_info_text headinfo
     if info.etymology_text.is_some() || info.head_info_text.is_some() {
-        detailed_definition_content.push(get_structured_preamble(
-            info.etymology_text.as_ref(),
-            info.head_info_text.as_ref(),
+        detailed_definition_content.push(structured_preamble(
+            info.etymology_text,
+            info.head_info_text,
         ));
     }
 
-    detailed_definition_content.push(get_structured_glosses(
-        edition.into(),
+    detailed_definition_content.push(structured_glosses(
+        edition,
         info.gloss_tree,
         &common_short_tags_found,
     ));
 
-    detailed_definition_content.push(get_structured_backlink(
-        &info.link_wiktionary,
-        &info.link_kaikki,
-    ));
+    detailed_definition_content.push(structured_backlink(info.link_wiktionary, info.link_kaikki));
 
     YomitanEntry::TermBank(TermBank(
         lemma.to_string(),
         yomitan_reading.to_string(),
-        definition_tags,
+        common_short_tags_found.join(" "),
         found_pos,
         vec![DetailedDefinition::structured(detailed_definition_content)],
     ))
@@ -1183,71 +1157,67 @@ fn get_found_tags(
     gloss_tree: &GlossTree,
     diagnostics: &mut Diagnostics,
 ) -> Vec<Tag> {
-    // common tags to all glosses (this is an English edition reasoning really...)
+    // Common tags to all glosses (this is an English edition reasoning really...)
     // it should also support tags at the WordEntry level
-    let common_tags: Vec<Tag> = gloss_tree
+    let common_tags_iter = gloss_tree
         .values()
         .map(|g| Set::from_iter(g.tags.iter().cloned()))
         .reduce(|acc, set| acc.intersection(&set).cloned().collect::<Set<Tag>>())
-        .unwrap_or_default() // in case of no glosses
-        .into_iter()
-        .collect();
+        .unwrap() // a non-empty gloss_tree has at least one gloss
+        .into_iter();
 
     // rg: processtags process_tags
-    let mut common_short_tags_recognized: Vec<Tag> = Vec::new();
+    let mut common_short_tags_found: Vec<Tag> = Vec::new();
 
     // we add pos (at index 0) for this search!
-    for tag in std::iter::once(pos).chain(common_tags.iter()) {
-        match find_tag_in_bank(tag) {
+    for tag in std::iter::once(pos.to_string()).chain(common_tags_iter) {
+        match find_tag_in_bank(&tag) {
             None => {
                 // try modified tag: skip
                 if options.save_temps {
-                    diagnostics.increment_rejected_tag(tag.to_string(), lemma.to_string());
+                    diagnostics.increment_rejected_tag(tag, lemma.to_string());
                 }
-                // common_short_tags_recognized.push(tag.to_string());
             }
             Some(res) => {
                 if options.save_temps {
-                    diagnostics.increment_accepted_tag(tag.to_string(), lemma.to_string());
+                    diagnostics.increment_accepted_tag(tag, lemma.to_string());
                 }
-                common_short_tags_recognized.push(res.short_tag);
+                common_short_tags_found.push(res.short_tag);
             }
         }
     }
 
-    common_short_tags_recognized
+    common_short_tags_found
 }
 
-fn build_details_entry(ty: &str, content: &str) -> Node {
-    let mut summary = wrap(NTag::Summary, "summary-entry", Node::Text(ty.into())).into_array_node();
-    let div = wrap(
-        NTag::Div,
-        &format!("{ty}-content"),
-        Node::Text(content.into()),
-    );
-    summary.push(div);
-    wrap(NTag::Details, &format!("details-entry-{ty}"), summary)
+fn build_details_entry(ty: &str, content: String) -> Node {
+    wrap(
+        NTag::Details,
+        &format!("details-entry-{ty}"),
+        Node::Array(vec![
+            wrap(NTag::Summary, "summary-entry", Node::Text(ty.into())),
+            wrap(NTag::Div, &format!("{ty}-content"), Node::Text(content)),
+        ]),
+    )
 }
 
-fn get_structured_preamble(
-    etymology_text: Option<&String>,
-    head_info_text: Option<&String>,
-) -> Node {
+fn structured_preamble(etymology_text: Option<String>, head_info_text: Option<String>) -> Node {
     let mut preamble_content = Node::new_array();
-    if let Some(head_info_text) = &head_info_text {
-        let detail = build_details_entry("Grammar", head_info_text);
-        preamble_content.push(detail);
+    if let Some(head_info_text) = head_info_text {
+        preamble_content.push(build_details_entry("Grammar", head_info_text));
     }
-    if let Some(etymology_text) = &etymology_text {
-        let detail = build_details_entry("Etymology", etymology_text);
-        preamble_content.push(detail);
+    if let Some(etymology_text) = etymology_text {
+        preamble_content.push(build_details_entry("Etymology", etymology_text));
     }
-    let preamble = wrap(NTag::Div, "preamble", preamble_content);
 
-    wrap(NTag::Div, "", preamble.into_array_node())
+    wrap(
+        NTag::Div,
+        "",
+        wrap(NTag::Div, "preamble", preamble_content).into_array_node(),
+    )
 }
 
-fn get_structured_backlink(wlink: &str, klink: &str) -> Node {
+fn structured_backlink(wlink: String, klink: String) -> Node {
     let mut links = Node::new_array();
 
     links.push(Node::Backlink(BacklinkContent::new(wlink, "Wiktionary")));
@@ -1257,10 +1227,10 @@ fn get_structured_backlink(wlink: &str, klink: &str) -> Node {
     wrap(NTag::Div, "backlink", links)
 }
 
-fn get_structured_glosses(
-    target: Lang,
+fn structured_glosses(
+    edition: EditionLang,
     gloss_tree: GlossTree,
-    common_short_tags_recognized: &[Tag],
+    common_short_tags_found: &[Tag],
 ) -> Node {
     wrap(
         NTag::Ol,
@@ -1272,10 +1242,10 @@ fn get_structured_glosses(
                     wrap(
                         NTag::Li,
                         "",
-                        Node::Array(get_structured_glosses_go(
-                            target,
+                        Node::Array(structured_glosses_go(
+                            edition,
                             &GlossTree::from_iter([gloss_pair]),
-                            common_short_tags_recognized,
+                            common_short_tags_found,
                             0,
                         )),
                     )
@@ -1285,94 +1255,83 @@ fn get_structured_glosses(
     )
 }
 
-// Recursive helper
-// should return Node for consistency
-fn get_structured_glosses_go(
-    target: Lang,
+// Recursive helper ~ should return Node for consistency
+fn structured_glosses_go(
+    edition: EditionLang,
     gloss_tree: &GlossTree,
-    common_short_tags_recognized: &[Tag],
+    common_short_tags_found: &[Tag],
     level: usize,
 ) -> Vec<Node> {
     let html_tag = if level == 0 { NTag::Div } else { NTag::Li };
     let mut nested = Vec::new();
 
     for (gloss, gloss_info) in gloss_tree {
-        let mut level_tags = gloss_info.tags.clone();
-        // Also include topics
-        level_tags.extend(gloss_info.topics.clone());
-
-        // Tags that are not common to all glosses (that is, specific to this gloss)
-        let minimal_tags: Vec<_> = level_tags
-            .into_iter()
-            .filter(|tag| !common_short_tags_recognized.contains(tag))
+        // Tags/topics that are not common to all glosses (i.e. specific to this gloss)
+        let minimal_tags: Vec<_> = gloss_info
+            .tags
+            .iter()
+            .chain(gloss_info.topics.iter())
+            .cloned()
+            .filter(|tag| !common_short_tags_found.contains(tag))
             .collect();
 
         let mut level_content = Node::new_array();
 
-        if let Some(structured_tags) =
-            get_structured_tags(&minimal_tags, common_short_tags_recognized)
-        {
+        if let Some(structured_tags) = structured_tags(&minimal_tags, common_short_tags_found) {
             level_content.push(structured_tags);
         }
 
-        let gloss_content = Node::Text(gloss.into());
-        level_content.push(gloss_content);
+        level_content.push(Node::Text(gloss.into()));
 
         if !gloss_info.examples.is_empty() {
-            level_content.push(get_structured_examples(target, &gloss_info.examples));
+            level_content.push(structured_examples(edition, &gloss_info.examples));
         }
 
-        let level_structured = wrap(html_tag, "", level_content);
-        nested.push(level_structured);
+        nested.push(wrap(html_tag, "", level_content));
 
-        if !gloss_info.children.is_empty() {
-            // we dont want tags from the parent appearing again in the children
-            let mut new_common_short_tags_recognized = common_short_tags_recognized.to_vec();
-            new_common_short_tags_recognized.extend(minimal_tags);
+        if gloss_info.children.is_empty() {
+            continue;
+        }
 
-            let child_defs = get_structured_glosses_go(
-                target,
+        // We dont want tags from the parent appearing again in the children
+        let mut new_common_short_tags_found = minimal_tags;
+        new_common_short_tags_found.extend_from_slice(common_short_tags_found);
+
+        nested.push(wrap(
+            NTag::Ul,
+            "",
+            Node::Array(structured_glosses_go(
+                edition,
                 &gloss_info.children,
-                &new_common_short_tags_recognized,
+                &new_common_short_tags_found,
                 level + 1,
-            );
-            let structured_child_defs = wrap(NTag::Ul, "", Node::Array(child_defs));
-            nested.push(structured_child_defs);
-        }
+            )),
+        ));
     }
 
     nested
 }
 
-fn get_structured_tags(tags: &[Tag], common_short_tags_recognized: &[Tag]) -> Option<Node> {
+fn structured_tags(tags: &[Tag], common_short_tags_found: &[Tag]) -> Option<Node> {
     let mut structured_tags_content = Vec::new();
 
     for tag in tags {
-        let Some(tag_info) = find_tag_in_bank(tag) else {
-            continue;
-        };
-
-        // minimaltags
-        // HACK: the conversion to short tag is done differently in the original
-        let short_tag = tag_info.short_tag;
-
-        if common_short_tags_recognized.contains(&short_tag) {
-            // We dont want "masculine" appear twice...
-            continue;
+        if let Some(tag_info) = find_tag_in_bank(tag)
+            && !common_short_tags_found.contains(&tag_info.short_tag)
+        {
+            structured_tags_content.push(
+                GenericNode {
+                    tag: NTag::Span,
+                    title: Some(tag_info.long_tag),
+                    data: Some(NodeData::from_iter([
+                        ("content", "tag"),
+                        ("category", &tag_info.category),
+                    ])),
+                    content: Node::Text(tag_info.short_tag),
+                }
+                .into_node(),
+            );
         }
-
-        let structured_tag_content = GenericNode {
-            tag: NTag::Span,
-            title: Some(tag_info.long_tag),
-            data: Some(NodeData::from_iter([
-                ("content", "tag"),
-                ("category", &tag_info.category),
-            ])),
-            content: Node::Text(short_tag),
-        }
-        .into_node();
-
-        structured_tags_content.push(structured_tag_content);
     }
 
     if structured_tags_content.is_empty() {
@@ -1386,13 +1345,13 @@ fn get_structured_tags(tags: &[Tag], common_short_tags_recognized: &[Tag]) -> Op
     }
 }
 
-fn get_structured_examples(target: Lang, examples: &[Example]) -> Node {
+fn structured_examples(edition: EditionLang, examples: &[Example]) -> Node {
     debug_assert!(!examples.is_empty());
 
     let mut structured_examples_content = wrap(
         NTag::Summary,
         "summary-entry",
-        Node::Text(get_locale_examples_string(&target, examples.len())),
+        Node::Text(localize_examples_string(edition, examples.len())),
     )
     .into_array_node();
 
@@ -1404,12 +1363,11 @@ fn get_structured_examples(target: Lang, examples: &[Example]) -> Node {
         )
         .into_array_node();
         if !example.translation.is_empty() {
-            let structured_translation_content = wrap(
+            structured_example_content.push(wrap(
                 NTag::Div,
                 "example-sentence-b",
                 Node::Text(example.translation.clone()),
-            );
-            structured_example_content.push(structured_translation_content);
+            ));
         }
         if !example.reference.is_empty() {
             let reference = example
@@ -1417,9 +1375,11 @@ fn get_structured_examples(target: Lang, examples: &[Example]) -> Node {
                 .strip_suffix(':')
                 .unwrap_or(&example.reference)
                 .to_string();
-            let structured_reference_content =
-                wrap(NTag::Div, "example-sentence-c", Node::Text(reference));
-            structured_example_content.push(structured_reference_content);
+            structured_example_content.push(wrap(
+                NTag::Div,
+                "example-sentence-c",
+                Node::Text(reference),
+            ));
         }
         structured_examples_content.push(wrap(
             NTag::Div,
@@ -1436,39 +1396,33 @@ fn get_structured_examples(target: Lang, examples: &[Example]) -> Node {
 }
 
 #[tracing::instrument(skip_all)]
-fn make_yomitan_forms(source: Lang, form_map: FormMap) -> Vec<YomitanEntry> {
-    let mut yomitan_entries = Vec::new();
+fn to_yomitan_forms(source: Lang, form_map: FormMap) -> Vec<YomitanEntry> {
+    form_map
+        .flat_iter()
+        .map(|(uninflected, inflected, _, _, tags)| {
+            // There needs to be DetailedDefinition per tag because yomitan reads
+            // multiple tags in a single Inflection as a causal inflection chain.
+            let deinflection_definitions: Vec<_> = tags
+                .iter()
+                .map(|tag| {
+                    DetailedDefinition::Inflection((uninflected.to_string(), vec![tag.to_string()]))
+                })
+                .collect();
 
-    for (uninflected, inflected, _pos, _source, tags) in form_map.flat_iter() {
-        // There was some hypotheses lingo here in the original that I didn't fully understand
-        // and it didn't seem to do anything for the testsuite...
+            let normalized_inflected = normalize_orthography(source, inflected);
+            let reading = if normalized_inflected == *inflected {
+                ""
+            } else {
+                inflected
+            };
 
-        // NOTE: There needs to be DetailedDefinition per tag because yomitan reads multiple tags
-        // in a single Inflection as a causal inflection chain.
-        let deinflection_definitions: Vec<_> = tags
-            .iter()
-            .map(|tag| {
-                DetailedDefinition::Inflection((uninflected.to_string(), vec![tag.to_string()]))
-            })
-            .collect();
-
-        let normalized_inflected = normalize_orthography(source, inflected);
-        let reading = if normalized_inflected == *inflected {
-            ""
-        } else {
-            inflected
-        };
-
-        let yomitan_entry = YomitanEntry::TermBank(TermBank(
-            normalized_inflected,
-            reading.into(),
-            "non-lemma".into(),
-            String::new(),
-            deinflection_definitions,
-        ));
-
-        yomitan_entries.push(yomitan_entry);
-    }
-
-    yomitan_entries
+            YomitanEntry::TermBank(TermBank(
+                normalized_inflected,
+                reading.into(),
+                "non-lemma".into(),
+                String::new(),
+                deinflection_definitions,
+            ))
+        })
+        .collect()
 }
