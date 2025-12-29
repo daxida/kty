@@ -10,7 +10,7 @@ use std::{
 use serde::{Deserialize, Serialize};
 
 // The idea is from https://github.com/johnstonskj/rust-codes/tree/main
-pub trait Code: Clone + Debug + Display + FromStr + PartialEq + Eq + Hash {}
+pub trait Code: Clone + Debug + Display + FromStr + AsRef<str> + PartialEq + Eq + Hash {}
 
 impl Code for Lang {}
 impl Code for Edition {}
@@ -438,10 +438,87 @@ impl FromStr for Lang {
     }
 }
 
+impl AsRef<str> for Lang {
+    fn as_ref(&self) -> &str {
+        match self {
+            Self::Sq => "sq",
+            Self::Arz => "arz",
+            Self::Afb => "afb",
+            Self::Ar => "ar",
+            Self::Apc => "apc",
+            Self::Ajp => "ajp",
+            Self::Aii => "aii",
+            Self::Bn => "bn",
+            Self::Bg => "bg",
+            Self::Yue => "yue",
+            Self::Zh => "zh",
+            Self::Cs => "cs",
+            Self::Da => "da",
+            Self::Nl => "nl",
+            Self::En => "en",
+            Self::Enm => "enm",
+            Self::Ang => "ang",
+            Self::Simple => "simple",
+            Self::Eo => "eo",
+            Self::Et => "et",
+            Self::Fi => "fi",
+            Self::Fr => "fr",
+            Self::Ka => "ka",
+            Self::De => "de",
+            Self::El => "el",
+            Self::Grc => "grc",
+            Self::Haw => "haw",
+            Self::He => "he",
+            Self::Hi => "hi",
+            Self::Hu => "hu",
+            Self::Is => "is",
+            Self::Id => "id",
+            Self::Ga => "ga",
+            Self::Sga => "sga",
+            Self::It => "it",
+            Self::Ja => "ja",
+            Self::Kn => "kn",
+            Self::Kk => "kk",
+            Self::Km => "km",
+            Self::Ko => "ko",
+            Self::Ku => "ku",
+            Self::Lo => "lo",
+            Self::La => "la",
+            Self::Lv => "lv",
+            Self::Ms => "ms",
+            Self::Mt => "mt",
+            Self::Mr => "mr",
+            Self::Mn => "mn",
+            Self::No => "no",
+            Self::Nb => "nb",
+            Self::Nn => "nn",
+            Self::Fa => "fa",
+            Self::Pl => "pl",
+            Self::Pt => "pt",
+            Self::Ro => "ro",
+            Self::Ru => "ru",
+            Self::Sh => "sh",
+            Self::Scn => "scn",
+            Self::Sl => "sl",
+            Self::Es => "es",
+            Self::Sv => "sv",
+            Self::Tl => "tl",
+            Self::Te => "te",
+            Self::Th => "th",
+            Self::Tok => "tok",
+            Self::Tr => "tr",
+            Self::Uk => "uk",
+            Self::Ur => "ur",
+            Self::Vi => "vi",
+            Self::Cy => "cy",
+            Self::Yi => "yi",
+        }
+    }
+}
+
 impl Display for Lang {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let debug_str = format!("{self:?}");
-        write!(f, "{}", debug_str.to_lowercase())
+        f.write_str(self.as_ref())
     }
 }
 
@@ -501,12 +578,18 @@ impl FromStr for Edition {
     }
 }
 
+impl AsRef<str> for Edition {
+    fn as_ref(&self) -> &str {
+        match self {
+            Self::All => "all",
+            Self::EditionLang(lang) => lang.as_ref(),
+        }
+    }
+}
+
 impl Display for Edition {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            Self::All => write!(f, "all"),
-            Self::EditionLang(lang) => write!(f, "{lang}"),
-        }
+        f.write_str(self.as_ref())
     }
 }
 
@@ -630,9 +713,36 @@ impl FromStr for EditionLang {
     }
 }
 
+impl AsRef<str> for EditionLang {
+    fn as_ref(&self) -> &str {
+        match self {
+            Self::Zh => "zh",
+            Self::Cs => "cs",
+            Self::Nl => "nl",
+            Self::En => "en",
+            Self::Simple => "simple",
+            Self::Fr => "fr",
+            Self::De => "de",
+            Self::El => "el",
+            Self::Id => "id",
+            Self::It => "it",
+            Self::Ja => "ja",
+            Self::Ko => "ko",
+            Self::Ku => "ku",
+            Self::Ms => "ms",
+            Self::Pl => "pl",
+            Self::Pt => "pt",
+            Self::Ru => "ru",
+            Self::Es => "es",
+            Self::Th => "th",
+            Self::Tr => "tr",
+            Self::Vi => "vi",
+        }
+    }
+}
+
 impl Display for EditionLang {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let debug_str = format!("{:?}", Lang::from(*self));
-        write!(f, "{}", debug_str.to_lowercase())
+        f.write_str(self.as_ref())
     }
 }

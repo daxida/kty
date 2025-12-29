@@ -99,7 +99,16 @@ def generate_lang_rs(langs: list[Lang], f) -> None:
 
     ### Trait
 
-    shared_traits = ["Clone", "Debug", "Display", "FromStr", "PartialEq", "Eq", "Hash"]
+    shared_traits = [
+        "Clone",
+        "Debug",
+        "Display",
+        "FromStr",
+        "AsRef<str>",
+        "PartialEq",
+        "Eq",
+        "Hash",
+    ]
     w("// The idea is from https://github.com/johnstonskj/rust-codes/tree/main\n")
     w(f"pub trait Code: {' + '.join(shared_traits)} {{}}\n\n")
     w("impl Code for Lang {}\n")
@@ -190,11 +199,20 @@ def generate_lang_rs(langs: list[Lang], f) -> None:
     w(f"{idt}}}\n")
     w("}\n\n")
 
+    # Lang: AsRef<&str>
+    w("impl AsRef<str> for Lang {\n")
+    w(f"{idt}fn as_ref(&self) -> &str {{\n")
+    w(f"{idt * 2}match self {{\n")
+    for lang in langs:
+        w(f'{idt * 3}Self::{lang.iso.title()} => "{lang.iso.lower()}",\n')
+    w(f"{idt * 2}}}\n")
+    w(f"{idt}}}\n")
+    w("}\n\n")
+
     # Lang: Display
     w("impl Display for Lang {\n")
     w(f"{idt}fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {{\n")
-    w(f'{idt * 2}let debug_str = format!("{{self:?}}");\n')
-    w(f'{idt * 2}write!(f, "{{}}", debug_str.to_lowercase())\n')
+    w(f"{idt * 2}f.write_str(self.as_ref())\n")
     w(f"{idt}}}\n")
     w("}\n\n")
 
@@ -241,13 +259,21 @@ def generate_lang_rs(langs: list[Lang], f) -> None:
     w(f"{idt}}}\n")
     w("}\n\n")
 
+    # Edition: AsRef<&str>
+    w("impl AsRef<str> for Edition {\n")
+    w(f"{idt}fn as_ref(&self) -> &str {{\n")
+    w(f"{idt * 2}match self {{\n")
+    w(f'{idt * 3}Self::All => "all",\n')
+    w(f"{idt * 3}Self::EditionLang(lang) => lang.as_ref(),\n")
+    w(f"{idt * 2}}}\n")
+    w(f"{idt}}}\n")
+    w("}\n\n")
+
     # Edition: Display
     w("impl Display for Edition {\n")
     w(f"{idt}fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {{\n")
-    w(f"{idt * 2}match self {{\n")
-    w(f'{idt * 3}Self::All => write!(f, "all"),\n')
-    w(f'{idt * 3}Self::EditionLang(lang) => write!(f, "{{lang}}"),\n')
-    w(f"{idt * 2}}}\n")
+
+    w(f"{idt * 2}f.write_str(self.as_ref())\n")
     w(f"{idt}}}\n")
     w("}\n\n")
 
@@ -305,11 +331,21 @@ def generate_lang_rs(langs: list[Lang], f) -> None:
     w(f"{idt}}}\n")
     w("}\n\n")
 
+    # EditionLang: AsRef<&str>
+    w("impl AsRef<str> for EditionLang {\n")
+    w(f"{idt}fn as_ref(&self) -> &str {{\n")
+    w(f"{idt * 2}match self {{\n")
+    for lang in langs:
+        if lang.has_edition:
+            w(f'{idt * 3}Self::{lang.iso.title()} => "{lang.iso.lower()}",\n')
+    w(f"{idt * 2}}}\n")
+    w(f"{idt}}}\n")
+    w("}\n\n")
+
     # EditionLang: Display
     w("impl Display for EditionLang {\n")
     w(f"{idt}fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {{\n")
-    w(f'{idt * 2}let debug_str = format!("{{:?}}", Lang::from(*self));\n')
-    w(f'{idt * 2}write!(f, "{{}}", debug_str.to_lowercase())\n')
+    w(f"{idt * 2}f.write_str(self.as_ref())\n")
     w(f"{idt}}}\n")
     w("}\n")
 
