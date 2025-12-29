@@ -31,7 +31,7 @@ impl Dictionary for DGlossary {
     fn process(
         &self,
         edition: EditionLang,
-        _source: Lang,
+        _: Lang,
         target: Lang,
         entry: &WordEntry,
         irs: &mut Self::I,
@@ -41,11 +41,11 @@ impl Dictionary for DGlossary {
 
     fn to_yomitan(
         &self,
-        _edition: EditionLang,
-        _source: Lang,
-        _target: Lang,
-        _options: &Options,
-        _diagnostics: &mut Diagnostics,
+        _: EditionLang,
+        _: Lang,
+        _: Lang,
+        _: &Options,
+        _: &mut Diagnostics,
         irs: Self::I,
     ) -> Vec<LabelledYomitanEntry> {
         vec![("term", irs)]
@@ -83,11 +83,11 @@ impl Dictionary for DGlossaryExtended {
 
     fn to_yomitan(
         &self,
-        _edition: EditionLang,
-        _source: Lang,
-        _target: Lang,
-        _options: &Options,
-        _diagnostics: &mut Diagnostics,
+        _: EditionLang,
+        _: Lang,
+        _: Lang,
+        _: &Options,
+        _: &mut Diagnostics,
         irs: Self::I,
     ) -> Vec<LabelledYomitanEntry> {
         vec![("term", to_yomitan_glossary_extended(irs))]
@@ -101,7 +101,7 @@ impl Dictionary for DIpa {
         &self,
         edition: EditionLang,
         source: Lang,
-        _target: Lang,
+        _: Lang,
         entry: &WordEntry,
         irs: &mut Self::I,
     ) {
@@ -110,11 +110,11 @@ impl Dictionary for DIpa {
 
     fn to_yomitan(
         &self,
-        _edition: EditionLang,
-        _source: Lang,
-        _target: Lang,
-        _options: &Options,
-        _diagnostics: &mut Diagnostics,
+        _: EditionLang,
+        _: Lang,
+        _: Lang,
+        _: &Options,
+        _: &mut Diagnostics,
         irs: Self::I,
     ) -> Vec<LabelledYomitanEntry> {
         vec![("term", to_yomitan_ipa(irs))]
@@ -128,7 +128,7 @@ impl Dictionary for DIpaMerged {
         &self,
         edition: EditionLang,
         source: Lang,
-        _target: Lang,
+        _: Lang,
         entry: &WordEntry,
         irs: &mut Self::I,
     ) {
@@ -144,11 +144,11 @@ impl Dictionary for DIpaMerged {
 
     fn to_yomitan(
         &self,
-        _edition: EditionLang,
-        _source: Lang,
-        _target: Lang,
-        _options: &Options,
-        _diagnostics: &mut Diagnostics,
+        _: EditionLang,
+        _: Lang,
+        _: Lang,
+        _: &Options,
+        _: &mut Diagnostics,
         tidy: Self::I,
     ) -> Vec<LabelledYomitanEntry> {
         vec![("term", to_yomitan_ipa(tidy))]
@@ -189,21 +189,23 @@ fn process_glossary(
             continue;
         }
 
-        let mut sc_translations_content = Node::new_array();
-        sc_translations_content.push(wrap(NTag::Span, "", Node::Text(sense.to_string())));
-        sc_translations_content.push(wrap(
-            NTag::Ul,
+        definitions.push(DetailedDefinition::structured(wrap(
+            NTag::Div,
             "",
-            Node::Array(
-                translations
-                    .into_iter()
-                    .map(|translation| wrap(NTag::Li, "", Node::Text(translation)))
-                    .collect(),
-            ),
-        ));
-        let sc_translations =
-            DetailedDefinition::structured(wrap(NTag::Div, "", sc_translations_content));
-        definitions.push(sc_translations);
+            Node::Array(vec![
+                wrap(NTag::Span, "", Node::Text(sense.to_string())),
+                wrap(
+                    NTag::Ul,
+                    "",
+                    Node::Array(
+                        translations
+                            .into_iter()
+                            .map(|translation| wrap(NTag::Li, "", Node::Text(translation)))
+                            .collect(),
+                    ),
+                ),
+            ]),
+        )));
     }
 
     let reading =

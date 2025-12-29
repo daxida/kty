@@ -174,10 +174,6 @@ pub struct IpaMergedLangs {
 #[expect(clippy::struct_excessive_bools)]
 #[derive(Parser, Debug, Default)]
 pub struct Options {
-    // In the main dictionary, the filter file is always writen to disk, regardless of this.
-    //
-    // If save_temps is true, we assume that the user is debugging and does not need the zip.
-    //
     /// Write temporary files to disk and skip zipping
     #[arg(long, short)]
     pub save_temps: bool,
@@ -190,8 +186,6 @@ pub struct Options {
     #[arg(long, default_value_t = -1)]
     pub first: i32,
 
-    // This filtering is done at filter_jsonl
-    //
     // Example:
     //   `--filter pos,adv`
     //
@@ -202,8 +196,6 @@ pub struct Options {
     #[arg(long, value_parser = parse_tuple)]
     pub filter: Vec<(FilterKey, String)>,
 
-    // This filtering is done at filter_jsonl
-    //
     // Example:
     //   `--reject pos,adj`
     //
