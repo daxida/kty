@@ -43,6 +43,7 @@
         <option value="bn">🇧🇩 Bengali</option>
         <option value="bg">🇧🇬 Bulgarian</option>
         <option value="yue">🏳️ Cantonese</option>
+        <option value="ceb">🇵🇭 Cebuano</option>
         <option value="zh">🇨🇳 Chinese, Mandarin</option>
         <option value="cs">🇨🇿 Czech</option>
         <option value="da">🇩🇰 Danish</option>
@@ -151,6 +152,7 @@
         <option value="bn">🇧🇩 Bengali</option>
         <option value="bg">🇧🇬 Bulgarian</option>
         <option value="yue">🏳️ Cantonese</option>
+        <option value="ceb">🇵🇭 Cebuano</option>
         <option value="zh">🇨🇳 Chinese, Mandarin</option>
         <option value="cs">🇨🇿 Czech</option>
         <option value="da">🇩🇰 Danish</option>
@@ -234,6 +236,7 @@
         <option value="bn">🇧🇩 Bengali</option>
         <option value="bg">🇧🇬 Bulgarian</option>
         <option value="yue">🏳️ Cantonese</option>
+        <option value="ceb">🇵🇭 Cebuano</option>
         <option value="zh">🇨🇳 Chinese, Mandarin</option>
         <option value="cs">🇨🇿 Czech</option>
         <option value="da">🇩🇰 Danish</option>
@@ -316,6 +319,7 @@
         <option value="bn">🇧🇩 Bengali</option>
         <option value="bg">🇧🇬 Bulgarian</option>
         <option value="yue">🏳️ Cantonese</option>
+        <option value="ceb">🇵🇭 Cebuano</option>
         <option value="zh">🇨🇳 Chinese, Mandarin</option>
         <option value="cs">🇨🇿 Czech</option>
         <option value="da">🇩🇰 Danish</option>
@@ -391,6 +395,7 @@
         <option value="bn">🇧🇩 Bengali</option>
         <option value="bg">🇧🇬 Bulgarian</option>
         <option value="yue">🏳️ Cantonese</option>
+        <option value="ceb">🇵🇭 Cebuano</option>
         <option value="zh">🇨🇳 Chinese, Mandarin</option>
         <option value="cs">🇨🇿 Czech</option>
         <option value="da">🇩🇰 Danish</option>
@@ -463,7 +468,7 @@
 
 !!! warning "If you get an "Entry not found" error, there was not enough data to create the dictionary."
 
-!!! tip "You can import entries directly to Yomitan by pasting the URL into "Import from URLs""
+!!! tip "You can import a dictionary directly to Yomitan by pasting the URL into "Import from URLs""
 
 Files are hosted [here](https://huggingface.co/datasets/daxida/test-dataset), where you can also see the calendar version (calver) of the dictionaries.
 

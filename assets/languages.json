@@ -9,6 +9,7 @@
     {"iso": "bn",  "language": "Bengali",                "displayName": "Bengali",                  "flag": "🇧🇩"                       },
     {"iso": "bg",  "language": "Bulgarian",              "displayName": "Bulgarian",                "flag": "🇧🇬"                       },
     {"iso": "yue", "language": "Cantonese",              "displayName": "Cantonese",                "flag": "🏳️"                       },
+    {"iso": "ceb", "language": "Cebuano",                "displayName": "Cebuano",                  "flag": "🇵🇭"                       },
     {"iso": "zh",  "language": "Chinese",                "displayName": "Chinese, Mandarin",        "flag": "🇨🇳",   "hasEdition": true },
     {"iso": "cs",  "language": "Czech",                  "displayName": "Czech",                    "flag": "🇨🇿",   "hasEdition": true },
     {"iso": "da",  "language": "Danish",                 "displayName": "Danish",                   "flag": "🇩🇰"                       },

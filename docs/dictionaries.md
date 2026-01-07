@@ -1,3 +1,5 @@
+Dictionaries are made from extracted wiktionary content. Their quality depends on wiktionary [coverage](https://meta.wikimedia.org/wiki/Wiktionary/Table) and [wiktextract](https://github.com/tatuylonen/wiktextract) quality of extracted fields.
+
 ## Dictionary types
 
 These are the different types of dictionaries that can be made with kty (optional parameters have been omitted):

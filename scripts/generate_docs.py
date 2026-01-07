@@ -126,7 +126,7 @@ def generate_downloads_page(all_langs: list[Lang], editions: list[Lang]) -> str:
 
 !!! warning "If you get an "Entry not found" error, there was not enough data to create the dictionary."
 
-!!! tip "You can import entries directly to Yomitan by pasting the URL into "Import from URLs""
+!!! tip "You can import a dictionary directly to Yomitan by pasting the URL into "Import from URLs""
 
 Files are hosted [here]({
         REPO_URL
